@@ -1,0 +1,77 @@
+.bb-hero {
+	min-height: 55vh;
+	display: grid;
+	place-items: center;
+	text-align: center;
+	background: var(--bb-color-muted);
+	padding: 48px var(--bb-gap);
+}
+
+.bb-services,
+.bb-work,
+.bb-why,
+.bb-promos,
+.bb-reviews {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--bb-gap);
+}
+
+.bb-service,
+.bb-work__item,
+.bb-why__item,
+.bb-promo,
+.bb-review {
+	background: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	padding: 18px;
+	border-radius: 8px;
+}
+
+.bb-work__item {
+	min-height: 180px;
+}
+
+.bb-video {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: #111;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.bb-video > * {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.bb-about__content,
+.bb-faq {
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.bb-book {
+	padding: 56px var(--bb-gap);
+	text-align: center;
+	background: var(--bb-color-primary);
+	color: #fff;
+}
+
+.bb-book__btn,
+.bb-hero__cta {
+	display: inline-block;
+	padding: 10px 16px;
+	border-radius: 6px;
+	background: var(--bb-color-accent);
+	color: #fff;
+	text-decoration: none;
+}
+
+.bb-faq__item {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 12px 0;
+}
