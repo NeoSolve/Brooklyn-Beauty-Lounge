@@ -9,6 +9,62 @@
 	--color-surface: #fffef4;
 	--color-surface-alt: #fdf9ed;
 	--color-surface-overlay: rgba(255, 254, 244, 0.4);
+	--font-primary: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-decor: "Nothing You Could Do", cursive;
+
+	--fs-h1: 460px;
+	--lh-h1: 1;
+	--fw-h1: 600;
+	--fs-h1-alt: 132px;
+	--lh-h1-alt: 0.82;
+	--fw-h1-alt: 600;
+
+	--fs-h2: 132px;
+	--lh-h2-semibold: 0.82;
+	--lh-h2-medium: 1;
+	--fw-h2-semibold: 600;
+	--fw-h2-medium: 500;
+
+	--fs-h3: 58px;
+	--lh-h3-semibold: 1.1;
+	--lh-h3-medium: 1;
+	--fw-h3-semibold: 600;
+	--fw-h3-medium: 500;
+
+	--fs-h4: 44px;
+	--lh-h4-semibold: 0.92;
+	--fw-h4-semibold: 600;
+
+	--fs-h5: 36px;
+	--lh-h5-semibold: 1;
+	--fw-h5-semibold: 600;
+
+	--fs-h6: 26px;
+	--lh-h6-semibold: 1.1;
+	--fw-h6-semibold: 600;
+
+	--fs-body-1: 22px;
+	--lh-body-1: 1.2;
+	--fw-body-regular: 400;
+	--fw-body-medium: 500;
+
+	--fs-body-2: 18px;
+	--lh-body-2: 1.2;
+
+	--fs-body-3: 14px;
+	--lh-body-3: 1;
+
+	--fs-button: 20px;
+	--lh-button: 1.2;
+	--fw-button: 500;
+
+	--fs-decor: 55px;
+	--lh-decor: 1;
+	--fw-decor: 400;
+
+	--fs-decor-2: 26px;
+	--lh-decor-2: 1;
+	--fw-decor-2: 400;
 
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;

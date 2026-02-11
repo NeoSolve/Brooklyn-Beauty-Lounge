@@ -14,7 +14,7 @@ $hero_style    = $hero_image ? ' style="background-image: url(' . esc_url( $hero
 <section class="bb-hero"<?php echo $hero_style; ?>>
 	<div class="bb-hero__overlay" aria-hidden="true"></div>
 	<div class="bb-hero__content">
-		<h1 class="bb-hero__title"><?php echo esc_html( $hero_title ); ?></h1>
+		<h1 class="bb-hero__title t-h1-alt"><?php echo esc_html( $hero_title ); ?></h1>
 		<?php if ( $hero_subtitle ) : ?>
 			<p class="bb-hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
 		<?php endif; ?>

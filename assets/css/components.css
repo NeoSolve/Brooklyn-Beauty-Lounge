@@ -6,8 +6,6 @@
 	padding: var(--space-sm) var(--space-lg);
 	border: 1px solid transparent;
 	border-radius: var(--radius-pill);
-	font: inherit;
-	line-height: 1;
 	cursor: pointer;
 	transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
 }

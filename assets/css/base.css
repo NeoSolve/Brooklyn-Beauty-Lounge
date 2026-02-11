@@ -34,10 +34,12 @@ img {
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-family: var(--font-primary);
+	font-size: var(--fs-body-1);
+	font-weight: var(--fw-body-regular);
+	line-height: var(--lh-body-1);
 	color: var(--color-text);
 	background: var(--color-surface);
-	line-height: 1.6;
 }
 
 a {
