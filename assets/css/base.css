@@ -49,6 +49,6 @@ a {
 
 .container,
 .bb-container {
-	width: min(100% - (var(--space-md) * 2), 1200px);
+	width: min(100% - (var(--container-gutter) * 2), var(--container-max));
 	margin-inline: auto;
 }

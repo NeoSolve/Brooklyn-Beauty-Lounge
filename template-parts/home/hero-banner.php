@@ -9,7 +9,9 @@ $hero_subtitle = get_theme_mod( 'bb_hero_subtitle', __( 'Your place for beauty a
 $hero_btn_text = get_theme_mod( 'bb_hero_btn', __( 'make an appointment', 'brooklyn-beauty' ) );
 $hero_btn_url  = get_theme_mod( 'bb_hero_btn_url', '#book' );
 $hero_image    = get_theme_mod( 'bb_hero_image', '' );
-$hero_style    = $hero_image ? ' style="background-image: url(' . esc_url( $hero_image ) . ');"' : '';
+$hero_default_image = get_template_directory_uri() . '/assets/images/main-banner.jpg';
+$hero_banner_image  = $hero_image ? $hero_image : $hero_default_image;
+$hero_style         = ' style="background-image: url(' . esc_url( $hero_banner_image ) . ');"';
 ?>
 <section class="bb-hero"<?php echo $hero_style; ?>>
 	<div class="bb-hero__overlay" aria-hidden="true"></div>
@@ -19,7 +21,7 @@ $hero_style    = $hero_image ? ' style="background-image: url(' . esc_url( $hero
 			<p class="bb-hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
 		<?php endif; ?>
 		<?php if ( $hero_btn_text ) : ?>
-			<a href="<?php echo esc_url( $hero_btn_url ); ?>" class="bb-hero__cta btn btn--medium btn--primary t-button"><?php echo esc_html( $hero_btn_text ); ?></a>
+			<a href="<?php echo esc_url( $hero_btn_url ); ?>" class="bb-hero__cta btn btn--medium t-button"><?php echo esc_html( $hero_btn_text ); ?></a>
 		<?php endif; ?>
 	</div>
 </section>

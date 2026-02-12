@@ -3,7 +3,8 @@
 	display: grid;
 	place-items: center;
 	text-align: center;
-	background: var(--color-surface-alt);
+	background: var(--color-accent);
+	color: var(--color-surface);
 	padding: var(--space-xl) var(--space-md);
 }
 
