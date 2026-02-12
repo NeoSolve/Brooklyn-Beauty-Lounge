@@ -3,8 +3,8 @@
 	display: grid;
 	place-items: center;
 	text-align: center;
-	background: var(--bb-color-muted);
-	padding: 48px var(--bb-gap);
+	background: var(--color-surface-alt);
+	padding: var(--space-xl) var(--space-md);
 }
 
 .bb-services,
@@ -14,7 +14,7 @@
 .bb-reviews {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	gap: var(--bb-gap);
+	gap: var(--space-lg);
 }
 
 .bb-service,
@@ -55,19 +55,18 @@
 }
 
 .bb-book {
-	padding: 56px var(--bb-gap);
+	padding: var(--space-xl) var(--space-md);
 	text-align: center;
-	background: var(--bb-color-primary);
-	color: #fff;
+	background: var(--color-primary);
+	color: var(--color-surface);
 }
 
-.bb-book__btn,
-.bb-hero__cta {
+.bb-book__btn {
 	display: inline-block;
-	padding: 10px 16px;
+	padding: var(--space-sm) var(--space-md);
 	border-radius: 6px;
-	background: var(--bb-color-accent);
-	color: #fff;
+	background: var(--color-accent);
+	color: var(--color-surface);
 	text-decoration: none;
 }
 

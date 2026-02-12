@@ -1,0 +1,128 @@
+h1,
+.t-h1 {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h1);
+	font-size: var(--fs-h1);
+	line-height: var(--lh-h1);
+}
+
+.t-h1-alt {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h1-alt);
+	font-size: var(--fs-h1-alt);
+	line-height: var(--lh-h1-alt);
+}
+
+h2,
+.t-h2-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h2-semibold);
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+}
+
+.t-h2-medium {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h2-medium);
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-medium);
+}
+
+h3,
+.t-h3-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h3-semibold);
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3-semibold);
+}
+
+.t-h3-medium {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h3-medium);
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3-medium);
+}
+
+h4,
+.t-h4-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h4-semibold);
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4-semibold);
+}
+
+h5,
+.t-h5-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h5-semibold);
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+}
+
+h6,
+.t-h6-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-h6-semibold);
+	font-size: var(--fs-h6);
+	line-height: var(--lh-h6-semibold);
+}
+
+.t-body-1-regular {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-regular);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+}
+
+.t-body-1-medium {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-medium);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+}
+
+p,
+.t-body-2-regular {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-regular);
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+}
+
+.t-body-2-medium {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-medium);
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+}
+
+.t-body-3-regular {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-regular);
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+}
+
+.btn,
+.t-button {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-button);
+	font-size: var(--fs-button);
+	line-height: var(--lh-button);
+}
+
+.t-decor {
+	font-family: var(--font-decor);
+	font-weight: var(--fw-decor);
+	font-size: var(--fs-decor);
+	line-height: var(--lh-decor);
+	font-style: normal;
+}
+
+.t-decor-2 {
+	font-family: var(--font-decor);
+	font-weight: var(--fw-decor-2);
+	font-size: var(--fs-decor-2);
+	line-height: var(--lh-decor-2);
+	font-style: normal;
+}

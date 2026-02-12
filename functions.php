@@ -53,13 +53,20 @@ function brooklyn_beauty_assets() {
 	$home_css_path = get_template_directory() . '/assets/css/home.css';
 	$js_path       = get_template_directory() . '/assets/js/main.js';
 
+	wp_enqueue_style(
+		'brooklyn-beauty-fonts',
+		'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Nothing+You+Could+Do&display=swap',
+		array(),
+		null
+	);
+
 	wp_enqueue_style( 'brooklyn-beauty-style', get_stylesheet_uri(), array(), BROOKLYN_BEAUTY_VERSION );
 
 	if ( file_exists( $css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-main',
 			get_template_directory_uri() . '/assets/css/main.css',
-			array( 'brooklyn-beauty-style' ),
+			array( 'brooklyn-beauty-fonts', 'brooklyn-beauty-style' ),
 			(string) filemtime( $css_path )
 		);
 	}
