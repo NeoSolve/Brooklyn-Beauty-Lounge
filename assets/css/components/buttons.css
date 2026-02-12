@@ -1,0 +1,107 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	height: var(--btn-height-medium);
+	padding: 0 var(--btn-padding-x-medium);
+	border: 1px solid transparent;
+	border-radius: var(--radius-pill);
+	cursor: pointer;
+	white-space: nowrap;
+	transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
+}
+
+.btn:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+	opacity: 0.55;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.btn--primary {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	color: var(--color-surface);
+}
+
+.btn--primary:hover {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
+}
+
+.btn--secondary {
+	background-color: transparent;
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+	background-color: var(--color-primary);
+	color: var(--color-surface);
+}
+
+.btn--small {
+	box-sizing: border-box;
+	min-width: 164px;
+	height: 60px;
+	padding: 16px 40px;
+	gap: 10px;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.btn--small.btn--primary {
+	background: var(--color-accent);
+	border: 1px solid var(--color-surface);
+}
+
+.btn--medium {
+	box-sizing: border-box;
+	min-width: 204px;
+	height: 60px;
+	padding: 16px 58px;
+	gap: 10px;
+	border-radius: 4px;
+	font-size: var(--fs-button);
+}
+
+.btn--medium.btn--primary {
+	background: var(--color-accent);
+	border: 1px solid var(--color-surface);
+}
+
+.btn--big {
+	box-sizing: border-box;
+	min-width: 590px;
+	height: 72px;
+	padding: 16px 58px;
+	gap: 10px;
+	border-radius: 8px;
+	font-size: 24px;
+}
+
+.btn--big.btn--primary {
+	background: var(--color-accent);
+	border: 1px solid var(--color-surface);
+}
+
+.btn--white {
+	min-width: 204px;
+	height: 60px;
+	padding: 16px 58px;
+	gap: 10px;
+	border-radius: 4px;
+	background: var(--color-surface);
+	border-color: transparent;
+	color: var(--color-primary);
+}
+
+.btn--white:hover {
+	opacity: 0.9;
+}

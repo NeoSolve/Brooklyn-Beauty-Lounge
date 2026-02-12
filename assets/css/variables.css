@@ -57,6 +57,12 @@
 	--fs-button: 20px;
 	--lh-button: 1.2;
 	--fw-button: 500;
+	--btn-height-small: 40px;
+	--btn-height-medium: 52px;
+	--btn-height-big: 64px;
+	--btn-padding-x-small: 18px;
+	--btn-padding-x-medium: 26px;
+	--btn-padding-x-big: 34px;
 
 	--fs-decor: 55px;
 	--lh-decor: 1;

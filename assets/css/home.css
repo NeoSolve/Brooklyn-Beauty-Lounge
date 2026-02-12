@@ -61,8 +61,7 @@
 	color: var(--color-surface);
 }
 
-.bb-book__btn,
-.bb-hero__cta {
+.bb-book__btn {
 	display: inline-block;
 	padding: var(--space-sm) var(--space-md);
 	border-radius: 6px;
