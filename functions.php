@@ -159,17 +159,27 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'layout'       => 'row',
 				'button_label' => __( 'Add Social Item', 'brooklyn-beauty' ),
 				'sub_fields'   => array(
-					array(
-						'key'           => 'field_brooklyn_beauty_header_social_icon_image',
-						'label'         => __( 'Icon Image', 'brooklyn-beauty' ),
-						'name'          => 'icon_image',
-						'type'          => 'image',
-						'return_format' => 'id',
-						'preview_size'  => 'thumbnail',
-						'library'       => 'all',
-					),
-					array(
-						'key'   => 'field_brooklyn_beauty_header_social_link',
+				array(
+					'key'           => 'field_brooklyn_beauty_header_social_icon_image',
+					'label'         => __( 'Icon Image', 'brooklyn-beauty' ),
+					'name'          => 'icon_image',
+					'type'          => 'image',
+					'return_format' => 'id',
+					'preview_size'  => 'thumbnail',
+					'library'       => 'all',
+				),
+				array(
+					'key'           => 'field_brooklyn_beauty_header_social_icon_image_dark',
+					'label'         => __( 'Icon Image (Dark)', 'brooklyn-beauty' ),
+					'name'          => 'icon_image_dark',
+					'type'          => 'image',
+					'return_format' => 'id',
+					'preview_size'  => 'thumbnail',
+					'library'       => 'all',
+					'instructions'  => __( 'Dark version of the icon, used when header text is dark.', 'brooklyn-beauty' ),
+				),
+				array(
+					'key'   => 'field_brooklyn_beauty_header_social_link',
 						'label' => __( 'Link', 'brooklyn-beauty' ),
 						'name'  => 'link',
 						'type'  => 'url',

@@ -127,10 +127,12 @@ if ( function_exists( 'get_field' ) ) {
 		<div class="bb-header__block bb-header__block--right">
 			<div class="bb-header__social" aria-label="<?php esc_attr_e( 'Social links', 'brooklyn-beauty' ); ?>">
 				<?php foreach ( $header_social_items as $social_item ) : ?>
-					<?php
+				<?php
 					$icon_slug    = isset( $social_item['icon'] ) ? sanitize_key( $social_item['icon'] ) : '';
 					$social_url   = isset( $social_item['link'] ) ? $social_item['link'] : '';
 					$social_label = $icon_slug ? ucfirst( $icon_slug ) : __( 'Social icon', 'brooklyn-beauty' );
+
+					// --- Light (default) icon ---
 					$icon_image   = isset( $social_item['icon_image'] ) ? $social_item['icon_image'] : '';
 					$icon_src     = '';
 					$icon_alt     = $social_label;
@@ -153,14 +155,43 @@ if ( function_exists( 'get_field' ) ) {
 					$icon_img_markup = '';
 					if ( $icon_src ) {
 						$icon_img_markup = sprintf(
-							'<img class="bb-header__social-icon" src="%1$s" alt="%2$s" loading="lazy" decoding="async">',
+							'<img class="bb-header__social-icon bb-header__social-icon--light" src="%1$s" alt="%2$s" loading="lazy" decoding="async">',
 							esc_url( $icon_src ),
 							esc_attr( $icon_alt )
 						);
 					}
 
+					// --- Dark icon ---
+					$icon_image_dark = isset( $social_item['icon_image_dark'] ) ? $social_item['icon_image_dark'] : '';
+					$icon_src_dark   = '';
+					$icon_alt_dark   = $social_label;
+
+					if ( is_numeric( $icon_image_dark ) ) {
+						$icon_src_dark = wp_get_attachment_image_url( (int) $icon_image_dark, 'full' );
+						$alt_text_dark = get_post_meta( (int) $icon_image_dark, '_wp_attachment_image_alt', true );
+						if ( is_string( $alt_text_dark ) && '' !== $alt_text_dark ) {
+							$icon_alt_dark = $alt_text_dark;
+						}
+					} elseif ( is_array( $icon_image_dark ) ) {
+						$icon_src_dark = isset( $icon_image_dark['url'] ) ? $icon_image_dark['url'] : '';
+						if ( ! empty( $icon_image_dark['alt'] ) && is_string( $icon_image_dark['alt'] ) ) {
+							$icon_alt_dark = $icon_image_dark['alt'];
+						}
+					} elseif ( is_string( $icon_image_dark ) ) {
+						$icon_src_dark = $icon_image_dark;
+					}
+
+					$icon_img_dark_markup = '';
+					if ( $icon_src_dark ) {
+						$icon_img_dark_markup = sprintf(
+							'<img class="bb-header__social-icon bb-header__social-icon--dark" src="%1$s" alt="%2$s" loading="lazy" decoding="async">',
+							esc_url( $icon_src_dark ),
+							esc_attr( $icon_alt_dark )
+						);
+					}
+
 					$icon_svg    = function_exists( 'brooklyn_beauty_get_header_social_icon_svg' ) ? brooklyn_beauty_get_header_social_icon_svg( $icon_slug ) : '';
-					$icon_markup = $icon_img_markup ? $icon_img_markup : $icon_svg;
+					$icon_markup = $icon_img_markup ? $icon_img_markup . $icon_img_dark_markup : $icon_svg;
 					?>
 					<?php if ( $icon_markup ) : ?>
 						<?php if ( $social_url ) : ?>
