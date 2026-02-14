@@ -1,12 +1,3 @@
-.bb-hero {
-	min-height: 55vh;
-	display: grid;
-	place-items: center;
-	text-align: center;
-	background: var(--color-surface-alt);
-	padding: var(--space-xl) var(--space-md);
-}
-
 .bb-services,
 .bb-work,
 .bb-why,
