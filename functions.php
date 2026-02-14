@@ -198,6 +198,16 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'name'  => 'header_button_link',
 				'type'  => 'url',
 			),
+			array(
+				'key'           => 'field_brooklyn_beauty_hero_banner_video',
+				'label'         => __( 'Hero Banner Video', 'brooklyn-beauty' ),
+				'name'          => 'hero_banner_video',
+				'type'          => 'file',
+				'return_format' => 'id',
+				'library'       => 'all',
+				'mime_types'    => 'mp4,webm,m4v,mov,ogg',
+				'instructions'  => __( 'Upload a video file for the homepage hero banner.', 'brooklyn-beauty' ),
+			),
 		),
 		'location'              => array(
 			array(
