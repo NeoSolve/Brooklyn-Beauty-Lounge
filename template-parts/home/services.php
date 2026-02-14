@@ -4,8 +4,23 @@
  *
  * @package Brooklyn_Beauty
  */
-$section_title = get_theme_mod( 'bb_services_title', __( 'brooklyn beauty lounge services', 'brooklyn-beauty' ) );
-$services      = array();
+$section_title = '';
+$section_label = '';
+$front_page_id = (int) get_option( 'page_on_front' );
+if ( $front_page_id <= 0 ) {
+	$front_page_id = (int) get_queried_object_id();
+}
+if ( function_exists( 'get_field' ) && $front_page_id > 0 ) {
+	$acf_title = (string) get_field( 'section_title', $front_page_id );
+	if ( '' !== trim( $acf_title ) ) {
+		$section_title = $acf_title;
+	}
+	$acf_label = (string) get_field( 'section_label', $front_page_id );
+	if ( '' !== trim( $acf_label ) ) {
+		$section_label = $acf_label;
+	}
+}
+$services = array();
 $fallback_services = array(
 	array(
 		'title'         => __( 'pedicure', 'brooklyn-beauty' ),
@@ -184,8 +199,8 @@ if ( ! empty( $service_posts ) ) {
 	<div class="bb-container">
 		<?php if ( $section_title ) : ?>
 			<div class="bb-services-section__heading">
-				<h2 class="bb-services-section__title"><?php echo esc_html( $section_title ); ?></h2>
-				<p class="bb-services-section__label"><?php esc_html_e( 'choose', 'brooklyn-beauty' ); ?></p>
+				<h2 class="bb-services-section__title"><?php echo wp_kses_post( $section_title ); ?></h2>
+				<p class="bb-services-section__label"><?php echo wp_kses_post( $section_label ); ?></p>
 			</div>
 		<?php endif; ?>
 
@@ -213,7 +228,6 @@ if ( ! empty( $service_posts ) ) {
 							</a>
 							<a class="bb-service-card__more-link" href="<?php echo esc_url( $service['more_url'] ); ?>">
 								<?php esc_html_e( 'learn more', 'brooklyn-beauty' ); ?>
-								<span aria-hidden="true">&#8594;</span>
 							</a>
 						</div>
 					</div>

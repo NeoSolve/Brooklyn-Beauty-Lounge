@@ -390,7 +390,6 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 					</a>
 					<a class="bb-service-card__more-link" href="<?php echo esc_url( (string) get_permalink( $service_post ) ); ?>">
 						<?php esc_html_e( 'learn more', 'brooklyn-beauty' ); ?>
-						<span aria-hidden="true">&#8594;</span>
 					</a>
 				</div>
 			</div>
