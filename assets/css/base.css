@@ -39,7 +39,7 @@ body {
 	font-weight: var(--fw-body-regular);
 	line-height: var(--lh-body-1);
 	color: var(--color-text);
-	background: var(--color-surface);
+	background: var(--color-surface-alt);
 }
 
 a {
