@@ -1,4 +1,3 @@
-.bb-services,
 .bb-work,
 .bb-why,
 .bb-promos,
@@ -8,7 +7,6 @@
 	gap: var(--space-lg);
 }
 
-.bb-service,
 .bb-work__item,
 .bb-why__item,
 .bb-promo,

@@ -1,0 +1,51 @@
+[
+  {
+    "key": "group_brooklyn_beauty_home_services_settings",
+    "title": "Home Services Settings",
+    "fields": [
+      {
+        "key": "field_brooklyn_beauty_services_tab_categories",
+        "label": "Services Tab Categories",
+        "name": "services_tab_categories",
+        "aria-label": "",
+        "type": "taxonomy",
+        "instructions": "Select service categories that should be shown as tabs on the homepage services block.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "taxonomy": "service_category",
+        "add_term": 0,
+        "save_terms": 0,
+        "load_terms": 0,
+        "return_format": "id",
+        "field_type": "multi_select",
+        "allow_null": 1,
+        "multiple": 0,
+        "bidirectional": 0,
+        "bidirectional_target": []
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_type",
+          "operator": "==",
+          "value": "front_page"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]
