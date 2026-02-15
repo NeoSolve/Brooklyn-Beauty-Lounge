@@ -1,0 +1,274 @@
+.bb-promotions-section {
+	padding: 100px 0;
+}
+
+.bb-promotions {
+	--bb-promotions-bg-image: none;
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+	min-height: 560px;
+	height: 924px;
+	background-image:
+		linear-gradient(180deg, rgba(47, 44, 56, 0.36), rgba(47, 44, 56, 0.36)),
+		var(--bb-promotions-bg-image);
+	background-size: cover;
+	background-position: center;
+	padding: 20px 20px 20px 52px;
+	gap: 90px;
+}
+
+.bb-promotions.is-no-image {
+	background-image:
+		linear-gradient(180deg, rgba(47, 44, 56, 0.36), rgba(47, 44, 56, 0.36)),
+		linear-gradient(130deg, #39080d 0%, #1d0b10 100%);
+}
+
+.bb-promotions__left {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: #fffef4;
+}
+
+.bb-promotions__intro {
+	max-width: 510px;
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	margin-top: 32px;
+}
+
+.bb-promotions__title {
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	text-transform: lowercase;
+}
+
+.bb-promotions__controls {
+	display: flex;
+	align-items: center;
+	gap: 114px;
+	margin-top: 50px;
+}
+
+.bb-promotions__arrow {
+	width: 60px;
+	height: 39px;
+	border: 0;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	cursor: pointer;
+	transition: opacity var(--transition-base);
+}
+
+.bb-promotions__arrow--prev {
+	background-image: url("../../images/left-arrow-white.svg");
+}
+
+.bb-promotions__arrow--next {
+	background-image: url("../../images/rigth-arrow-white.svg");
+}
+
+.bb-promotions__arrow--prev:not(:disabled):hover {
+	background-image: url("../../images/left-arrow-white.svg");
+}
+
+.bb-promotions__arrow--next:not(:disabled):hover {
+	background-image: url("../../images/rigth-arrow-white.svg");
+}
+
+.bb-promotions__arrow:disabled {
+	opacity: 0.35;
+	cursor: default;
+}
+
+.bb-promotions__right {
+	position: relative;
+	isolation: isolate;
+	background: rgba(174, 5, 10, 0.92);
+	padding: 18px 22px;
+}
+
+.bb-promo-card {
+	display: grid;
+	position: absolute;
+	inset: 18px 22px;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	height: auto;
+	min-height: calc(100% - 36px);
+	grid-template-rows: auto 1fr auto;
+	gap: 20px;
+	color: #fffef4;
+	transition: none;
+}
+
+.bb-promo-card.is-active {
+	position: relative;
+	inset: auto;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	z-index: 1;
+}
+
+.bb-promo-card__title {
+	text-align: center;
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3-semibold);
+	font-weight: var(--fw-h3-semibold);
+	text-transform: lowercase;
+}
+
+.bb-promo-card__images {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 280px));
+	justify-content: center;
+	gap: 16px;
+	align-self: center;
+	opacity: 0;
+	transform: translateX(18px) scale(0.992);
+	transform-origin: left center;
+	transition:
+		opacity 460ms cubic-bezier(0.22, 1, 0.36, 1),
+		transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bb-promo-card.is-active .bb-promo-card__images {
+	opacity: 1;
+	transform: translateX(0) scale(1);
+}
+
+.bb-promo-card__image-wrap {
+	margin: 0;
+	max-width: 280px;
+}
+
+.bb-promo-card__image {
+	max-width: 280px;
+	width: 100%;
+	height: 100%;
+	min-height: 196px;
+	object-fit: cover;
+}
+
+.bb-promo-card__footer {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.bb-promo-card__content {
+	max-width: 470px;
+}
+
+.bb-promo-card__validity,
+.bb-promo-card__description {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+}
+
+.bb-promo-card__description {
+	margin-top: 6px;
+}
+
+.bb-promo-card__button {
+	border-color: transparent;
+	min-width: 210px;
+}
+
+@media (max-width: 1280px) {
+	.bb-promotions__title {
+		font-size: clamp(74px, 10vw, 132px);
+	}
+
+	.bb-promo-card__title {
+		font-size: clamp(34px, 4.1vw, 50px);
+	}
+}
+
+@media (max-width: 1024px) {
+	.bb-promotions {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-promotions__left {
+		min-height: 430px;
+	}
+
+	.bb-promo-card {
+		min-height: 480px;
+	}
+}
+
+@media (max-width: 767px) {
+	.bb-promotions-section {
+		padding: 56px 0;
+	}
+
+	.bb-promotions__left {
+		min-height: 340px;
+		padding: 18px 16px 24px;
+	}
+
+	.bb-promotions__intro {
+		font-size: 15px;
+	}
+
+	.bb-promotions__title {
+		font-size: clamp(54px, 16vw, 88px);
+	}
+
+	.bb-promotions__controls {
+		margin-top: 10px;
+		gap: 8px;
+	}
+
+	.bb-promotions__arrow {
+		width: 48px;
+		height: 32px;
+	}
+
+	.bb-promotions__right {
+		padding: 16px 14px;
+	}
+
+	.bb-promo-card {
+		inset: 16px 14px;
+		min-height: 440px;
+	}
+
+	.bb-promo-card__images {
+		gap: 16px;
+	}
+
+	.bb-promo-card__image-wrap,
+	.bb-promo-card__image {
+		min-height: 146px;
+	}
+
+	.bb-promo-card__footer {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 16px;
+	}
+
+	.bb-promo-card__button {
+		width: 100%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bb-promo-card__images {
+		transition: none;
+		transform: none;
+	}
+}
