@@ -1,6 +1,6 @@
 @import url("./components/our-work.css");
+@import url("./components/video-tour.css");
 
-.bb-why,
 .bb-promos,
 .bb-reviews {
 	display: grid;
@@ -8,29 +8,12 @@
 	gap: var(--space-lg);
 }
 
-.bb-why__item,
 .bb-promo,
 .bb-review {
 	background: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	padding: 18px;
 	border-radius: 8px;
-}
-
-.bb-video {
-	position: relative;
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	background: #111;
-	border-radius: 8px;
-	overflow: hidden;
-}
-
-.bb-video > * {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
 }
 
 .bb-about__content,
