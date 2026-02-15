@@ -117,6 +117,7 @@ function brooklyn_beauty_assets() {
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
 	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
 	$video_tour_js_path    = get_template_directory() . '/assets/js/video-tour.js';
+	$about_us_block_js_path = get_template_directory() . '/assets/js/about-us-block.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -199,6 +200,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/video-tour.js',
 				array(),
 				(string) filemtime( $video_tour_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $about_us_block_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-about-us-block',
+				get_template_directory_uri() . '/assets/js/about-us-block.js',
+				array(),
+				(string) filemtime( $about_us_block_js_path ),
 				true
 			);
 		}
@@ -329,6 +340,116 @@ function brooklyn_beauty_register_acf_field_groups() {
 					'param'    => 'options_page',
 					'operator' => '==',
 					'value'    => 'brooklyn-beauty-site-settings',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_about_us_block',
+		'title'                 => __( 'About Us Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'about_us_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_left_text',
+				'label' => __( 'Left Text (Top)', 'brooklyn-beauty' ),
+				'name'  => 'about_us_left_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_left_bottom_text',
+				'label' => __( 'Left Text (Bottom)', 'brooklyn-beauty' ),
+				'name'  => 'about_us_left_bottom_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_right_text',
+				'label' => __( 'Right Text', 'brooklyn-beauty' ),
+				'name'  => 'about_us_right_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_about_us_slides',
+				'label'        => __( 'Quote Slides', 'brooklyn-beauty' ),
+				'name'         => 'about_us_slides',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Slide', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_about_us_slide_portrait',
+						'label'         => __( 'Portrait', 'brooklyn-beauty' ),
+						'name'          => 'portrait',
+						'type'          => 'image',
+						'return_format' => 'id',
+						'preview_size'  => 'medium',
+						'library'       => 'all',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_about_us_slide_name',
+						'label' => __( 'Name', 'brooklyn-beauty' ),
+						'name'  => 'name',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_brooklyn_beauty_about_us_slide_quote',
+						'label'        => __( 'Quote (one line per row)', 'brooklyn-beauty' ),
+						'name'         => 'quote',
+						'type'         => 'textarea',
+						'rows'         => 4,
+						'new_lines'    => '',
+						'instructions' => __( 'Each new line becomes a separate quote row.', 'brooklyn-beauty' ),
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_about_us_slide_highlighted_line',
+						'label' => __( 'Highlighted Line', 'brooklyn-beauty' ),
+						'name'  => 'highlighted_line',
+						'type'  => 'text',
+					),
+				),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_about_us_gallery',
+				'label'         => __( 'Right Gallery Images', 'brooklyn-beauty' ),
+				'name'          => 'about_us_gallery',
+				'type'          => 'gallery',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'min'           => 0,
+				'max'           => 0,
+				'insert'        => 'append',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_about_us_main_image',
+				'label'         => __( 'Right Image Fallback', 'brooklyn-beauty' ),
+				'name'          => 'about_us_main_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Used only if gallery is empty.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
 				),
 			),
 		),
