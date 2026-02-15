@@ -1,4 +1,5 @@
-.bb-work,
+@import url("./components/our-work.css");
+
 .bb-why,
 .bb-promos,
 .bb-reviews {
@@ -7,7 +8,6 @@
 	gap: var(--space-lg);
 }
 
-.bb-work__item,
 .bb-why__item,
 .bb-promo,
 .bb-review {
@@ -15,10 +15,6 @@
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	padding: 18px;
 	border-radius: 8px;
-}
-
-.bb-work__item {
-	min-height: 180px;
 }
 
 .bb-video {
@@ -63,3 +59,4 @@
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 12px 0;
 }
+
