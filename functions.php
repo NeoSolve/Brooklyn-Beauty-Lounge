@@ -115,6 +115,7 @@ function brooklyn_beauty_assets() {
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_tabs_js_path = get_template_directory() . '/assets/js/services-tabs.js';
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
+	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -177,6 +178,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/our-work.js',
 				array( 'brooklyn-beauty-main' ),
 				(string) filemtime( $our_work_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $why_us_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-why-us',
+				get_template_directory_uri() . '/assets/js/why-us.js',
+				array(),
+				(string) filemtime( $why_us_js_path ),
 				true
 			);
 		}

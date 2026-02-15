@@ -1,6 +1,5 @@
 @import url("./components/our-work.css");
 
-.bb-why,
 .bb-promos,
 .bb-reviews {
 	display: grid;
@@ -8,7 +7,6 @@
 	gap: var(--space-lg);
 }
 
-.bb-why__item,
 .bb-promo,
 .bb-review {
 	background: #fff;
