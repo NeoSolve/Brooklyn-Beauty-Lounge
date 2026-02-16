@@ -190,6 +190,27 @@
 	color: #3f3f48;
 }
 
+.bb-about-us__signature-block {
+	margin-top: clamp(8px, 0.83vw, 16px);
+}
+
+.bb-about-us__signature-text {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: #ae050a;
+}
+
+.bb-about-us__signature-text span {
+	display: block;
+}
+
+.bb-about-us__signature-image {
+	display: block;
+	width: clamp(53px, 4.6vw, 88px);
+	height: auto;
+}
+
 .bb-about-us__image-wrap {
 	grid-area: image;
 	width: clamp(613px, 47.92vw, 920px);
@@ -309,6 +330,10 @@
 		grid-template-columns: 1fr;
 		margin-top: 24px;
 		padding-top: 0;
+	}
+
+	.bb-about-us__signature-block {
+		margin-top: 12px;
 	}
 
 	.bb-about-us__image--placeholder,
