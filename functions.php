@@ -119,6 +119,7 @@ function brooklyn_beauty_assets() {
 	$video_tour_js_path    = get_template_directory() . '/assets/js/video-tour.js';
 	$about_us_block_js_path = get_template_directory() . '/assets/js/about-us-block.js';
 	$promotions_js_path    = get_template_directory() . '/assets/js/promotions.js';
+	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -221,6 +222,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/promotions.js',
 				array(),
 				(string) filemtime( $promotions_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $reviews_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-reviews',
+				get_template_directory_uri() . '/assets/js/reviews.js',
+				array(),
+				(string) filemtime( $reviews_js_path ),
 				true
 			);
 		}
@@ -453,6 +464,88 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'preview_size'  => 'medium',
 				'library'       => 'all',
 				'instructions'  => __( 'Used only if gallery is empty.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_reviews_block',
+		'title'                 => __( 'Reviews Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'reviews_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_text',
+				'label' => __( 'Section Description', 'brooklyn-beauty' ),
+				'name'  => 'reviews_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_label',
+				'label' => __( 'Left Label', 'brooklyn-beauty' ),
+				'name'  => 'reviews_label',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_reviews_items',
+				'label'        => __( 'Reviews Items', 'brooklyn-beauty' ),
+				'name'         => 'reviews_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Review', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_title',
+						'label' => __( 'Title', 'brooklyn-beauty' ),
+						'name'  => 'title',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_text',
+						'label' => __( 'Text', 'brooklyn-beauty' ),
+						'name'  => 'text',
+						'type'  => 'textarea',
+						'rows'  => 6,
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_author',
+						'label' => __( 'Author', 'brooklyn-beauty' ),
+						'name'  => 'author',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_time',
+						'label' => __( 'Date Text', 'brooklyn-beauty' ),
+						'name'  => 'time',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_link',
+						'label' => __( 'Read More Link', 'brooklyn-beauty' ),
+						'name'  => 'link',
+						'type'  => 'url',
+					),
+				),
 			),
 		),
 		'location'              => array(
