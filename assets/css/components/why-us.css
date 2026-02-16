@@ -89,16 +89,18 @@
 }
 
 .bb-why-us__card::after {
-	content: "\2661";
+	content: "";
 	position: absolute;
-	top: clamp(8px, 0.63vw, 12px);
-	right: clamp(9px, 0.73vw, 14px);
-	font-size: clamp(24px, 1.88vw, 36px);
-	line-height: 1;
+	top: clamp(16px, 1.25vw, 24px);
+	right: clamp(16px, 1.25vw, 24px);
+	width: clamp(24px, 1.88vw, 36px);
+	height: clamp(24px, 1.88vw, 36px);
+	background: url("../../images/heart.svg") center / contain no-repeat;
 }
 
 .bb-why-us__card-title {
-	max-width: 90%;
+	max-width: 100%;
+	padding-right: clamp(36px, 2.81vw, 54px);
 	margin-bottom: clamp(37px, 2.86vw, 55px);
 	font-size: var(--fs-h5);
 	font-weight: var(--fw-h5-semibold);

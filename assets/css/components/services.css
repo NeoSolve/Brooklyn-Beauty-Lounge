@@ -193,6 +193,7 @@
 }
 
 .bb-service-card__more-link {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
@@ -201,10 +202,30 @@
 	font-weight: var(--fw-button);
 	color: #1f2030;
 	white-space: nowrap;
+	transition: color var(--transition-base);
 }
 
-.bb-service-card__more-link:hover {
-	color: var(--color-text);
+.bb-service-card__more-link::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform var(--transition-base);
+}
+
+.bb-service-card__more-link:hover,
+.bb-service-card__more-link:focus-visible {
+	color: var(--color-accent);
+}
+
+.bb-service-card__more-link:hover::before,
+.bb-service-card__more-link:focus-visible::before {
+	transform: scaleX(1);
 }
 
 .bb-service-card__more-link::after {
@@ -216,8 +237,9 @@
 	flex-shrink: 0;
 }
 
-.bb-service-card__more-link:hover::after {
-	background-image: url("../../images/learn-more-arrov-hover.svg");
+.bb-service-card__more-link:hover::after,
+.bb-service-card__more-link:focus-visible::after {
+	background-image: url("../../images/right-arrow-hower-red.svg");
 }
 
 @media (max-width: 1280px) {
