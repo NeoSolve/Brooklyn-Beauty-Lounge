@@ -120,6 +120,7 @@ function brooklyn_beauty_assets() {
 	$about_us_block_js_path = get_template_directory() . '/assets/js/about-us-block.js';
 	$promotions_js_path    = get_template_directory() . '/assets/js/promotions.js';
 	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
+	$book_appointment_js_path = get_template_directory() . '/assets/js/book-appointment.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -232,6 +233,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/reviews.js',
 				array(),
 				(string) filemtime( $reviews_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $book_appointment_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-book-appointment',
+				get_template_directory_uri() . '/assets/js/book-appointment.js',
+				array(),
+				(string) filemtime( $book_appointment_js_path ),
 				true
 			);
 		}
@@ -546,6 +557,88 @@ function brooklyn_beauty_register_acf_field_groups() {
 						'type'  => 'url',
 					),
 				),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_book_appointment_block',
+		'title'                 => __( 'Book Appointment Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_text_top',
+				'label' => __( 'Top Description', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_text_top',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_text_bottom',
+				'label' => __( 'Bottom Description', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_text_bottom',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_button_text',
+				'label' => __( 'Button Text', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_button_text',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_button_link',
+				'label' => __( 'Button Link', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_button_link',
+				'type'  => 'text',
+				'instructions' => __( 'Use a URL or section id (for example: #services).', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_content_image',
+				'label'         => __( 'Left Column Content Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_content_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'thumbnail',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_main_image',
+				'label'         => __( 'Right Column Main Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_main_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_fallback_media_image',
+				'label'         => __( 'Right Column Fallback Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_fallback_media_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+				'instructions'  => __( 'Used when the main right image is empty.', 'brooklyn-beauty' ),
 			),
 		),
 		'location'              => array(
