@@ -1,9 +1,9 @@
 .bb-why-us-section {
-	padding: 100px 0;
+	padding: clamp(67px, 5.21vw, 100px) 0;
 }
 
 .bb-why-us__heading {
-	margin-bottom: 60px;
+	margin-bottom: clamp(40px, 3.13vw, 60px);
 	font-size: var(--fs-h2);
 	font-weight: var(--fw-h2-semibold);
 	line-height: var(--lh-h2-semibold);
@@ -13,7 +13,7 @@
 }
 
 .bb-why-us__intro {
-	max-width: 620px;
+	max-width: clamp(413px, 32.29vw, 620px);
 	grid-area: intro;
 	margin: 0 auto;
 	font-size: var(--fs-body-1);
@@ -25,13 +25,13 @@
 
 .bb-why-us {
 	display: grid;
-	grid-template-columns: minmax(0, 394px) minmax(220px, 1fr) minmax(0, 394px);
+	grid-template-columns: minmax(0, clamp(262px, 20.52vw, 394px)) minmax(220px, 1fr) minmax(0, clamp(262px, 20.52vw, 394px));
 	grid-template-areas:
 		"left-top intro right-top"
 		"top-left center top-right"
 		"bottom-cards bottom-cards bottom-cards";
 	column-gap: clamp(16px, 2.2vw, 48px);
-	row-gap: 60px;
+	row-gap: clamp(40px, 3.13vw, 60px);
 	align-items: start;
 	justify-content: center;
 }
@@ -54,7 +54,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 80px;
+	gap: clamp(53px, 4.17vw, 80px);
 }
 
 .bb-why-us__stat--center-top,
@@ -73,7 +73,7 @@
 }
 
 .bb-why-us__label {
-	margin-top: 16px;
+	margin-top: clamp(11px, 0.83vw, 16px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
@@ -81,9 +81,9 @@
 
 .bb-why-us__card {
 	position: relative;
-	width: min(394px, 100%);
-	min-height: 377px;
-	padding: 24px;
+	width: min(clamp(262px, 20.52vw, 394px), 100%);
+	min-height: clamp(251px, 19.64vw, 377px);
+	padding: clamp(16px, 1.25vw, 24px);
 	background: #ae050a;
 	color: #fff;
 }
@@ -91,15 +91,15 @@
 .bb-why-us__card::after {
 	content: "\2661";
 	position: absolute;
-	top: 12px;
-	right: 14px;
-	font-size: 36px;
+	top: clamp(8px, 0.63vw, 12px);
+	right: clamp(9px, 0.73vw, 14px);
+	font-size: clamp(24px, 1.88vw, 36px);
 	line-height: 1;
 }
 
 .bb-why-us__card-title {
 	max-width: 90%;
-	margin-bottom: 55px;
+	margin-bottom: clamp(37px, 2.86vw, 55px);
 	font-size: var(--fs-h5);
 	font-weight: var(--fw-h5-semibold);
 	line-height: var(--lh-h5-semibold);
@@ -115,9 +115,9 @@
 .bb-why-us__bottom-cards {
 	grid-area: bottom-cards;
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 394px));
+	grid-template-columns: repeat(2, minmax(0, clamp(262px, 20.52vw, 394px)));
 	justify-content: center;
-	gap: 135px;
+	gap: clamp(90px, 7.03vw, 135px);
 }
 
 .bb-why-us__card--top-left {

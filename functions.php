@@ -117,6 +117,12 @@ function brooklyn_beauty_assets() {
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
 	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
 	$video_tour_js_path    = get_template_directory() . '/assets/js/video-tour.js';
+	$about_us_block_js_path = get_template_directory() . '/assets/js/about-us-block.js';
+	$promotions_js_path    = get_template_directory() . '/assets/js/promotions.js';
+	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
+	$book_appointment_js_path = get_template_directory() . '/assets/js/book-appointment.js';
+	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
+	$footer_js_path        = get_template_directory() . '/assets/js/footer.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -153,6 +159,16 @@ function brooklyn_beauty_assets() {
 			(string) filemtime( $js_path ),
 			true
 		);
+
+		if ( file_exists( $footer_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-footer',
+				get_template_directory_uri() . '/assets/js/footer.js',
+				array( 'brooklyn-beauty-main' ),
+				(string) filemtime( $footer_js_path ),
+				true
+			);
+		}
 
 		if ( is_front_page() && file_exists( $services_tabs_js_path ) ) {
 			wp_enqueue_script(
@@ -199,6 +215,56 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/video-tour.js',
 				array(),
 				(string) filemtime( $video_tour_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $about_us_block_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-about-us-block',
+				get_template_directory_uri() . '/assets/js/about-us-block.js',
+				array(),
+				(string) filemtime( $about_us_block_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $promotions_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-promotions',
+				get_template_directory_uri() . '/assets/js/promotions.js',
+				array(),
+				(string) filemtime( $promotions_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $reviews_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-reviews',
+				get_template_directory_uri() . '/assets/js/reviews.js',
+				array(),
+				(string) filemtime( $reviews_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $book_appointment_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-book-appointment',
+				get_template_directory_uri() . '/assets/js/book-appointment.js',
+				array(),
+				(string) filemtime( $book_appointment_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $faq_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-faq',
+				get_template_directory_uri() . '/assets/js/faq.js',
+				array(),
+				(string) filemtime( $faq_js_path ),
 				true
 			);
 		}
@@ -329,6 +395,350 @@ function brooklyn_beauty_register_acf_field_groups() {
 					'param'    => 'options_page',
 					'operator' => '==',
 					'value'    => 'brooklyn-beauty-site-settings',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_about_us_block',
+		'title'                 => __( 'About Us Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'about_us_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_left_text',
+				'label' => __( 'Left Text (Top)', 'brooklyn-beauty' ),
+				'name'  => 'about_us_left_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_left_bottom_text',
+				'label' => __( 'Left Text (Bottom)', 'brooklyn-beauty' ),
+				'name'  => 'about_us_left_bottom_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_about_us_right_text',
+				'label' => __( 'Right Text', 'brooklyn-beauty' ),
+				'name'  => 'about_us_right_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_about_us_slides',
+				'label'        => __( 'Quote Slides', 'brooklyn-beauty' ),
+				'name'         => 'about_us_slides',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Slide', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_about_us_slide_portrait',
+						'label'         => __( 'Portrait', 'brooklyn-beauty' ),
+						'name'          => 'portrait',
+						'type'          => 'image',
+						'return_format' => 'id',
+						'preview_size'  => 'medium',
+						'library'       => 'all',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_about_us_slide_name',
+						'label' => __( 'Name', 'brooklyn-beauty' ),
+						'name'  => 'name',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_brooklyn_beauty_about_us_slide_quote',
+						'label'        => __( 'Quote (one line per row)', 'brooklyn-beauty' ),
+						'name'         => 'quote',
+						'type'         => 'textarea',
+						'rows'         => 4,
+						'new_lines'    => '',
+						'instructions' => __( 'Each new line becomes a separate quote row.', 'brooklyn-beauty' ),
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_about_us_slide_highlighted_line',
+						'label' => __( 'Highlighted Line', 'brooklyn-beauty' ),
+						'name'  => 'highlighted_line',
+						'type'  => 'text',
+					),
+				),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_about_us_gallery',
+				'label'         => __( 'Right Gallery Images', 'brooklyn-beauty' ),
+				'name'          => 'about_us_gallery',
+				'type'          => 'gallery',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'min'           => 0,
+				'max'           => 0,
+				'insert'        => 'append',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_about_us_main_image',
+				'label'         => __( 'Right Image Fallback', 'brooklyn-beauty' ),
+				'name'          => 'about_us_main_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Used only if gallery is empty.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_reviews_block',
+		'title'                 => __( 'Reviews Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'reviews_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_text',
+				'label' => __( 'Section Description', 'brooklyn-beauty' ),
+				'name'  => 'reviews_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_reviews_label',
+				'label' => __( 'Left Label', 'brooklyn-beauty' ),
+				'name'  => 'reviews_label',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_reviews_items',
+				'label'        => __( 'Reviews Items', 'brooklyn-beauty' ),
+				'name'         => 'reviews_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Review', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_title',
+						'label' => __( 'Title', 'brooklyn-beauty' ),
+						'name'  => 'title',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_text',
+						'label' => __( 'Text', 'brooklyn-beauty' ),
+						'name'  => 'text',
+						'type'  => 'textarea',
+						'rows'  => 6,
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_author',
+						'label' => __( 'Author', 'brooklyn-beauty' ),
+						'name'  => 'author',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_time',
+						'label' => __( 'Date Text', 'brooklyn-beauty' ),
+						'name'  => 'time',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_reviews_item_link',
+						'label' => __( 'Read More Link', 'brooklyn-beauty' ),
+						'name'  => 'link',
+						'type'  => 'url',
+					),
+				),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_book_appointment_block',
+		'title'                 => __( 'Book Appointment Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_title',
+				'label' => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_title',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_text_top',
+				'label' => __( 'Top Description', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_text_top',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_text_bottom',
+				'label' => __( 'Bottom Description', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_text_bottom',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_button_text',
+				'label' => __( 'Button Text', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_button_text',
+				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_book_appointment_button_link',
+				'label' => __( 'Button Link', 'brooklyn-beauty' ),
+				'name'  => 'book_appointment_button_link',
+				'type'  => 'text',
+				'instructions' => __( 'Use a URL or section id (for example: #services).', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_content_image',
+				'label'         => __( 'Left Column Content Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_content_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'thumbnail',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_main_image',
+				'label'         => __( 'Right Column Main Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_main_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_book_appointment_fallback_media_image',
+				'label'         => __( 'Right Column Fallback Image', 'brooklyn-beauty' ),
+				'name'          => 'book_appointment_fallback_media_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+				'instructions'  => __( 'Used when the main right image is empty.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_faq_block',
+		'title'                 => __( 'FAQ Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_left_image',
+				'label'         => __( 'Left Image', 'brooklyn-beauty' ),
+				'name'          => 'faq_left_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_badge_image',
+				'label'         => __( 'Center Badge Image', 'brooklyn-beauty' ),
+				'name'          => 'faq_badge_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Optional. If empty, text badge will be shown.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_badge_subtitle',
+				'label'         => __( 'Center Badge Subtitle', 'brooklyn-beauty' ),
+				'name'          => 'faq_badge_subtitle',
+				'type'          => 'text',
+				'default_value' => __( 'curious?', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_faq_items',
+				'label'        => __( 'FAQ Items', 'brooklyn-beauty' ),
+				'name'         => 'faq_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add FAQ Item', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_brooklyn_beauty_faq_item_question',
+						'label' => __( 'Question', 'brooklyn-beauty' ),
+						'name'  => 'question',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_faq_item_answer',
+						'label' => __( 'Answer', 'brooklyn-beauty' ),
+						'name'  => 'answer',
+						'type'  => 'textarea',
+						'rows'  => 5,
+					),
+				),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
 				),
 			),
 		),

@@ -9,7 +9,7 @@
 	background-position: center;
 	background-size: cover;
 	color: var(--color-surface);
-	padding: 120px 0 80px;
+	padding: clamp(80px, 6.25vw, 120px) 0 clamp(53px, 4.17vw, 80px);
 	overflow: hidden;
 }
 
@@ -24,14 +24,14 @@
 	position: relative;
 	z-index: 2;
 	width: 100%;
-	max-width: 1840px;
+	max-width: var(--container-max);
 	display: flex;
 	align-items: center;
-	min-height: calc(100svh - 200px);
+	min-height: calc(100svh - clamp(133px, 10.42vw, 200px));
 }
 
 .bb-hero__content {
-	max-width: 800px;
+	max-width: clamp(533px, 41.67vw, 800px);
 	text-align: left;
 }
 
@@ -39,37 +39,37 @@
 	font-size: var(--fs-h1-alt);
 	font-weight: var(--fw-h1-alt);
 	line-height: var(--lh-h1-alt);
-	margin: 0 0 150px;
+	margin: 0 0 clamp(100px, 7.81vw, 150px);
 	text-transform: lowercase;
 }
 
 .bb-hero__subtitle {
-	margin: -128px 0 36px;
+	margin: clamp(-85px, -6.67vw, -128px) 0 clamp(24px, 1.88vw, 36px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-medium);
-	max-width: 520px;
+	max-width: clamp(347px, 27.08vw, 520px);
 }
 
 .bb-hero__body {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 28px;
+	gap: clamp(19px, 1.46vw, 28px);
 }
 
 .bb-hero__description {
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
-	max-width: 393px;
+	max-width: clamp(262px, 20.47vw, 393px);
 }
 
 .bb-hero__video-card {
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	width: 469px;
+	width: clamp(313px, 24.43vw, 469px);
 	max-width: 100%;
 	border: 1px solid rgba(255, 255, 255, 0.45);
 	background: rgba(0, 0, 0, 0.35);
@@ -94,12 +94,12 @@
 
 .bb-hero__cta {
 	display: inline-block;
-	padding: 14px 32px;
+	padding: clamp(9px, 0.73vw, 14px) clamp(21px, 1.67vw, 32px);
 	background: var(--color-accent);
 	color: var(--color-surface);
 	border: 1px solid var(--color-surface);
 	border-radius: 4px;
-	font-size: 14px;
+	font-size: clamp(9px, 0.73vw, 14px);
 	font-weight: var(--fw-body-medium);
 	text-transform: lowercase;
 	text-decoration: none;

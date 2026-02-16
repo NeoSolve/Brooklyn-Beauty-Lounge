@@ -7,7 +7,7 @@
 }
 
 .section--lg {
-	padding-block: calc(var(--space-xl) * 1.5);
+	padding-block: clamp(2.53rem, 3.12vw, 3.75rem);
 }
 
 .mt-xs { margin-top: var(--space-xs); }

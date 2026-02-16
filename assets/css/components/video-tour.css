@@ -44,7 +44,7 @@
 }
 
 #video-tour {
-	padding: 78px 0 96px;
+	padding: clamp(52px, 4.06vw, 78px) 0 clamp(64px, 5vw, 96px);
 }
 
 #video-tour .bb-container {
@@ -79,8 +79,8 @@
 }
 
 .bb-video-tour__text {
-	margin-top: 12px;
-	max-width: 700px;
+	margin-top: clamp(8px, 0.63vw, 12px);
+	max-width: clamp(467px, 36.46vw, 700px);
 	font-size: var(--fs-body-2);
 	line-height: 1.3;
 	font-weight: var(--fw-body-regular);
@@ -90,12 +90,12 @@
 
 #video-tour .bb-video-wrapper {
 	width: 100%;
-	margin-top: 28px;
+	margin-top: clamp(19px, 1.46vw, 28px);
 }
 
 #video-tour .bb-video {
 	aspect-ratio: 1008 / 660;
-	max-height: 866px;
+	max-height: clamp(577px, 45.1vw, 866px);
 	border-radius: 8px;
 	background: #171723;
 }

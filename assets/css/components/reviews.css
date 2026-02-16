@@ -1,0 +1,297 @@
+.bb-reviews-section {
+	padding: clamp(61px, 4.79vw, 92px) 0 clamp(57px, 4.48vw, 86px);
+	overflow: hidden;
+}
+
+.bb-reviews__header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: clamp(16px, 1.25vw, 24px);
+}
+
+.bb-reviews__intro {
+	margin-left: calc(clamp(279px, 21.77vw, 418px) + clamp(15px, 1.15vw, 22px));
+	max-width: clamp(507px, 39.58vw, 760px);
+}
+
+.bb-reviews__title {
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: -0.02em;
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.bb-reviews__text {
+	margin-top: clamp(16px, 1.25vw, 24px);
+	max-width: clamp(373px, 29.17vw, 560px);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: var(--color-text);
+}
+
+.bb-reviews__controls {
+	display: flex;
+	align-items: center;
+	gap: clamp(27px, 2.08vw, 40px);
+	padding-top: clamp(52px, 7vw, 116px);
+}
+
+.bb-reviews__arrow {
+	width: clamp(40px, 3.13vw, 60px);
+	height: clamp(26px, 2.03vw, 39px);
+	border: 0;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	cursor: pointer;
+	transition: opacity var(--transition-base);
+}
+
+.bb-reviews__arrow--prev {
+	background-image: url("../../images/left-arrow.svg");
+}
+
+.bb-reviews__arrow--next {
+	background-image: url("../../images/right-arrow.svg");
+}
+
+.bb-reviews__arrow--prev:not(:disabled):hover {
+	background-image: url("../../images/left-arrow-hover.svg");
+}
+
+.bb-reviews__arrow--next:not(:disabled):hover {
+	background-image: url("../../images/right-arrow-hover.svg");
+}
+
+.bb-reviews__arrow:disabled {
+	opacity: 0.35;
+	cursor: default;
+}
+
+.bb-reviews__content {
+	margin-top: clamp(40px, 3.13vw, 60px);
+	display: grid;
+	grid-template-columns: clamp(279px, 21.77vw, 418px) minmax(0, 1fr);
+	gap: clamp(15px, 1.15vw, 22px);
+	align-items: start;
+}
+
+.bb-reviews__label {
+	width: clamp(297px, 23.18vw, 445px);
+	height: clamp(313px, 24.43vw, 469px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-decor);
+	font-size: var(--fs-decor);
+	line-height: var(--lh-decor);
+	font-weight: var(--fw-decor);
+	color: #9d1b2b;
+	transform: rotate(-4deg);
+}
+
+
+.bb-reviews__track {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(clamp(297px, 23.18vw, 445px), 1fr);
+	gap: clamp(13px, 1.04vw, 20px);
+	overflow-x: auto;
+	scrollbar-width: none;
+	scroll-snap-type: x proximity;
+}
+
+.bb-reviews__track::-webkit-scrollbar {
+	display: none;
+}
+
+.bb-review-card {
+	height: clamp(313px, 24.43vw, 469px);
+	max-height: clamp(313px, 24.43vw, 469px);
+	width: clamp(297px, 23.18vw, 445px);
+	padding: clamp(16px, 1.25vw, 24px);
+	border: 1px solid rgba(31, 32, 48, 0.35);
+	background: #fffef4;
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	scroll-snap-align: start;
+}
+
+.bb-review-card__meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: clamp(20px, 1.56vw, 30px);
+}
+
+.bb-review-card__stars {
+	font-size: clamp(13px, 1.04vw, 20px);
+	letter-spacing: 0.08em;
+	line-height: 1;
+	color: #ae050a;
+}
+
+.bb-review-card__source {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: clamp(23px, 1.77vw, 34px);
+	height: clamp(23px, 1.77vw, 34px);
+	color: #1f2030;
+}
+
+.bb-review-card__source-icon {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.bb-review-card__title {
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+	font-weight: var(--fw-h5-semibold);
+	margin-bottom: clamp(21px, 1.67vw, 32px);
+	color: var(--color-primary);
+}
+
+.bb-review-card__text {
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
+	color: var(--color-text);
+	overflow: hidden;
+	max-height: calc(1em * var(--lh-body-2) * 5);
+	display: -webkit-box;
+	line-clamp: 5;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+}
+
+.bb-review-card__footer {
+	padding-top: clamp(11px, 0.83vw, 16px);
+	border-top: 1px solid rgba(31, 32, 48, 0.3);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: clamp(12px, 0.94vw, 18px);
+}
+
+.bb-review-card__author {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-medium);
+	color: #1f2030;
+}
+
+.bb-review-card__date {
+	margin-top: 4px;
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-regular);
+	color: #777;
+}
+
+.bb-review-card__link {
+	position: relative;
+	padding-right: clamp(25px, 1.98vw, 38px);
+	font-size: var(--fs-button);
+	line-height: var(--lh-button);
+	font-weight: var(--fw-button);
+	color: #1f2030;
+	white-space: nowrap;
+}
+
+.bb-review-card__link::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: clamp(21px, 1.67vw, 32px);
+	height: clamp(15px, 1.15vw, 22px);
+	background: url("../../images/learn-more-arrow.svg") center/contain no-repeat;
+	transform: translateY(-50%);
+}
+
+@media (max-width: 1280px) {
+	.bb-reviews__title {
+		font-size: clamp(78px, 10vw, 120px);
+	}
+}
+
+@media (max-width: 1024px) {
+	.bb-reviews__header {
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.bb-reviews__intro {
+		margin-left: 0;
+	}
+
+	.bb-reviews__controls {
+		padding-top: 0;
+	}
+
+	.bb-reviews__content {
+		grid-template-columns: 1fr;
+		gap: 14px;
+	}
+
+	.bb-reviews__label {
+		width: auto;
+		min-height: auto;
+		padding-top: 0;
+		justify-content: flex-start;
+		font-size: clamp(40px, 6vw, 54px);
+	}
+
+	.bb-reviews__track {
+		grid-auto-columns: minmax(260px, 86vw);
+	}
+}
+
+@media (max-width: 767px) {
+	.bb-reviews-section {
+		padding: 58px 0 52px;
+	}
+
+	.bb-reviews__title {
+		font-size: clamp(54px, 16vw, 88px);
+	}
+
+	.bb-reviews__text {
+		font-size: 16px;
+	}
+
+	.bb-reviews__controls {
+		gap: 8px;
+	}
+
+	.bb-reviews__arrow {
+		width: 48px;
+		height: 32px;
+	}
+
+	.bb-review-card {
+		min-height: 430px;
+	}
+
+	.bb-review-card__title {
+		font-size: clamp(22px, 6vw, 28px);
+	}
+
+	.bb-review-card__text {
+		font-size: 18px;
+	}
+
+	.bb-review-card__author,
+	.bb-review-card__link {
+		font-size: 16px;
+	}
+}
