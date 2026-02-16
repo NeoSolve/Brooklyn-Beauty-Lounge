@@ -122,6 +122,7 @@ function brooklyn_beauty_assets() {
 	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
 	$book_appointment_js_path = get_template_directory() . '/assets/js/book-appointment.js';
 	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
+	$hero_video_js_path    = get_template_directory() . '/assets/js/hero-video.js';
 	$footer_js_path        = get_template_directory() . '/assets/js/footer.js';
 
 	wp_enqueue_style(
@@ -265,6 +266,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/faq.js',
 				array(),
 				(string) filemtime( $faq_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $hero_video_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-hero-video',
+				get_template_directory_uri() . '/assets/js/hero-video.js',
+				array(),
+				(string) filemtime( $hero_video_js_path ),
 				true
 			);
 		}

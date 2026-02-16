@@ -171,6 +171,90 @@
         "min_size": "",
         "max_size": "",
         "mime_types": "mp4,webm,m4v,mov,ogg"
+      },
+      {
+        "key": "field_bb_hero_video_tagline_1",
+        "label": "Video Tagline (Line 1)",
+        "name": "hero_video_tagline_line_1",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Text above video, first line.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Be fabulous with",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_bb_hero_video_tagline_2",
+        "label": "Video Tagline (Line 2)",
+        "name": "hero_video_tagline_line_2",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Text above video, second line.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Brooklyn Beauty Lounge!",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_bb_hero_video_labels",
+        "label": "Video Labels",
+        "name": "hero_video_labels",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "Labels under the video (e.g. beauty, salon, nails, hair services).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "table",
+        "pagination": 0,
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "button_label": "Add Label",
+        "rows_per_page": 20,
+        "sub_fields": [
+          {
+            "key": "field_bb_hero_video_labels_item",
+            "label": "Label",
+            "name": "label",
+            "aria-label": "",
+            "type": "text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "parent_repeater": "field_bb_hero_video_labels"
+          }
+        ]
       }
     ],
     "location": [
