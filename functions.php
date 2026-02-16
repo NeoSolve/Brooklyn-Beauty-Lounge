@@ -121,6 +121,7 @@ function brooklyn_beauty_assets() {
 	$promotions_js_path    = get_template_directory() . '/assets/js/promotions.js';
 	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
 	$book_appointment_js_path = get_template_directory() . '/assets/js/book-appointment.js';
+	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -243,6 +244,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/book-appointment.js',
 				array(),
 				(string) filemtime( $book_appointment_js_path ),
+				true
+			);
+		}
+
+		if ( is_front_page() && file_exists( $faq_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-faq',
+				get_template_directory_uri() . '/assets/js/faq.js',
+				array(),
+				(string) filemtime( $faq_js_path ),
 				true
 			);
 		}
@@ -639,6 +650,76 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'preview_size'  => 'large',
 				'library'       => 'all',
 				'instructions'  => __( 'Used when the main right image is empty.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_faq_block',
+		'title'                 => __( 'FAQ Block', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_left_image',
+				'label'         => __( 'Left Image', 'brooklyn-beauty' ),
+				'name'          => 'faq_left_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_badge_image',
+				'label'         => __( 'Center Badge Image', 'brooklyn-beauty' ),
+				'name'          => 'faq_badge_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Optional. If empty, text badge will be shown.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_faq_badge_subtitle',
+				'label'         => __( 'Center Badge Subtitle', 'brooklyn-beauty' ),
+				'name'          => 'faq_badge_subtitle',
+				'type'          => 'text',
+				'default_value' => __( 'curious?', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_faq_items',
+				'label'        => __( 'FAQ Items', 'brooklyn-beauty' ),
+				'name'         => 'faq_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add FAQ Item', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'   => 'field_brooklyn_beauty_faq_item_question',
+						'label' => __( 'Question', 'brooklyn-beauty' ),
+						'name'  => 'question',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_faq_item_answer',
+						'label' => __( 'Answer', 'brooklyn-beauty' ),
+						'name'  => 'answer',
+						'type'  => 'textarea',
+						'rows'  => 5,
+					),
+				),
 			),
 		),
 		'location'              => array(
