@@ -53,17 +53,17 @@
 
 .bb-header__inner {
 	position: relative;
-	min-height: 106px;
+	min-height: clamp(71px, 5.52vw, 106px);
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: clamp(13px, 1.04vw, 20px);
 	justify-content: space-between;
 }
 
 .bb-header__block {
 	display: inline-flex;
 	align-items: center;
-	gap: 28px;
+	gap: clamp(19px, 1.46vw, 28px);
 }
 
 .bb-header__block--left,
@@ -72,7 +72,7 @@
 }
 
 .bb-header__block--left {
-	gap: 118px;
+	gap: clamp(79px, 6.15vw, 118px);
 }
 
 .bb-header__block--center {
@@ -81,7 +81,7 @@
 
 .bb-header__block--right {
 	justify-content: flex-end;
-	gap: 179px;
+	gap: clamp(119px, 9.32vw, 179px);
 }
 
 .bb-header__logo {
@@ -96,14 +96,14 @@
 }
 
 .bb-header__logo img {
-	max-height: 80px;
+	max-height: clamp(53px, 4.17vw, 80px);
 	width: auto;
 }
 
 .bb-header__meta {
 	display: inline-flex;
 	align-items: center;
-	gap: 30px;
+	gap: clamp(20px, 1.56vw, 30px);
 }
 
 .bb-header__meta-link {
@@ -147,7 +147,7 @@
 .bb-header__menu {
 	display: flex;
 	align-items: center;
-	gap: 40px;
+	gap: clamp(27px, 2.08vw, 40px);
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -198,8 +198,8 @@
 }
 
 .bb-header__social-link {
-	width: 26px;
-	height: 26px;
+	width: clamp(17px, 1.35vw, 26px);
+	height: clamp(17px, 1.35vw, 26px);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -209,8 +209,8 @@
 }
 
 .bb-header__social-link svg {
-	width: 15px;
-	height: 15px;
+	width: clamp(10px, 0.78vw, 15px);
+	height: clamp(10px, 0.78vw, 15px);
 	display: block;
 }
 

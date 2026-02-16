@@ -1,15 +1,15 @@
 .bb-about-us-section {
-	padding: 100px 0;
+	padding: clamp(67px, 5.21vw, 100px) 0;
 	color: #2f2c38;
 }
 
 .bb-about-us {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) 920px;
+	grid-template-columns: minmax(0, 1fr) clamp(613px, 47.92vw, 920px);
 	grid-template-areas:
 		". title"
 		"panel image";
-	gap: 43px 20px;
+	gap: clamp(29px, 2.24vw, 43px) clamp(13px, 1.04vw, 20px);
 	align-items: stretch;
 }
 
@@ -36,15 +36,15 @@
 .bb-about-us__controls {
 	display: flex;
 	align-items: center;
-	gap: 14px;
+	gap: clamp(9px, 0.73vw, 14px);
 	margin: 0;
-	margin-bottom: 16px;
+	margin-bottom: clamp(11px, 0.83vw, 16px);
 	z-index: 2;
 }
 
 .bb-about-us__arrow {
-	width: 60px;
-	height: 39px;
+	width: clamp(40px, 3.13vw, 60px);
+	height: clamp(26px, 2.03vw, 39px);
 	border: 0;
 	background-color: transparent;
 	background-repeat: no-repeat;
@@ -103,13 +103,13 @@
 .bb-about-us__slide-top {
 	display: grid;
 	grid-template-columns: max-content minmax(0, 1fr);
-	gap: 116px;
+	gap: clamp(77px, 6.04vw, 116px);
 	align-items: start;
 }
 
 .bb-about-us__portrait-wrap {
 	width: max-content;
-	height: 400px;
+	height: clamp(267px, 20.83vw, 400px);
 }
 
 .bb-about-us__portrait {
@@ -171,10 +171,10 @@
 
 .bb-about-us__text-columns {
 	margin-top: auto;
-	padding-top: 40px;
+	padding-top: clamp(27px, 2.08vw, 40px);
 	display: grid;
-	grid-template-columns: 375px minmax(0, 1fr);
-	gap: 36px;
+	grid-template-columns: clamp(250px, 19.53vw, 375px) minmax(0, 1fr);
+	gap: clamp(24px, 1.88vw, 36px);
 }
 
 .bb-about-us__text-column {
@@ -192,8 +192,8 @@
 
 .bb-about-us__image-wrap {
 	grid-area: image;
-	width: 920px;
-	height: 880px;
+	width: clamp(613px, 47.92vw, 920px);
+	height: clamp(587px, 45.83vw, 880px);
 	position: relative;
 	overflow: hidden;
 }
