@@ -5,6 +5,7 @@
 	gap: 12px;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
 	text-transform: lowercase;
 }
 

@@ -36,14 +36,12 @@
 
 .bb-services-hero__media {
 	position: absolute;
-	left: 50%;
+	left: calc(50% + 50px);
 	bottom: 0;
 	width: clamp(313px, 27.14vw, 521px);
 	max-width: 100%;
 	transform: translateX(-50%);
 	background: var(--color-surface);
-	border: 1px solid var(--color-overlay-primary);
-	box-shadow: 0 18px 40px var(--color-overlay-primary);
 	overflow: hidden;
 }
 

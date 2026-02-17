@@ -3,6 +3,10 @@
 	background: var(--color-surface-alt);
 	border-bottom: 1px solid var(--color-text);
 	transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, backdrop-filter 0.3s ease;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 20;
 }
 
 .bb-header--scrolled {
@@ -33,12 +37,12 @@
 	transform: translateY(-100%);
 }
 
-.home .bb-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 20;
+.bb-main {
+	padding-top: var(--bb-header-height, clamp(71px, 5.52vw, 106px));
+}
+
+.home .bb-main {
+	padding-top: 0;
 }
 
 .home .bb-header:not(.bb-header--past-hero) .bb-header__logo .custom-logo-link,
