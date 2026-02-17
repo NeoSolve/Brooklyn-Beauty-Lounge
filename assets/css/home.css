@@ -11,8 +11,8 @@
 
 .bb-promo,
 .bb-review {
-	background: #fff;
-	border: 1px solid rgba(0, 0, 0, 0.08);
+	background: var(--color-surface-strong);
+	border: 1px solid var(--color-overlay-black-08);
 	padding: 18px;
 	border-radius: 8px;
 }
@@ -23,7 +23,7 @@
 }
 
 .bb-faq__item {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid var(--color-overlay-black-10);
 	padding: 12px 0;
 }
 

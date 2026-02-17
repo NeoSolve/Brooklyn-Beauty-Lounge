@@ -112,7 +112,9 @@ add_action( 'init', 'brooklyn_beauty_register_services_content' );
 function brooklyn_beauty_assets() {
 	$css_path              = get_template_directory() . '/assets/css/main.css';
 	$home_css_path         = get_template_directory() . '/assets/css/home.css';
+	$services_page_css_path = get_template_directory() . '/assets/css/services-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
+	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$services_tabs_js_path = get_template_directory() . '/assets/js/services-tabs.js';
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
 	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
@@ -152,6 +154,15 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
+	if ( is_page_template( 'page-services.php' ) && file_exists( $services_page_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-services-page',
+			get_template_directory_uri() . '/assets/css/services-page.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $services_page_css_path )
+		);
+	}
+
 	if ( file_exists( $js_path ) ) {
 		wp_enqueue_script(
 			'brooklyn-beauty-main',
@@ -171,7 +182,17 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( is_front_page() && file_exists( $services_tabs_js_path ) ) {
+		if ( is_page_template( 'page-services.php' ) && file_exists( $services_page_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-services-page',
+				get_template_directory_uri() . '/assets/js/services-page/main.js',
+				array( 'brooklyn-beauty-main' ),
+				(string) filemtime( $services_page_js_path ),
+				true
+			);
+		}
+
+		if ( ( is_front_page() || is_page_template( 'page-services.php' ) ) && file_exists( $services_tabs_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-services-tabs',
 				get_template_directory_uri() . '/assets/js/services-tabs.js',
@@ -649,6 +670,15 @@ function brooklyn_beauty_register_acf_field_groups() {
 				),
 			),
 			array(
+				'key'   => 'field_brooklyn_beauty_footer_press_title_link',
+				'label' => __( 'Footer Press Title Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_press_title_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '50',
+				),
+			),
+			array(
 				'key'           => 'field_brooklyn_beauty_footer_press_subtitle_image',
 				'label'         => __( 'Footer Press Subtitle Image', 'brooklyn-beauty' ),
 				'name'          => 'footer_press_subtitle_image',
@@ -657,6 +687,15 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'preview_size'  => 'medium',
 				'library'       => 'all',
 				'wrapper'       => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_press_subtitle_link',
+				'label' => __( 'Footer Press Subtitle Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_press_subtitle_link',
+				'type'  => 'url',
+				'wrapper' => array(
 					'width' => '50',
 				),
 			),

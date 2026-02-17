@@ -108,7 +108,7 @@ if ( function_exists( 'get_field' ) ) {
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="bb-header">
+<header class="bb-header<?php echo '' !== $header_logo_alt_src ? ' bb-header--has-alt-logo' : ''; ?>">
 	<div class="bb-container bb-header__inner">
 		<div class="bb-header__block bb-header__block--left">
 			<div class="bb-header__logo">

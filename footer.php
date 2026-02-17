@@ -32,6 +32,8 @@ $footer_press_title_image_uri    = '';
 $footer_press_subtitle_image_uri = '';
 $footer_press_title_alt          = '';
 $footer_press_subtitle_alt       = '';
+$footer_press_title_link         = '';
+$footer_press_subtitle_link      = '';
 
 $footer_made_by_text      = '';
 $footer_made_by_link_text = '';
@@ -121,6 +123,8 @@ if ( function_exists( 'get_field' ) ) {
 
 	$acf_featured_label = trim( (string) get_field( 'footer_featured_label', 'option' ) );
 	$footer_featured_label = $acf_featured_label;
+	$footer_press_title_link    = trim( (string) get_field( 'footer_press_title_link', 'option' ) );
+	$footer_press_subtitle_link = trim( (string) get_field( 'footer_press_subtitle_link', 'option' ) );
 
 	$acf_title_image_id = (int) get_field( 'footer_press_title_image', 'option' );
 	if ( $acf_title_image_id > 0 ) {
@@ -296,12 +300,24 @@ if ( function_exists( 'get_field' ) ) {
 						<?php endif; ?>
 						<?php if ( '' !== $footer_press_title_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--top">
-								<img src="<?php echo esc_url( $footer_press_title_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_title_alt ); ?>" loading="lazy">
+								<?php if ( '' !== $footer_press_title_link ) : ?>
+									<a href="<?php echo esc_url( $footer_press_title_link ); ?>" target="_blank" rel="noopener noreferrer">
+										<img src="<?php echo esc_url( $footer_press_title_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_title_alt ); ?>" loading="lazy">
+									</a>
+								<?php else : ?>
+									<img src="<?php echo esc_url( $footer_press_title_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_title_alt ); ?>" loading="lazy">
+								<?php endif; ?>
 							</div>
 						<?php endif; ?>
 						<?php if ( '' !== $footer_press_subtitle_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--bottom">
-								<img src="<?php echo esc_url( $footer_press_subtitle_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_subtitle_alt ); ?>" loading="lazy">
+								<?php if ( '' !== $footer_press_subtitle_link ) : ?>
+									<a href="<?php echo esc_url( $footer_press_subtitle_link ); ?>" target="_blank" rel="noopener noreferrer">
+										<img src="<?php echo esc_url( $footer_press_subtitle_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_subtitle_alt ); ?>" loading="lazy">
+									</a>
+								<?php else : ?>
+									<img src="<?php echo esc_url( $footer_press_subtitle_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_subtitle_alt ); ?>" loading="lazy">
+								<?php endif; ?>
 							</div>
 						<?php endif; ?>
 					</div>
