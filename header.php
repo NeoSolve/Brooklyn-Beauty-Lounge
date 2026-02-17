@@ -37,8 +37,29 @@ $header_social_items = array(
 
 $header_button_text = __( 'book now', 'brooklyn-beauty' );
 $header_button_link = '#book';
+$header_logo_alt_src = '';
+$header_logo_alt_alt = get_bloginfo( 'name' );
 
 if ( function_exists( 'get_field' ) ) {
+	$acf_header_logo_alt = get_field( 'header_logo_alt', 'option' );
+	if ( is_numeric( $acf_header_logo_alt ) ) {
+		$header_logo_alt_id  = (int) $acf_header_logo_alt;
+		$header_logo_alt_src = (string) wp_get_attachment_image_url( $header_logo_alt_id, 'full' );
+		$alt_text            = get_post_meta( $header_logo_alt_id, '_wp_attachment_image_alt', true );
+		if ( is_string( $alt_text ) && '' !== trim( $alt_text ) ) {
+			$header_logo_alt_alt = $alt_text;
+		}
+	} elseif ( is_array( $acf_header_logo_alt ) ) {
+		if ( ! empty( $acf_header_logo_alt['url'] ) ) {
+			$header_logo_alt_src = (string) $acf_header_logo_alt['url'];
+		}
+		if ( ! empty( $acf_header_logo_alt['alt'] ) && is_string( $acf_header_logo_alt['alt'] ) ) {
+			$header_logo_alt_alt = $acf_header_logo_alt['alt'];
+		}
+	} elseif ( is_string( $acf_header_logo_alt ) && '' !== trim( $acf_header_logo_alt ) ) {
+		$header_logo_alt_src = $acf_header_logo_alt;
+	}
+
 	$acf_meta_items = get_field( 'header_meta_items', 'option' );
 	if ( ! empty( $acf_meta_items ) && is_array( $acf_meta_items ) ) {
 		$header_meta_items = array_values(
@@ -92,7 +113,14 @@ if ( function_exists( 'get_field' ) ) {
 		<div class="bb-header__block bb-header__block--left">
 			<div class="bb-header__logo">
 				<?php if ( has_custom_logo() ) : ?>
-					<?php the_custom_logo(); ?>
+					<span class="bb-header__logo-default">
+						<?php the_custom_logo(); ?>
+					</span>
+					<?php if ( '' !== $header_logo_alt_src ) : ?>
+						<a class="bb-header__logo-alt custom-logo-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+							<img class="custom-logo" src="<?php echo esc_url( $header_logo_alt_src ); ?>" alt="<?php echo esc_attr( $header_logo_alt_alt ); ?>">
+						</a>
+					<?php endif; ?>
 				<?php else : ?>
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
 				<?php endif; ?>

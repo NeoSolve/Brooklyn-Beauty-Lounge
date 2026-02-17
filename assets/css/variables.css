@@ -1,6 +1,6 @@
 :root {
 	--color-primary: #2f2c38;
-	--color-text: #505050;
+	--color-text: rgb(80, 80, 80);
 	--color-text-strong: #737373;
 	--color-text-muted: #9f9e9e;
 	--color-overlay-text: rgba(80, 80, 80, 0.4);

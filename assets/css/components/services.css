@@ -184,12 +184,16 @@
 
 .bb-service-card__visit-btn {
 	min-width: clamp(136px, 10.63vw, 204px);
+	padding-inline: 116px;
 	border-color: transparent;
+	box-shadow: inset 0 0 0 0 var(--color-surface);
+	transition: box-shadow 0.15s ease;
 }
 
-.bb-service-card__visit-btn:hover {
-	box-shadow: none;
-	border-color: #8f0307;
+.bb-service-card__visit-btn:hover,
+.bb-service-card__visit-btn:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-surface);
+	border-color: transparent;
 }
 
 .bb-service-card__more-link {

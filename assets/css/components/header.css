@@ -6,8 +6,20 @@
 }
 
 .bb-header--scrolled {
+	background: var(--color-surface-alt);
+	backdrop-filter: none;
+	border-bottom-color: var(--color-text);
+}
+
+.home .bb-header.bb-header--scrolled:not(.bb-header--past-hero) {
 	background: rgba(255, 255, 255, 0.12);
 	backdrop-filter: blur(9.15px);
+	border-bottom-color: var(--color-surface-overlay);
+}
+
+.home .bb-header.bb-header--scrolled.bb-header--past-hero {
+	background: var(--color-surface-alt);
+	backdrop-filter: none;
 }
 
 .bb-header--hidden {
@@ -93,6 +105,22 @@
 	display: inline-flex;
 	align-items: center;
 	color: var(--color-primary);
+}
+
+.bb-header__logo-default {
+	display: inline-flex;
+}
+
+.bb-header__logo .bb-header__logo-alt {
+	display: none;
+}
+
+.home .bb-header.bb-header--past-hero .bb-header__logo-default {
+	display: none;
+}
+
+.home .bb-header.bb-header--past-hero .bb-header__logo .bb-header__logo-alt {
+	display: inline-flex;
 }
 
 .bb-header__logo img {
@@ -204,8 +232,8 @@
 	align-items: center;
 	justify-content: center;
 	color: var(--color-primary);
-	border-radius: 50%;
-	transition: color var(--transition-base), background-color var(--transition-base);
+	box-shadow: 0 0 0 0 currentColor;
+	transition: box-shadow var(--transition-base);
 }
 
 .bb-header__social-link svg {
@@ -233,8 +261,7 @@
 }
 
 .bb-header__social-link:hover {
-	color: var(--color-surface);
-	background: var(--color-primary);
+	box-shadow: 0 0 0 1px currentColor;
 }
 
 @media (max-width: 1180px) {
