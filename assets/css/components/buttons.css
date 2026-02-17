@@ -67,7 +67,8 @@
 }
 
 .btn--white:hover {
-	background: var(--color-primary);
-	border-color: var(--color-surface);
-	color: var(--color-surface);
+	background: var(--color-surface);
+	border-color: transparent;
+	color: var(--color-primary);
+	box-shadow: 0 0 0 2px var(--color-primary);
 }

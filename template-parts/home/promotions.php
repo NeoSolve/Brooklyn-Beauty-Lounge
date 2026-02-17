@@ -124,7 +124,7 @@ if ( '' !== $section_background_image ) {
 				<?php foreach ( $slides as $index => $slide ) : ?>
 					<article class="bb-promo-card<?php echo 0 === $index ? ' is-active' : ''; ?>" data-promotion-slide aria-hidden="<?php echo 0 === $index ? 'false' : 'true'; ?>">
 						<?php if ( $slide['card_title'] ) : ?>
-							<h3 class="bb-promo-card__title"><?php echo esc_html( $slide['card_title'] ); ?></h3>
+							<h3 class="bb-promo-card__title"><?php echo wp_kses( $slide['card_title'], array( 'br' => array() ) ); ?></h3>
 						<?php endif; ?>
 
 						<div class="bb-promo-card__images">

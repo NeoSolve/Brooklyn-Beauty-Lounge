@@ -182,6 +182,13 @@ if ( empty( $gallery_images ) && '' !== $main_image_url ) {
 						<?php if ( $right_text ) : ?>
 							<p class="bb-about-us__text"><?php echo esc_html( $right_text ); ?></p>
 						<?php endif; ?>
+						<div class="bb-about-us__signature-block">
+							<p class="bb-about-us__signature-text">
+								<span><?php esc_html_e( 'Look beautiful.', 'brooklyn-beauty' ); ?></span>
+								<span><?php esc_html_e( 'Feel beautiful.', 'brooklyn-beauty' ); ?></span>
+							</p>
+							<img class="bb-about-us__signature-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/signature.png' ); ?>" alt="<?php esc_attr_e( 'Signature', 'brooklyn-beauty' ); ?>" loading="lazy">
+						</div>
 					</div>
 				</div>
 			</div>

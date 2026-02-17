@@ -51,6 +51,7 @@
 
 .bb-faq-layout__badge-subtitle {
 	margin-top: -6px;
+	margin-left: clamp(48px, 4.2vw, 80px);
 	font-family: var(--font-decor);
 	font-size: clamp(32px, 2.2vw, 42px);
 	line-height: 1;

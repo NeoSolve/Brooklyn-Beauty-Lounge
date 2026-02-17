@@ -87,7 +87,8 @@ if ( function_exists( 'get_field' ) ) {
 	}
 }
 ?>
-<section class="bb-our-work-section" id="our-work">
+<?php $play_icon_url = get_template_directory_uri() . '/assets/images/Play Button Container.svg'; ?>
+<section class="bb-our-work-section" id="our-work" data-play-icon-url="<?php echo esc_url( $play_icon_url ); ?>">
 	<div class="bb-container">
 		<div class="bb-our-work__header">
 			<div class="bb-our-work__intro">
@@ -118,8 +119,13 @@ if ( function_exists( 'get_field' ) ) {
 			<?php endif; ?>
 			<div class="bb-work" data-work-track>
 				<?php
-				if ( ! empty( $work_items ) ) :
-					foreach ( array_slice( $work_items, 0, 8 ) as $work_item ) :
+				$work_items_slice = ! empty( $work_items ) ? array_slice( $work_items, 0, 8 ) : array();
+				if ( ! empty( $work_items_slice ) ) :
+					$work_items_count = count( $work_items_slice );
+					$work_index       = 0;
+					foreach ( $work_items_slice as $work_item ) :
+						$work_index++;
+						$is_last = $work_index === $work_items_count;
 						$img = wp_get_attachment_image(
 							$work_item['preview_id'],
 							'large',
@@ -132,16 +138,13 @@ if ( function_exists( 'get_field' ) ) {
 						if ( $img ) :
 							?>
 							<article
-								class="bb-work__item<?php echo $work_item['video_url'] ? ' bb-work__item--has-video' : ''; ?>"
+								class="bb-work__item<?php echo $work_item['video_url'] ? ' bb-work__item--has-video' : ''; ?><?php echo $is_last ? ' bb-work__item--last' : ''; ?>"
 								<?php echo $work_item['video_url'] ? ' data-video-url="' . esc_url( $work_item['video_url'] ) . '"' : ''; ?>
 							>
 								<?php echo $img; ?>
 								<?php if ( $work_item['video_url'] ) : ?>
 									<button class="bb-work__play-btn" type="button" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>">
-										<svg class="bb-work__play-icon" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-											<circle cx="36" cy="36" r="35.5" fill="rgba(255, 254, 244, 0.9)" stroke="rgba(47, 44, 56, 0.08)" />
-											<path d="M30 25.5L47 36L30 46.5V25.5Z" fill="#2F2C38" />
-										</svg>
+										<img class="bb-work__play-icon" src="<?php echo esc_url( $play_icon_url ); ?>" width="80" height="80" alt="" aria-hidden="true">
 									</button>
 								<?php endif; ?>
 							</article>

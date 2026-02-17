@@ -122,6 +122,7 @@ function brooklyn_beauty_assets() {
 	$reviews_js_path       = get_template_directory() . '/assets/js/reviews.js';
 	$book_appointment_js_path = get_template_directory() . '/assets/js/book-appointment.js';
 	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
+	$hero_video_js_path    = get_template_directory() . '/assets/js/hero-video.js';
 	$footer_js_path        = get_template_directory() . '/assets/js/footer.js';
 
 	wp_enqueue_style(
@@ -268,6 +269,16 @@ function brooklyn_beauty_assets() {
 				true
 			);
 		}
+
+		if ( is_front_page() && file_exists( $hero_video_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-hero-video',
+				get_template_directory_uri() . '/assets/js/hero-video.js',
+				array(),
+				(string) filemtime( $hero_video_js_path ),
+				true
+			);
+		}
 	}
 }
 add_action( 'wp_enqueue_scripts', 'brooklyn_beauty_assets' );
@@ -307,8 +318,26 @@ function brooklyn_beauty_register_acf_field_groups() {
 
 	acf_add_local_field_group( array(
 		'key'                   => 'group_brooklyn_beauty_header_settings',
-		'title'                 => __( 'Header Settings', 'brooklyn-beauty' ),
+		'title'                 => __( 'Site Settings', 'brooklyn-beauty' ),
 		'fields'                => array(
+			array(
+				'key'       => 'field_brooklyn_beauty_site_settings_header_tab',
+				'label'     => __( 'Header', 'brooklyn-beauty' ),
+				'name'      => '',
+				'type'      => 'tab',
+				'placement' => 'top',
+				'endpoint'  => 0,
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_header_logo_alt',
+				'label'         => __( 'Header Logo (Solid Background)', 'brooklyn-beauty' ),
+				'name'          => 'header_logo_alt',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Shown when header has a solid background (outside hero blur state).', 'brooklyn-beauty' ),
+			),
 			array(
 				'key'          => 'field_brooklyn_beauty_header_meta_items',
 				'label'        => __( 'Header Meta Items', 'brooklyn-beauty' ),
@@ -387,6 +416,303 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'library'       => 'all',
 				'mime_types'    => 'mp4,webm,m4v,mov,ogg',
 				'instructions'  => __( 'Upload a video file for the homepage hero banner.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'       => 'field_brooklyn_beauty_site_settings_footer_tab',
+				'label'     => __( 'Footer', 'brooklyn-beauty' ),
+				'name'      => '',
+				'type'      => 'tab',
+				'placement' => 'top',
+				'endpoint'  => 0,
+			),
+			array(
+				'key'        => 'field_brooklyn_beauty_footer_cta_accordion',
+				'label'      => __( 'Footer CTA', 'brooklyn-beauty' ),
+				'name'       => '',
+				'type'       => 'accordion',
+				'open'       => 1,
+				'multi_expand' => 1,
+				'endpoint'   => 0,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_tagline',
+				'label' => __( 'Footer Tagline', 'brooklyn-beauty' ),
+				'name'  => 'footer_tagline',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '100',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_button_text',
+				'label' => __( 'Footer Button Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_button_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_button_link',
+				'label' => __( 'Footer Button Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_button_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'        => 'field_brooklyn_beauty_footer_contacts_accordion',
+				'label'      => __( 'Footer Contacts', 'brooklyn-beauty' ),
+				'name'       => '',
+				'type'       => 'accordion',
+				'open'       => 0,
+				'multi_expand' => 1,
+				'endpoint'   => 0,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_address_label',
+				'label' => __( 'Footer Address Label', 'brooklyn-beauty' ),
+				'name'  => 'footer_address_label',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_address_text',
+				'label' => __( 'Footer Address Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_address_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '34',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_address_link',
+				'label' => __( 'Footer Address Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_address_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_phone_label',
+				'label' => __( 'Footer Phone Label', 'brooklyn-beauty' ),
+				'name'  => 'footer_phone_label',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_phone_text',
+				'label' => __( 'Footer Phone Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_phone_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '34',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_phone_link',
+				'label' => __( 'Footer Phone Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_phone_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_email_label',
+				'label' => __( 'Footer Email Label', 'brooklyn-beauty' ),
+				'name'  => 'footer_email_label',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_email_text',
+				'label' => __( 'Footer Email Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_email_text',
+				'type'  => 'email',
+				'wrapper' => array(
+					'width' => '34',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_email_link',
+				'label' => __( 'Footer Email Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_email_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_hours_label',
+				'label' => __( 'Footer Hours Label', 'brooklyn-beauty' ),
+				'name'  => 'footer_hours_label',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_hours_days',
+				'label' => __( 'Footer Hours Days', 'brooklyn-beauty' ),
+				'name'  => 'footer_hours_days',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '34',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_hours_time',
+				'label' => __( 'Footer Hours Time', 'brooklyn-beauty' ),
+				'name'  => 'footer_hours_time',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'        => 'field_brooklyn_beauty_footer_social_accordion',
+				'label'      => __( 'Footer Social', 'brooklyn-beauty' ),
+				'name'       => '',
+				'type'       => 'accordion',
+				'open'       => 0,
+				'multi_expand' => 1,
+				'endpoint'   => 0,
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_footer_social_items',
+				'label'        => __( 'Footer Social Items', 'brooklyn-beauty' ),
+				'name'         => 'footer_social_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Social Item', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_footer_social_icon_image',
+						'label'         => __( 'Icon Image', 'brooklyn-beauty' ),
+						'name'          => 'icon_image',
+						'type'          => 'image',
+						'return_format' => 'id',
+						'preview_size'  => 'thumbnail',
+						'library'       => 'all',
+						'wrapper'       => array(
+							'width' => '50',
+						),
+					),
+					array(
+						'key'   => 'field_brooklyn_beauty_footer_social_link',
+						'label' => __( 'Link', 'brooklyn-beauty' ),
+						'name'  => 'link',
+						'type'  => 'url',
+						'wrapper' => array(
+							'width' => '50',
+						),
+					),
+				),
+			),
+			array(
+				'key'        => 'field_brooklyn_beauty_footer_featured_accordion',
+				'label'      => __( 'Footer Featured', 'brooklyn-beauty' ),
+				'name'       => '',
+				'type'       => 'accordion',
+				'open'       => 0,
+				'multi_expand' => 1,
+				'endpoint'   => 0,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_featured_label',
+				'label' => __( 'Footer Featured Label', 'brooklyn-beauty' ),
+				'name'  => 'footer_featured_label',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '100',
+				),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_footer_press_title_image',
+				'label'         => __( 'Footer Press Title Image', 'brooklyn-beauty' ),
+				'name'          => 'footer_press_title_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'wrapper'       => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_footer_press_subtitle_image',
+				'label'         => __( 'Footer Press Subtitle Image', 'brooklyn-beauty' ),
+				'name'          => 'footer_press_subtitle_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'wrapper'       => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'        => 'field_brooklyn_beauty_footer_bottom_accordion',
+				'label'      => __( 'Footer Bottom', 'brooklyn-beauty' ),
+				'name'       => '',
+				'type'       => 'accordion',
+				'open'       => 0,
+				'multi_expand' => 1,
+				'endpoint'   => 0,
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_made_by_text',
+				'label' => __( 'Footer Made By Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_made_by_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_made_by_link_text',
+				'label' => __( 'Footer Made By Link Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_made_by_link_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '34',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_made_by_link',
+				'label' => __( 'Footer Made By Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_made_by_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '33',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_terms_text',
+				'label' => __( 'Footer Terms Text', 'brooklyn-beauty' ),
+				'name'  => 'footer_terms_text',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '50',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_terms_link',
+				'label' => __( 'Footer Terms Link', 'brooklyn-beauty' ),
+				'name'  => 'footer_terms_link',
+				'type'  => 'url',
+				'wrapper' => array(
+					'width' => '50',
+				),
 			),
 		),
 		'location'              => array(

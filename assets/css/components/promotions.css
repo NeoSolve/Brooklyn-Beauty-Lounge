@@ -6,7 +6,7 @@
 	--bb-promotions-bg-image: none;
 	position: relative;
 	display: grid;
-	grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr) minmax(0, clamp(700px, 46.9vw, 900px));
 	min-height: clamp(373px, 29.17vw, 560px);
 	height: clamp(616px, 48.13vw, 924px);
 	background-image:
@@ -30,6 +30,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	color: #fffef4;
+	max-width: clamp(466px, 40.5vw, 777px);
 }
 
 .bb-promotions__intro {
@@ -90,8 +91,11 @@
 .bb-promotions__right {
 	position: relative;
 	isolation: isolate;
-	background: rgba(174, 5, 10, 0.92);
-	padding: clamp(12px, 0.94vw, 18px) clamp(15px, 1.15vw, 22px);
+	background: var(--color-accent);
+	padding: clamp(19px, 1.7vw, 32px);
+	width: 100%;
+	max-width: clamp(700px, 46.9vw, 900px);
+	min-width: 0;
 }
 
 .bb-promo-card {
@@ -160,7 +164,7 @@
 
 .bb-promo-card__footer {
 	display: flex;
-	align-items: flex-end;
+	align-items: flex-start;
 	justify-content: space-between;
 	gap: clamp(16px, 1.25vw, 24px);
 }
@@ -174,10 +178,6 @@
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
-}
-
-.bb-promo-card__description {
-	margin-top: 6px;
 }
 
 .bb-promo-card__button {
@@ -198,6 +198,10 @@
 @media (max-width: 1024px) {
 	.bb-promotions {
 		grid-template-columns: 1fr;
+	}
+
+	.bb-promotions__right {
+		max-width: none;
 	}
 
 	.bb-promotions__left {
