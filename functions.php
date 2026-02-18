@@ -113,6 +113,7 @@ function brooklyn_beauty_assets() {
 	$css_path              = get_template_directory() . '/assets/css/main.css';
 	$home_css_path         = get_template_directory() . '/assets/css/home.css';
 	$services_page_css_path = get_template_directory() . '/assets/css/services-page.css';
+	$contacts_page_css_path = get_template_directory() . '/assets/css/contacts-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$services_tabs_js_path = get_template_directory() . '/assets/js/services-tabs.js';
@@ -160,6 +161,15 @@ function brooklyn_beauty_assets() {
 			get_template_directory_uri() . '/assets/css/services-page.css',
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $services_page_css_path )
+		);
+	}
+
+	if ( is_page_template( 'page-contacts.php' ) && file_exists( $contacts_page_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-contacts-page',
+			get_template_directory_uri() . '/assets/css/contacts-page.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $contacts_page_css_path )
 		);
 	}
 

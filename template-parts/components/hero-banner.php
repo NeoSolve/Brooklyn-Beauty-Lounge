@@ -1,6 +1,6 @@
 <?php
 /**
- * Services page hero banner.
+ * Shared page hero banner.
  *
  * @package Brooklyn_Beauty
  */
@@ -15,6 +15,11 @@ $hero_image_url   = '';
 $hero_image_alt   = $hero_title ? $hero_title : get_bloginfo( 'name' );
 
 if ( function_exists( 'get_field' ) ) {
+	$acf_hero_title = trim( (string) get_field( 'services_hero_title', $page_id ) );
+	if ( '' !== $acf_hero_title ) {
+		$hero_title = $acf_hero_title;
+	}
+
 	$acf_hero_tagline = trim( (string) get_field( 'services_hero_tagline', $page_id ) );
 	if ( '' !== $acf_hero_tagline ) {
 		$hero_tagline = $acf_hero_tagline;

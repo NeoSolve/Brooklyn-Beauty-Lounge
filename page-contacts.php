@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Services Page
+ * Template Name: Contacts Page
  *
- * Services page template.
+ * Contacts page template.
  *
  * @package Brooklyn_Beauty
  */
@@ -12,7 +12,7 @@ get_header();
 
 <?php
 get_template_part( 'template-parts/components/hero-banner' );
-get_template_part( 'template-parts/home/services' );
+get_template_part( 'template-parts/contacts/location' );
 ?>
 
 <?php
