@@ -1,21 +1,20 @@
 .bb-contacts-location {
-	padding: clamp(44px, 3.44vw, 66px) 0 clamp(62px, 4.9vw, 94px);
+	padding: clamp(60px, 5.2vw, 100px) 0;
 }
 
 .bb-contacts-location__frame {
+	background: var(--color-accent);
 	display: grid;
 	grid-template-columns: minmax(320px, 48%) minmax(360px, 1fr);
-	border: clamp(6px, 0.63vw, 12px) solid var(--color-accent);
+	padding: 20px 20px 20px 52px;
 }
 
 .bb-contacts-location__content {
-	background: var(--color-accent);
 	color: var(--color-surface-strong);
-	padding: clamp(28px, 2.5vw, 48px) clamp(28px, 2.71vw, 52px) clamp(24px, 2.29vw, 44px);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-height: clamp(320px, 31.25vw, 600px);
+	min-height: clamp(460px, 40vw, 768px);
 }
 
 .bb-contacts-location__info {
@@ -26,23 +25,23 @@
 
 .bb-contacts-location__block {
 	display: grid;
-	gap: clamp(6px, 0.52vw, 10px);
+	gap: clamp(5px, 0.42vw, 8px);
 }
 
 .bb-contacts-location__label {
 	margin: 0;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
 	text-transform: lowercase;
-	color: var(--color-overlay-light-80);
+	color: var(--color-surface);
 }
 
 .bb-contacts-location__value {
 	margin: 0;
-	font-size: var(--fs-h5);
-	line-height: 1;
-	font-weight: var(--fw-h5-semibold);
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4-semibold);
+	font-weight: var(--fw-h4-semibold);
 	color: var(--color-surface-strong);
 	text-wrap: balance;
 }
@@ -59,13 +58,12 @@
 }
 
 .bb-contacts-location__title {
-	margin: clamp(24px, 2.08vw, 40px) 0 0;
+	margin: clamp(24px, 2.08vw, 40px) 0 clamp(19px, 1.67vw, 32px) 0;
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
 	color: var(--color-surface-strong);
 	text-transform: lowercase;
-	letter-spacing: -0.02em;
 }
 
 .bb-contacts-location__map-wrap {

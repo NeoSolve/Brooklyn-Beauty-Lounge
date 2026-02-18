@@ -1,6 +1,8 @@
-.bb-services-hero {
+.bb-services-hero,
+.page-template-page-services .bb-services-hero,
+.page-template-page-contacts .bb-services-hero {
 	background: var(--color-surface-alt);
-	padding: 16px 0 0;
+	padding: 16px 0 clamp(60px, 5.2vw, 100px) 0;
 	overflow: hidden;
 }
 
@@ -113,10 +115,6 @@
 }
 
 @media (max-width: 992px) {
-	.bb-services-hero {
-		padding-bottom: 44px;
-	}
-
 	.bb-services-hero__stage {
 		min-height: 0;
 		padding-top: 0;
