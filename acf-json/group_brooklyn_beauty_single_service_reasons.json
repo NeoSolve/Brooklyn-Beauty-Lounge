@@ -54,7 +54,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "40",
                         "class": "",
                         "id": ""
                     },
@@ -63,7 +63,100 @@
                     "rows": 2,
                     "placeholder": "",
                     "new_lines": "",
-                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_items"
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections"
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_reasons_section_item_image",
+                    "label": "Section Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_reasons_section_items",
+                    "label": "Section Items",
+                    "name": "items",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "row",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "field_brooklyn_beauty_single_service_reasons_section_subitem_title",
+                    "button_label": "Add Item",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections",
+                    "sub_fields": [
+                        {
+                            "key": "field_brooklyn_beauty_single_service_reasons_section_subitem_title",
+                            "label": "Item Title",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_reasons_section_items"
+                        },
+                        {
+                            "key": "field_brooklyn_beauty_single_service_reasons_section_subitem_text",
+                            "label": "Item Text",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "70",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "placeholder": "",
+                            "new_lines": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_reasons_section_items"
+                        }
+                    ]
                 }
             ]
         },

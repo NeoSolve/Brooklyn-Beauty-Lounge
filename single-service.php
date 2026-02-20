@@ -204,6 +204,11 @@ while ( have_posts() ) :
 
 	<?php
 	get_template_part(
+		'template-parts/single-service/explore',
+		null,
+		array( 'service_id' => $service_id )
+	);
+	get_template_part(
 		'template-parts/single-service/reasons',
 		null,
 		array( 'service_id' => $service_id )
@@ -215,6 +220,11 @@ while ( have_posts() ) :
 			'service_id'    => $service_id,
 			'service_title' => $service_title,
 		)
+	);
+	get_template_part(
+		'template-parts/single-service/prices',
+		null,
+		array( 'service_id' => $service_id )
 	);
 	?>
 

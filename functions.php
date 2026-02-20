@@ -114,8 +114,10 @@ function brooklyn_beauty_assets() {
 	$home_css_path         = get_template_directory() . '/assets/css/home.css';
 	$services_page_css_path = get_template_directory() . '/assets/css/services-page.css';
 	$single_service_css_path = get_template_directory() . '/assets/css/single-service.css';
+	$single_service_prices_css_path = get_template_directory() . '/assets/css/single-service/prices.css';
 	$single_service_why_choose_css_path = get_template_directory() . '/assets/css/single-service/why-choose.css';
 	$single_service_reasons_css_path    = get_template_directory() . '/assets/css/single-service/reasons.css';
+	$single_service_explore_css_path    = get_template_directory() . '/assets/css/single-service/explore.css';
 	$services_archive_css_path = get_template_directory() . '/assets/css/services-archive.css';
 	$contacts_page_css_path = get_template_directory() . '/assets/css/contacts-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
@@ -187,12 +189,30 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
+	if ( is_singular( 'service' ) && file_exists( $single_service_prices_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-single-service-prices',
+			get_template_directory_uri() . '/assets/css/single-service/prices.css',
+			array( 'brooklyn-beauty-single-service' ),
+			(string) filemtime( $single_service_prices_css_path )
+		);
+	}
+
 	if ( is_singular( 'service' ) && file_exists( $single_service_reasons_css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-single-service-reasons',
 			get_template_directory_uri() . '/assets/css/single-service/reasons.css',
 			array( 'brooklyn-beauty-single-service' ),
 			(string) filemtime( $single_service_reasons_css_path )
+		);
+	}
+
+	if ( is_singular( 'service' ) && file_exists( $single_service_explore_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-single-service-explore',
+			get_template_directory_uri() . '/assets/css/single-service/explore.css',
+			array( 'brooklyn-beauty-single-service' ),
+			(string) filemtime( $single_service_explore_css_path )
 		);
 	}
 
@@ -364,6 +384,32 @@ function brooklyn_beauty_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'brooklyn_beauty_assets' );
+
+/**
+ * Enqueue admin scripts for ACF editing UX.
+ *
+ * @param string $hook_suffix Current admin page hook suffix.
+ *
+ * @return void
+ */
+function brooklyn_beauty_admin_assets( $hook_suffix ) {
+	if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
+		return;
+	}
+
+	$acf_repeater_duplicate_js_path = get_template_directory() . '/assets/js/admin/acf-repeater-duplicate.js';
+
+	if ( file_exists( $acf_repeater_duplicate_js_path ) ) {
+		wp_enqueue_script(
+			'brooklyn-beauty-acf-repeater-duplicate',
+			get_template_directory_uri() . '/assets/js/admin/acf-repeater-duplicate.js',
+			array( 'jquery', 'acf-input' ),
+			(string) filemtime( $acf_repeater_duplicate_js_path ),
+			true
+		);
+	}
+}
+add_action( 'admin_enqueue_scripts', 'brooklyn_beauty_admin_assets' );
 
 /**
  * Disable Gutenberg block editors.

@@ -1,0 +1,292 @@
+{
+    "key": "group_brooklyn_beauty_single_service_explore",
+    "title": "Single Service Explore",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_single_service_explore_headline",
+            "label": "Headline",
+            "name": "service_explore_headline",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "types of hair services we offer",
+            "maxlength": "",
+            "rows": 2,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_explore_label",
+            "label": "Decorative Label",
+            "name": "service_explore_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "explore",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_explore_label_icon",
+            "label": "Label Icon",
+            "name": "service_explore_label_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional small round icon near the 'explore' label.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "thumbnail",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_explore_sections",
+            "label": "Sections",
+            "name": "service_explore_sections",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Examples: Haircuts, Hair Coloring Services, etc.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Section",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_single_service_explore_section_number",
+                    "label": "Section Number",
+                    "name": "section_number",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Example: 001. If empty, number is generated automatically.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "15",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "001",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_explore_sections"
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_explore_section_title",
+                    "label": "Section Title",
+                    "name": "section_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "45",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Haircuts",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_explore_sections"
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_explore_section_image",
+                    "label": "Section Image",
+                    "name": "section_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_explore_sections",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_explore_section_intro",
+                    "label": "Section Intro",
+                    "name": "section_intro",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_explore_sections"
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_explore_items",
+                    "label": "Items",
+                    "name": "items",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add Item",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_brooklyn_beauty_single_service_explore_sections",
+                    "sub_fields": [
+                        {
+                            "key": "field_brooklyn_beauty_single_service_explore_item_title",
+                            "label": "Title",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "35",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "Haircuts",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_explore_items"
+                        },
+                        {
+                            "key": "field_brooklyn_beauty_single_service_explore_item_description",
+                            "label": "Description",
+                            "name": "description",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "placeholder": "",
+                            "new_lines": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_explore_items"
+                        },
+                        {
+                            "key": "field_brooklyn_beauty_single_service_explore_item_text",
+                            "label": "Legacy Text (Optional)",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Backward compatibility field. Leave empty for new data.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_explore_items"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1771618703
+}
