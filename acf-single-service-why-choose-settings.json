@@ -1,0 +1,153 @@
+[
+  {
+    "key": "group_brooklyn_beauty_single_service_why_choose",
+    "title": "Single Service Why Choose",
+    "fields": [
+      {
+        "key": "field_brooklyn_beauty_single_service_why_choose_title",
+        "label": "Section Title",
+        "name": "service_why_choose_title",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "why to choose brooklyn beauty lounge for this service?",
+        "maxlength": "",
+        "rows": 2,
+        "placeholder": "",
+        "new_lines": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_single_service_why_choose_label",
+        "label": "Decorative Label",
+        "name": "service_why_choose_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "what sets us apart",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_single_service_why_choose_items",
+        "label": "Cards",
+        "name": "service_why_choose_items",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "row",
+        "pagination": 0,
+        "min": 0,
+        "max": 6,
+        "collapsed": "",
+        "button_label": "Add Card",
+        "rows_per_page": 20,
+        "sub_fields": [
+          {
+            "key": "field_brooklyn_beauty_single_service_why_choose_item_number",
+            "label": "Number",
+            "name": "number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Example: 001",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "parent_repeater": "field_brooklyn_beauty_single_service_why_choose_items"
+          },
+          {
+            "key": "field_brooklyn_beauty_single_service_why_choose_item_title",
+            "label": "Title",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "40",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "parent_repeater": "field_brooklyn_beauty_single_service_why_choose_items"
+          },
+          {
+            "key": "field_brooklyn_beauty_single_service_why_choose_item_text",
+            "label": "Text",
+            "name": "text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "40",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": "",
+            "parent_repeater": "field_brooklyn_beauty_single_service_why_choose_items"
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "service"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]

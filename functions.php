@@ -113,6 +113,9 @@ function brooklyn_beauty_assets() {
 	$css_path              = get_template_directory() . '/assets/css/main.css';
 	$home_css_path         = get_template_directory() . '/assets/css/home.css';
 	$services_page_css_path = get_template_directory() . '/assets/css/services-page.css';
+	$single_service_css_path = get_template_directory() . '/assets/css/single-service.css';
+	$single_service_why_choose_css_path = get_template_directory() . '/assets/css/single-service/why-choose.css';
+	$services_archive_css_path = get_template_directory() . '/assets/css/services-archive.css';
 	$contacts_page_css_path = get_template_directory() . '/assets/css/contacts-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
@@ -161,6 +164,33 @@ function brooklyn_beauty_assets() {
 			get_template_directory_uri() . '/assets/css/services-page.css',
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $services_page_css_path )
+		);
+	}
+
+	if ( is_singular( 'service' ) && file_exists( $single_service_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-single-service',
+			get_template_directory_uri() . '/assets/css/single-service.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $single_service_css_path )
+		);
+	}
+
+	if ( is_singular( 'service' ) && file_exists( $single_service_why_choose_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-single-service-why-choose',
+			get_template_directory_uri() . '/assets/css/single-service/why-choose.css',
+			array( 'brooklyn-beauty-single-service' ),
+			(string) filemtime( $single_service_why_choose_css_path )
+		);
+	}
+
+	if ( is_post_type_archive( 'service' ) && file_exists( $services_archive_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-services-archive',
+			get_template_directory_uri() . '/assets/css/services-archive.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $services_archive_css_path )
 		);
 	}
 
@@ -1044,6 +1074,157 @@ function brooklyn_beauty_register_acf_field_groups() {
 					'param'    => 'page_type',
 					'operator' => '==',
 					'value'    => 'front_page',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_single_service_hero',
+		'title'                 => __( 'Single Service Hero', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_hero_image',
+				'label'         => __( 'Hero Image Override', 'brooklyn-beauty' ),
+				'name'          => 'service_hero_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+				'instructions'  => __( 'Optional. If empty, featured image is used.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_hero_tagline',
+				'label'         => __( 'Tagline', 'brooklyn-beauty' ),
+				'name'          => 'service_hero_tagline',
+				'type'          => 'textarea',
+				'default_value' => __( 'be fabulous with brooklyn beauty lounge!', 'brooklyn-beauty' ),
+				'rows'          => 2,
+				'new_lines'     => '',
+				'instructions'  => __( 'HTML is allowed (for example: <br> for a line break).', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_single_service_hero_intro_left',
+				'label' => __( 'Left Intro Text', 'brooklyn-beauty' ),
+				'name'  => 'service_hero_intro_left',
+				'type'  => 'textarea',
+				'rows'  => 4,
+				'instructions' => __( 'Left text column in hero. If empty, generated from content.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_single_service_hero_intro_right',
+				'label' => __( 'Right Intro Text', 'brooklyn-beauty' ),
+				'name'  => 'service_hero_intro_right',
+				'type'  => 'textarea',
+				'rows'  => 4,
+				'instructions' => __( 'Right text column in hero. If empty, generated from content.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_hero_button_text',
+				'label'         => __( 'Button Text', 'brooklyn-beauty' ),
+				'name'          => 'service_hero_button_text',
+				'type'          => 'text',
+				'default_value' => __( 'book now', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_hero_button_link',
+				'label'         => __( 'Button Link', 'brooklyn-beauty' ),
+				'name'          => 'service_hero_button_link',
+				'type'          => 'text',
+				'default_value' => '/#book',
+				'instructions'  => __( 'Use URL or section id, e.g. /#book or #book.', 'brooklyn-beauty' ),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'service',
+				),
+			),
+		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_single_service_why_choose',
+		'title'                 => __( 'Single Service Why Choose', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_why_choose_title',
+				'label'         => __( 'Section Title', 'brooklyn-beauty' ),
+				'name'          => 'service_why_choose_title',
+				'type'          => 'textarea',
+				'rows'          => 2,
+				'new_lines'     => '',
+				'default_value' => __( 'why to choose brooklyn beauty lounge for this service?', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_why_choose_label',
+				'label'         => __( 'Decorative Label', 'brooklyn-beauty' ),
+				'name'          => 'service_why_choose_label',
+				'type'          => 'text',
+				'default_value' => __( 'what sets us apart', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_single_service_why_choose_items',
+				'label'        => __( 'Cards', 'brooklyn-beauty' ),
+				'name'         => 'service_why_choose_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Card', 'brooklyn-beauty' ),
+				'min'          => 0,
+				'max'          => 6,
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_single_service_why_choose_item_number',
+						'label'         => __( 'Number', 'brooklyn-beauty' ),
+						'name'          => 'number',
+						'type'          => 'text',
+						'default_value' => '',
+						'instructions'  => __( 'Optional. Example: 001', 'brooklyn-beauty' ),
+						'wrapper'       => array(
+							'width' => '20',
+						),
+					),
+					array(
+						'key'     => 'field_brooklyn_beauty_single_service_why_choose_item_title',
+						'label'   => __( 'Title', 'brooklyn-beauty' ),
+						'name'    => 'title',
+						'type'    => 'text',
+						'wrapper' => array(
+							'width' => '40',
+						),
+					),
+					array(
+						'key'     => 'field_brooklyn_beauty_single_service_why_choose_item_text',
+						'label'   => __( 'Text', 'brooklyn-beauty' ),
+						'name'    => 'text',
+						'type'    => 'textarea',
+						'rows'    => 4,
+						'wrapper' => array(
+							'width' => '40',
+						),
+					),
+				),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'service',
 				),
 			),
 		),
