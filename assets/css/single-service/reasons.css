@@ -4,7 +4,7 @@
 
 .single-service .bb-service-reasons {
 	overflow: hidden;
-	padding: clamp(60px, 3.75vw, 100px) 0 clamp(60px, 3.75vw, 100px) 0;
+	padding: clamp(60px, 5.2vw, 100px) 0 clamp(60px, 5.2vw, 100px) 0;
 }
 
 /* — Headline block (white background) — */

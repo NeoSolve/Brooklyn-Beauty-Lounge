@@ -91,7 +91,7 @@ $heart_icon_url = get_template_directory_uri() . '/assets/images/heart.svg';
 <section class="bb-service-reasons" aria-labelledby="bb-service-reasons-heading">
 	<div class="bb-service-reasons__headline-wrap">
 		<div class="bb-container">
-			<h2 id="bb-service-reasons-heading" class="bb-service-reasons__headline"><?php echo esc_html( $headline ); ?></h2>
+			<h2 id="bb-service-reasons-heading" class="bb-service-reasons__headline"><?php echo wp_kses( $headline, array( 'br' => array() ) ); ?></h2>
 		</div>
 	</div>
 

@@ -152,7 +152,7 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 
 			<div class="bb-service-explore__content">
 				<h2 id="bb-service-explore-heading" class="bb-service-explore__headline">
-					<?php echo esc_html( $headline ); ?>
+					<?php echo wp_kses( $headline, array( 'br' => array() ) ); ?>
 				</h2>
 
 				<div class="bb-service-explore__right" role="region" aria-label="<?php esc_attr_e( 'Service sections', 'brooklyn-beauty' ); ?>">

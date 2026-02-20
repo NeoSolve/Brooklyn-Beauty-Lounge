@@ -3,12 +3,12 @@
  */
 
 .single-service .bb-service-explore {
-	padding: clamp(52px, 4vw, 88px) 0;
+	padding: clamp(60px, 5.2vw, 100px) 0 clamp(60px, 5.2vw, 100px) 0;
 }
 
 .single-service .bb-service-explore__grid {
 	display: grid;
-	grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
+	grid-template-columns: minmax(250px, 414px) minmax(0, 1fr);
 	gap: clamp(22px, 2.6vw, 44px);
 }
 
@@ -21,15 +21,16 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
-	margin: 0 0 clamp(18px, 2vw, 28px) 0;
+	margin: clamp(157px, 13.65vw, 262px) 0 clamp(18px, 2vw, 28px) 0;
 }
 
 .single-service .bb-service-explore__label {
 	margin: 0;
 	color: var(--color-accent);
 	text-transform: lowercase;
-	font-size: clamp(28px, 2.2vw, 40px);
-	line-height: 1;
+	font-size: var(--fs-decor);
+	line-height: var(--lh-decor);
+	font-weight: var(--fw-decor);
 }
 
 .single-service .bb-service-explore__label-icon {
@@ -44,8 +45,8 @@
 .single-service .bb-service-explore__headline {
 	margin: 0 0 clamp(20px, 2vw, 34px) 0;
 	max-width: 16ch;
-	font-size: clamp(42px, 4.4vw, 82px);
-	line-height: 0.92;
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
@@ -59,9 +60,8 @@
 }
 
 .single-service .bb-service-explore__section {
-	padding: clamp(14px, 1.3vw, 18px) 0 clamp(28px, 2.7vw, 44px) 0;
-	margin: 0 0 clamp(12px, 1.3vw, 20px) 0;
-	border-top: 2px solid var(--color-accent);
+	padding: clamp(14px, 1.25vw, 24px) 0 clamp(29px, 2.5vw, 48px) 0;
+	border-top: 4px solid var(--color-accent);
 }
 
 .single-service .bb-service-explore__section:last-child {
@@ -70,17 +70,17 @@
 
 .single-service .bb-service-explore__section-head {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) clamp(190px, 23vw, 340px);
-	gap: clamp(18px, 2.2vw, 34px);
+	grid-template-columns: minmax(0, 1fr) clamp(283px, 24.58vw, 472px);
+	gap: clamp(131px, 11.4vw, 219px);
 	align-items: start;
 	margin: 0 0 clamp(20px, 2vw, 32px) 0;
 }
 
 .single-service .bb-service-explore__section-title {
-	margin: 0 0 clamp(10px, 1.1vw, 16px) 0;
-	font-size: clamp(34px, 3vw, 56px);
-	line-height: 1;
-	font-weight: var(--fw-h2-semibold);
+	margin: 0 0 clamp(14px, 1.25vw, 24px) 0;
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3-semibold);
+	font-weight: var(--fw-h3-semibold);
 	color: var(--color-accent);
 	text-transform: lowercase;
 }
@@ -96,14 +96,15 @@
 .single-service .bb-service-explore__section-intro {
 	margin: 0;
 	max-width: 56ch;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-medium);
 	color: var(--color-primary);
 }
 
 .single-service .bb-service-explore__section-media {
 	width: 100%;
-	aspect-ratio: 5 / 4;
+	aspect-ratio: 1 / 1;
 }
 
 .single-service .bb-service-explore__section-media img,
@@ -121,19 +122,19 @@
 }
 
 .single-service .bb-service-explore__list {
-	margin: clamp(20px, 2vw, 32px) 0 0;
+	margin: clamp(38px, 3.33vw, 64px) 0 0;
 	padding: 0;
 	list-style: none;
 	display: flex;
 	flex-direction: column;
-	gap: clamp(22px, 2vw, 34px);
+	gap: clamp(26px, 2.29vw, 44px);
 	max-width: 64ch;
 }
 
 .single-service .bb-service-explore__list-item {
 	padding-left: clamp(18px, 1.5vw, 26px);
 	position: relative;
-	color: var(--color-primary-strong);
+	color: var(--color-primary);
 }
 
 .single-service .bb-service-explore__list-item::before {
@@ -149,18 +150,19 @@
 }
 
 .single-service .bb-service-explore__item-title {
-	margin: 0 0 6px 0;
-	font-size: clamp(26px, 1.9vw, 36px);
-	line-height: 1.05;
-	font-weight: var(--fw-h2-semibold);
+	margin: 0 0 clamp(14px, 1.25vw, 24px) 0;
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4-semibold);
+	font-weight: var(--fw-h4-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
 
 .single-service .bb-service-explore__item-description {
 	margin: 0;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
 	color: var(--color-primary);
 }
 
