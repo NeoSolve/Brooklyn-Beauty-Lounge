@@ -115,10 +115,12 @@ function brooklyn_beauty_assets() {
 	$services_page_css_path = get_template_directory() . '/assets/css/services-page.css';
 	$single_service_css_path = get_template_directory() . '/assets/css/single-service.css';
 	$single_service_why_choose_css_path = get_template_directory() . '/assets/css/single-service/why-choose.css';
+	$single_service_reasons_css_path    = get_template_directory() . '/assets/css/single-service/reasons.css';
 	$services_archive_css_path = get_template_directory() . '/assets/css/services-archive.css';
 	$contacts_page_css_path = get_template_directory() . '/assets/css/contacts-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
+	$single_service_reasons_js_path = get_template_directory() . '/assets/js/single-service/reasons.js';
 	$services_tabs_js_path = get_template_directory() . '/assets/js/services-tabs.js';
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
 	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
@@ -185,6 +187,15 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
+	if ( is_singular( 'service' ) && file_exists( $single_service_reasons_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-single-service-reasons',
+			get_template_directory_uri() . '/assets/css/single-service/reasons.css',
+			array( 'brooklyn-beauty-single-service' ),
+			(string) filemtime( $single_service_reasons_css_path )
+		);
+	}
+
 	if ( is_post_type_archive( 'service' ) && file_exists( $services_archive_css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-services-archive',
@@ -228,6 +239,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/services-page/main.js',
 				array( 'brooklyn-beauty-main' ),
 				(string) filemtime( $services_page_js_path ),
+				true
+			);
+		}
+
+		if ( is_singular( 'service' ) && file_exists( $single_service_reasons_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-single-service-reasons',
+				get_template_directory_uri() . '/assets/js/single-service/reasons.js',
+				array( 'brooklyn-beauty-main' ),
+				(string) filemtime( $single_service_reasons_js_path ),
 				true
 			);
 		}

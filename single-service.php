@@ -204,6 +204,11 @@ while ( have_posts() ) :
 
 	<?php
 	get_template_part(
+		'template-parts/single-service/reasons',
+		null,
+		array( 'service_id' => $service_id )
+	);
+	get_template_part(
 		'template-parts/single-service/why-choose',
 		null,
 		array(
@@ -212,25 +217,6 @@ while ( have_posts() ) :
 		)
 	);
 	?>
-
-	<section class="bb-single-service-content">
-		<div class="bb-container bb-single-service-content__inner">
-			<article class="bb-single-service-content__article">
-				<?php echo wp_kses_post( apply_filters( 'the_content', $content ) ); ?>
-			</article>
-
-			<aside class="bb-single-service-content__aside" aria-label="<?php esc_attr_e( 'Service actions', 'brooklyn-beauty' ); ?>">
-				<a class="btn btn--medium bb-single-service-content__cta" href="<?php echo esc_url( home_url( '/#book' ) ); ?>">
-					<?php esc_html_e( 'book a visit', 'brooklyn-beauty' ); ?>
-				</a>
-				<?php if ( is_string( $service_archive_url ) && '' !== $service_archive_url ) : ?>
-					<a class="bb-single-service-content__back-link" href="<?php echo esc_url( $service_archive_url ); ?>">
-						<?php esc_html_e( 'all services', 'brooklyn-beauty' ); ?>
-					</a>
-				<?php endif; ?>
-			</aside>
-		</div>
-	</section>
 
 	<?php if ( ! empty( $related_services ) ) : ?>
 		<section class="bb-single-service-related">

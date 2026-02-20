@@ -25,7 +25,7 @@
 	grid-row: 1 / -1;
 	display: grid;
 	grid-template-rows: subgrid;
-	max-width: 1377px;
+	max-width: clamp(320px, 71.8vw, 1377px);
 	width: 100%;
 	margin-left: auto;
 	justify-self: end;
@@ -52,16 +52,17 @@
 .single-service .bb-service-why__grid {
 	margin-top: clamp(22px, 2.08vw, 40px);
 	display: grid;
-	grid-template-columns: repeat(3, 444px);
+	grid-template-columns: repeat(3, clamp(260px, 23.1vw, 444px));
 	justify-content: space-between;
-	gap: 22px;
+	gap: clamp(12px, 1.15vw, 22px);
 }
 
 .single-service .bb-service-why__card {
 	position: relative;
-	width: 444px;
-	height: 377px;
-	min-height: 377px;
+	width: 100%;
+	min-width: 0;
+	min-height: clamp(260px, 19.6vw, 377px);
+	height: clamp(260px, 19.6vw, 377px);
 	padding: clamp(14px, 1.25vw, 24px);
 	border-radius: 4px;
 	background: var(--color-primary);
@@ -79,9 +80,9 @@
 
 .single-service .bb-service-why__card-title {
 	margin: 0;
-	max-width: calc(100% - 38px);
+	max-width: calc(100% - clamp(24px, 2vw, 38px));
 	font-size: var(--fs-h5);
-	line-height:var(--lh-h5-semibold);
+	line-height: var(--lh-h5-semibold);
 	font-weight: var(--fw-h5-semibold);
 	color: inherit;
 	text-transform: lowercase;

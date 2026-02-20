@@ -133,50 +133,6 @@
 	background: linear-gradient(160deg, var(--color-accent), var(--color-primary));
 }
 
-.single-service .bb-single-service-content {
-	padding: clamp(36px, 3.33vw, 64px) 0;
-}
-
-.single-service .bb-single-service-content__inner {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 230px;
-	gap: clamp(20px, 2.08vw, 40px);
-	align-items: start;
-}
-
-.single-service .bb-single-service-content__article {
-	font-size: var(--fs-body-1);
-	line-height: var(--lh-body-1);
-	color: var(--color-primary);
-}
-
-.single-service .bb-single-service-content__article > *:first-child {
-	margin-top: 0;
-}
-
-.single-service .bb-single-service-content__article > *:last-child {
-	margin-bottom: 0;
-}
-
-.single-service .bb-single-service-content__aside {
-	position: sticky;
-	top: 20px;
-	display: grid;
-	gap: 12px;
-}
-
-.single-service .bb-single-service-content__back-link {
-	display: inline-block;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
-	color: var(--color-primary);
-	text-transform: lowercase;
-}
-
-.single-service .bb-single-service-content__back-link:hover {
-	color: var(--color-accent);
-}
-
 .single-service .bb-single-service-related {
 	padding: 0 0 clamp(44px, 4.17vw, 80px);
 }
@@ -240,8 +196,7 @@
 }
 
 @media (max-width: 992px) {
-	.single-service .bb-single-service-hero__grid,
-	.single-service .bb-single-service-content__inner {
+	.single-service .bb-single-service-hero__grid {
 		grid-template-columns: 1fr;
 	}
 
@@ -286,10 +241,6 @@
 		max-width: 520px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-	}
-
-	.single-service .bb-single-service-content__aside {
-		position: static;
 	}
 
 	.single-service .bb-single-service-related__grid {
