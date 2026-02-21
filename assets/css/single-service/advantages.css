@@ -7,13 +7,14 @@
 }
 
 .single-service .bb-service-advantages__header {
+	position: relative;
 	text-align: center;
-	margin-bottom: clamp(24px, 2.08vw, 40px);
+	margin-bottom: clamp(37px, 3.23vw, 62px);
 }
 
 .single-service .bb-service-advantages__title {
 	margin: 0;
-	display: inline;
+	display: inline-block;
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
@@ -22,14 +23,17 @@
 }
 
 .single-service .bb-service-advantages__label {
-	display: inline-block;
+	position: absolute;
+	left: 60%;
+	top: 56%;
+	display: block;
 	margin: 0;
 	color: var(--color-accent);
 	text-transform: lowercase;
-	transform: rotate(-4deg);
+	transform: rotate(4deg);
 	transform-origin: left bottom;
 	white-space: nowrap;
-	vertical-align: baseline;
+	translate: clamp(165px, 12.4vw, 238px) 0;
 }
 
 .single-service .bb-service-advantages__grid {
@@ -37,7 +41,7 @@
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 910px));
 	justify-content: center;
-	gap: clamp(2px, 0.21vw, 4px);
+	gap: clamp(12px, 1.04vw, 20px);
 }
 
 .single-service .bb-service-advantages__card {
@@ -48,7 +52,7 @@
 	width: 100%;
 	min-height: 372px;
 	height: 372px;
-	padding: clamp(18px, 1.56vw, 30px);
+	padding: clamp(26px, 2.3vw, 44px);
 	border-radius: 10px;
 	background-image: var(--bb-service-advantages-card-bg, none);
 	background-repeat: no-repeat;
@@ -77,17 +81,18 @@
 
 .single-service .bb-service-advantages__card-number {
 	flex-shrink: 0;
-	font-size: clamp(8px, 0.73vw, 14px);
-	line-height: 1;
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+	font-weight: var(--fw-body-regular);
 	opacity: 0.85;
 }
 
 .single-service .bb-service-advantages__card-text {
 	margin: 0;
 	max-width: clamp(260px, 22.4vw, 430px);
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
-	font-weight: var(--fw-body-medium);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
 	color: inherit;
 }
 
@@ -100,6 +105,11 @@
 
 	.single-service .bb-service-advantages__title {
 		font-size: clamp(36px, 8vw, 64px);
+	}
+
+	.single-service .bb-service-advantages__label {
+		top: 62%;
+		translate: clamp(74px, 20vw, 120px) 0;
 	}
 
 	.single-service .bb-service-advantages__grid {
