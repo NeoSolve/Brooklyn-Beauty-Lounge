@@ -1,8 +1,6 @@
 "use strict";
 
 (function () {
-	if (!document.body.classList.contains("home")) return;
-
 	var section = document.querySelector("[data-book-appointment]");
 	if (!section) return;
 

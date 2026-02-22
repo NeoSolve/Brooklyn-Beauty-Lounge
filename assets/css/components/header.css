@@ -1,8 +1,12 @@
 .bb-header {
 	width: 100%;
-	background: transparent;
-	border-bottom: 1px solid var(--color-surface-overlay);
+	background: var(--color-surface-alt);
+	border-bottom: 1px solid var(--color-text);
 	transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, backdrop-filter 0.3s ease;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 20;
 }
 
 .bb-header--scrolled {
@@ -11,34 +15,41 @@
 	border-bottom-color: var(--color-text);
 }
 
+.home .bb-header:not(.bb-header--scrolled):not(.bb-header--past-hero) {
+	background: transparent;
+	backdrop-filter: none;
+	border-bottom-color: var(--color-surface-overlay);
+}
+
 .home .bb-header.bb-header--scrolled:not(.bb-header--past-hero) {
-	background: rgba(255, 255, 255, 0.12);
+	background: var(--color-overlay-light-12);
 	backdrop-filter: blur(9.15px);
 	border-bottom-color: var(--color-surface-overlay);
 }
 
-.home .bb-header.bb-header--scrolled.bb-header--past-hero {
+.home .bb-header.bb-header--past-hero {
 	background: var(--color-surface-alt);
 	backdrop-filter: none;
+	border-bottom-color: var(--color-text);
 }
 
 .bb-header--hidden {
 	transform: translateY(-100%);
 }
 
-.home .bb-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 20;
+.bb-main {
+	padding-top: var(--bb-header-height, clamp(71px, 5.52vw, 106px));
 }
 
-.home .bb-header .bb-header__logo .custom-logo-link,
-.home .bb-header .bb-header__logo > a,
-.home .bb-header .bb-header__meta-link,
-.home .bb-header .bb-header__menu a,
-.home .bb-header .bb-header__social-link {
+.home .bb-main {
+	padding-top: 0;
+}
+
+.home .bb-header:not(.bb-header--past-hero) .bb-header__logo .custom-logo-link,
+.home .bb-header:not(.bb-header--past-hero) .bb-header__logo > a,
+.home .bb-header:not(.bb-header--past-hero) .bb-header__meta-link,
+.home .bb-header:not(.bb-header--past-hero) .bb-header__menu a,
+.home .bb-header:not(.bb-header--past-hero) .bb-header__social-link {
 	color: var(--color-surface);
 }
 
@@ -52,15 +63,19 @@
 
 /* Social icon light/dark switching */
 .bb-header__social-icon.bb-header__social-icon--dark {
-	display: none;
-}
-
-.bb-header--past-hero .bb-header__social-icon.bb-header__social-icon--light {
-	display: none;
-}
-
-.bb-header--past-hero .bb-header__social-icon.bb-header__social-icon--dark {
 	display: block;
+}
+
+.bb-header__social-icon.bb-header__social-icon--light {
+	display: none;
+}
+
+.home .bb-header:not(.bb-header--past-hero) .bb-header__social-icon.bb-header__social-icon--light {
+	display: block;
+}
+
+.home .bb-header:not(.bb-header--past-hero) .bb-header__social-icon.bb-header__social-icon--dark {
+	display: none;
 }
 
 .bb-header__inner {
@@ -115,12 +130,22 @@
 	display: none;
 }
 
-.home .bb-header.bb-header--past-hero .bb-header__logo-default {
+/* Use solid-background logo by default when provided. */
+.bb-header.bb-header--has-alt-logo .bb-header__logo-default {
 	display: none;
 }
 
-.home .bb-header.bb-header--past-hero .bb-header__logo .bb-header__logo-alt {
+.bb-header.bb-header--has-alt-logo .bb-header__logo .bb-header__logo-alt {
 	display: inline-flex;
+}
+
+/* On homepage hero area keep the current (default) logo. */
+.home .bb-header.bb-header--has-alt-logo:not(.bb-header--past-hero) .bb-header__logo-default {
+	display: inline-flex;
+}
+
+.home .bb-header.bb-header--has-alt-logo:not(.bb-header--past-hero) .bb-header__logo .bb-header__logo-alt {
+	display: none;
 }
 
 .bb-header__logo img {
@@ -154,11 +179,6 @@
 	transform: scaleX(0);
 	transform-origin: left center;
 	transition: transform var(--transition-base);
-}
-
-.bb-header__meta-link:hover,
-.bb-header__meta-link:focus-visible {
-	color: var(--color-accent);
 }
 
 .bb-header__meta-link:hover::after,
@@ -207,11 +227,6 @@
 	transform: scaleX(0);
 	transform-origin: left center;
 	transition: transform var(--transition-base);
-}
-
-.bb-header__menu a:hover,
-.bb-header__menu a:focus-visible {
-	color: var(--color-accent);
 }
 
 .bb-header__menu a:hover::after,

@@ -9,7 +9,7 @@
 	line-height: var(--lh-h2-semibold);
 	text-align: center;
 	text-transform: lowercase;
-	color: #2f2c38;
+	color: var(--color-primary);
 }
 
 .bb-why-us__intro {
@@ -20,7 +20,7 @@
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
 	text-align: center;
-	color: #2f2c38;
+	color: var(--color-primary);
 }
 
 .bb-why-us {
@@ -38,7 +38,7 @@
 
 .bb-why-us__stat {
 	text-align: center;
-	color: #2f2c38;
+	color: var(--color-primary);
 }
 
 .bb-why-us__stat--left-top {
@@ -84,8 +84,8 @@
 	width: min(clamp(262px, 20.52vw, 394px), 100%);
 	min-height: clamp(251px, 19.64vw, 377px);
 	padding: clamp(16px, 1.25vw, 24px);
-	background: #ae050a;
-	color: #fff;
+	background: var(--color-accent);
+	color: var(--color-surface-strong);
 }
 
 .bb-why-us__card::after {

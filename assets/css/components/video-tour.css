@@ -2,7 +2,7 @@
 	position: relative;
 	width: 100%;
 	aspect-ratio: 16 / 9;
-	background: #111;
+	background: var(--color-black-soft);
 	border-radius: 8px;
 	overflow: hidden;
 }
@@ -61,7 +61,7 @@
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
 	letter-spacing: -0.02em;
-	color: #1f2030;
+	color: var(--color-primary-alt);
 	text-transform: lowercase;
 	text-align: center;
 }
@@ -74,7 +74,7 @@
 	font-weight: var(--fw-decor);
 	font-size: clamp(28px, 2.2vw, 50px);
 	line-height: 1;
-	color: #9d1b2b;
+	color: var(--color-accent-muted);
 	transform: translateY(-45%);
 	white-space: nowrap;
 	z-index: 1;
@@ -99,7 +99,7 @@
 	aspect-ratio: 1008 / 660;
 	max-height: clamp(577px, 45.1vw, 866px);
 	border-radius: 8px;
-	background: #171723;
+	background: var(--color-video-bg);
 }
 
 #video-tour .bb-video iframe,

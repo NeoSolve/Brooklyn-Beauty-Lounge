@@ -71,7 +71,7 @@
 	min-height: clamp(568px, 44.38vw, 852px);
 	max-width: clamp(613px, 47.92vw, 920px);
 	overflow: hidden;
-	background: radial-gradient(circle at 50% 55%, rgba(150, 20, 33, 0.95) 0%, rgba(130, 0, 18, 0.98) 52%, rgba(86, 0, 12, 1) 100%);
+	background: var(--gradient-book-media);
 }
 
 .bb-book__media-image {
@@ -88,7 +88,7 @@
 	left: 50%;
 	bottom: clamp(20px, 2vw, 32px);
 	transform: translateX(-50%);
-	border-color: rgba(255, 254, 244, 0.95);
+	border-color: var(--color-overlay-light-95);
 	background: var(--color-accent);
 	min-width: clamp(161px, 12.6vw, 242px);
 	height: clamp(37px, 2.92vw, 56px);

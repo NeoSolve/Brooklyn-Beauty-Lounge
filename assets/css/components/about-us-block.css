@@ -1,6 +1,6 @@
 .bb-about-us-section {
 	padding: clamp(67px, 5.21vw, 100px) 0;
-	color: #2f2c38;
+	color: var(--color-primary);
 }
 
 .bb-about-us {
@@ -120,9 +120,7 @@
 }
 
 .bb-about-us__portrait--placeholder {
-	background:
-		linear-gradient(165deg, rgba(25, 25, 34, 0.85), rgba(65, 12, 16, 0.8)),
-		radial-gradient(circle at 22% 20%, rgba(213, 39, 44, 0.65), transparent 58%);
+	background: var(--gradient-about-portrait);
 }
 
 .bb-about-us__quote-block {
@@ -145,7 +143,7 @@
 }
 
 .bb-about-us__quote-line--accent {
-	color: #ae050a;
+	color: var(--color-accent);
 	position: relative;
 	padding-bottom: 7px;
 }
@@ -187,7 +185,7 @@
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
-	color: #3f3f48;
+	color: var(--color-text-mid);
 }
 
 .bb-about-us__signature-block {
@@ -198,7 +196,7 @@
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
-	color: #ae050a;
+	color: var(--color-accent);
 }
 
 .bb-about-us__signature-text span {
@@ -255,9 +253,7 @@
 
 .bb-about-us__image--placeholder {
 	min-height: 680px;
-	background:
-		linear-gradient(140deg, rgba(24, 16, 27, 0.94), rgba(13, 20, 36, 0.95)),
-		radial-gradient(circle at 30% 26%, rgba(169, 20, 31, 0.45), transparent 52%);
+	background: var(--gradient-about-image);
 }
 
 @media (prefers-reduced-motion: reduce) {

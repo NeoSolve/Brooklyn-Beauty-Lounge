@@ -1,0 +1,9 @@
+/*.page-template-page-services .bb-services-section {*/
+/*	padding-top: clamp(44px, 3.44vw, 66px);*/
+/*}*/
+
+@media (max-width: 992px) {
+	.page-template-page-services .bb-services-section {
+		padding-top: 28px;
+	}
+}

@@ -91,7 +91,7 @@
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);
 	font-weight: var(--fw-decor);
-	color: #9d1b2b;
+	color: var(--color-accent-muted);
 	transform: rotate(-4deg);
 }
 
@@ -115,8 +115,8 @@
 	max-height: clamp(313px, 24.43vw, 469px);
 	width: clamp(297px, 23.18vw, 445px);
 	padding: clamp(16px, 1.25vw, 24px);
-	border: 1px solid rgba(31, 32, 48, 0.35);
-	background: #fffef4;
+	border: 1px solid var(--color-overlay-primary-35);
+	background: var(--color-surface);
 	display: grid;
 	grid-template-rows: auto auto 1fr auto;
 	scroll-snap-align: start;
@@ -133,7 +133,7 @@
 	font-size: clamp(13px, 1.04vw, 20px);
 	letter-spacing: 0.08em;
 	line-height: 1;
-	color: #ae050a;
+	color: var(--color-accent);
 }
 
 .bb-review-card__source {
@@ -142,7 +142,7 @@
 	justify-content: center;
 	width: clamp(23px, 1.77vw, 34px);
 	height: clamp(23px, 1.77vw, 34px);
-	color: #1f2030;
+	color: var(--color-primary-alt);
 }
 
 .bb-review-card__source-icon {
@@ -175,7 +175,7 @@
 
 .bb-review-card__footer {
 	padding-top: clamp(11px, 0.83vw, 16px);
-	border-top: 1px solid rgba(31, 32, 48, 0.3);
+	border-top: 1px solid var(--color-overlay-primary-30);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -186,7 +186,7 @@
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-medium);
-	color: #1f2030;
+	color: var(--color-primary-alt);
 }
 
 .bb-review-card__date {
@@ -194,7 +194,7 @@
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
 	font-weight: var(--fw-body-regular);
-	color: #777;
+	color: var(--color-text-soft);
 }
 
 .bb-review-card__link {
@@ -203,7 +203,7 @@
 	font-size: var(--fs-button);
 	line-height: var(--lh-button);
 	font-weight: var(--fw-button);
-	color: #1f2030;
+	color: var(--color-primary-alt);
 	white-space: nowrap;
 }
 

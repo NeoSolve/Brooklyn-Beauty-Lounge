@@ -2,7 +2,7 @@
 	position: relative;
 	display: flex;
 	color: var(--color-surface);
-	background-color: #420407;
+	background-color: var(--color-footer-bg);
 	background-image: url("../../images/footer-bg.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
@@ -208,7 +208,7 @@
 .bb-footer__button {
 	min-width: clamp(127px, 9.9vw, 190px);
 	background: var(--color-accent);
-	border-color: rgba(255, 255, 255, 0.8);
+	border-color: var(--color-overlay-light-80);
 	color: var(--color-surface);
 }
 
@@ -246,7 +246,7 @@
 
 .bb-footer__bottom {
 	margin-top: auto;
-	border-top: 1px solid rgba(255, 255, 255, 0.34);
+	border-top: 1px solid var(--color-overlay-light-34);
 	padding: clamp(11px, 0.83vw, 16px) 0 clamp(8px, 0.63vw, 12px);
 	display: flex;
 	justify-content: space-between;

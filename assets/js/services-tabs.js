@@ -1,8 +1,6 @@
 "use strict";
 
 (function () {
-	if (!document.body.classList.contains("home")) return;
-
 	var servicesSection = document.querySelector(".bb-services-section");
 	if (!servicesSection) return;
 

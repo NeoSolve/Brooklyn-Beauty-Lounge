@@ -1,14 +1,60 @@
 :root {
 	--color-primary: #2f2c38;
+	--color-primary-alt: #1f2030;
 	--color-text: rgb(80, 80, 80);
 	--color-text-strong: #737373;
+	--color-text-soft: #777777;
+	--color-text-mid: #3f3f48;
+	--color-text-deep: #363743;
 	--color-text-muted: #9f9e9e;
 	--color-overlay-text: rgba(80, 80, 80, 0.4);
 	--color-overlay-primary: rgba(47, 44, 56, 0.2);
+	--color-overlay-primary-30: rgba(31, 32, 48, 0.3);
+	--color-overlay-primary-35: rgba(31, 32, 48, 0.35);
+	--color-overlay-primary-45: rgba(31, 32, 48, 0.45);
+	--color-overlay-light-12: rgba(255, 255, 255, 0.12);
+	--color-overlay-light-34: rgba(255, 255, 255, 0.34);
+	--color-overlay-light-40: rgba(255, 254, 244, 0.4);
+	--color-overlay-light-45: rgba(255, 255, 255, 0.45);
+	--color-overlay-light-80: rgba(255, 255, 255, 0.8);
+	--color-overlay-light-95: rgba(255, 254, 244, 0.95);
+	--color-overlay-black-08: rgba(0, 0, 0, 0.08);
+	--color-overlay-black-10: rgba(0, 0, 0, 0.1);
+	--color-overlay-black-30: rgba(0, 0, 0, 0.3);
+	--color-overlay-black-35: rgba(0, 0, 0, 0.35);
 	--color-accent: #ae050a;
+	--color-accent-muted: #9d1b2b;
+	--color-accent-dark: #39080d;
+	--color-accent-deep: #1d0b10;
+	--color-footer-bg: #420407;
+	--color-video-bg: #171723;
+	--color-black: #000000;
+	--color-black-soft: #111111;
 	--color-surface: #fffef4;
+	--color-surface-strong: #ffffff;
 	--color-surface-alt: #fdf9ed;
+	--color-border-neutral: #d3d3d6;
 	--color-surface-overlay: rgba(255, 254, 244, 0.4);
+
+	--gradient-service-pedicure: radial-gradient(circle at 32% 26%, rgba(255, 241, 220, 0.88), rgba(229, 190, 152, 0.72) 40%, rgba(176, 139, 110, 0.85) 78%, rgba(105, 77, 58, 0.92) 100%);
+	--gradient-service-brows:
+		linear-gradient(145deg, rgba(17, 20, 28, 0.74), rgba(43, 52, 72, 0.35)),
+		radial-gradient(circle at 70% 35%, rgba(206, 176, 135, 0.66), rgba(70, 81, 107, 0.9) 60%, rgba(38, 44, 59, 1) 100%);
+	--gradient-service-makeup:
+		linear-gradient(120deg, rgba(7, 9, 14, 0.95), rgba(16, 18, 24, 0.75) 50%, rgba(52, 31, 24, 0.82) 100%),
+		radial-gradient(circle at 74% 30%, rgba(246, 183, 132, 0.36), rgba(43, 30, 24, 0.8) 58%, rgba(17, 14, 14, 1) 100%);
+	--gradient-promotions-overlay: linear-gradient(180deg, rgba(47, 44, 56, 0.36), rgba(47, 44, 56, 0.36));
+	--gradient-promotions-fallback: linear-gradient(130deg, var(--color-accent-dark) 0%, var(--color-accent-deep) 100%);
+	--gradient-our-work-placeholder:
+		linear-gradient(140deg, rgba(34, 34, 45, 0.88), rgba(20, 20, 26, 0.96)),
+		radial-gradient(circle at 25% 20%, rgba(180, 10, 16, 0.35), transparent 52%);
+	--gradient-about-portrait:
+		linear-gradient(165deg, rgba(25, 25, 34, 0.85), rgba(65, 12, 16, 0.8)),
+		radial-gradient(circle at 22% 20%, rgba(213, 39, 44, 0.65), transparent 58%);
+	--gradient-about-image:
+		linear-gradient(140deg, rgba(24, 16, 27, 0.94), rgba(13, 20, 36, 0.95)),
+		radial-gradient(circle at 30% 26%, rgba(169, 20, 31, 0.45), transparent 52%);
+	--gradient-book-media: radial-gradient(circle at 50% 55%, rgba(150, 20, 33, 0.95) 0%, rgba(130, 0, 18, 0.98) 52%, rgba(86, 0, 12, 1) 100%);
 	--font-primary: "Geist";
 	--font-decor: "Nothing You Could Do";
 
