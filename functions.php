@@ -119,8 +119,10 @@ function brooklyn_beauty_assets() {
 	$single_service_reasons_css_path    = get_template_directory() . '/assets/css/single-service/reasons.css';
 	$single_service_advantages_css_path = get_template_directory() . '/assets/css/single-service/advantages.css';
 	$single_service_explore_css_path    = get_template_directory() . '/assets/css/single-service/explore.css';
+	$book_appointment_css_path          = get_template_directory() . '/assets/css/components/book-appointment.css';
 	$services_archive_css_path = get_template_directory() . '/assets/css/services-archive.css';
 	$contacts_page_css_path = get_template_directory() . '/assets/css/contacts-page.css';
+	$page_404_css_path = get_template_directory() . '/assets/css/404.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$single_service_reasons_js_path = get_template_directory() . '/assets/js/single-service/reasons.js';
@@ -138,7 +140,7 @@ function brooklyn_beauty_assets() {
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
-		'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Nothing+You+Could+Do&display=swap',
+		'https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&family=Nothing+You+Could+Do&display=swap',
 		array(),
 		null
 	);
@@ -226,6 +228,15 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
+	if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $book_appointment_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-book-appointment',
+			get_template_directory_uri() . '/assets/css/components/book-appointment.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $book_appointment_css_path )
+		);
+	}
+
 	if ( is_post_type_archive( 'service' ) && file_exists( $services_archive_css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-services-archive',
@@ -241,6 +252,15 @@ function brooklyn_beauty_assets() {
 			get_template_directory_uri() . '/assets/css/contacts-page.css',
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $contacts_page_css_path )
+		);
+	}
+
+	if ( is_404() && file_exists( $page_404_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-404',
+			get_template_directory_uri() . '/assets/css/404.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $page_404_css_path )
 		);
 	}
 
@@ -362,7 +382,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( is_front_page() && file_exists( $book_appointment_js_path ) ) {
+		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $book_appointment_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-book-appointment',
 				get_template_directory_uri() . '/assets/js/book-appointment.js',
@@ -372,7 +392,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( is_front_page() && file_exists( $faq_js_path ) ) {
+		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $faq_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-faq',
 				get_template_directory_uri() . '/assets/js/faq.js',

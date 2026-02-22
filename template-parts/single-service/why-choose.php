@@ -101,7 +101,7 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 				<p class="bb-service-why__label t-decor"><?php echo esc_html( $section_label ); ?></p>
 			</div>
 			<div class="bb-service-why__main">
-				<h2 class="bb-service-why__title"><?php echo esc_html( $section_title ); ?></h2>
+				<h2 class="bb-service-why__title"><?php echo wp_kses( $section_title, array( 'br' => array() ) ); ?></h2>
 				<div class="bb-service-why__grid">
 					<?php foreach ( $items as $item ) : ?>
 						<article class="bb-service-why__card">

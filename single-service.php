@@ -221,6 +221,7 @@ while ( have_posts() ) :
 		null,
 		array( 'service_id' => $service_id )
 	);
+	get_template_part( 'template-parts/home/book-appointment' );
 	?>
 
 	<?php if ( ! empty( $related_services ) ) : ?>
@@ -265,6 +266,7 @@ while ( have_posts() ) :
 			'service_title' => $service_title,
 		)
 	);
+	get_template_part( 'template-parts/home/faq' );
 	?>
 	<?php
 endwhile;
