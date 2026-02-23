@@ -11,7 +11,7 @@
 .bb-book {
 	display: grid;
 	grid-template-columns: minmax(clamp(240px, 18.75vw, 360px), 1fr) minmax(clamp(240px, 18.75vw, 360px), 1fr);
-	min-height: clamp(653px, 51.04vw, 980px);
+	min-height: clamp(540px, 46.875vw, 900px);
 	background: var(--color-accent);
 	padding: clamp(16px, 1.25vw, 24px);
 	gap: 0;
@@ -32,6 +32,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	text-transform: lowercase;
 	color: var(--color-primary);
 	text-align: center;
@@ -51,11 +52,12 @@
 }
 
 .bb-book__text {
-	max-width: clamp(373px, 29.17vw, 560px);
+	max-width: clamp(305px, 26.51vw, 509px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
 	color: var(--color-primary);
+	text-align: center;
 }
 
 .bb-book__text--top {
@@ -93,7 +95,10 @@
 	min-width: clamp(161px, 12.6vw, 242px);
 	height: clamp(37px, 2.92vw, 56px);
 	padding-inline: clamp(24px, 1.88vw, 36px);
-	font-size: clamp(14px, 1vw, 18px);
+	font-size: var(--fs-button);
+	line-height: var(--lh-button);
+	font-weight: var(--fw-button);
+	letter-spacing: var(--ls-button-3);
 	text-transform: lowercase;
 }
 

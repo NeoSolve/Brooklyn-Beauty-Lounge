@@ -10,6 +10,7 @@
 <?php
 $footer_address_label = '';
 $footer_address_text  = '';
+$footer_address_text_line_2 = '';
 $footer_address_link  = '';
 
 $footer_phone_label = '';
@@ -57,6 +58,7 @@ if ( function_exists( 'get_field' ) ) {
 
 	$acf_address_label = trim( (string) get_field( 'footer_address_label', 'option' ) );
 	$acf_address_text  = trim( (string) get_field( 'footer_address_text', 'option' ) );
+	$acf_address_text_line_2 = trim( (string) get_field( 'footer_address_text_line_2', 'option' ) );
 	$acf_address_link  = trim( (string) get_field( 'footer_address_link', 'option' ) );
 	$acf_phone_label   = trim( (string) get_field( 'footer_phone_label', 'option' ) );
 	$acf_phone_text    = trim( (string) get_field( 'footer_phone_text', 'option' ) );
@@ -70,6 +72,7 @@ if ( function_exists( 'get_field' ) ) {
 
 	$footer_address_label = $acf_address_label;
 	$footer_address_text  = $acf_address_text;
+	$footer_address_text_line_2 = $acf_address_text_line_2;
 	$footer_address_link  = $acf_address_link;
 	$footer_phone_label   = $acf_phone_label;
 	$footer_phone_text    = $acf_phone_text;
@@ -185,17 +188,29 @@ if ( function_exists( 'get_field' ) ) {
 			<div class="bb-footer__row bb-footer__row--contacts">
 				<div class="bb-footer__row-left">
 					<div class="bb-footer__contacts">
-						<?php if ( '' !== $footer_address_text ) : ?>
+						<?php if ( '' !== $footer_address_text || '' !== $footer_address_text_line_2 ) : ?>
 							<div class="bb-footer__contact-block">
 								<?php if ( '' !== $footer_address_label ) : ?>
 									<div class="bb-footer__label"><?php echo wp_kses( $footer_address_label, $footer_allowed_html ); ?></div>
 								<?php endif; ?>
 								<?php if ( '' !== $footer_address_link ) : ?>
-									<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>" target="_blank" rel="noopener noreferrer">
-										<?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?>
-									</a>
+									<?php if ( '' !== $footer_address_text ) : ?>
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>" target="_blank" rel="noopener noreferrer">
+											<?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?>
+										</a>
+									<?php endif; ?>
+									<?php if ( '' !== $footer_address_text_line_2 ) : ?>
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>" target="_blank" rel="noopener noreferrer">
+											<?php echo wp_kses( $footer_address_text_line_2, $footer_allowed_html ); ?>
+										</a>
+									<?php endif; ?>
 								<?php else : ?>
-									<div class="bb-footer__contact-text"><?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?></div>
+									<?php if ( '' !== $footer_address_text ) : ?>
+										<div class="bb-footer__contact-text"><?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?></div>
+									<?php endif; ?>
+									<?php if ( '' !== $footer_address_text_line_2 ) : ?>
+										<div class="bb-footer__contact-text"><?php echo wp_kses( $footer_address_text_line_2, $footer_allowed_html ); ?></div>
+									<?php endif; ?>
 								<?php endif; ?>
 							</div>
 						<?php endif; ?>

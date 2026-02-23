@@ -7,7 +7,18 @@
 	padding-block: 0 clamp(60px, 4.69vw, 90px);
 }
 
+.error404 .bb-header {
+	z-index: 50;
+}
+
 .bb-404__inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.bb-404__content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -26,10 +37,9 @@
 .bb-404__code {
 	position: relative;
 	z-index: 1;
-	font-size: clamp(210px, 36vw, 700px);
+	font-size: clamp(487px, 42.3vw, 812px);
 	font-weight: 600;
-	line-height: 0.78;
-	letter-spacing: 0.005em;
+	line-height: 75%;
 	color: var(--color-accent);
 	user-select: none;
 }
@@ -46,28 +56,36 @@
 }
 
 .bb-404__title {
-	margin-top: calc(clamp(-40px, -2.08vw, -10px) + 60px);
+	position: relative;
+	margin-top: clamp(15px, 1.3vw, 25px);
 	max-width: 10.2em;
-	font-size: clamp(41px, 4.17vw, 80px);
-	font-weight: 600;
-	line-height: 0.95;
+	/*padding-right: 2.2em;*/
+	padding-bottom: 0.2em;
+	font-size: var(--fs-h3);
+	font-weight: var(--fw-h3-semibold);
+	line-height: var(--lh-h3-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
+	text-align: center;
 }
 
 .bb-404__sorry {
-	display: inline-block;
-	margin-left: 0.22em;
+	position: absolute;
+	right: clamp(-80px, -4.17vw, -48px);
+	bottom: 0;
 	font-family: var(--font-decor);
 	font-size: var(--fs-decor);
 	font-weight: var(--fw-decor);
 	color: var(--color-accent);
-	transform: translateY(-0.38em) translateX(2.38em) rotate(4deg);
+	transform: translate(-1.1em, -0.4em) rotate(6deg);
 	white-space: nowrap;
 }
 
 .bb-404__button {
 	margin-top: clamp(14px, 1.25vw, 24px);
+	font-size: var(--fs-button);
+	font-weight: var(--fw-button);
+	line-height: var(--lh-button);
 }
 
 @media (max-width: 980px) {
@@ -96,14 +114,13 @@
 
 @media (max-width: 640px) {
 	.bb-404__title {
+		max-width: 11em;
+		padding-right: 2em;
 		font-size: clamp(28px, 8.8vw, 42px);
 		line-height: 1;
 	}
 
 	.bb-404__sorry {
-		display: block;
-		margin-top: 0.2em;
-		margin-left: 0;
-		transform: rotate(-7deg);
+		transform: translate(-0.9em, -0.35em) rotate(5deg);
 	}
 }

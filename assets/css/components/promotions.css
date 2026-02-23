@@ -8,10 +8,8 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, clamp(700px, 46.9vw, 900px));
 	min-height: clamp(373px, 29.17vw, 560px);
-	height: clamp(616px, 48.13vw, 924px);
-	background-image:
-		var(--gradient-promotions-overlay),
-		var(--bb-promotions-bg-image);
+	height: clamp(509px, 44.17vw, 848px);
+	background-image: var(--bb-promotions-bg-image);
 	background-size: cover;
 	background-position: center;
 	padding: clamp(13px, 1.04vw, 20px) clamp(13px, 1.04vw, 20px) clamp(13px, 1.04vw, 20px) clamp(35px, 2.71vw, 52px);
@@ -34,7 +32,7 @@
 }
 
 .bb-promotions__intro {
-	max-width: clamp(340px, 26.56vw, 510px);
+	max-width: clamp(380px, 32.97vw, 633px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
@@ -45,6 +43,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	text-transform: lowercase;
 }
 
@@ -91,6 +90,9 @@
 .bb-promotions__right {
 	position: relative;
 	isolation: isolate;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	background: var(--color-accent);
 	padding: clamp(19px, 1.7vw, 32px);
 	width: 100%;
@@ -116,6 +118,8 @@
 .bb-promo-card.is-active {
 	position: relative;
 	inset: auto;
+	height: 100%;
+	min-height: 100%;
 	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
@@ -182,7 +186,17 @@
 
 .bb-promo-card__button {
 	border-color: transparent;
-	min-width: clamp(140px, 10.94vw, 210px);
+	min-width: clamp(165px, 14.27vw, 274px);
+	box-shadow: inset 0 0 0 0 var(--color-surface);
+	transition: box-shadow 0.15s ease;
+}
+
+.bb-promo-card__button.btn--white:hover,
+.bb-promo-card__button.btn--white:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-accent);
+	border-color: var(--color-surface);
+	background: var(--color-surface);
+	color: var(--color-primary);
 }
 
 @media (max-width: 1280px) {

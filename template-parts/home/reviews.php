@@ -8,6 +8,7 @@ $section_title   = '';
 $section_text    = '';
 $section_label   = '';
 $google_icon_url = get_template_directory_uri() . '/assets/images/ri_google-fill.svg';
+$star_icon_url   = get_template_directory_uri() . '/assets/images/star.svg';
 $reviews = array();
 
 if ( function_exists( 'get_field' ) ) {
@@ -43,6 +44,10 @@ if ( function_exists( 'get_field' ) ) {
 			$review_author = isset( $review_item['author'] ) ? trim( (string) $review_item['author'] ) : '';
 			$review_time   = isset( $review_item['time'] ) ? trim( (string) $review_item['time'] ) : '';
 			$review_link   = isset( $review_item['link'] ) ? trim( (string) $review_item['link'] ) : '';
+			$review_rating = isset( $review_item['rating'] ) ? (int) $review_item['rating'] : 5;
+			if ( $review_rating < 1 || $review_rating > 5 ) {
+				$review_rating = 5;
+			}
 
 			if ( '' === $review_title && '' === $review_text && '' === $review_author && '' === $review_time ) {
 				continue;
@@ -54,6 +59,7 @@ if ( function_exists( 'get_field' ) ) {
 				'author' => $review_author,
 				'time'   => $review_time,
 				'link'   => $review_link,
+				'rating' => $review_rating,
 			);
 		}
 	}
@@ -90,7 +96,11 @@ if ( empty( $reviews ) ) {
 				<?php foreach ( $reviews as $review ) : ?>
 					<article class="bb-review-card">
 						<div class="bb-review-card__meta">
-							<p class="bb-review-card__stars" aria-label="<?php esc_attr_e( '5 stars', 'brooklyn-beauty' ); ?>">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+							<p class="bb-review-card__stars" aria-label="<?php echo esc_attr( sprintf( _n( '%d star', '%d stars', (int) $review['rating'], 'brooklyn-beauty' ), (int) $review['rating'] ) ); ?>">
+								<?php for ( $star_index = 0; $star_index < (int) $review['rating']; $star_index++ ) : ?>
+									<img class="bb-review-card__star-icon" src="<?php echo esc_url( $star_icon_url ); ?>" alt="" aria-hidden="true" loading="lazy">
+								<?php endfor; ?>
+							</p>
 							<span class="bb-review-card__source" aria-hidden="true">
 								<img class="bb-review-card__source-icon" src="<?php echo esc_url( $google_icon_url ); ?>" alt="" loading="lazy">
 							</span>

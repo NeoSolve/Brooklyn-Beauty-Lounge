@@ -60,7 +60,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
-	letter-spacing: -0.02em;
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary-alt);
 	text-transform: lowercase;
 	text-align: center;
@@ -69,20 +69,21 @@
 .bb-video-tour__label {
 	position: absolute;
 	top: clamp(8px, 1.04vw, 20px);
-	right: clamp(-80px, -4.17vw, -20px);
+	right: clamp(-110px, -5.73vw, -66px);
 	font-family: var(--font-decor);
 	font-weight: var(--fw-decor);
-	font-size: clamp(28px, 2.2vw, 50px);
-	line-height: 1;
+	font-size: var(--fs-decor);
+	line-height: var(--lh-decor);
+	letter-spacing: var(--ls-decor);
 	color: var(--color-accent-muted);
-	transform: translateY(-45%);
+	transform: translateY(-45%) rotate(2.84deg);
 	white-space: nowrap;
 	z-index: 1;
 }
 
 .bb-video-tour__text {
 	margin-top: clamp(13px, 1.15vw, 22px);
-	max-width: clamp(320px, 48vw, 620px);
+	max-width: clamp(358px, 31.1vw, 597px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);

@@ -32,6 +32,8 @@
 	font-size: var(--fs-h1);
 	line-height: 0.75;
 	font-weight: var(--fw-h1);
+	text-align: center;
+	letter-spacing: var(--ls-2per);
 	color: var(--color-accent);
 	text-transform: lowercase;
 }
@@ -45,7 +47,7 @@
 
 .bb-services-hero__media {
 	position: absolute;
-	left: calc(50% + 50px);
+	left: 50%;
 	bottom: 0;
 	width: clamp(313px, 27.14vw, 521px);
 	max-width: 100%;
@@ -89,6 +91,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
@@ -184,14 +187,14 @@
 	background-position: center;
 	background-size: cover;
 	color: var(--color-surface);
-	padding: clamp(80px, 6.25vw, 120px) 0 clamp(53px, 4.17vw, 80px);
+	padding: clamp(100px, 8.65vw, 166px) 0 clamp(42px, 3.65vw, 70px);
 	overflow: hidden;
 }
 
 .bb-hero__overlay {
 	position: absolute;
 	inset: 0;
-	background: var(--color-overlay-black-30);
+	background: transparent;
 	z-index: 1;
 }
 
@@ -214,6 +217,7 @@
 	font-size: var(--fs-h1-alt);
 	font-weight: var(--fw-h1-alt);
 	line-height: var(--lh-h1-alt);
+	letter-spacing: var(--ls-h2-semibold);
 	margin: 0 0 clamp(100px, 7.81vw, 150px);
 	text-transform: lowercase;
 }
@@ -237,6 +241,7 @@
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
+	letter-spacing: var(--ls-body-1);
 	max-width: clamp(262px, 20.47vw, 393px);
 }
 

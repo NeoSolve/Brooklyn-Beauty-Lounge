@@ -126,7 +126,7 @@ if ( '#' === substr( $button_link_target, 0, 1 ) ) {
 				<?php endif; ?>
 
 				<?php if ( $section_text_bottom ) : ?>
-					<p class="bb-book__text bb-book__text--bottom"><?php echo esc_html( $section_text_bottom ); ?></p>
+					<p class="bb-book__text bb-book__text--bottom"><?php echo wp_kses_post( $section_text_bottom ); ?></p>
 				<?php endif; ?>
 			</div>
 

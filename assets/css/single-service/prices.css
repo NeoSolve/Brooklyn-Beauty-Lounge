@@ -19,6 +19,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	text-transform: lowercase;
 	color: var(--color-primary);
 }
@@ -99,6 +100,7 @@
 	font-size: var(--fs-h4);
 	line-height: var(--lh-h4-semibold);
 	font-weight: var(--fw-h4-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
@@ -127,8 +129,9 @@
 
 .single-service .bb-service-prices__card-description {
 	margin: 22px 0 0;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
 	color: var(--color-text);
 }
 
@@ -139,11 +142,12 @@
 }
 
 .single-service .bb-service-prices__card-button {
-	display: block;
 	width: 100%;
-	min-width: 0;
 	text-align: center;
 	text-transform: lowercase;
+	font-size: var(--fs-button);
+	line-height: var(--lh-button);
+	font-weight: var(--fw-button);
 }
 
 .single-service .bb-service-prices__card-badge {

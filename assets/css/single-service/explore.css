@@ -43,11 +43,12 @@
 }
 
 .single-service .bb-service-explore__headline {
-	margin: 0 0 clamp(20px, 2vw, 34px) 0;
+	margin: 0 0 clamp(36px, 3.125vw, 60px) 0;
 	max-width: 16ch;
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
