@@ -15,7 +15,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
-	letter-spacing: var(--ls-h2-semibold);
+	letter-spacing: -0.02em;
 	color: var(--color-primary-alt);
 	text-transform: lowercase;
 }
@@ -126,30 +126,10 @@
 	background: var(--color-surface-alt);
 }
 
-.bb-service-card--placeholder {
-	justify-content: center;
-	align-items: center;
-	padding: clamp(32px, 2.81vw, 54px) clamp(13px, 1.04vw, 20px);
-	background: transparent;
-}
-
-.bb-service-card__placeholder-text {
-	margin: 0;
-	font-family: var(--font-decor);
-	font-size: var(--fs-decor);
-	line-height: 1;
-	letter-spacing: var(--ls-decor);
-	color: var(--color-accent-muted);
-	text-align: center;
-	transform: rotate(-4deg);
-}
-
 .bb-service-card__media {
 	height: clamp(347px, 27.08vw, 520px);
 	background-size: cover;
 	background-position: center;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
 }
 
 .bb-service-card__media--pedicure {
@@ -170,8 +150,6 @@
 	flex: 1;
 	padding: clamp(11px, 0.83vw, 16px);
 	border: 1px solid var(--color-primary);
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
 	border-top: none;
 }
 
@@ -184,16 +162,15 @@
 }
 
 .bb-service-card__text {
-	margin-top: clamp(12px, 1.04vw, 20px);
+	margin-top: clamp(8px, 0.63vw, 12px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
-	font-weight: var(--fw-body-regular);
 	color: var(--color-text-deep);
 }
 
 .bb-service-card__actions {
 	margin-top: auto;
-	padding-top: clamp(12px, 1.05vw, 20px);
+	padding-top: clamp(12px, 0.94vw, 18px);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -240,6 +217,11 @@
 	transition: transform var(--transition-base);
 }
 
+.bb-service-card__more-link:hover,
+.bb-service-card__more-link:focus-visible {
+	color: var(--color-accent);
+}
+
 .bb-service-card__more-link:hover::before,
 .bb-service-card__more-link:focus-visible::before {
 	transform: scaleX(1);
@@ -252,6 +234,11 @@
 	height: clamp(15px, 1.15vw, 22px);
 	background: url("../../images/learn-more-arrow.svg") center / contain no-repeat;
 	flex-shrink: 0;
+}
+
+.bb-service-card__more-link:hover::after,
+.bb-service-card__more-link:focus-visible::after {
+	background-image: url("../../images/right-arrow-hower-red.svg");
 }
 
 @media (max-width: 1280px) {

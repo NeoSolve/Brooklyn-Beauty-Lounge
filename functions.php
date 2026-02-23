@@ -137,8 +137,6 @@ function brooklyn_beauty_assets() {
 	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
 	$hero_video_js_path    = get_template_directory() . '/assets/js/hero-video.js';
 	$footer_js_path        = get_template_directory() . '/assets/js/footer.js';
-	$contacts_map_js_path  = get_template_directory() . '/assets/js/contacts-map.js';
-	$contacts_form_js_path = get_template_directory() . '/assets/js/contacts-form.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -255,13 +253,6 @@ function brooklyn_beauty_assets() {
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $contacts_page_css_path )
 		);
-
-		wp_enqueue_style(
-			'brooklyn-beauty-maplibre',
-			'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css',
-			array(),
-			'4.7.1'
-		);
 	}
 
 	if ( is_404() && file_exists( $page_404_css_path ) ) {
@@ -371,7 +362,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $promotions_js_path ) ) {
+		if ( is_front_page() && file_exists( $promotions_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-promotions',
 				get_template_directory_uri() . '/assets/js/promotions.js',
@@ -419,36 +410,6 @@ function brooklyn_beauty_assets() {
 				(string) filemtime( $hero_video_js_path ),
 				true
 			);
-		}
-
-		if ( is_page_template( 'page-contacts.php' ) ) {
-			wp_enqueue_script(
-				'brooklyn-beauty-maplibre',
-				'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js',
-				array(),
-				'4.7.1',
-				true
-			);
-
-			if ( file_exists( $contacts_map_js_path ) ) {
-				wp_enqueue_script(
-					'brooklyn-beauty-contacts-map',
-					get_template_directory_uri() . '/assets/js/contacts-map.js',
-					array( 'brooklyn-beauty-maplibre' ),
-					(string) filemtime( $contacts_map_js_path ),
-					true
-				);
-			}
-
-			if ( file_exists( $contacts_form_js_path ) ) {
-				wp_enqueue_script(
-					'brooklyn-beauty-contacts-form',
-					get_template_directory_uri() . '/assets/js/contacts-form.js',
-					array(),
-					(string) filemtime( $contacts_form_js_path ),
-					true
-				);
-			}
 		}
 	}
 }
@@ -678,20 +639,11 @@ function brooklyn_beauty_register_acf_field_groups() {
 			),
 			array(
 				'key'   => 'field_brooklyn_beauty_footer_address_text',
-				'label' => __( 'Footer Address Line 1', 'brooklyn-beauty' ),
+				'label' => __( 'Footer Address Text', 'brooklyn-beauty' ),
 				'name'  => 'footer_address_text',
 				'type'  => 'text',
 				'wrapper' => array(
-					'width' => '17',
-				),
-			),
-			array(
-				'key'   => 'field_brooklyn_beauty_footer_address_text_line_2',
-				'label' => __( 'Footer Address Line 2', 'brooklyn-beauty' ),
-				'name'  => 'footer_address_text_line_2',
-				'type'  => 'text',
-				'wrapper' => array(
-					'width' => '17',
+					'width' => '34',
 				),
 			),
 			array(
@@ -1111,16 +1063,6 @@ function brooklyn_beauty_register_acf_field_groups() {
 						'rows'  => 6,
 					),
 					array(
-						'key'           => 'field_brooklyn_beauty_reviews_item_rating',
-						'label'         => __( 'Rating (Stars)', 'brooklyn-beauty' ),
-						'name'          => 'rating',
-						'type'          => 'number',
-						'default_value' => 5,
-						'min'           => 1,
-						'max'           => 5,
-						'step'          => 1,
-					),
-					array(
 						'key'   => 'field_brooklyn_beauty_reviews_item_author',
 						'label' => __( 'Author', 'brooklyn-beauty' ),
 						'name'  => 'author',
@@ -1252,16 +1194,6 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'preview_size'  => 'large',
 				'library'       => 'all',
 				'instructions'  => __( 'Optional. If empty, featured image is used.', 'brooklyn-beauty' ),
-			),
-			array(
-				'key'           => 'field_brooklyn_beauty_single_service_card_image',
-				'label'         => __( 'Services Card Image', 'brooklyn-beauty' ),
-				'name'          => 'service_card_image',
-				'type'          => 'image',
-				'return_format' => 'id',
-				'preview_size'  => 'large',
-				'library'       => 'all',
-				'instructions'  => __( 'Image for service card in the homepage services block. If empty, featured image is used.', 'brooklyn-beauty' ),
 			),
 			array(
 				'key'           => 'field_brooklyn_beauty_single_service_hero_tagline',
@@ -1492,279 +1424,6 @@ function brooklyn_beauty_get_header_social_icon_svg( $icon ) {
 }
 
 /**
- * Get configured placeholder cards for services block.
- *
- * @param string $category_slug Service category slug.
- *
- * @return array<int, array<string, mixed>>
- */
-function brooklyn_beauty_get_service_placeholder_cards( $category_slug = 'all-services' ) {
-	if ( ! function_exists( 'get_field' ) ) {
-		return array();
-	}
-
-	$front_page_id = (int) get_option( 'page_on_front' );
-	if ( $front_page_id <= 0 ) {
-		$front_page_id = (int) get_queried_object_id();
-	}
-
-	if ( $front_page_id <= 0 ) {
-		return array();
-	}
-
-	$placeholder_rows = get_field( 'services_placeholder_cards', $front_page_id );
-	if ( ! is_array( $placeholder_rows ) || empty( $placeholder_rows ) ) {
-		return array();
-	}
-
-	$category_slug      = sanitize_title( (string) $category_slug );
-	$is_all_categories  = '' === $category_slug || 'all-services' === $category_slug;
-	$placeholder_cards  = array();
-
-	foreach ( $placeholder_rows as $placeholder_row ) {
-		$placeholder_text = isset( $placeholder_row['text'] ) ? trim( (string) $placeholder_row['text'] ) : '';
-		if ( '' === $placeholder_text ) {
-			continue;
-		}
-
-		$show_in_all_tab = ! empty( $placeholder_row['show_in_all_tab'] );
-
-		if ( $is_all_categories && ! $show_in_all_tab ) {
-			continue;
-		}
-
-		if ( $show_in_all_tab ) {
-			if ( ! $is_all_categories ) {
-				continue;
-			}
-
-			$placeholder_position = isset( $placeholder_row['position'] ) ? (int) $placeholder_row['position'] : 1;
-			if ( $placeholder_position <= 0 ) {
-				$placeholder_position = 1;
-			}
-
-			$placeholder_cards[] = array(
-				'text'           => $placeholder_text,
-				'position'       => $placeholder_position,
-				'category_slugs' => array( 'all-services' ),
-				'is_placeholder' => true,
-			);
-			continue;
-		}
-
-		$placeholder_category_id = 0;
-		if ( isset( $placeholder_row['category'] ) ) {
-			if ( is_array( $placeholder_row['category'] ) ) {
-				$placeholder_category_id = (int) reset( $placeholder_row['category'] );
-			} else {
-				$placeholder_category_id = (int) $placeholder_row['category'];
-			}
-		}
-
-		if ( $placeholder_category_id <= 0 ) {
-			continue;
-		}
-
-		$placeholder_term = get_term( $placeholder_category_id, 'service_category' );
-		if ( ! $placeholder_term instanceof WP_Term || is_wp_error( $placeholder_term ) ) {
-			continue;
-		}
-
-		if ( ! $is_all_categories && $placeholder_term->slug !== $category_slug ) {
-			continue;
-		}
-
-		$placeholder_position = isset( $placeholder_row['position'] ) ? (int) $placeholder_row['position'] : 1;
-		if ( $placeholder_position <= 0 ) {
-			$placeholder_position = 1;
-		}
-
-		$placeholder_cards[] = array(
-			'text'           => $placeholder_text,
-			'position'       => $placeholder_position,
-			'category_slugs' => array( $placeholder_term->slug ),
-			'is_placeholder' => true,
-		);
-	}
-
-	return $placeholder_cards;
-}
-
-/**
- * Merge service cards with placeholder cards by configured position.
- *
- * Position is 1-based and calculated against service cards order.
- *
- * @param array<int, array<string, mixed>> $service_cards     Service cards.
- * @param array<int, array<string, mixed>> $placeholder_cards Placeholder cards.
- *
- * @return array<int, array<string, mixed>>
- */
-function brooklyn_beauty_merge_service_cards_with_placeholders( array $service_cards, array $placeholder_cards ) {
-	if ( empty( $placeholder_cards ) ) {
-		return $service_cards;
-	}
-
-	$normalized_placeholders = array();
-
-	foreach ( $placeholder_cards as $index => $placeholder_card ) {
-		$position = isset( $placeholder_card['position'] ) ? (int) $placeholder_card['position'] : 1;
-		if ( $position <= 0 ) {
-			$position = 1;
-		}
-
-		$normalized_placeholders[] = array(
-			'position' => $position,
-			'index'    => $index,
-			'card'     => $placeholder_card,
-		);
-	}
-
-	usort(
-		$normalized_placeholders,
-		static function ( $left, $right ) {
-			if ( $left['position'] === $right['position'] ) {
-				return $left['index'] <=> $right['index'];
-			}
-
-			return $left['position'] <=> $right['position'];
-		}
-	);
-
-	$merged_cards      = $service_cards;
-	$inserted_cards_no = 0;
-
-	foreach ( $normalized_placeholders as $placeholder_item ) {
-		$insert_at = $placeholder_item['position'] - 1 + $inserted_cards_no;
-		if ( $insert_at < 0 ) {
-			$insert_at = 0;
-		}
-		if ( $insert_at > count( $merged_cards ) ) {
-			$insert_at = count( $merged_cards );
-		}
-
-		array_splice( $merged_cards, $insert_at, 0, array( $placeholder_item['card'] ) );
-		++$inserted_cards_no;
-	}
-
-	return $merged_cards;
-}
-
-/**
- * Get ordered service category slugs used in homepage tabs.
- *
- * @return array<int, string>
- */
-function brooklyn_beauty_get_home_services_tab_category_slugs() {
-	$front_page_id = (int) get_option( 'page_on_front' );
-	if ( $front_page_id <= 0 ) {
-		$front_page_id = (int) get_queried_object_id();
-	}
-
-	$selected_service_category_ids = array();
-	if ( function_exists( 'get_field' ) && $front_page_id > 0 ) {
-		$acf_selected_categories = get_field( 'services_tab_categories', $front_page_id );
-		if ( is_array( $acf_selected_categories ) ) {
-			$selected_service_category_ids = array_values( array_filter( array_map( 'intval', $acf_selected_categories ) ) );
-		}
-	}
-
-	if ( ! empty( $selected_service_category_ids ) ) {
-		$service_terms = get_terms(
-			array(
-				'taxonomy'   => 'service_category',
-				'hide_empty' => false,
-				'include'    => $selected_service_category_ids,
-				'orderby'    => 'include',
-			)
-		);
-	} else {
-		$service_terms = get_terms(
-			array(
-				'taxonomy'   => 'service_category',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-	}
-
-	if ( is_wp_error( $service_terms ) || empty( $service_terms ) ) {
-		return array();
-	}
-
-	$ordered_slugs = array();
-	foreach ( $service_terms as $service_term ) {
-		if ( 'all-services' === $service_term->slug ) {
-			continue;
-		}
-
-		$ordered_slugs[] = $service_term->slug;
-	}
-
-	return $ordered_slugs;
-}
-
-/**
- * Sort service posts by homepage tab category order.
- *
- * @param array<int, WP_Post> $service_posts Service posts.
- *
- * @return array<int, WP_Post>
- */
-function brooklyn_beauty_sort_service_posts_by_home_tab_order( array $service_posts ) {
-	if ( empty( $service_posts ) ) {
-		return $service_posts;
-	}
-
-	$ordered_category_slugs = brooklyn_beauty_get_home_services_tab_category_slugs();
-	if ( empty( $ordered_category_slugs ) ) {
-		return $service_posts;
-	}
-
-	$category_order_map = array_flip( $ordered_category_slugs );
-	$sortable_items     = array();
-
-	foreach ( $service_posts as $index => $service_post ) {
-		$post_category_slugs = wp_get_post_terms( $service_post->ID, 'service_category', array( 'fields' => 'slugs' ) );
-		if ( is_wp_error( $post_category_slugs ) ) {
-			$post_category_slugs = array();
-		}
-
-		$lowest_category_order = PHP_INT_MAX;
-		foreach ( $post_category_slugs as $post_category_slug ) {
-			if ( isset( $category_order_map[ $post_category_slug ] ) ) {
-				$lowest_category_order = min( $lowest_category_order, (int) $category_order_map[ $post_category_slug ] );
-			}
-		}
-
-		$sortable_items[] = array(
-			'post'           => $service_post,
-			'category_order' => $lowest_category_order,
-			'original_index' => $index,
-		);
-	}
-
-	usort(
-		$sortable_items,
-		static function ( $left, $right ) {
-			if ( $left['category_order'] === $right['category_order'] ) {
-				return $left['original_index'] <=> $right['original_index'];
-			}
-
-			return $left['category_order'] <=> $right['category_order'];
-		}
-	);
-
-	$sorted_posts = array();
-	foreach ( $sortable_items as $sortable_item ) {
-		$sorted_posts[] = $sortable_item['post'];
-	}
-
-	return $sorted_posts;
-}
-
-/**
  * Build services cards markup for selected category.
  *
  * @param string $category_slug Service category slug.
@@ -1775,7 +1434,7 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 	$query_args = array(
 		'post_type'      => 'service',
 		'post_status'    => 'publish',
-		'posts_per_page' => -1,
+		'posts_per_page' => 9,
 		'orderby'        => array(
 			'menu_order' => 'ASC',
 			'title'      => 'ASC',
@@ -1783,7 +1442,6 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 	);
 
 	$category_slug = sanitize_title( (string) $category_slug );
-	$placeholder_cards = brooklyn_beauty_get_service_placeholder_cards( $category_slug );
 
 	if ( '' !== $category_slug && 'all-services' !== $category_slug ) {
 		$query_args['tax_query'] = array(
@@ -1796,11 +1454,8 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 	}
 
 	$service_posts = get_posts( $query_args );
-	if ( 'all-services' === $category_slug ) {
-		$service_posts = brooklyn_beauty_sort_service_posts_by_home_tab_order( $service_posts );
-	}
 
-	if ( empty( $service_posts ) && empty( $placeholder_cards ) ) {
+	if ( empty( $service_posts ) ) {
 		return '<div class="bb-services-cards__empty">' . esc_html__( 'No services found in this category.', 'brooklyn-beauty' ) . '</div>';
 	}
 
@@ -1810,58 +1465,26 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 		'bb-service-card__media--makeup',
 	);
 
-	$services = array();
+	ob_start();
 	foreach ( $service_posts as $index => $service_post ) {
 		$media_class = $fallback_media_classes[ $index % count( $fallback_media_classes ) ];
-		$service_card_image_id = function_exists( 'get_field' ) ? (int) get_field( 'service_card_image', $service_post->ID ) : 0;
-		$media_image           = '';
-		if ( $service_card_image_id > 0 ) {
-			$media_image = (string) wp_get_attachment_image_url( $service_card_image_id, 'large' );
-		}
-		if ( '' === $media_image ) {
-			$media_image = (string) get_the_post_thumbnail_url( $service_post, 'large' );
-		}
+		$media_image = (string) get_the_post_thumbnail_url( $service_post, 'large' );
 		$service_text = get_the_excerpt( $service_post );
 
 		if ( '' === trim( $service_text ) ) {
 			$service_text = wp_trim_words( wp_strip_all_tags( $service_post->post_content ), 26, '...' );
 		}
-
-		$services[] = array(
-			'title'          => get_the_title( $service_post ),
-			'text'           => $service_text,
-			'category_slugs' => array(),
-			'media_class'    => $media_class,
-			'media_image'    => $media_image,
-			'visit_url'      => '#book',
-			'more_url'       => (string) get_permalink( $service_post ),
-			'is_placeholder' => false,
-		);
-	}
-
-	$service_cards = brooklyn_beauty_merge_service_cards_with_placeholders( $services, $placeholder_cards );
-
-	ob_start();
-	foreach ( $service_cards as $service_card ) {
-		if ( ! empty( $service_card['is_placeholder'] ) ) {
-			?>
-			<article class="bb-service-card bb-service-card--placeholder">
-				<p class="bb-service-card__placeholder-text"><?php echo esc_html( (string) $service_card['text'] ); ?></p>
-			</article>
-			<?php
-			continue;
-		}
 		?>
 		<article class="bb-service-card">
-			<div class="bb-service-card__media <?php echo esc_attr( (string) $service_card['media_class'] ); ?>"<?php echo '' !== (string) $service_card['media_image'] ? ' style="background-image: url(' . esc_url( (string) $service_card['media_image'] ) . ');"' : ''; ?> aria-hidden="true"></div>
+			<div class="bb-service-card__media <?php echo esc_attr( $media_class ); ?>"<?php echo '' !== $media_image ? ' style="background-image: url(' . esc_url( $media_image ) . ');"' : ''; ?> aria-hidden="true"></div>
 			<div class="bb-service-card__content">
-				<h3 class="bb-service-card__title"><?php echo esc_html( (string) $service_card['title'] ); ?></h3>
-				<p class="bb-service-card__text"><?php echo esc_html( (string) $service_card['text'] ); ?></p>
+				<h3 class="bb-service-card__title"><?php echo esc_html( get_the_title( $service_post ) ); ?></h3>
+				<p class="bb-service-card__text"><?php echo esc_html( $service_text ); ?></p>
 				<div class="bb-service-card__actions">
-					<a class="btn btn--medium bb-service-card__visit-btn" href="<?php echo esc_url( (string) $service_card['visit_url'] ); ?>">
+					<a class="btn btn--medium bb-service-card__visit-btn" href="#book">
 						<?php esc_html_e( 'book a visit', 'brooklyn-beauty' ); ?>
 					</a>
-					<a class="bb-service-card__more-link" href="<?php echo esc_url( (string) $service_card['more_url'] ); ?>">
+					<a class="bb-service-card__more-link" href="<?php echo esc_url( (string) get_permalink( $service_post ) ); ?>">
 						<?php esc_html_e( 'learn more', 'brooklyn-beauty' ); ?>
 					</a>
 				</div>

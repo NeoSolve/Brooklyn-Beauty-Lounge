@@ -36,7 +36,7 @@
 .bb-about-us__controls {
 	display: flex;
 	align-items: center;
-	gap: clamp(9px, 0.73vw, 14px);
+	gap: clamp(68px, 5.9375vw, 114px);
 	margin: 0;
 	margin-bottom: clamp(11px, 0.83vw, 16px);
 	z-index: 2;
@@ -261,80 +261,5 @@
 	.bb-about-us__gallery-item {
 		transition: none;
 		transform: none;
-	}
-}
-
-@media (max-width: 1280px) {
-	.bb-about-us__title {
-		font-size: clamp(78px, 10vw, 116px);
-	}
-
-	.bb-about-us__quote {
-		font-size: clamp(36px, 4.4vw, 47px);
-	}
-
-	.bb-about-us__text-columns {
-		gap: 20px;
-	}
-}
-
-@media (max-width: 1024px) {
-	.bb-about-us {
-		grid-template-columns: 1fr;
-		grid-template-areas:
-			"title"
-			"image"
-			"panel";
-	}
-
-	.bb-about-us__image--placeholder,
-	.bb-about-us__image,
-	.bb-about-us__gallery {
-		min-height: 500px;
-		max-height: 72vh;
-	}
-}
-
-@media (max-width: 767px) {
-	.bb-about-us-section {
-		padding: 52px 0;
-	}
-
-	.bb-about-us__title {
-		font-size: clamp(54px, 16vw, 88px);
-	}
-
-	.bb-about-us__controls {
-		margin-bottom: 16px;
-	}
-
-	.bb-about-us__slide-top {
-		grid-template-columns: 1fr;
-	}
-
-	.bb-about-us__portrait-wrap {
-		width: min(240px, 75vw);
-		height: auto;
-		aspect-ratio: 3 / 4;
-	}
-
-	.bb-about-us__quote {
-		font-size: clamp(28px, 8.2vw, 40px);
-	}
-
-	.bb-about-us__text-columns {
-		grid-template-columns: 1fr;
-		margin-top: 24px;
-		padding-top: 0;
-	}
-
-	.bb-about-us__signature-block {
-		margin-top: 12px;
-	}
-
-	.bb-about-us__image--placeholder,
-	.bb-about-us__image,
-	.bb-about-us__gallery {
-		min-height: 320px;
 	}
 }

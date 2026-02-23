@@ -112,7 +112,7 @@ if ( '#' === substr( $button_link_target, 0, 1 ) ) {
 		<div class="bb-book">
 			<div class="bb-book__content">
 				<?php if ( $section_title ) : ?>
-					<h2 class="bb-book__title"><?php echo esc_html( $section_title ); ?></h2>
+					<h2 class="bb-book__title"><?php echo wp_kses_post( $section_title ); ?></h2>
 				<?php endif; ?>
 
 				<?php if ( $section_text_top ) : ?>
