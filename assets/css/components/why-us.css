@@ -88,7 +88,7 @@
 	min-height: clamp(251px, 19.64vw, 377px);
 	padding: clamp(16px, 1.25vw, 24px);
 	background: var(--color-accent);
-	color: var(--color-surface-strong);
+	color: var(--color-surface);
 }
 
 .bb-why-us__card::after {
@@ -157,13 +157,13 @@
 	transition-delay: 150ms;
 }
 
-@media (max-width: 1366px) {
-	.bb-why-us__intro,
-	.bb-why-us__label,
-	.bb-why-us__card-text {
-		font-size: 20px;
-	}
-}
+/*@media (max-width: 1366px) {*/
+/*	.bb-why-us__intro,*/
+/*	.bb-why-us__label,*/
+/*	.bb-why-us__card-text {*/
+/*		font-size: 20px;*/
+/*	}*/
+/*}*/
 
 @media (max-width: 767px) {
 	.bb-why-us-section {

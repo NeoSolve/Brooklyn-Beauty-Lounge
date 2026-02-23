@@ -99,7 +99,7 @@
 	--fw-body-medium: 400;
 	--ls-body-1: -3%;
 
-	--fs-body-2: clamp(12px, 0.94vw, 18px);
+	--fs-body-2: clamp(15px, 0.94vw, 18px);
 	--lh-body-2: 1.2;
 
 	--fs-body-3: clamp(9px, 0.73vw, 14px);

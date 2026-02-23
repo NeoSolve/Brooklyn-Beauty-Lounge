@@ -18,7 +18,6 @@ while ( have_posts() ) :
 	$service_title       = get_the_title();
 	$service_excerpt     = get_the_excerpt();
 	$service_archive_url = get_post_type_archive_link( 'service' );
-	$service_categories  = get_the_terms( $service_id, 'service_category' );
 	$hero_image_url      = (string) get_the_post_thumbnail_url( $service_id, 'large' );
 	$hero_image_alt      = $service_title;
 	$content             = get_the_content();
@@ -116,42 +115,6 @@ while ( have_posts() ) :
 		}
 	}
 
-	$related_ids = array();
-	$related_query_args = array(
-		'post_type'      => 'service',
-		'post_status'    => 'publish',
-		'posts_per_page' => 3,
-		'post__not_in'   => array( $service_id ),
-		'orderby'        => array(
-			'menu_order' => 'ASC',
-			'date'       => 'DESC',
-		),
-	);
-
-	if ( ! is_wp_error( $service_categories ) && ! empty( $service_categories ) ) {
-		$related_ids = array_values(
-			array_filter(
-				array_map(
-					static function( $term ) {
-						return $term instanceof WP_Term ? (int) $term->term_id : 0;
-					},
-					$service_categories
-				)
-			)
-		);
-	}
-
-	if ( ! empty( $related_ids ) ) {
-		$related_query_args['tax_query'] = array(
-			array(
-				'taxonomy' => 'service_category',
-				'field'    => 'term_id',
-				'terms'    => $related_ids,
-			),
-		);
-	}
-
-	$related_services = get_posts( $related_query_args );
 	?>
 	<section class="bb-single-service-hero">
 		<div class="bb-container">
@@ -224,34 +187,6 @@ while ( have_posts() ) :
 	get_template_part( 'template-parts/home/promotions' );
 	?>
 
-	<?php if ( ! empty( $related_services ) ) : ?>
-		<section class="bb-single-service-related">
-			<div class="bb-container">
-				<h2 class="bb-single-service-related__title"><?php esc_html_e( 'Related services', 'brooklyn-beauty' ); ?></h2>
-				<div class="bb-single-service-related__grid">
-					<?php foreach ( $related_services as $related_service ) : ?>
-						<?php
-						$related_excerpt = get_the_excerpt( $related_service );
-						if ( '' === trim( $related_excerpt ) ) {
-							$related_excerpt = wp_trim_words( wp_strip_all_tags( $related_service->post_content ), 20, '...' );
-						}
-						$related_image = (string) get_the_post_thumbnail_url( $related_service, 'large' );
-						?>
-						<article class="bb-single-service-related__card">
-							<div class="bb-single-service-related__card-media"<?php echo '' !== $related_image ? ' style="background-image: url(' . esc_url( $related_image ) . ');"' : ''; ?> aria-hidden="true"></div>
-							<div class="bb-single-service-related__card-content">
-								<h3 class="bb-single-service-related__card-title"><?php echo esc_html( get_the_title( $related_service ) ); ?></h3>
-								<p class="bb-single-service-related__card-text"><?php echo esc_html( $related_excerpt ); ?></p>
-								<a class="bb-single-service-related__card-link" href="<?php echo esc_url( (string) get_permalink( $related_service ) ); ?>">
-									<?php esc_html_e( 'learn more', 'brooklyn-beauty' ); ?>
-								</a>
-							</div>
-						</article>
-					<?php endforeach; ?>
-				</div>
-			</div>
-		</section>
-	<?php endif; ?>
 	<?php
 	get_template_part(
 		'template-parts/single-service/explore',

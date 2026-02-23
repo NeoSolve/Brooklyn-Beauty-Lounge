@@ -36,12 +36,13 @@
 .bb-our-work__button {
 	margin-top: clamp(19px, 1.46vw, 28px);
 	border-color: transparent;
+	width: clamp(200px, 17.4vw, 334px);
 }
 
 .bb-our-work__controls {
 	display: flex;
 	align-items: center;
-	gap: clamp(9px, 0.73vw, 14px);
+	gap: clamp(24px, 2.083vw, 40px);
 	padding-top: clamp(62px, 7vw, 130px);
 }
 

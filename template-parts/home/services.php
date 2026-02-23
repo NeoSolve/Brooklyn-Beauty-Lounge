@@ -162,7 +162,9 @@ $service_posts = get_posts(
 	)
 );
 
-if ( function_exists( 'brooklyn_beauty_sort_service_posts_by_home_tab_order' ) ) {
+if ( function_exists( 'brooklyn_beauty_sort_service_posts_by_all_services_position' ) ) {
+	$service_posts = brooklyn_beauty_sort_service_posts_by_all_services_position( $service_posts );
+} elseif ( function_exists( 'brooklyn_beauty_sort_service_posts_by_home_tab_order' ) ) {
 	$service_posts = brooklyn_beauty_sort_service_posts_by_home_tab_order( $service_posts );
 }
 

@@ -249,8 +249,8 @@
 }
 
 .bb-header__social-link {
-	width: 58px;
-	height: 58px;
+	width: clamp(35px, 3.02vw, 58px);
+	height: clamp(35px, 3.02vw, 58px);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
