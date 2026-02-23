@@ -1,20 +1,21 @@
 .bb-contacts-location {
-	padding: clamp(60px, 5.2vw, 100px) 0;
+	margin: clamp(60px, 5.2vw, 100px) 0;
+	height:clamp(36px, 40vw, 768px);
 }
 
 .bb-contacts-location__frame {
 	background: var(--color-accent);
 	display: grid;
 	grid-template-columns: minmax(320px, 48%) minmax(360px, 1fr);
-	padding: 20px 20px 20px 52px;
+	padding: 40px;
 }
 
 .bb-contacts-location__content {
-	color: var(--color-surface-strong);
+	color: var(--color-surface);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-height: clamp(460px, 40vw, 768px);
+	min-height: clamp(413px, 35.83vw, 688px);
 }
 
 .bb-contacts-location__info {
@@ -42,7 +43,7 @@
 	font-size: var(--fs-h4);
 	line-height: var(--lh-h4-semibold);
 	font-weight: var(--fw-h4-semibold);
-	color: var(--color-surface-strong);
+	color: var(--color-surface);
 	text-wrap: balance;
 }
 
@@ -62,7 +63,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
-	color: var(--color-surface-strong);
+	color: var(--color-surface);
 	text-transform: lowercase;
 }
 
@@ -80,7 +81,65 @@
 	height: 100%;
 	min-height: inherit;
 	border: 0;
-	filter: grayscale(100%) invert(90%) contrast(110%);
+}
+
+.bb-contacts-location__map.maplibregl-map {
+	font-family: var(--font-main);
+}
+
+.bb-contacts-location__map .maplibregl-canvas {
+	outline: none;
+}
+
+.bb-contacts-location__map .maplibregl-ctrl-attrib {
+	background: rgba(8, 8, 10, 0.75);
+	color: #d7d7d7;
+}
+
+.bb-contacts-location__map .maplibregl-ctrl-attrib a {
+	color: #ffffff;
+}
+
+.bb-contacts-location__map .maplibregl-ctrl-group {
+	background: rgba(22, 22, 24, 0.95);
+	border: 1px solid rgba(124, 124, 124, 0.35);
+}
+
+.bb-contacts-location__map .maplibregl-ctrl-group button {
+	color: #7c7c7c;
+}
+
+.bb-contacts-location__map .maplibregl-ctrl-bottom-right {
+	display: none;
+}
+
+.bb-contacts-map-pin {
+	background: transparent;
+	border: 0;
+}
+
+.bb-contacts-map-pin__shape {
+	position: relative;
+	display: block;
+	width: 45px;
+	height: 45px;
+	background: #EA4335;
+	border: 2px solid #af3228;
+	border-radius: 50% 50% 50% 0;
+	transform: rotate(-45deg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.bb-contacts-map-pin__shape::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 8px;
+	height: 8px;
+	background: #af3228;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
 }
 
 @media (max-width: 1024px) {

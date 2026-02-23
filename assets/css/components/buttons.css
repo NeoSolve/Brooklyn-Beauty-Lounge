@@ -38,7 +38,9 @@
 	padding: clamp(11px, 0.83vw, 16px) clamp(27px, 2.08vw, 40px);
 	gap: clamp(7px, 0.52vw, 10px);
 	border-radius: 4px;
-	font-size: clamp(11px, 0.83vw, 16px);
+	font-size: var(--fs-body-2);
+	font-weight: var(--fw-body-medium);
+	line-height: var(--lh-body-2);
 }
 
 .btn--medium,
@@ -49,6 +51,9 @@
 	gap: clamp(7px, 0.52vw, 10px);
 	border-radius: 4px;
 	font-size: var(--fs-button);
+	letter-spacing: var(--ls-button-3);
+	font-weight: var(--fw-button);
+	line-height: var(--lh-button);
 }
 
 .btn--big {

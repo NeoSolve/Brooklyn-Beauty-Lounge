@@ -44,8 +44,8 @@
 }
 
 .bb-footer__row-left {
-	width: 34%;
 	min-width: clamp(207px, 16.15vw, 310px);
+	width: clamp(202px, 17.5vw, 336px);
 }
 
 .bb-footer__row-right {
@@ -56,6 +56,15 @@
 
 .bb-footer__row--bottom-content {
 	margin-top: clamp(44px, 3.85vw, 74px);
+	align-items: stretch;
+}
+
+.bb-footer__row--bottom-content .bb-footer__nav {
+	margin-top: auto;
+}
+
+.bb-footer__row--bottom-content .bb-footer__featured {
+	margin-top: auto;
 }
 
 .bb-footer__brand {
@@ -129,10 +138,14 @@
 	transform-origin: right center;
 }
 
+.bb-footer__contact-link + .bb-footer__contact-link {
+	margin-top: 6px;
+}
+
 .bb-footer__social {
 	display: flex;
 	gap: clamp(5px, 0.42vw, 8px);
-	margin-bottom: clamp(28px, 2.19vw, 42px);
+	margin-bottom: clamp(50px, 4.375vw, 84px);
 }
 
 .bb-footer__social-link {
@@ -206,7 +219,7 @@
 }
 
 .bb-footer__button {
-	min-width: clamp(127px, 9.9vw, 190px);
+	min-width: clamp(127px, 11.04vw, 212px);
 	background: var(--color-accent);
 	border-color: var(--color-overlay-light-80);
 	color: var(--color-surface);
@@ -231,7 +244,7 @@
 
 .bb-footer__press-image {
 	width: 100%;
-	max-width: 133px;
+	max-width: 100px;
 }
 
 .bb-footer__press-image--top {

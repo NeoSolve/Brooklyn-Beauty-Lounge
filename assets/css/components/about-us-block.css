@@ -20,7 +20,7 @@
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
 	text-transform: lowercase;
-	letter-spacing: -0.02em;
+	letter-spacing: var(--ls-h2-semibold);
 }
 
 .bb-about-us__panel {
@@ -169,7 +169,7 @@
 
 .bb-about-us__text-columns {
 	margin-top: auto;
-	padding-top: clamp(27px, 2.08vw, 40px);
+	padding-top: clamp(18px, 1.25vw, 24px);
 	display: grid;
 	grid-template-columns: clamp(250px, 19.53vw, 375px) minmax(0, 1fr);
 	gap: clamp(24px, 1.88vw, 36px);
@@ -212,7 +212,7 @@
 .bb-about-us__image-wrap {
 	grid-area: image;
 	width: clamp(613px, 47.92vw, 920px);
-	height: clamp(587px, 45.83vw, 880px);
+	/*height: clamp(587px, 45.83vw, 880px);*/
 	position: relative;
 	overflow: hidden;
 }

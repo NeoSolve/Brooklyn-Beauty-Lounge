@@ -7,6 +7,7 @@
 	font-size: var(--fs-h2);
 	font-weight: var(--fw-h2-semibold);
 	line-height: var(--lh-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	text-align: center;
 	text-transform: lowercase;
 	color: var(--color-primary);
@@ -81,6 +82,8 @@
 
 .bb-why-us__card {
 	position: relative;
+	display: flex;
+	flex-direction: column;
 	width: min(clamp(262px, 20.52vw, 394px), 100%);
 	min-height: clamp(251px, 19.64vw, 377px);
 	padding: clamp(16px, 1.25vw, 24px);
@@ -109,6 +112,7 @@
 }
 
 .bb-why-us__card-text {
+	margin-top: auto;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
 	font-weight: var(--fw-body-medium);
@@ -158,18 +162,6 @@
 	.bb-why-us__label,
 	.bb-why-us__card-text {
 		font-size: 20px;
-	}
-}
-
-@media (max-width: 1280px) {
-	.bb-why-us {
-		grid-template-columns: repeat(2, minmax(260px, 1fr));
-		grid-template-areas:
-			"left-top right-top"
-			"intro intro"
-			"top-left top-right"
-			"center center"
-			"bottom-cards bottom-cards";
 	}
 }
 

@@ -19,7 +19,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
-	letter-spacing: -0.02em;
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary-alt);
 	text-transform: lowercase;
 }
@@ -27,8 +27,8 @@
 .bb-our-work__text {
 	margin-top: clamp(16px, 1.25vw, 24px);
 	max-width: clamp(373px, 29.17vw, 560px);
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
 	color: var(--color-text);
 }
@@ -188,24 +188,6 @@
 	background: var(--gradient-our-work-placeholder);
 }
 
-@media (max-width: 1280px) {
-	.bb-our-work__title {
-		font-size: clamp(76px, 10vw, 132px);
-	}
-
-	.bb-our-work__content {
-		grid-template-columns: 418px minmax(0, 1fr);
-	}
-
-	.bb-our-work__label {
-		height: 430px;
-		font-size: clamp(40px, 4vw, 55px);
-	}
-
-	.bb-work__item {
-		height: 430px;
-	}
-}
 
 @media (max-width: 992px) {
 	.bb-our-work-section {

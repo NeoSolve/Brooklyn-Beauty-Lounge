@@ -28,6 +28,31 @@
             "preview_size": "large"
         },
         {
+            "key": "field_brooklyn_beauty_single_service_card_image",
+            "label": "Services Card Image",
+            "name": "service_card_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Image for service card in the homepage services block. If empty, featured image is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "large"
+        },
+        {
             "key": "field_brooklyn_beauty_single_service_hero_tagline",
             "label": "Tagline",
             "name": "service_hero_tagline",

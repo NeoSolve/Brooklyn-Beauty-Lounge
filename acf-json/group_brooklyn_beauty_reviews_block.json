@@ -132,6 +132,30 @@
                     "parent_repeater": "field_brooklyn_beauty_reviews_items"
                 },
                 {
+                    "key": "field_brooklyn_beauty_reviews_item_rating",
+                    "label": "Rating (Stars)",
+                    "name": "rating",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "15",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 5,
+                    "min": 1,
+                    "max": 5,
+                    "allow_in_bindings": 0,
+                    "step": 1,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_reviews_items",
+                    "placeholder": ""
+                },
+                {
                     "key": "field_brooklyn_beauty_reviews_item_author",
                     "label": "Author",
                     "name": "author",
@@ -215,5 +239,5 @@
     "description": "Content settings for the Reviews block on homepage.",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771201434
+    "modified": 1771778569
 }

@@ -85,6 +85,7 @@
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
@@ -105,7 +106,7 @@
 
 .single-service .bb-single-service-hero__intro-text {
 	margin: 0;
-	max-width: clamp(220px, 17.03vw, 327px);
+	max-width: clamp(256px, 22.24vw, 427px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);

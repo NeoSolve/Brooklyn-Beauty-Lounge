@@ -46,11 +46,25 @@ if ( function_exists( 'get_field' ) ) {
 	}
 }
 
-$map_query = rawurlencode( wp_strip_all_tags( str_replace( array( "\r", "\n" ), ' ', $address_text ) ) );
-if ( '' === $map_query ) {
-	$map_query = rawurlencode( '2080 Coney Island Avenue Brooklyn NY 11223' );
+$map_lat = 40.60646495007802;
+$map_lng = -73.96208768734041;
+
+if ( '' !== $address_link ) {
+	if ( preg_match( '/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/', $address_link, $google_at_matches ) ) {
+		$map_lat = (float) $google_at_matches[1];
+		$map_lng = (float) $google_at_matches[2];
+	} elseif ( preg_match( '/[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/', $address_link, $google_q_matches ) ) {
+		$map_lat = (float) $google_q_matches[1];
+		$map_lng = (float) $google_q_matches[2];
+	} elseif ( preg_match( '/[?&]ll=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/', $address_link, $google_ll_matches ) ) {
+		$map_lat = (float) $google_ll_matches[1];
+		$map_lng = (float) $google_ll_matches[2];
+	} elseif ( preg_match( '/#map=\d+\/(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)/', $address_link, $osm_hash_matches ) ) {
+		$map_lat = (float) $osm_hash_matches[1];
+		$map_lng = (float) $osm_hash_matches[2];
+	}
 }
-$map_embed_url = 'https://maps.google.com/maps?q=' . $map_query . '&z=15&output=embed';
+
 ?>
 
 <section class="bb-contacts-location" aria-labelledby="bb-contacts-location-title">
@@ -88,14 +102,14 @@ $map_embed_url = 'https://maps.google.com/maps?q=' . $map_query . '&z=15&output=
 			</div>
 
 			<div class="bb-contacts-location__map-wrap">
-				<iframe
-					class="bb-contacts-location__map"
-					src="<?php echo esc_url( $map_embed_url ); ?>"
-					title="<?php esc_attr_e( 'Brooklyn Beauty Lounge location map', 'brooklyn-beauty' ); ?>"
-					loading="lazy"
-					referrerpolicy="no-referrer-when-downgrade"
-					allowfullscreen
-				></iframe>
+				<div
+					class="bb-contacts-location__map js-bb-contacts-map"
+					data-lat="<?php echo esc_attr( (string) $map_lat ); ?>"
+					data-lng="<?php echo esc_attr( (string) $map_lng ); ?>"
+					data-zoom="17.5"
+					role="img"
+					aria-label="<?php esc_attr_e( 'Brooklyn Beauty Lounge location map', 'brooklyn-beauty' ); ?>"
+				></div>
 			</div>
 		</div>
 	</div>

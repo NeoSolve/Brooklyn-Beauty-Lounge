@@ -14,6 +14,17 @@
 	margin: 0 auto;
 }
 
+.bb-contacts-form__title {
+	margin: 0 0 clamp(26px, 2.3vw, 44px);
+	text-align: center;
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
 .bb-contacts-form__decor {
 	font-family: var(--font-decor);
 	font-size: clamp(42px, 3.7vw, 72px);
@@ -34,7 +45,7 @@
 }
 
 .bb-contacts-form .wpcf7 {
-	max-width: 1120px;
+	max-width: clamp(732px, 63.54vw, 1220px);
 	margin: 0 auto;
 }
 
@@ -57,7 +68,7 @@
 .bb-contacts-form .cf7-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 40px;
+	gap: 36px;
 }
 
 .bb-contacts-form .cf7-full {
@@ -80,7 +91,13 @@
 	grid-column: 2 / 3;
 	grid-row: 3;
 	align-self: start;
-	margin-top: clamp(5px, 0.42vw, 8px);
+	margin-top: 0;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full.cf7-disclaimer--with-submit {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 }
 
 .bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full p {
@@ -89,8 +106,9 @@
 
 .bb-contacts-form .cf7-grid > .cf7-full:last-child {
 	grid-column: 2 / 3;
-	grid-row: 4;
+	/*grid-row: 4;*/
 	align-self: end;
+	margin-top: clamp(18px, 1.5625vw, 30px)
 }
 
 /* Внутри .cf7-field всё в одном <p>: label и обёртка инпута — делаем flex и gap по этому p */
@@ -138,7 +156,7 @@
 
 .bb-contacts-form .cf7-textarea,
 .bb-contacts-form .wpcf7-form textarea {
-	min-height: 132px;
+	height: clamp(103px, 8.96vw, 172px);
 	resize: vertical;
 }
 
@@ -203,9 +221,7 @@
 }
 
 .bb-contacts-form .wpcf7-response-output {
-	margin: 18px 0 0;
-	border-width: 1px;
-	padding: 10px 14px;
+	display: none;
 }
 
 @media (max-width: 1600px) {
@@ -227,11 +243,7 @@
 	}
 }
 
-@media (max-width: 1280px) {
-	.bb-contacts-form__decor--right {
-		display: none;
-	}
-}
+
 
 @media (max-width: 900px) {
 	.bb-contacts-form__layout {
@@ -260,6 +272,10 @@
 	}
 
 	.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full {
+		margin-top: 0;
+	}
+
+	.bb-contacts-form .cf7-grid > .cf7-full:last-child {
 		margin-top: 0;
 	}
 

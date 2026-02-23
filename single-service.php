@@ -204,11 +204,6 @@ while ( have_posts() ) :
 
 	<?php
 	get_template_part(
-		'template-parts/single-service/reasons',
-		null,
-		array( 'service_id' => $service_id )
-	);
-	get_template_part(
 		'template-parts/single-service/why-choose',
 		null,
 		array(
@@ -217,11 +212,16 @@ while ( have_posts() ) :
 		)
 	);
 	get_template_part(
+		'template-parts/single-service/reasons',
+		null,
+		array( 'service_id' => $service_id )
+	);
+	get_template_part(
 		'template-parts/single-service/prices',
 		null,
 		array( 'service_id' => $service_id )
 	);
-	get_template_part( 'template-parts/home/book-appointment' );
+	get_template_part( 'template-parts/home/promotions' );
 	?>
 
 	<?php if ( ! empty( $related_services ) ) : ?>
@@ -266,6 +266,7 @@ while ( have_posts() ) :
 			'service_title' => $service_title,
 		)
 	);
+	get_template_part( 'template-parts/home/book-appointment' );
 	get_template_part( 'template-parts/home/faq' );
 	?>
 	<?php

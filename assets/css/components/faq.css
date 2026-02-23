@@ -44,7 +44,7 @@
 	font-size: clamp(72px, 7.2vw, 120px);
 	line-height: 0.86;
 	font-weight: var(--fw-h2-semibold);
-	letter-spacing: -0.02em;
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
@@ -76,11 +76,11 @@
 
 .bb-faq-item__index {
 	padding-top: clamp(5px, 0.42vw, 8px);
-	font-size: clamp(8px, 0.63vw, 12px);
-	line-height: 1;
-	font-weight: 500;
-	letter-spacing: 0.14em;
-	color: var(--color-overlay-primary-45);
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+	font-weight: var(--fw-body-regular);
+	letter-spacing: -2%;
+	color: var(--color-text);
 }
 
 .bb-faq-item__question {
