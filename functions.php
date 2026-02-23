@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'BROOKLYN_BEAUTY_VERSION', '1.0' );
 
+require_once get_template_directory() . '/inc/services.php';
+
 /**
  * Theme setup
  */
@@ -137,6 +139,8 @@ function brooklyn_beauty_assets() {
 	$faq_js_path           = get_template_directory() . '/assets/js/faq.js';
 	$hero_video_js_path    = get_template_directory() . '/assets/js/hero-video.js';
 	$footer_js_path        = get_template_directory() . '/assets/js/footer.js';
+	$contacts_map_js_path  = get_template_directory() . '/assets/js/contacts-map.js';
+	$contacts_form_js_path = get_template_directory() . '/assets/js/contacts-form.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -253,6 +257,13 @@ function brooklyn_beauty_assets() {
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $contacts_page_css_path )
 		);
+
+		wp_enqueue_style(
+			'brooklyn-beauty-maplibre',
+			'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css',
+			array(),
+			'4.7.1'
+		);
 	}
 
 	if ( is_404() && file_exists( $page_404_css_path ) ) {
@@ -362,7 +373,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( is_front_page() && file_exists( $promotions_js_path ) ) {
+		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $promotions_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-promotions',
 				get_template_directory_uri() . '/assets/js/promotions.js',
@@ -410,6 +421,36 @@ function brooklyn_beauty_assets() {
 				(string) filemtime( $hero_video_js_path ),
 				true
 			);
+		}
+
+		if ( is_page_template( 'page-contacts.php' ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-maplibre',
+				'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js',
+				array(),
+				'4.7.1',
+				true
+			);
+
+			if ( file_exists( $contacts_map_js_path ) ) {
+				wp_enqueue_script(
+					'brooklyn-beauty-contacts-map',
+					get_template_directory_uri() . '/assets/js/contacts-map.js',
+					array( 'brooklyn-beauty-maplibre' ),
+					(string) filemtime( $contacts_map_js_path ),
+					true
+				);
+			}
+
+			if ( file_exists( $contacts_form_js_path ) ) {
+				wp_enqueue_script(
+					'brooklyn-beauty-contacts-form',
+					get_template_directory_uri() . '/assets/js/contacts-form.js',
+					array(),
+					(string) filemtime( $contacts_form_js_path ),
+					true
+				);
+			}
 		}
 	}
 }
@@ -639,11 +680,20 @@ function brooklyn_beauty_register_acf_field_groups() {
 			),
 			array(
 				'key'   => 'field_brooklyn_beauty_footer_address_text',
-				'label' => __( 'Footer Address Text', 'brooklyn-beauty' ),
+				'label' => __( 'Footer Address Line 1', 'brooklyn-beauty' ),
 				'name'  => 'footer_address_text',
 				'type'  => 'text',
 				'wrapper' => array(
-					'width' => '34',
+					'width' => '17',
+				),
+			),
+			array(
+				'key'   => 'field_brooklyn_beauty_footer_address_text_line_2',
+				'label' => __( 'Footer Address Line 2', 'brooklyn-beauty' ),
+				'name'  => 'footer_address_text_line_2',
+				'type'  => 'text',
+				'wrapper' => array(
+					'width' => '17',
 				),
 			),
 			array(
@@ -1063,6 +1113,16 @@ function brooklyn_beauty_register_acf_field_groups() {
 						'rows'  => 6,
 					),
 					array(
+						'key'           => 'field_brooklyn_beauty_reviews_item_rating',
+						'label'         => __( 'Rating (Stars)', 'brooklyn-beauty' ),
+						'name'          => 'rating',
+						'type'          => 'number',
+						'default_value' => 5,
+						'min'           => 1,
+						'max'           => 5,
+						'step'          => 1,
+					),
+					array(
 						'key'   => 'field_brooklyn_beauty_reviews_item_author',
 						'label' => __( 'Author', 'brooklyn-beauty' ),
 						'name'  => 'author',
@@ -1194,6 +1254,16 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'preview_size'  => 'large',
 				'library'       => 'all',
 				'instructions'  => __( 'Optional. If empty, featured image is used.', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_single_service_card_image',
+				'label'         => __( 'Services Card Image', 'brooklyn-beauty' ),
+				'name'          => 'service_card_image',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'large',
+				'library'       => 'all',
+				'instructions'  => __( 'Image for service card in the homepage services block. If empty, featured image is used.', 'brooklyn-beauty' ),
 			),
 			array(
 				'key'           => 'field_brooklyn_beauty_single_service_hero_tagline',
@@ -1422,99 +1492,6 @@ function brooklyn_beauty_get_header_social_icon_svg( $icon ) {
 
 	return isset( $icons[ $icon ] ) ? $icons[ $icon ] : '';
 }
-
-/**
- * Build services cards markup for selected category.
- *
- * @param string $category_slug Service category slug.
- *
- * @return string
- */
-function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-services' ) {
-	$query_args = array(
-		'post_type'      => 'service',
-		'post_status'    => 'publish',
-		'posts_per_page' => 9,
-		'orderby'        => array(
-			'menu_order' => 'ASC',
-			'title'      => 'ASC',
-		),
-	);
-
-	$category_slug = sanitize_title( (string) $category_slug );
-
-	if ( '' !== $category_slug && 'all-services' !== $category_slug ) {
-		$query_args['tax_query'] = array(
-			array(
-				'taxonomy' => 'service_category',
-				'field'    => 'slug',
-				'terms'    => $category_slug,
-			),
-		);
-	}
-
-	$service_posts = get_posts( $query_args );
-
-	if ( empty( $service_posts ) ) {
-		return '<div class="bb-services-cards__empty">' . esc_html__( 'No services found in this category.', 'brooklyn-beauty' ) . '</div>';
-	}
-
-	$fallback_media_classes = array(
-		'bb-service-card__media--pedicure',
-		'bb-service-card__media--brows',
-		'bb-service-card__media--makeup',
-	);
-
-	ob_start();
-	foreach ( $service_posts as $index => $service_post ) {
-		$media_class = $fallback_media_classes[ $index % count( $fallback_media_classes ) ];
-		$media_image = (string) get_the_post_thumbnail_url( $service_post, 'large' );
-		$service_text = get_the_excerpt( $service_post );
-
-		if ( '' === trim( $service_text ) ) {
-			$service_text = wp_trim_words( wp_strip_all_tags( $service_post->post_content ), 26, '...' );
-		}
-		?>
-		<article class="bb-service-card">
-			<div class="bb-service-card__media <?php echo esc_attr( $media_class ); ?>"<?php echo '' !== $media_image ? ' style="background-image: url(' . esc_url( $media_image ) . ');"' : ''; ?> aria-hidden="true"></div>
-			<div class="bb-service-card__content">
-				<h3 class="bb-service-card__title"><?php echo esc_html( get_the_title( $service_post ) ); ?></h3>
-				<p class="bb-service-card__text"><?php echo esc_html( $service_text ); ?></p>
-				<div class="bb-service-card__actions">
-					<a class="btn btn--medium bb-service-card__visit-btn" href="#book">
-						<?php esc_html_e( 'book a visit', 'brooklyn-beauty' ); ?>
-					</a>
-					<a class="bb-service-card__more-link" href="<?php echo esc_url( (string) get_permalink( $service_post ) ); ?>">
-						<?php esc_html_e( 'learn more', 'brooklyn-beauty' ); ?>
-					</a>
-				</div>
-			</div>
-		</article>
-		<?php
-	}
-
-	return (string) ob_get_clean();
-}
-
-/**
- * AJAX callback: return services cards by category.
- *
- * @return void
- */
-function brooklyn_beauty_ajax_filter_services() {
-	check_ajax_referer( 'bb_services_filter', 'nonce' );
-
-	$category_slug = isset( $_POST['category'] ) ? sanitize_title( wp_unslash( (string) $_POST['category'] ) ) : 'all-services';
-	$cards_html    = brooklyn_beauty_get_services_cards_markup( $category_slug );
-
-	wp_send_json_success(
-		array(
-			'html' => $cards_html,
-		)
-	);
-}
-add_action( 'wp_ajax_bb_filter_services', 'brooklyn_beauty_ajax_filter_services' );
-add_action( 'wp_ajax_nopriv_bb_filter_services', 'brooklyn_beauty_ajax_filter_services' );
 
 /**
  * Add clone action link for admin post rows.

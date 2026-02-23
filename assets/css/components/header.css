@@ -10,9 +10,11 @@
 }
 
 .bb-header--scrolled {
-	background: var(--color-surface-alt);
-	backdrop-filter: none;
-	border-bottom-color: var(--color-text);
+	background: linear-gradient(159deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.12));
+	backdrop-filter: blur(20px) saturate(145%);
+	-webkit-backdrop-filter: blur(20px) saturate(145%);
+	border-bottom-color: rgba(255, 255, 255, 0.45);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .home .bb-header:not(.bb-header--scrolled):not(.bb-header--past-hero) {
@@ -28,10 +30,13 @@
 }
 
 .home .bb-header.bb-header--past-hero {
-	background: var(--color-surface-alt);
-	backdrop-filter: none;
-	border-bottom-color: var(--color-text);
+	background: linear-gradient(159deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.12));
+	backdrop-filter: blur(20px) saturate(145%);
+	-webkit-backdrop-filter: blur(20px) saturate(145%);
+	border-bottom-color: rgba(255, 255, 255, 0.45);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
+
 
 .bb-header--hidden {
 	transform: translateY(-100%);
@@ -80,7 +85,7 @@
 
 .bb-header__inner {
 	position: relative;
-	min-height: clamp(71px, 5.52vw, 106px);
+	min-height: clamp(60px, 5.2vw, 100px);
 	display: flex;
 	align-items: center;
 	gap: clamp(13px, 1.04vw, 20px);
@@ -113,6 +118,9 @@
 
 .bb-header__logo {
 	flex-shrink: 0;
+	align-self: flex-end;
+	width: clamp(80px, 6.93vw, 133px);
+	height: clamp(48px, 4.17vw, 80px);
 }
 
 .bb-header__logo .custom-logo-link,
@@ -241,25 +249,26 @@
 }
 
 .bb-header__social-link {
-	width: clamp(17px, 1.35vw, 26px);
-	height: clamp(17px, 1.35vw, 26px);
+	width: clamp(35px, 3.02vw, 58px);
+	height: clamp(35px, 3.02vw, 58px);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	color: var(--color-primary);
 	box-shadow: 0 0 0 0 currentColor;
 	transition: box-shadow var(--transition-base);
+	border-radius: 4px;
 }
 
 .bb-header__social-link svg {
-	width: clamp(10px, 0.78vw, 15px);
-	height: clamp(10px, 0.78vw, 15px);
+	width: 22px;
+	height: 22px;
 	display: block;
 }
 
 .bb-header__social-icon {
-	width: 100%;
-	height: 100%;
+	width: 22px;
+	height: 22px;
 	display: block;
 	object-fit: contain;
 }

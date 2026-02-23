@@ -28,6 +28,182 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_brooklyn_beauty_services_category_order_map",
+            "label": "Services Category Card Order",
+            "name": "services_category_order_map",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Define custom service card positions per category. One row = one service order in one category.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Category Service Position",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_services_category_order_category",
+                    "label": "Category",
+                    "name": "category",
+                    "aria-label": "",
+                    "type": "taxonomy",
+                    "instructions": "Select category where this service position should be applied.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "taxonomy": "service_category",
+                    "add_term": 0,
+                    "save_terms": 0,
+                    "load_terms": 0,
+                    "return_format": "id",
+                    "field_type": "select",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "bidirectional": 0,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_brooklyn_beauty_services_category_order_map"
+                },
+                {
+                    "key": "field_brooklyn_beauty_services_category_order_service",
+                    "label": "Service",
+                    "name": "service",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Select service card to position in this category.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "service"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_brooklyn_beauty_services_category_order_map"
+                },
+                {
+                    "key": "field_brooklyn_beauty_services_category_order_position",
+                    "label": "Position",
+                    "name": "position",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Order inside selected category: 1 = first, 2 = second, etc.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "min": 1,
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_services_category_order_map"
+                }
+            ]
+        },
+        {
+            "key": "field_brooklyn_beauty_services_all_order_map",
+            "label": "All Services Card Order",
+            "name": "services_all_order_map",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Define manual service card order for the all services tab.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add All Services Position",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_services_all_order_service",
+                    "label": "Service",
+                    "name": "service",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Select service card for all services tab order.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "service"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_brooklyn_beauty_services_all_order_map"
+                },
+                {
+                    "key": "field_brooklyn_beauty_services_all_order_position",
+                    "label": "Position",
+                    "name": "position",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Order in all services tab: 1 = first, 2 = second, etc.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "min": 1,
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_services_all_order_map"
+                }
+            ]
+        },
+        {
             "key": "field_brooklyn_beauty_services_placeholder_cards",
             "label": "Services Placeholder Cards",
             "name": "services_placeholder_cards",
@@ -165,4 +341,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
+    "modified": 1771876480
 }
