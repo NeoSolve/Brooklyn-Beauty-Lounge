@@ -54,8 +54,30 @@
 		}
 	}
 
+	var socialSyncRAF = 0;
+	function syncSocialPosition() {
+		if (!isHomePage || !hero) return;
+		var videoWrap = hero.querySelector(".bb-hero__video-wrap");
+		var headerInner = header.querySelector(".bb-header__inner");
+		var socialBlock = header.querySelector(".bb-header__social");
+		var firstIcon = header.querySelector(".bb-header__social-icon");
+		if (!videoWrap || !headerInner || !socialBlock || !firstIcon) return;
+		var iconInset = firstIcon.getBoundingClientRect().left - socialBlock.getBoundingClientRect().left;
+		var offset = videoWrap.getBoundingClientRect().left - headerInner.getBoundingClientRect().left - iconInset;
+		headerInner.style.setProperty("--social-left", offset + "px");
+	}
+
+	function requestSocialSync() {
+		cancelAnimationFrame(socialSyncRAF);
+		socialSyncRAF = requestAnimationFrame(syncSocialPosition);
+	}
+
 	updateHeaderOffset();
 	updateHeader();
+	syncSocialPosition();
 	window.addEventListener("scroll", onScroll, { passive: true });
-	window.addEventListener("resize", updateHeaderOffset);
+	window.addEventListener("resize", function () {
+		updateHeaderOffset();
+		requestSocialSync();
+	});
 })();

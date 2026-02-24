@@ -249,7 +249,7 @@
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	width: clamp(313px, 24.43vw, 469px);
+	width: var(--hero-video-width);
 	max-width: 100%;
 	display: flex;
 	flex-direction: column;

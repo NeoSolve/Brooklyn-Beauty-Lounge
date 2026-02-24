@@ -250,9 +250,9 @@
 
 .home .bb-header:not(.bb-header--past-hero) .bb-header__social {
 	position: absolute;
-	left: calc(100% - clamp(276px, 23.96vw, 460px));
+	left: var(--social-left, calc(100% - var(--hero-video-width)));
 	top: 50%;
-	transform: translate(-50%, -50%);
+	transform: translateY(-50%);
 }
 
 .bb-header__social-link {
