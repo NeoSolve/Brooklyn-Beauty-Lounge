@@ -1,17 +1,19 @@
 <?php
 /**
- * Shared page hero banner.
+ * Blog page hero banner.
+ *
+ * Same markup structure as services hero banner.
  *
  * @package Brooklyn_Beauty
  */
 
 $page_id = (int) get_queried_object_id();
 
-$hero_title       = __( 'services', 'brooklyn-beauty' );
+$hero_title       = __( 'blog', 'brooklyn-beauty' );
 $hero_background_word = $hero_title;
 $hero_tagline     = __( 'be fabulous with brooklyn beauty lounge!', 'brooklyn-beauty' );
-$hero_subtitle    = __( 'self-care', 'brooklyn-beauty' );
-$hero_description = __( 'Brooklyn Beauty Lounge offers everything from hair and makeup to facials, nails and laser treatments, providing personalized care and expert techniques that make you look and feel your best.', 'brooklyn-beauty' );
+$hero_subtitle    = __( 'beauty tips & insights', 'brooklyn-beauty' );
+$hero_description = __( 'Discover trends, expert recommendations, and practical routines from the Brooklyn Beauty Lounge team to help you look and feel your best every day.', 'brooklyn-beauty' );
 $hero_image_url   = '';
 $hero_image_alt   = $hero_title ? $hero_title : get_bloginfo( 'name' );
 
@@ -71,7 +73,7 @@ if ( '' === $hero_image_url && $page_id > 0 && has_post_thumbnail( $page_id ) ) 
 }
 
 ?>
-<section class="bb-services-hero" aria-labelledby="bb-services-hero-title">
+<section class="bb-services-hero bb-blog-hero" aria-labelledby="bb-blog-hero-title">
 	<div class="bb-container bb-services-hero__inner">
 		<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
 			<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
@@ -82,7 +84,7 @@ if ( '' === $hero_image_url && $page_id > 0 && has_post_thumbnail( $page_id ) ) 
 		</nav>
 
 		<div class="bb-services-hero__stage">
-			<h1 class="bb-services-hero__title" id="bb-services-hero-title"><?php echo esc_html( $hero_background_word ); ?></h1>
+			<h1 class="bb-services-hero__title" id="bb-blog-hero-title"><?php echo esc_html( $hero_background_word ); ?></h1>
 
 			<p class="bb-services-hero__tagline t-decor"><?php echo esc_html( $hero_tagline ); ?></p>
 			<p class="bb-services-hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
