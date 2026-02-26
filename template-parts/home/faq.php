@@ -92,6 +92,11 @@ if ( function_exists( 'get_field' ) ) {
 			);
 		}
 	}
+
+	// On single post: show block only if this post has FAQ items (no default fallback).
+	if ( is_singular( 'post' ) && empty( $faq_items ) ) {
+		return;
+	}
 }
 
 if ( empty( $faq_items ) ) {

@@ -145,6 +145,7 @@ function brooklyn_beauty_assets() {
 	$contacts_map_js_path  = get_template_directory() . '/assets/js/contacts-map.js';
 	$contacts_form_js_path = get_template_directory() . '/assets/js/contacts-form.js';
 	$single_post_js_path   = get_template_directory() . '/assets/js/single-post.js';
+	$other_articles_js_path = get_template_directory() . '/assets/js/other-articles.js';
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -236,7 +237,7 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
-	if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $book_appointment_css_path ) ) {
+	if ( ( is_front_page() || is_singular( 'service' ) || is_singular( 'post' ) ) && file_exists( $book_appointment_css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-book-appointment',
 			get_template_directory_uri() . '/assets/css/components/book-appointment.css',
@@ -415,7 +416,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $book_appointment_js_path ) ) {
+		if ( ( is_front_page() || is_singular( 'service' ) || is_singular( 'post' ) ) && file_exists( $book_appointment_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-book-appointment',
 				get_template_directory_uri() . '/assets/js/book-appointment.js',
@@ -425,7 +426,7 @@ function brooklyn_beauty_assets() {
 			);
 		}
 
-		if ( ( is_front_page() || is_singular( 'service' ) ) && file_exists( $faq_js_path ) ) {
+		if ( ( is_front_page() || is_singular( 'service' ) || is_singular( 'post' ) ) && file_exists( $faq_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-faq',
 				get_template_directory_uri() . '/assets/js/faq.js',
@@ -481,6 +482,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/single-post.js',
 				array( 'brooklyn-beauty-main' ),
 				(string) filemtime( $single_post_js_path ),
+				true
+			);
+		}
+
+		if ( is_singular( 'post' ) && file_exists( $other_articles_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-other-articles',
+				get_template_directory_uri() . '/assets/js/other-articles.js',
+				array(),
+				(string) filemtime( $other_articles_js_path ),
 				true
 			);
 		}
