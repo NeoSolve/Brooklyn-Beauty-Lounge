@@ -22,31 +22,32 @@
 }
 
 .single-post .bb-blog-single-hero__tag {
-	padding: 4px 16px;
+	padding: 8px 46px;
 	border: 1px solid var(--color-primary);
-	border-radius: var(--radius-pill);
-	font-size: var(--fs-body-3);
-	line-height: 1.2;
+	border-radius: 4px;
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-regular);
+	letter-spacing: var(--ls-button-3);
 	color: var(--color-primary);
 	text-transform: lowercase;
 }
 
 .single-post .bb-blog-single-hero__title {
-	margin-top: clamp(20px, 2.19vw, 42px);
-	max-width: 17ch;
-	font-size: clamp(46px, 5.21vw, 100px);
-	line-height: 0.98;
-	font-weight: 600;
+	margin-top: clamp(24px, 2.083vw, 40px);
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-accent);
 	text-transform: lowercase;
-	letter-spacing: -0.03em;
 }
 
 .single-post .bb-blog-single-hero__intro-grid {
-	margin-top: clamp(24px, 2.5vw, 48px);
+	margin-top: clamp(31px, 2.71vw, 52px);
 	display: grid;
-	grid-template-columns: clamp(180px, 15vw, 288px) minmax(0, 1fr);
-	gap: clamp(20px, 2.08vw, 40px);
+	grid-template-columns: clamp(180px, 15.625vw, 300px) minmax(0, 1fr);
+	gap: clamp(66px, 5.73vw, 110px);
 }
 
 .single-post .bb-blog-single-hero__meta {
@@ -75,15 +76,16 @@
 }
 
 .single-post .bb-blog-single-hero__author-name {
-	font-size: clamp(22px, 1.88vw, 36px);
-	line-height: 1;
-	font-weight: 500;
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+	font-weight: var(--fw-h5-semibold);
 	color: var(--color-primary-alt);
 }
 
 .single-post .bb-blog-single-hero__author-role {
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
 	color: var(--color-text-soft);
 	text-transform: lowercase;
 }
@@ -93,6 +95,7 @@
 	padding-left: 22px;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
 	color: var(--color-text-soft);
 }
 
@@ -112,20 +115,21 @@
 .single-post .bb-blog-single-hero__intro-texts {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: clamp(20px, 2.08vw, 40px);
+	gap: clamp(20px, 1.98vw, 38px);
+	padding-right: clamp(37px, 3.23vw, 62px);
 }
 
 .single-post .bb-blog-single-hero__intro-texts p {
 	font-size: var(--fs-body-1);
-	line-height: 1.2;
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
 	color: var(--color-primary-alt);
 }
 
 .single-post .bb-blog-single-hero__media {
-	margin-top: clamp(24px, 2.08vw, 40px);
+	margin-top: clamp(22px, 1.875vw, 36px);
 	overflow: hidden;
 	border-radius: 6px;
-	aspect-ratio: 16 / 6;
 }
 
 .single-post .bb-blog-single-hero__media img,

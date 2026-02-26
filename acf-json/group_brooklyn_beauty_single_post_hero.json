@@ -1,0 +1,197 @@
+{
+    "key": "group_brooklyn_beauty_single_post_hero",
+    "title": "Single Post Hero",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_author_name",
+            "label": "Author Name",
+            "name": "single_post_hero_author_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. If empty, WordPress author name is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_author_role",
+            "label": "Author Role",
+            "name": "single_post_hero_author_role",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Author",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_author_avatar",
+            "label": "Author Avatar",
+            "name": "single_post_hero_author_avatar",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. If empty, WordPress author avatar is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_date",
+            "label": "Date",
+            "name": "single_post_hero_date",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. If empty, post publish date is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_intro_left",
+            "label": "Left Intro Text",
+            "name": "single_post_hero_intro_left",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Optional. If empty, generated from excerpt\/content.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_intro_right",
+            "label": "Right Intro Text",
+            "name": "single_post_hero_intro_right",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Optional. If empty, generated from excerpt\/content.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_hero_image",
+            "label": "Hero Image Override",
+            "name": "single_post_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. If empty, featured image is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "large"
+        },
+        {
+            "key": "field_69a09fcccdf5a",
+            "label": "Note",
+            "name": "single_post_author_note",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "The right plate to the left of the text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1772134577
+}

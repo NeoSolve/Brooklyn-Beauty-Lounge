@@ -15,9 +15,11 @@ if ( $post_id <= 0 ) {
 $author_id      = (int) get_post_field( 'post_author', $post_id );
 $author_name    = (string) get_the_author_meta( 'display_name', $author_id );
 $author_avatar  = get_avatar( $author_id, 88, '', $author_name, array( 'class' => 'bb-blog-single-hero__author-avatar' ) );
+$author_role    = __( 'Author', 'brooklyn-beauty' );
 $publish_date   = (string) get_the_date( 'd.m.Y', $post_id );
 $featured_image = (string) get_the_post_thumbnail_url( $post_id, 'full' );
 $image_alt      = $post_title;
+$hero_title     = $post_title;
 
 if ( has_post_thumbnail( $post_id ) ) {
 	$image_alt_meta = get_post_meta( (int) get_post_thumbnail_id( $post_id ), '_wp_attachment_image_alt', true );
@@ -73,6 +75,79 @@ if ( '' === $intro_right && '' !== $intro_left ) {
 }
 
 $categories = get_the_category( $post_id );
+
+if ( function_exists( 'get_field' ) ) {
+	$acf_hero_title = trim( (string) get_field( 'single_post_hero_title', $post_id ) );
+	if ( '' !== $acf_hero_title ) {
+		$hero_title = $acf_hero_title;
+	}
+
+	$acf_author_name = trim( (string) get_field( 'single_post_hero_author_name', $post_id ) );
+	if ( '' !== $acf_author_name ) {
+		$author_name = $acf_author_name;
+	}
+
+	$acf_author_role = trim( (string) get_field( 'single_post_hero_author_role', $post_id ) );
+	if ( '' !== $acf_author_role ) {
+		$author_role = $acf_author_role;
+	}
+
+	$acf_author_avatar = get_field( 'single_post_hero_author_avatar', $post_id );
+	if ( is_numeric( $acf_author_avatar ) ) {
+		$acf_author_avatar_id = (int) $acf_author_avatar;
+		$acf_avatar_markup    = wp_get_attachment_image(
+			$acf_author_avatar_id,
+			'thumbnail',
+			false,
+			array(
+				'class'   => 'bb-blog-single-hero__author-avatar',
+				'loading' => 'lazy',
+				'decoding' => 'async',
+			)
+		);
+
+		if ( is_string( $acf_avatar_markup ) && '' !== trim( $acf_avatar_markup ) ) {
+			$author_avatar = $acf_avatar_markup;
+		}
+	}
+
+	$acf_date = trim( (string) get_field( 'single_post_hero_date', $post_id ) );
+	if ( '' !== $acf_date ) {
+		$publish_date = $acf_date;
+	}
+
+	$acf_intro_left = trim( (string) get_field( 'single_post_hero_intro_left', $post_id ) );
+	if ( '' !== $acf_intro_left ) {
+		$intro_left = $acf_intro_left;
+	}
+
+	$acf_intro_right = trim( (string) get_field( 'single_post_hero_intro_right', $post_id ) );
+	if ( '' !== $acf_intro_right ) {
+		$intro_right = $acf_intro_right;
+	}
+
+	$acf_hero_image = get_field( 'single_post_hero_image', $post_id );
+	if ( is_numeric( $acf_hero_image ) ) {
+		$acf_hero_image_id = (int) $acf_hero_image;
+		$acf_image_url     = (string) wp_get_attachment_image_url( $acf_hero_image_id, 'full' );
+		if ( '' !== $acf_image_url ) {
+			$featured_image = $acf_image_url;
+			$acf_alt_text   = get_post_meta( $acf_hero_image_id, '_wp_attachment_image_alt', true );
+			if ( is_string( $acf_alt_text ) && '' !== trim( $acf_alt_text ) ) {
+				$image_alt = $acf_alt_text;
+			}
+		}
+	} elseif ( is_array( $acf_hero_image ) ) {
+		if ( ! empty( $acf_hero_image['url'] ) ) {
+			$featured_image = (string) $acf_hero_image['url'];
+		}
+		if ( ! empty( $acf_hero_image['alt'] ) && is_string( $acf_hero_image['alt'] ) ) {
+			$image_alt = $acf_hero_image['alt'];
+		}
+	} elseif ( is_string( $acf_hero_image ) && '' !== trim( $acf_hero_image ) ) {
+		$featured_image = $acf_hero_image;
+	}
+}
 ?>
 
 <section class="bb-blog-single-hero" aria-labelledby="bb-blog-single-title">
@@ -87,7 +162,7 @@ $categories = get_the_category( $post_id );
 					<?php esc_html_e( 'Blog', 'brooklyn-beauty' ); ?>
 				</a>
 				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-				<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $post_title ); ?></span>
+				<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $hero_title ); ?></span>
 			</nav>
 
 			<?php if ( ! empty( $categories ) ) : ?>
@@ -99,7 +174,7 @@ $categories = get_the_category( $post_id );
 			<?php endif; ?>
 		</div>
 
-		<h1 class="bb-blog-single-hero__title" id="bb-blog-single-title"><?php echo esc_html( $post_title ); ?></h1>
+		<h1 class="bb-blog-single-hero__title" id="bb-blog-single-title"><?php echo esc_html( $hero_title ); ?></h1>
 
 		<div class="bb-blog-single-hero__intro-grid">
 			<div class="bb-blog-single-hero__meta">
@@ -109,7 +184,7 @@ $categories = get_the_category( $post_id );
 					<?php endif; ?>
 					<div class="bb-blog-single-hero__author-text">
 						<p class="bb-blog-single-hero__author-name"><?php echo esc_html( $author_name ); ?></p>
-						<p class="bb-blog-single-hero__author-role"><?php esc_html_e( 'Author', 'brooklyn-beauty' ); ?></p>
+						<p class="bb-blog-single-hero__author-role"><?php echo esc_html( $author_role ); ?></p>
 					</div>
 				</div>
 
