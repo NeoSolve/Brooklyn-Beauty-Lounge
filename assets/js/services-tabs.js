@@ -53,9 +53,19 @@
 				.then(function (result) {
 					if (requestId !== requestCounter) return;
 
-					if (result && result.success && result.data && typeof result.data.html === "string") {
-						servicesCardsContainer.innerHTML = result.data.html;
-						return;
+					if (result && result.success && result.data) {
+						if (result.data.cards !== undefined) {
+							servicesCardsContainer.innerHTML = result.data.cards;
+							var paginationContainer = servicesSection.querySelector(".bb-blog-posts__pagination");
+							if (paginationContainer && result.data.pagination !== undefined) {
+								paginationContainer.innerHTML = result.data.pagination;
+							}
+							return;
+						}
+						if (typeof result.data.html === "string") {
+							servicesCardsContainer.innerHTML = result.data.html;
+							return;
+						}
 					}
 
 					servicesCardsContainer.innerHTML = '<div class="bb-services-cards__empty">' + errorMessage + "</div>";

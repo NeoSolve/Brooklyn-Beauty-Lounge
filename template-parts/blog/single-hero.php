@@ -1,0 +1,139 @@
+<?php
+/**
+ * Single post hero section.
+ *
+ * @package Brooklyn_Beauty
+ */
+
+$post_id    = (int) get_the_ID();
+$post_title = get_the_title( $post_id );
+
+if ( $post_id <= 0 ) {
+	return;
+}
+
+$author_id      = (int) get_post_field( 'post_author', $post_id );
+$author_name    = (string) get_the_author_meta( 'display_name', $author_id );
+$author_avatar  = get_avatar( $author_id, 88, '', $author_name, array( 'class' => 'bb-blog-single-hero__author-avatar' ) );
+$publish_date   = (string) get_the_date( 'd.m.Y', $post_id );
+$featured_image = (string) get_the_post_thumbnail_url( $post_id, 'full' );
+$image_alt      = $post_title;
+
+if ( has_post_thumbnail( $post_id ) ) {
+	$image_alt_meta = get_post_meta( (int) get_post_thumbnail_id( $post_id ), '_wp_attachment_image_alt', true );
+	if ( is_string( $image_alt_meta ) && '' !== trim( $image_alt_meta ) ) {
+		$image_alt = $image_alt_meta;
+	}
+}
+
+$blog_page_url = '';
+$posts_page_id = (int) get_option( 'page_for_posts' );
+if ( $posts_page_id > 0 ) {
+	$blog_page_url = (string) get_permalink( $posts_page_id );
+}
+if ( '' === $blog_page_url ) {
+	$blog_page_url = home_url( '/blog/' );
+}
+
+$post_excerpt = trim( (string) get_the_excerpt( $post_id ) );
+$post_content = (string) get_post_field( 'post_content', $post_id );
+
+$content_paragraphs = preg_split( '/\R{2,}/', trim( (string) wp_strip_all_tags( $post_content ) ) );
+$content_paragraphs = array_values(
+	array_filter(
+		array_map(
+			static function ( $paragraph ) {
+				return trim( (string) preg_replace( '/\s+/', ' ', (string) $paragraph ) );
+			},
+			is_array( $content_paragraphs ) ? $content_paragraphs : array()
+		)
+	)
+);
+
+$intro_left  = $post_excerpt;
+$intro_right = '';
+
+if ( '' === $intro_left ) {
+	$intro_left = isset( $content_paragraphs[0] ) ? (string) $content_paragraphs[0] : '';
+}
+
+if ( isset( $content_paragraphs[1] ) ) {
+	$intro_right = (string) $content_paragraphs[1];
+} elseif ( '' === $intro_left && isset( $content_paragraphs[0] ) ) {
+	$intro_right = (string) $content_paragraphs[0];
+}
+
+if ( '' === $intro_right && '' !== $intro_left ) {
+	$words = preg_split( '/\s+/', $intro_left );
+	if ( is_array( $words ) && count( $words ) > 16 ) {
+		$split_index = (int) ceil( count( $words ) / 2 );
+		$intro_left  = trim( implode( ' ', array_slice( $words, 0, $split_index ) ) );
+		$intro_right = trim( implode( ' ', array_slice( $words, $split_index ) ) );
+	}
+}
+
+$categories = get_the_category( $post_id );
+?>
+
+<section class="bb-blog-single-hero" aria-labelledby="bb-blog-single-title">
+	<div class="bb-container">
+		<div class="bb-blog-single-hero__top">
+			<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
+				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
+				</a>
+				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
+				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $blog_page_url ); ?>">
+					<?php esc_html_e( 'Blog', 'brooklyn-beauty' ); ?>
+				</a>
+				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
+				<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $post_title ); ?></span>
+			</nav>
+
+			<?php if ( ! empty( $categories ) ) : ?>
+				<ul class="bb-blog-single-hero__tags" aria-label="<?php esc_attr_e( 'Post categories', 'brooklyn-beauty' ); ?>">
+					<?php foreach ( $categories as $category ) : ?>
+						<li class="bb-blog-single-hero__tag"><?php echo esc_html( $category->name ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
+		</div>
+
+		<h1 class="bb-blog-single-hero__title" id="bb-blog-single-title"><?php echo esc_html( $post_title ); ?></h1>
+
+		<div class="bb-blog-single-hero__intro-grid">
+			<div class="bb-blog-single-hero__meta">
+				<div class="bb-blog-single-hero__author">
+					<?php if ( '' !== trim( (string) $author_avatar ) ) : ?>
+						<?php echo $author_avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php endif; ?>
+					<div class="bb-blog-single-hero__author-text">
+						<p class="bb-blog-single-hero__author-name"><?php echo esc_html( $author_name ); ?></p>
+						<p class="bb-blog-single-hero__author-role"><?php esc_html_e( 'Author', 'brooklyn-beauty' ); ?></p>
+					</div>
+				</div>
+
+				<?php if ( '' !== trim( $publish_date ) ) : ?>
+					<p class="bb-blog-single-hero__date"><?php echo esc_html( $publish_date ); ?></p>
+				<?php endif; ?>
+			</div>
+
+			<div class="bb-blog-single-hero__intro-texts">
+				<?php if ( '' !== trim( $intro_left ) ) : ?>
+					<p><?php echo esc_html( $intro_left ); ?></p>
+				<?php endif; ?>
+				<?php if ( '' !== trim( $intro_right ) ) : ?>
+					<p><?php echo esc_html( $intro_right ); ?></p>
+				<?php endif; ?>
+			</div>
+		</div>
+
+		<div class="bb-blog-single-hero__media">
+			<?php if ( '' !== $featured_image ) : ?>
+				<img src="<?php echo esc_url( $featured_image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" decoding="async">
+			<?php else : ?>
+				<div class="bb-blog-single-hero__media-fallback" aria-hidden="true"></div>
+			<?php endif; ?>
+		</div>
+	</div>
+</section>

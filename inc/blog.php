@@ -29,14 +29,17 @@ function brooklyn_beauty_get_post_reading_time_label( $post_id ) {
  * Build blog cards markup for selected category.
  *
  * @param string $category_slug Blog category slug.
+ * @param int    $paged         Current page number.
+ * @param string $base_url      Base URL for pagination links.
  *
- * @return string
+ * @return array{cards: string, pagination: string}
  */
-function brooklyn_beauty_get_blog_cards_markup( $category_slug = 'all-posts' ) {
+function brooklyn_beauty_get_blog_cards_markup( $category_slug = 'all-posts', $paged = 1, $base_url = '' ) {
 	$query_args = array(
 		'post_type'      => 'post',
 		'post_status'    => 'publish',
-		'posts_per_page' => -1,
+		'posts_per_page' => 12,
+		'paged'          => max( 1, (int) $paged ),
 		'orderby'        => array(
 			'date'  => 'DESC',
 			'title' => 'ASC',
@@ -48,17 +51,20 @@ function brooklyn_beauty_get_blog_cards_markup( $category_slug = 'all-posts' ) {
 		$query_args['category_name'] = $category_slug;
 	}
 
-	$blog_posts = get_posts( $query_args );
+	$blog_posts_query = new WP_Query( $query_args );
 
-	if ( empty( $blog_posts ) ) {
-		return '<div class="bb-services-cards__empty">' . esc_html__( 'No blog posts found in this category.', 'brooklyn-beauty' ) . '</div>';
+	if ( ! $blog_posts_query->have_posts() ) {
+		return array(
+			'cards'      => '<div class="bb-blog-cards__empty">' . esc_html__( 'No blog posts found in this category.', 'brooklyn-beauty' ) . '</div>',
+			'pagination' => '',
+		);
 	}
 
 	$fallback_media_classes = array( 'pedicure', 'brows', 'makeup' );
 
 	ob_start();
 
-	foreach ( $blog_posts as $index => $blog_post ) {
+	foreach ( $blog_posts_query->posts as $index => $blog_post ) {
 		$card_excerpt = get_the_excerpt( $blog_post );
 		if ( '' === trim( $card_excerpt ) ) {
 			$card_excerpt = wp_trim_words( wp_strip_all_tags( $blog_post->post_content ), 26, '...' );
@@ -81,7 +87,36 @@ function brooklyn_beauty_get_blog_cards_markup( $category_slug = 'all-posts' ) {
 		);
 	}
 
-	return (string) ob_get_clean();
+	$cards_markup = (string) ob_get_clean();
+
+	$pagination_markup = '';
+	if ( $blog_posts_query->max_num_pages > 1 ) {
+		$resolved_base_url = '' !== $base_url ? $base_url : get_pagenum_link( 1 );
+		$resolved_base_url = remove_query_arg( 'paged', $resolved_base_url );
+
+		$pagination_links = paginate_links(
+			array(
+				'base'      => add_query_arg( 'paged', '%#%', $resolved_base_url ),
+				'format'    => '',
+				'current'   => max( 1, (int) $paged ),
+				'total'     => (int) $blog_posts_query->max_num_pages,
+				'type'      => 'list',
+				'prev_text' => '&laquo;',
+				'next_text' => '&raquo;',
+			)
+		);
+
+		if ( is_string( $pagination_links ) && '' !== $pagination_links ) {
+			$pagination_markup = $pagination_links;
+		}
+	}
+
+	wp_reset_postdata();
+
+	return array(
+		'cards'      => $cards_markup,
+		'pagination' => $pagination_markup,
+	);
 }
 
 /**
@@ -93,11 +128,13 @@ function brooklyn_beauty_ajax_filter_blog_posts() {
 	check_ajax_referer( 'bb_services_filter', 'nonce' );
 
 	$category_slug = isset( $_POST['category'] ) ? sanitize_title( wp_unslash( (string) $_POST['category'] ) ) : 'all-posts';
-	$cards_html    = brooklyn_beauty_get_blog_cards_markup( $category_slug );
+	$paged         = isset( $_POST['paged'] ) ? max( 1, absint( $_POST['paged'] ) ) : 1;
+	$result        = brooklyn_beauty_get_blog_cards_markup( $category_slug, $paged );
 
 	wp_send_json_success(
 		array(
-			'html' => $cards_html,
+			'cards'      => $result['cards'],
+			'pagination' => $result['pagination'],
 		)
 	);
 }
