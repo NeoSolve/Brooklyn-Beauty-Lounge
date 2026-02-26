@@ -4,34 +4,39 @@
 
 .single-post .bb-blog-single-content__layout {
 	display: grid;
-	grid-template-columns: minmax(220px, 420px) minmax(0, 910px) minmax(220px, 420px);
+	grid-template-columns: clamp(252px, 21.875vw, 420px) clamp(546px, 47.4vw, 910px) clamp(252px, 21.875vw, 420px);
 	justify-content: space-between;
 	align-items: start;
-	gap: clamp(29px, 5.22vw, 48px);
+	/*gap: clamp(29px, 5.22vw, 48px);*/
 }
 
 .single-post .bb-blog-single-content__layout--no-note {
-	grid-template-columns: minmax(0, 910px) minmax(220px, 260px);
+	grid-template-columns: minmax(0, 910px) minmax(220px, 420px);
 	justify-content: center;
 }
 
-.single-post .bb-blog-single-content__layout--no-toc {
-	grid-template-columns: minmax(220px, 260px) minmax(0, 910px);
+.single-post .bb-blog-single-content__layout--no-sidebar {
+	grid-template-columns: minmax(220px, 420px) minmax(0, 910px);
 	justify-content: center;
 }
 
-.single-post .bb-blog-single-content__layout--no-note.bb-blog-single-content__layout--no-toc {
+.single-post .bb-blog-single-content__layout--no-note.bb-blog-single-content__layout--no-sidebar {
 	grid-template-columns: minmax(0, 910px);
 }
 
 .single-post .bb-blog-single-content__author-note,
-.single-post .bb-blog-single-content__toc {
+.single-post .bb-blog-single-content__sidebar {
 	position: sticky;
 	top: calc(var(--bb-header-height, 80px) + 20px);
 }
 
+.single-post .bb-blog-single-content__sidebar {
+	display: grid;
+	gap: clamp(29px, 2.5vw, 48px);
+}
+
 .single-post .bb-blog-single-content__author-note {
-	padding: clamp(24px, 20.83vw, 40px);
+	padding: clamp(24px, 2.083vw, 40px);
 	background: var(--color-accent);
 	color: var(--color-surface);
 	border-radius: 4px;
@@ -44,7 +49,7 @@
 }
 
 .single-post .bb-blog-single-content__author {
-	margin-top: clamp(24px, 20.83vw, 40px);;
+	margin-top: clamp(24px, 20.83vw, 40px);
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -56,8 +61,8 @@
 }
 
 .single-post .bb-blog-single-content__author .bb-blog-single-content__author-avatar {
-	width: 88px;
-	height: 88px;
+	width: clamp(53px, 4.58vw, 88px);
+	height: clamp(53px, 4.58vw, 88px);
 	border-radius: 50%;
 	object-fit: cover;
 }
@@ -116,6 +121,10 @@
 	font-weight: var(--fw-body-regular);
 }
 
+.single-post .bb-blog-single-content__article strong {
+	font-weight: 700;
+}
+
 .single-post .bb-blog-single-content__article ul,
 .single-post .bb-blog-single-content__article ol {
 	padding-left: 1.2em;
@@ -137,7 +146,24 @@
 	border-radius: 4px;
 }
 
+.single-post .bb-blog-single-content__toc-progress {
+	height: 4px;
+	background: var(--color-border-neutral);
+	border-radius: 999px;
+	overflow: hidden;
+}
+
+.single-post .bb-blog-single-content__toc-progress-fill {
+	display: block;
+	width: 0;
+	height: 100%;
+	background: var(--color-accent);
+	border-radius: inherit;
+	transition: width 120ms linear;
+}
+
 .single-post .bb-blog-single-content__toc-title {
+	margin: clamp(24px, 20.83vw, 40px) 0 clamp(24px, 20.83vw, 40px);
 	font-size: var(--fs-h6);
 	line-height: var(--lh-h6-semibold);
 	font-weight: 600;
@@ -153,68 +179,101 @@
 
 .single-post .bb-blog-single-content__toc-item {
 	position: relative;
-	padding-left: 16px;
+	padding-left: 36px;
+}
+
+.single-post .bb-blog-single-content__toc-item:first-child {
+	padding-top: 12px;
+	border-top: 1px solid var(--color-overlay-primary);
+}
+
+.single-post .bb-blog-single-content__toc-item + .bb-blog-single-content__toc-item {
+	padding-top: 12px;
+	border-top: 1px solid var(--color-overlay-primary);
+}
+
+.single-post .bb-blog-single-content__toc-item:last-child {
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--color-overlay-primary);
 }
 
 .single-post .bb-blog-single-content__toc-item::before {
 	content: "";
 	position: absolute;
 	left: 0;
-	top: 0.46em;
-	width: 7px;
-	height: 7px;
+	top: 50%;
+	width: 12px;
+	height: 12px;
 	border-radius: 50%;
 	background: var(--color-border-neutral);
+	transform: translateY(-50%) scale(1);
+	transform-origin: center;
+	transition: transform var(--transition-base), background-color var(--transition-base);
 }
 
 .single-post .bb-blog-single-content__toc-item.is-active::before {
 	background: var(--color-accent);
+	transform: translateY(-50%) scale(1.6667);
 }
 
 .single-post .bb-blog-single-content__toc-link {
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
-	color: var(--color-primary-alt);
+	font-weight: var(--fw-body-medium);
+	color: var(--color-primary);
 	transition: color var(--transition-base);
 }
 
 .single-post .bb-blog-single-content__toc-link:hover,
-.single-post .bb-blog-single-content__toc-link:focus-visible,
-.single-post .bb-blog-single-content__toc-link.is-active {
+.single-post .bb-blog-single-content__toc-link:focus-visible {
 	color: var(--color-accent);
 }
 
-@media (max-width: 1440px) {
-	.single-post .bb-blog-single-content__layout {
-		grid-template-columns: minmax(200px, 240px) minmax(0, 910px);
-	}
-
-	.single-post .bb-blog-single-content__layout--no-note {
-		grid-template-columns: minmax(0, 910px) minmax(220px, 260px);
-	}
-
-	.single-post .bb-blog-single-content__layout--no-toc {
-		grid-template-columns: minmax(220px, 260px) minmax(0, 910px);
-	}
-
-	.single-post .bb-blog-single-content__layout--no-note.bb-blog-single-content__layout--no-toc {
-		grid-template-columns: minmax(0, 910px);
-	}
-
-	.single-post .bb-blog-single-content__toc {
-		grid-column: 1 / -1;
-		position: static;
-	}
+.single-post .bb-blog-single-content__share {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
 }
 
-@media (max-width: 1024px) {
-	.single-post .bb-blog-single-content__layout {
-		grid-template-columns: minmax(0, 910px);
-		justify-content: center;
-	}
-
-	.single-post .bb-blog-single-content__author-note,
-	.single-post .bb-blog-single-content__toc {
-		position: static;
-	}
+.single-post .bb-blog-single-content__share-label {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-medium);
+	color: var(--color-primary);
 }
+
+.single-post .bb-blog-single-content__share-items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.single-post .bb-blog-single-content__share-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: clamp(29px, 2.5vw, 48px);
+	height: clamp(29px, 2.5vw, 48px);
+	/*border: 2px solid transparent;*/
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+/*.single-post .bb-blog-single-content__share-link:hover,*/
+/*.single-post .bb-blog-single-content__share-link:focus-visible {*/
+/*	border: 2px solid var(--color-accent);*/
+/*	outline: none;*/
+/*}*/
+
+/*.single-post .bb-blog-single-content__share-link.is-copied {*/
+/*	background: var(--color-accent);*/
+/*	border-color: var(--color-accent);*/
+/*}*/
+
+.single-post .bb-blog-single-content__share-icon {
+	width: 48px;
+	height: 48px;
+	object-fit: contain;
+}
+

@@ -172,6 +172,26 @@
             "rows": "",
             "placeholder": "",
             "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_post_meta_description",
+            "label": "Meta Description",
+            "name": "meta_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Used for og:description and SEO. If empty, excerpt or content is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [

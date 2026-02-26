@@ -208,6 +208,7 @@
 
 .bb-service-card__visit-btn {
 	min-width: clamp(136px, 10.63vw, 204px);
+	width: clamp(200px, 17.4vw, 334px);
 	padding-inline: 117px;
 	border-color: transparent;
 	box-shadow: inset 0 0 0 0 var(--color-surface);

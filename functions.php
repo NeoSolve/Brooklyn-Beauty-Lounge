@@ -521,6 +521,71 @@ add_filter( 'use_block_editor_for_post', '__return_false', 100 );
 add_filter( 'use_widgets_block_editor', '__return_false', 100 );
 
 /**
+ * Output Open Graph meta tags for single posts.
+ */
+function brooklyn_beauty_og_meta_tags() {
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
+
+	$post_id   = (int) get_the_ID();
+	$post      = get_post( $post_id );
+	if ( ! $post ) {
+		return;
+	}
+
+	$og_title   = wp_strip_all_tags( (string) get_the_title( $post_id ) );
+	$og_url     = (string) get_permalink( $post_id );
+	$og_type    = 'article';
+
+	$og_description = '';
+	if ( function_exists( 'get_field' ) ) {
+		$acf_desc = trim( (string) get_field( 'meta_description', $post_id ) );
+		if ( '' !== $acf_desc ) {
+			$og_description = $acf_desc;
+		}
+	}
+	if ( '' === $og_description && defined( 'WPSEO_VERSION' ) ) {
+		$yoast_desc = get_post_meta( $post_id, '_yoast_wpseo_metadesc', true );
+		if ( is_string( $yoast_desc ) && '' !== trim( $yoast_desc ) ) {
+			$og_description = $yoast_desc;
+		}
+	}
+	if ( '' === $og_description ) {
+		$og_description = trim( (string) get_the_excerpt( $post_id ) );
+	}
+	if ( '' === $og_description ) {
+		$og_description = wp_trim_words( wp_strip_all_tags( (string) $post->post_content ), 30, '...' );
+	}
+
+	$og_image = '';
+	if ( function_exists( 'get_field' ) ) {
+		$acf_image = get_field( 'single_post_hero_image', $post_id );
+		if ( is_numeric( $acf_image ) ) {
+			$og_image = (string) wp_get_attachment_image_url( (int) $acf_image, 'large' );
+		} elseif ( is_array( $acf_image ) && ! empty( $acf_image['url'] ) ) {
+			$og_image = (string) $acf_image['url'];
+		}
+	}
+	if ( '' === $og_image && has_post_thumbnail( $post_id ) ) {
+		$og_image = (string) get_the_post_thumbnail_url( $post_id, 'large' );
+	}
+
+	?>
+	<meta property="og:title" content="<?php echo esc_attr( $og_title ); ?>">
+	<meta property="og:type" content="<?php echo esc_attr( $og_type ); ?>">
+	<meta property="og:url" content="<?php echo esc_url( $og_url ); ?>">
+	<?php if ( '' !== $og_description ) : ?>
+		<meta property="og:description" content="<?php echo esc_attr( $og_description ); ?>">
+	<?php endif; ?>
+	<?php if ( '' !== $og_image ) : ?>
+		<meta property="og:image" content="<?php echo esc_url( $og_image ); ?>">
+	<?php endif; ?>
+	<?php
+}
+add_action( 'wp_head', 'brooklyn_beauty_og_meta_tags', 5 );
+
+/**
  * Register ACF options pages.
  */
 function brooklyn_beauty_register_acf_options_pages() {
@@ -970,6 +1035,81 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'type'  => 'url',
 				'wrapper' => array(
 					'width' => '50',
+				),
+			),
+			array(
+				'key'       => 'field_brooklyn_beauty_site_settings_share_tab',
+				'label'     => __( 'Share Article', 'brooklyn-beauty' ),
+				'name'      => '',
+				'type'      => 'tab',
+				'placement' => 'top',
+				'endpoint'  => 0,
+			),
+			array(
+				'key'           => 'field_brooklyn_beauty_share_article_label',
+				'label'         => __( 'Share Label', 'brooklyn-beauty' ),
+				'name'          => 'share_article_label',
+				'type'          => 'text',
+				'default_value' => __( 'Share Article to:', 'brooklyn-beauty' ),
+			),
+			array(
+				'key'          => 'field_brooklyn_beauty_share_article_items',
+				'label'        => __( 'Share Items', 'brooklyn-beauty' ),
+				'name'         => 'share_article_items',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add Share Item', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_share_article_item_type',
+						'label'         => __( 'Type', 'brooklyn-beauty' ),
+						'name'          => 'type',
+						'type'          => 'select',
+						'choices'       => array(
+							'copy'     => __( 'Copy Link', 'brooklyn-beauty' ),
+							'facebook' => __( 'Facebook', 'brooklyn-beauty' ),
+							'x'        => __( 'X (Twitter)', 'brooklyn-beauty' ),
+							'whatsapp' => __( 'WhatsApp', 'brooklyn-beauty' ),
+							'custom'   => __( 'Custom URL', 'brooklyn-beauty' ),
+						),
+						'default_value' => 'copy',
+						'ui'            => 1,
+						'wrapper'       => array(
+							'width' => '25',
+						),
+					),
+					array(
+						'key'           => 'field_brooklyn_beauty_share_article_item_icon',
+						'label'         => __( 'Icon Image', 'brooklyn-beauty' ),
+						'name'          => 'icon_image',
+						'type'          => 'image',
+						'return_format' => 'id',
+						'preview_size'  => 'thumbnail',
+						'library'       => 'all',
+						'wrapper'       => array(
+							'width' => '25',
+						),
+					),
+					array(
+						'key'           => 'field_brooklyn_beauty_share_article_item_aria_label',
+						'label'         => __( 'Accessible Label', 'brooklyn-beauty' ),
+						'name'          => 'aria_label',
+						'type'          => 'text',
+						'instructions'  => __( 'Optional. If empty, generated from selected type.', 'brooklyn-beauty' ),
+						'wrapper'       => array(
+							'width' => '25',
+						),
+					),
+					array(
+						'key'           => 'field_brooklyn_beauty_share_article_item_custom_url',
+						'label'         => __( 'Custom URL', 'brooklyn-beauty' ),
+						'name'          => 'custom_url',
+						'type'          => 'url',
+						'instructions'  => __( 'Used only when type is Custom URL. Supports placeholders: {url}, {title}.', 'brooklyn-beauty' ),
+						'wrapper'       => array(
+							'width' => '25',
+						),
+					),
 				),
 			),
 		),
