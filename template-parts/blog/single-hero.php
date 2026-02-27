@@ -28,14 +28,7 @@ if ( has_post_thumbnail( $post_id ) ) {
 	}
 }
 
-$blog_page_url = '';
-$posts_page_id = (int) get_option( 'page_for_posts' );
-if ( $posts_page_id > 0 ) {
-	$blog_page_url = (string) get_permalink( $posts_page_id );
-}
-if ( '' === $blog_page_url ) {
-	$blog_page_url = home_url( '/blog/' );
-}
+$news_page_url = home_url( '/news/' );
 
 $post_excerpt = trim( (string) get_the_excerpt( $post_id ) );
 $post_content = (string) get_post_field( 'post_content', $post_id );
@@ -158,7 +151,7 @@ if ( function_exists( 'get_field' ) ) {
 					<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
 				</a>
 				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $blog_page_url ); ?>">
+				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $news_page_url ); ?>">
 					<?php esc_html_e( 'Blog', 'brooklyn-beauty' ); ?>
 				</a>
 				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>

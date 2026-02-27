@@ -1,0 +1,174 @@
+.bb-careers-positions {
+	padding: clamp(60px, 5.2vw, 100px) 0;
+}
+
+.bb-careers-positions__inner {
+	--bb-careers-col-left: 2.5em;
+	--bb-careers-col-middle: clamp(486px, 42.1875vw, 810px);
+	--bb-careers-col-gap: clamp(233px, 20.21vw, 388px);
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Header: та же сетка для выравнивания с колонкой job-title */
+.bb-careers-positions__header {
+	display: grid;
+	grid-template-columns: var(--bb-careers-col-left) var(--bb-careers-col-middle) auto;
+	column-gap: var(--bb-careers-col-gap);
+	align-items: baseline;
+	margin-bottom: clamp(32px, 2.5vw, 48px);
+}
+
+.bb-careers-positions__decor {
+	grid-column: 1;
+	align-self: start;
+	font-family: var(--font-decor);
+	font-size: var(--fs-decor);
+	line-height: var(--lh-decor);
+	color: var(--color-accent);
+	text-transform: lowercase;
+}
+
+.bb-careers-positions__title {
+	grid-column: 2;
+	justify-self: start;
+	margin: 0;
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+	letter-spacing: var(--ls-h2-semibold);
+}
+
+/* Сетка для списка вакансий (те же колонки) */
+.bb-careers-positions__grid {
+	display: grid;
+	grid-template-columns: var(--bb-careers-col-left) var(--bb-careers-col-middle) auto;
+	column-gap: var(--bb-careers-col-gap);
+	row-gap: 0;
+	align-items: center;
+}
+
+.bb-careers-positions__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: contents;
+}
+
+.bb-careers-positions__item {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: var(--bb-careers-col-left) var(--bb-careers-col-middle) auto;
+	column-gap: var(--bb-careers-col-gap);
+	align-items: center;
+	padding: clamp(19px, 1.67vw, 32px) 0;
+	border-bottom: 1px solid var(--color-border-neutral);
+}
+
+.bb-careers-positions__cell {
+	grid-column: 1 / span 2;
+	display: grid;
+	grid-template-columns: var(--bb-careers-col-left) var(--bb-careers-col-middle);
+	column-gap: var(--bb-careers-col-gap);
+	align-items: start;
+}
+
+.bb-careers-positions__item:first-child {
+	border-top: 1px solid var(--color-border-neutral);
+}
+
+.bb-careers-positions__item:last-child {
+	border-bottom: 0;
+}
+
+.bb-careers-positions__num {
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+	font-weight: var(--fw-body-regular);
+	letter-spacing: var(--ls-2per);
+	color: var(--color-text-muted);
+	font-variant-numeric: tabular-nums;
+	min-width: 2.5em;
+}
+
+.bb-careers-positions__job-title {
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+	font-weight: var(--fw-h5-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+	max-width: 100%;
+}
+
+.bb-careers-positions__apply {
+	justify-self: end;
+	text-transform: lowercase;
+	text-decoration: none;
+}
+
+.bb-careers-positions__apply--disabled {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: clamp(109px, 8.54vw, 164px);
+	height: clamp(40px, 3.13vw, 60px);
+	padding: clamp(11px, 0.83vw, 16px) clamp(27px, 2.08vw, 40px);
+	border-radius: 4px;
+	font-size: var(--fs-body-2);
+	font-weight: var(--fw-body-medium);
+	background: var(--color-border-neutral);
+	color: var(--color-text-muted);
+	cursor: default;
+}
+
+@media (max-width: 720px) {
+	.bb-careers-positions__header {
+		grid-template-columns: 1fr;
+		margin-bottom: clamp(24px, 2.5vw, 32px);
+	}
+
+	.bb-careers-positions__decor {
+		grid-column: 1;
+	}
+
+	.bb-careers-positions__title {
+		grid-column: 1;
+	}
+
+	.bb-careers-positions__grid {
+		grid-template-columns: 1fr;
+		column-gap: 0;
+		row-gap: 8px;
+	}
+
+	.bb-careers-positions__item {
+		grid-template-columns: 1fr;
+		row-gap: 4px;
+	}
+
+	.bb-careers-positions__cell {
+		grid-column: 1;
+		grid-template-columns: 1fr;
+		row-gap: 4px;
+	}
+
+	.bb-careers-positions__num {
+		padding-top: clamp(12px, 1vw, 16px);
+		padding-bottom: 0;
+	}
+
+	.bb-careers-positions__job-title {
+		padding-top: 0;
+		padding-bottom: clamp(12px, 1vw, 16px);
+	}
+
+	.bb-careers-positions__apply,
+	.bb-careers-positions__apply--disabled {
+		justify-self: start;
+		padding-top: 0;
+		padding-bottom: clamp(12px, 1vw, 16px);
+	}
+}

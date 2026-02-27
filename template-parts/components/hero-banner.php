@@ -70,6 +70,15 @@ if ( '' === $hero_image_url && $page_id > 0 && has_post_thumbnail( $page_id ) ) 
 	}
 }
 
+// Breadcrumb: use page title when ACF hero title is not set (e.g. Careers page).
+$breadcrumb_title = $hero_title;
+if ( $page_id > 0 ) {
+	$acf_title = function_exists( 'get_field' ) ? trim( (string) get_field( 'services_hero_title', $page_id ) ) : '';
+	if ( '' === $acf_title ) {
+		$breadcrumb_title = get_the_title( $page_id );
+	}
+}
+
 ?>
 <section class="bb-services-hero" aria-labelledby="bb-services-hero-title">
 	<div class="bb-container bb-services-hero__inner">
@@ -78,7 +87,7 @@ if ( '' === $hero_image_url && $page_id > 0 && has_post_thumbnail( $page_id ) ) 
 				<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
 			</a>
 			<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-			<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $hero_title ); ?></span>
+			<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $breadcrumb_title ); ?></span>
 		</nav>
 
 		<div class="bb-services-hero__stage">

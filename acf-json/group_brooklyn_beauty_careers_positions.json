@@ -1,0 +1,90 @@
+{
+    "key": "group_brooklyn_beauty_careers_positions",
+    "title": "Careers Positions Block",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_careers_positions",
+            "label": "Positions",
+            "name": "careers_positions",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Position",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_careers_position_title",
+                    "label": "Job Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "e.g. nail technician, hair specialist (hair extensions, stylist, colorist)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_brooklyn_beauty_careers_positions"
+                },
+                {
+                    "key": "field_brooklyn_beauty_careers_position_apply_link",
+                    "label": "Apply Link",
+                    "name": "apply_link",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "URL for the Apply Now button (form, email, or external link).",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_brooklyn_beauty_careers_positions"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-careers.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Vacancies list for the Careers page.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1772147148
+}

@@ -1,6 +1,7 @@
 .bb-services-hero,
 .page-template-page-services .bb-services-hero,
-.page-template-page-contacts .bb-services-hero {
+.page-template-page-contacts .bb-services-hero,
+.page-template-page-careers .bb-services-hero {
 	background: var(--color-surface-alt);
 	padding: 16px 0 clamp(60px, 5.2vw, 100px) 0;
 	overflow: hidden;
@@ -38,7 +39,8 @@
 	text-transform: lowercase;
 }
 
-.page-template-page-contacts .bb-services-hero__title {
+.page-template-page-contacts .bb-services-hero__title,
+.page-template-page-careers .bb-services-hero__title {
 	font-size: clamp(261px, 22.65vw, 435px);
 	line-height: 0.78;
 	overflow-wrap: anywhere;
@@ -142,7 +144,8 @@
 		font-size: clamp(76px, 19vw, 160px);
 	}
 
-	.page-template-page-contacts .bb-services-hero__title {
+	.page-template-page-contacts .bb-services-hero__title,
+	.page-template-page-careers .bb-services-hero__title {
 		font-size: clamp(52px, 17vw, 150px);
 	}
 
@@ -168,7 +171,8 @@
 		font-size: clamp(62px, 22vw, 112px);
 	}
 
-	.page-template-page-contacts .bb-services-hero__title {
+	.page-template-page-contacts .bb-services-hero__title,
+	.page-template-page-careers .bb-services-hero__title {
 		font-size: clamp(46px, 18vw, 96px);
 	}
 
