@@ -100,10 +100,10 @@
 
 .bb-services-hero__description {
 	position: absolute;
+	left: calc(100% - var(--hero-video-width) + (clamp(27px, 2.3vw, 44px) - 22px) / 2);
 	right: 0;
 	bottom: 0;
 	margin: 0;
-	max-width: clamp(236px, 18.44vw, 354px);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	color: var(--color-primary);

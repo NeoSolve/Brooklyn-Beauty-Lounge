@@ -8,6 +8,62 @@
 
 	var counterElements = whyUsSection.querySelectorAll(".bb-why-us__value");
 	var countersStarted = false;
+	var cards = Array.prototype.slice.call(
+		whyUsSection.querySelectorAll(".bb-why-us__card")
+	);
+
+	function updateWhyUsCardHeights() {
+		if (!cards.length) {
+			return;
+		}
+
+		// On mobile layout cards идут одной колонкой — высоту выравнивать не нужно.
+		if (!window.matchMedia("(min-width: 768px)").matches) {
+			cards.forEach(function (card) {
+				card.style.minHeight = "";
+			});
+			return;
+		}
+
+		// Сначала сбрасываем min-height, чтобы корректно замерить натуральную высоту.
+		cards.forEach(function (card) {
+			card.style.minHeight = "";
+		});
+
+		var maxHeight = 0;
+		cards.forEach(function (card) {
+			var cardHeight = card.offsetHeight;
+			if (cardHeight > maxHeight) {
+				maxHeight = cardHeight;
+			}
+		});
+
+		if (!maxHeight) {
+			return;
+		}
+
+		cards.forEach(function (card) {
+			card.style.minHeight = String(maxHeight) + "px";
+		});
+	}
+
+	// Обновляем высоту при изменении размеров окна (с лёгким дебаунсом).
+	var resizeTimeoutId = null;
+	window.addEventListener("resize", function () {
+		if (resizeTimeoutId !== null) {
+			window.clearTimeout(resizeTimeoutId);
+		}
+		resizeTimeoutId = window.setTimeout(function () {
+			updateWhyUsCardHeights();
+		}, 150);
+	});
+
+	// Дополнительно выравниваем высоту после полной загрузки страницы (шрифты/картинки).
+	window.addEventListener("load", function () {
+		updateWhyUsCardHeights();
+		// Небольшая задержка на случай, если шрифты дорисуются чуть позже.
+		window.setTimeout(updateWhyUsCardHeights, 200);
+	});
 
 	function runCounters() {
 		if (countersStarted) {
@@ -57,11 +113,15 @@
 
 			window.requestAnimationFrame(updateCounter);
 		});
+
+		// После запуска анимаций и появления блока выравниваем высоту карточек.
+		updateWhyUsCardHeights();
 	}
 
 	if (!("IntersectionObserver" in window)) {
 		whyUsSection.classList.add("is-visible");
 		runCounters();
+		updateWhyUsCardHeights();
 		return;
 	}
 
@@ -74,6 +134,7 @@
 
 				entry.target.classList.add("is-visible");
 				runCounters();
+				updateWhyUsCardHeights();
 				currentObserver.unobserve(entry.target);
 			});
 		},

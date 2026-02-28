@@ -91,7 +91,7 @@
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);
 	font-weight: var(--fw-decor);
-	color: var(--color-accent-muted);
+	color: var(--color-accent);
 	transform: rotate(-4deg);
 }
 

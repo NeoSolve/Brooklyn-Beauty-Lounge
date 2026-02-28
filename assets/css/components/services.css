@@ -24,7 +24,7 @@
 	font-family: var(--font-decor);
 	font-size: var(--fs-decor);
 	line-height: 1;
-	color: var(--color-accent-muted);
+	color: var(--color-accent);
 	padding-top: 6px;
 	white-space: nowrap;
 }
@@ -131,6 +131,10 @@
 	background: var(--color-surface-alt);
 }
 
+.bb-service-card:not(.bb-service-card--placeholder) {
+	cursor: pointer;
+}
+
 .bb-service-card--placeholder {
 	justify-content: center;
 	align-items: center;
@@ -144,7 +148,7 @@
 	font-size: var(--fs-decor);
 	line-height: 1;
 	letter-spacing: var(--ls-decor);
-	color: var(--color-accent-muted);
+	color: var(--color-accent);
 	text-align: center;
 	transform: rotate(-4deg);
 }

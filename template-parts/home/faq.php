@@ -110,19 +110,21 @@ if ( '' === $left_image_url ) {
 <section class="bb-faq-section" id="faq" data-faq>
 	<div class="bb-container">
 		<div class="bb-faq-layout">
-			<div class="bb-faq-layout__media">
-				<?php if ( '' !== $left_image_url ) : ?>
-					<img class="bb-faq-layout__image" src="<?php echo esc_url( $left_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ section image', 'brooklyn-beauty' ); ?>" loading="lazy">
-				<?php endif; ?>
-			</div>
+			<div class="bb-faq-layout__left">
+				<div class="bb-faq-layout__media">
+					<?php if ( '' !== $left_image_url ) : ?>
+						<img class="bb-faq-layout__image" src="<?php echo esc_url( $left_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ section image', 'brooklyn-beauty' ); ?>" loading="lazy">
+					<?php endif; ?>
+				</div>
 
-			<div class="bb-faq-layout__badge">
-				<?php if ( '' !== $badge_image_url ) : ?>
-					<img class="bb-faq-layout__badge-image" src="<?php echo esc_url( $badge_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ label', 'brooklyn-beauty' ); ?>" loading="lazy">
-				<?php else : ?>
-					<p class="bb-faq-layout__badge-title">faq</p>
-					<p class="bb-faq-layout__badge-subtitle"><?php echo esc_html( $badge_subtitle ); ?></p>
-				<?php endif; ?>
+				<div class="bb-faq-layout__badge">
+					<?php if ( '' !== $badge_image_url ) : ?>
+						<img class="bb-faq-layout__badge-image" src="<?php echo esc_url( $badge_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ label', 'brooklyn-beauty' ); ?>" loading="lazy">
+					<?php else : ?>
+						<p class="bb-faq-layout__badge-title">faq</p>
+						<p class="bb-faq-layout__badge-subtitle"><?php echo esc_html( $badge_subtitle ); ?></p>
+					<?php endif; ?>
+				</div>
 			</div>
 
 			<div class="bb-faq-list" data-faq-list>

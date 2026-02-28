@@ -75,7 +75,7 @@
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);
 	letter-spacing: var(--ls-decor);
-	color: var(--color-accent-muted);
+	color: var(--color-accent);
 	transform: translateY(-45%) rotate(2.84deg);
 	white-space: nowrap;
 	z-index: 1;

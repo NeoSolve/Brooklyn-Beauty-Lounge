@@ -21,7 +21,7 @@
 .bb-contacts-location__info {
 	display: grid;
 	gap: clamp(24px, 1.67vw, 32px);
-	max-width: clamp(260px, 25vw, 480px);
+	max-width: clamp(260px, 29.53vw, 567px);
 }
 
 .bb-contacts-location__block {
@@ -48,14 +48,27 @@
 }
 
 .bb-contacts-location__value--link {
+	position: relative;
 	display: inline-block;
 	text-decoration: none;
-	transition: opacity var(--transition-base);
 }
 
-.bb-contacts-location__value--link:hover,
-.bb-contacts-location__value--link:focus-visible {
-	opacity: 0.82;
+.bb-contacts-location__value--link::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 350ms ease;
+}
+
+.bb-contacts-location__value--link:hover::after,
+.bb-contacts-location__value--link:focus-visible::after {
+	transform: scaleX(1);
 }
 
 .bb-contacts-location__title {

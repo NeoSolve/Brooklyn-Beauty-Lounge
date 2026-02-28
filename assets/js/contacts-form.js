@@ -2,9 +2,6 @@
 
 (function () {
 	var CONTACT_FORM_SELECTOR = ".bb-contacts-form";
-	var PREFIX = "718";
-	var MAX_LOCAL_DIGITS = 7;
-
 	function moveSubmitIntoDisclaimer(scope) {
 		var formScope = scope || document;
 		var grids = formScope.querySelectorAll(".bb-contacts-form .cf7-grid");
@@ -28,25 +25,7 @@
 		});
 	}
 
-	function formatPhone(rawValue) {
-		var digits = String(rawValue || "").replace(/\D/g, "");
-		var localDigits = digits.indexOf(PREFIX) === 0 ? digits.slice(PREFIX.length) : digits;
-		localDigits = localDigits.slice(0, MAX_LOCAL_DIGITS);
-
-		var formatted = "+" + PREFIX;
-
-		if (localDigits.length > 0) {
-			formatted += "-" + localDigits.slice(0, 3);
-		}
-
-		if (localDigits.length > 3) {
-			formatted += "-" + localDigits.slice(3, 7);
-		}
-
-		return formatted;
-	}
-
-	function initPhoneMask(scope) {
+	function initPhonePlaceholder(scope) {
 		var formScope = scope || document;
 		var phoneInputs = formScope.querySelectorAll(".bb-contacts-form input[type='tel']");
 		if (!phoneInputs.length) return;
@@ -55,25 +34,16 @@
 			if (input.dataset.bbPhoneMaskReady === "1") return;
 			input.dataset.bbPhoneMaskReady = "1";
 
-			input.setAttribute("placeholder", "+718-000-0000");
-			input.setAttribute("inputmode", "numeric");
-			input.value = formatPhone(input.value);
-
-			input.addEventListener("focus", function () {
-				if (!input.value) {
-					input.value = "+718";
-				}
-			});
-
-			input.addEventListener("input", function () {
-				input.value = formatPhone(input.value);
-			});
+			if (!input.getAttribute("placeholder")) {
+				input.setAttribute("placeholder", "phone number");
+			}
+			input.setAttribute("inputmode", "tel");
 		});
 	}
 
 	function initContactsForm(scope) {
 		moveSubmitIntoDisclaimer(scope);
-		initPhoneMask(scope);
+		initPhonePlaceholder(scope);
 	}
 
 	if (document.querySelector(CONTACT_FORM_SELECTOR)) {
