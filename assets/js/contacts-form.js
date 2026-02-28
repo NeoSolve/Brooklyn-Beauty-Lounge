@@ -218,7 +218,25 @@
 		});
 	}
 
-	function initPhonePlaceholder(scope) {
+	function formatPhone(rawValue) {
+		var digits = String(rawValue || "").replace(/\D/g, "");
+		var localDigits = digits.indexOf(PREFIX) === 0 ? digits.slice(PREFIX.length) : digits;
+		localDigits = localDigits.slice(0, MAX_LOCAL_DIGITS);
+
+		var formatted = "+" + PREFIX;
+
+		if (localDigits.length > 0) {
+			formatted += "-" + localDigits.slice(0, 3);
+		}
+
+		if (localDigits.length > 3) {
+			formatted += "-" + localDigits.slice(3, 7);
+		}
+
+		return formatted;
+	}
+
+	function initPhoneMask(scope) {
 		var formScope = scope || document;
 		var phoneInputs = formScope.querySelectorAll(".bb-contacts-form input[type='tel']");
 		if (!phoneInputs.length) return;
