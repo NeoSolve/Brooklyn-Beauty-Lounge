@@ -7,18 +7,16 @@
 
 $location_title = __( 'location', 'brooklyn-beauty' );
 $address_label  = __( 'address', 'brooklyn-beauty' );
-$address_text         = __( '2080 Coney Island Avenue', 'brooklyn-beauty' );
-$address_text_line_2  = __( 'Brooklyn, NY 11223', 'brooklyn-beauty' );
-$address_link         = 'https://maps.google.com/?q=2080+Coney+Island+Avenue+Brooklyn+NY+11223';
+$address_text   = __( '2080 Coney Island Avenue Brooklyn, NY 11223', 'brooklyn-beauty' );
+$address_link   = 'https://maps.google.com/?q=2080+Coney+Island+Avenue+Brooklyn+NY+11223';
 $hours_label    = __( 'hours', 'brooklyn-beauty' );
 $hours_days     = __( 'Monday - Sunday:', 'brooklyn-beauty' );
 $hours_time     = __( '8:30 AM - 8:30 PM', 'brooklyn-beauty' );
 
 if ( function_exists( 'get_field' ) ) {
 	$acf_address_label = trim( (string) get_field( 'footer_address_label', 'option' ) );
-	$acf_address_text         = trim( (string) get_field( 'footer_address_text', 'option' ) );
-	$acf_address_text_line_2  = trim( (string) get_field( 'footer_address_text_line_2', 'option' ) );
-	$acf_address_link         = trim( (string) get_field( 'footer_address_link', 'option' ) );
+	$acf_address_text  = trim( (string) get_field( 'footer_address_text', 'option' ) );
+	$acf_address_link  = trim( (string) get_field( 'footer_address_link', 'option' ) );
 	$acf_hours_label   = trim( (string) get_field( 'footer_hours_label', 'option' ) );
 	$acf_hours_days    = trim( (string) get_field( 'footer_hours_days', 'option' ) );
 	$acf_hours_time    = trim( (string) get_field( 'footer_hours_time', 'option' ) );
@@ -29,10 +27,6 @@ if ( function_exists( 'get_field' ) ) {
 
 	if ( '' !== $acf_address_text ) {
 		$address_text = $acf_address_text;
-	}
-
-	if ( '' !== $acf_address_text_line_2 ) {
-		$address_text_line_2 = $acf_address_text_line_2;
 	}
 
 	if ( '' !== $acf_address_link ) {
@@ -71,8 +65,6 @@ if ( '' !== $address_link ) {
 	}
 }
 
-$address_link_is_external = brooklyn_beauty_is_external_url( $address_link );
-
 ?>
 
 <section class="bb-contacts-location" aria-labelledby="bb-contacts-location-title">
@@ -84,53 +76,40 @@ $address_link_is_external = brooklyn_beauty_is_external_url( $address_link );
 						<?php if ( '' !== $address_label ) : ?>
 							<p class="bb-contacts-location__label"><?php echo esc_html( $address_label ); ?></p>
 						<?php endif; ?>
-					<?php if ( '' !== $address_link ) : ?>
-						<?php if ( '' !== $address_text ) : ?>
-							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+						<?php if ( '' !== $address_link ) : ?>
+							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>" target="_blank" rel="noopener noreferrer">
 								<?php echo esc_html( $address_text ); ?>
 							</a>
-						<?php endif; ?>
-						<?php if ( '' !== $address_text_line_2 ) : ?>
-							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
-								<?php echo esc_html( $address_text_line_2 ); ?>
-							</a>
-						<?php endif; ?>
-					<?php else : ?>
-						<?php if ( '' !== $address_text ) : ?>
+						<?php else : ?>
 							<p class="bb-contacts-location__value"><?php echo esc_html( $address_text ); ?></p>
 						<?php endif; ?>
-						<?php if ( '' !== $address_text_line_2 ) : ?>
-							<p class="bb-contacts-location__value"><?php echo esc_html( $address_text_line_2 ); ?></p>
-						<?php endif; ?>
-					<?php endif; ?>
 					</div>
 
-				<div class="bb-contacts-location__block">
-					<?php if ( '' !== $hours_label ) : ?>
-						<p class="bb-contacts-location__label"><?php echo esc_html( $hours_label ); ?></p>
-					<?php endif; ?>
-					<?php if ( '' !== $hours_days ) : ?>
-						<p class="bb-contacts-location__value"><?php echo esc_html( $hours_days ); ?></p>
-					<?php endif; ?>
-					<?php if ( '' !== $hours_time ) : ?>
-						<p class="bb-contacts-location__value"><?php echo esc_html( $hours_time ); ?></p>
-					<?php endif; ?>
-				</div>
+					<div class="bb-contacts-location__block">
+						<?php if ( '' !== $hours_label ) : ?>
+							<p class="bb-contacts-location__label"><?php echo esc_html( $hours_label ); ?></p>
+						<?php endif; ?>
+						<?php if ( '' !== $hours_days ) : ?>
+							<p class="bb-contacts-location__value"><?php echo esc_html( $hours_days ); ?></p>
+						<?php endif; ?>
+						<?php if ( '' !== $hours_time ) : ?>
+							<p class="bb-contacts-location__value"><?php echo esc_html( $hours_time ); ?></p>
+						<?php endif; ?>
+					</div>
 				</div>
 
 				<h2 class="bb-contacts-location__title" id="bb-contacts-location-title"><?php echo esc_html( $location_title ); ?></h2>
 			</div>
 
 			<div class="bb-contacts-location__map-wrap">
-			<div
-				class="bb-contacts-location__map js-bb-contacts-map"
-				data-lat="<?php echo esc_attr( (string) $map_lat ); ?>"
-				data-lng="<?php echo esc_attr( (string) $map_lng ); ?>"
-				data-zoom="17.5"
-				data-directions-url="<?php echo esc_attr( 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode( $map_lat . ',' . $map_lng ) ); ?>"
-				role="img"
-				aria-label="<?php esc_attr_e( 'Brooklyn Beauty Lounge location map', 'brooklyn-beauty' ); ?>"
-			></div>
+				<div
+					class="bb-contacts-location__map js-bb-contacts-map"
+					data-lat="<?php echo esc_attr( (string) $map_lat ); ?>"
+					data-lng="<?php echo esc_attr( (string) $map_lng ); ?>"
+					data-zoom="17.5"
+					role="img"
+					aria-label="<?php esc_attr_e( 'Brooklyn Beauty Lounge location map', 'brooklyn-beauty' ); ?>"
+				></div>
 			</div>
 		</div>
 	</div>
