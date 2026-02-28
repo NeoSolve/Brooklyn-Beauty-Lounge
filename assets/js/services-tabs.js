@@ -1,6 +1,23 @@
 "use strict";
 
 (function () {
+	// Make whole service cards clickable on all pages (independent of AJAX tabs).
+	var servicesCardsContainers = document.querySelectorAll(".bb-services-cards");
+	servicesCardsContainers.forEach(function (servicesCardsContainer) {
+		servicesCardsContainer.addEventListener("click", function (event) {
+			var card = event.target.closest(".bb-service-card");
+			if (!card || card.classList.contains("bb-service-card--placeholder")) return;
+
+			// Don't override clicks on existing interactive elements.
+			if (event.target.closest("a, button")) return;
+
+			var moreLink = card.querySelector(".bb-service-card__more-link");
+			if (moreLink && moreLink.href) {
+				window.location.href = moreLink.href;
+			}
+		});
+	});
+
 	var sections = document.querySelectorAll(".bb-services-section");
 	if (!sections.length || typeof bbServicesAjax === "undefined") return;
 
@@ -12,6 +29,7 @@
 		var servicesCardsContainer = servicesSection.querySelector(".bb-services-cards");
 
 		if (!filterButtons.length || !servicesCardsContainer) return;
+
 		var defaultFilter = servicesSection.dataset.defaultFilter || "all-services";
 		var errorMessage = servicesSection.dataset.emptyMessage || "Unable to load items.";
 		var requestCounter = 0;

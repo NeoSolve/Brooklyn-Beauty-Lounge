@@ -2,7 +2,7 @@
 	width: 100%;
 	background: var(--color-surface-alt);
 	border-bottom: 1px solid var(--color-text);
-	transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, backdrop-filter 0.3s ease;
+	transition: background 0.3s ease, backdrop-filter 0.3s ease;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -38,10 +38,6 @@
 }
 
 
-.bb-header--hidden {
-	transform: translateY(-100%);
-}
-
 .bb-main {
 	padding-top: var(--bb-header-height, clamp(71px, 5.52vw, 106px));
 }
@@ -66,6 +62,24 @@
 	color: var(--color-primary);
 }
 
+/* When header is over the dark footer, keep elements light (all pages) */
+.bb-header.bb-header--over-footer .bb-header__logo .custom-logo-link,
+.bb-header.bb-header--over-footer .bb-header__logo > a,
+.bb-header.bb-header--over-footer .bb-header__meta-link,
+.bb-header.bb-header--over-footer .bb-header__menu a,
+.bb-header.bb-header--over-footer .bb-header__social-link {
+	color: var(--color-surface);
+}
+
+/* On homepage past-hero + over-footer: force light colors over footer background */
+.home .bb-header.bb-header--past-hero.bb-header--over-footer .bb-header__logo .custom-logo-link,
+.home .bb-header.bb-header--past-hero.bb-header--over-footer .bb-header__logo > a,
+.home .bb-header.bb-header--past-hero.bb-header--over-footer .bb-header__meta-link,
+.home .bb-header.bb-header--past-hero.bb-header--over-footer .bb-header__menu a,
+.home .bb-header.bb-header--past-hero.bb-header--over-footer .bb-header__social-link {
+	color: var(--color-surface);
+}
+
 /* Social icon light/dark switching */
 .bb-header__social-icon.bb-header__social-icon--dark {
 	display: block;
@@ -80,6 +94,15 @@
 }
 
 .home .bb-header:not(.bb-header--past-hero) .bb-header__social-icon.bb-header__social-icon--dark {
+	display: none;
+}
+
+/* Use light social icons when header overlaps footer */
+.bb-header.bb-header--over-footer .bb-header__social-icon.bb-header__social-icon--light {
+	display: block;
+}
+
+.bb-header.bb-header--over-footer .bb-header__social-icon.bb-header__social-icon--dark {
 	display: none;
 }
 
@@ -153,6 +176,15 @@
 }
 
 .home .bb-header.bb-header--has-alt-logo:not(.bb-header--past-hero) .bb-header__logo .bb-header__logo-alt {
+	display: none;
+}
+
+/* When header overlaps footer, always use default (light) logo */
+.bb-header.bb-header--has-alt-logo.bb-header--over-footer .bb-header__logo-default {
+	display: inline-flex;
+}
+
+.bb-header.bb-header--has-alt-logo.bb-header--over-footer .bb-header__logo .bb-header__logo-alt {
 	display: none;
 }
 
@@ -243,17 +275,18 @@
 }
 
 .bb-header__social {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.home .bb-header:not(.bb-header--past-hero) .bb-header__social {
 	position: absolute;
 	left: var(--social-left, calc(100% - var(--hero-video-width)));
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+/*.home .bb-header:not(.bb-header--past-hero) .bb-header__social {*/
+/*	position: absolute;*/
+/*	left: var(--social-left, calc(100% - var(--hero-video-width)));*/
+/*	top: 50%;*/
+/*	transform: translateY(-50%);*/
+/*}*/
 
 .bb-header__social-link {
 	width: clamp(27px, 2.3vw, 44px);
@@ -293,6 +326,43 @@
 
 .bb-header__social-link:hover {
 	box-shadow: 0 0 0 1px currentColor;
+}
+
+/* Header CTA: default = visit-btn style hover (inset) */
+.bb-header__block--right > .btn {
+	border-color: transparent;
+	box-shadow: inset 0 0 0 0 var(--color-surface);
+	transition: box-shadow 0.15s ease;
+}
+
+.bb-header__block--right > .btn:hover,
+.bb-header__block--right > .btn:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-surface);
+	border-color: transparent;
+}
+
+/* Over main banner (home hero): 1px outline by default, same on hover */
+.home .bb-header:not(.bb-header--past-hero) .bb-header__block--right > .btn {
+	/*box-shadow: 0 0 0 1px var(--color-surface);*/
+	border-color: var(--color-surface);
+}
+
+.home .bb-header:not(.bb-header--past-hero) .bb-header__block--right > .btn:hover,
+.home .bb-header:not(.bb-header--past-hero) .bb-header__block--right > .btn:focus-visible {
+	/*box-shadow: 0 0 0 1px var(--color-surface);*/
+	border-color: var(--color-surface);
+}
+
+/* Over footer: 1px outline by default, same on hover */
+.bb-header.bb-header--over-footer .bb-header__block--right > .btn {
+	box-shadow: 0 0 0 1px var(--color-surface);
+	border-color: var(--color-surface);
+}
+
+.bb-header.bb-header--over-footer .bb-header__block--right > .btn:hover,
+.bb-header.bb-header--over-footer .bb-header__block--right > .btn:focus-visible {
+	box-shadow: 0 0 0 1px var(--color-surface);
+	border-color: var(--color-surface);
 }
 
 @media (max-width: 1180px) {

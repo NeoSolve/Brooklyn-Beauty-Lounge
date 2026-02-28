@@ -132,6 +132,7 @@ function brooklyn_beauty_assets() {
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$single_service_reasons_js_path = get_template_directory() . '/assets/js/single-service/reasons.js';
+	$single_service_explore_js_path = get_template_directory() . '/assets/js/single-service/explore.js';
 	$services_tabs_js_path = get_template_directory() . '/assets/js/services-tabs.js';
 	$our_work_js_path      = get_template_directory() . '/assets/js/our-work.js';
 	$why_us_js_path        = get_template_directory() . '/assets/js/why-us.js';
@@ -343,6 +344,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/single-service/reasons.js',
 				array( 'brooklyn-beauty-main' ),
 				(string) filemtime( $single_service_reasons_js_path ),
+				true
+			);
+		}
+
+		if ( is_singular( 'service' ) && file_exists( $single_service_explore_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-single-service-explore',
+				get_template_directory_uri() . '/assets/js/single-service/explore.js',
+				array( 'brooklyn-beauty-main' ),
+				(string) filemtime( $single_service_explore_js_path ),
 				true
 			);
 		}
@@ -1252,6 +1263,13 @@ function brooklyn_beauty_register_acf_field_groups() {
 					'value'    => 'front_page',
 				),
 			),
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'service',
+				),
+			),
 		),
 		'position'              => 'normal',
 		'style'                 => 'default',
@@ -1667,6 +1685,128 @@ function brooklyn_beauty_register_acf_field_groups() {
 
 }
 add_action( 'acf/init', 'brooklyn_beauty_register_acf_field_groups' );
+
+/**
+ * Determine whether URL points to an external host.
+ *
+ * @param string $url URL to inspect.
+ *
+ * @return bool
+ */
+function brooklyn_beauty_is_external_url( $url ) {
+	$url = trim( (string) $url );
+
+	if ( '' === $url || '#' === $url || 0 === strpos( $url, '#' ) ) {
+		return false;
+	}
+
+	$url_host = wp_parse_url( $url, PHP_URL_HOST );
+
+	if ( empty( $url_host ) ) {
+		return false;
+	}
+
+	$site_host = wp_parse_url( home_url(), PHP_URL_HOST );
+
+	if ( empty( $site_host ) ) {
+		return true;
+	}
+
+	$url_host  = strtolower( (string) $url_host );
+	$site_host = strtolower( (string) $site_host );
+
+	if ( 0 === strpos( $url_host, 'www.' ) ) {
+		$url_host = substr( $url_host, 4 );
+	}
+
+	if ( 0 === strpos( $site_host, 'www.' ) ) {
+		$site_host = substr( $site_host, 4 );
+	}
+
+	if ( $url_host === $site_host ) {
+		return false;
+	}
+
+	return ! str_ends_with( $url_host, '.' . $site_host );
+}
+
+/**
+ * Merge rel tokens without duplicates.
+ *
+ * @param string $rel     Existing rel value.
+ * @param array  $tokens  Required rel tokens.
+ *
+ * @return string
+ */
+function brooklyn_beauty_merge_rel_tokens( $rel, $tokens ) {
+	$rel_tokens = preg_split( '/\s+/', strtolower( trim( (string) $rel ) ) );
+	$rel_tokens = is_array( $rel_tokens ) ? array_filter( $rel_tokens ) : array();
+
+	foreach ( $tokens as $token ) {
+		$token = strtolower( trim( (string) $token ) );
+		if ( '' !== $token && ! in_array( $token, $rel_tokens, true ) ) {
+			$rel_tokens[] = $token;
+		}
+	}
+
+	return implode( ' ', $rel_tokens );
+}
+
+/**
+ * Add required attributes to external menu links.
+ *
+ * @param array $atts Current menu link attributes.
+ *
+ * @return array
+ */
+function brooklyn_beauty_nav_menu_external_link_attributes( $atts ) {
+	$href = isset( $atts['href'] ) ? (string) $atts['href'] : '';
+
+	if ( ! brooklyn_beauty_is_external_url( $href ) ) {
+		return $atts;
+	}
+
+	$atts['target'] = '_blank';
+	$atts['rel']    = brooklyn_beauty_merge_rel_tokens( isset( $atts['rel'] ) ? $atts['rel'] : '', array( 'nofollow', 'noopener', 'noreferrer' ) );
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'brooklyn_beauty_nav_menu_external_link_attributes', 10, 1 );
+
+/**
+ * Add required attributes to external links in post content.
+ *
+ * @param string $content Rendered post content.
+ *
+ * @return string
+ */
+function brooklyn_beauty_content_external_link_attributes( $content ) {
+	if ( ! is_string( $content ) || '' === $content || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
+		return $content;
+	}
+
+	$processor = new WP_HTML_Tag_Processor( $content );
+
+	while ( $processor->next_tag( array( 'tag_name' => 'a' ) ) ) {
+		$href = (string) $processor->get_attribute( 'href' );
+
+		if ( ! brooklyn_beauty_is_external_url( $href ) ) {
+			continue;
+		}
+
+		$processor->set_attribute( 'target', '_blank' );
+		$processor->set_attribute(
+			'rel',
+			brooklyn_beauty_merge_rel_tokens(
+				(string) $processor->get_attribute( 'rel' ),
+				array( 'nofollow', 'noopener', 'noreferrer' )
+			)
+		);
+	}
+
+	return $processor->get_updated_html();
+}
+add_filter( 'the_content', 'brooklyn_beauty_content_external_link_attributes', 20, 1 );
 
 /**
  * Get inline SVG icon markup for header social links.

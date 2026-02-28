@@ -51,10 +51,10 @@
 	flex-direction: column;
 	justify-content: space-between;
 	width: 100%;
-	min-height: 372px;
-	height: 372px;
+	min-height: clamp(223px, 19.375vw, 372px);
+	height: clamp(223px, 19.375vw, 372px);
 	padding: clamp(26px, 2.3vw, 44px);
-	border-radius: 10px;
+	border-radius: clamp(8px, 0.52vw, 10px);
 	background-image: var(--bb-service-advantages-card-bg, none);
 	background-repeat: no-repeat;
 	background-position: center;

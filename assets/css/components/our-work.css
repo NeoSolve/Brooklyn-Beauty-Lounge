@@ -39,6 +39,12 @@
 	width: clamp(200px, 17.4vw, 334px);
 }
 
+.bb-our-work__button:hover,
+.bb-our-work__button:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-surface);
+	border-color: transparent;
+}
+
 .bb-our-work__controls {
 	display: flex;
 	align-items: center;
@@ -96,7 +102,7 @@
 	font-family: var(--font-decor);
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);
-	color: var(--color-accent-muted);
+	color: var(--color-accent);
 }
 
 .bb-work {

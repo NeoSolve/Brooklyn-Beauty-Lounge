@@ -155,6 +155,10 @@ if ( function_exists( 'get_field' ) ) {
 	$footer_terms_text        = trim( (string) get_field( 'footer_terms_text', 'option' ) );
 	$footer_terms_link        = trim( (string) get_field( 'footer_terms_link', 'option' ) );
 }
+
+$footer_address_link_is_external        = brooklyn_beauty_is_external_url( $footer_address_link );
+$footer_press_title_link_is_external    = brooklyn_beauty_is_external_url( $footer_press_title_link );
+$footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $footer_press_subtitle_link );
 ?>
 
 <footer class="bb-footer">
@@ -195,12 +199,12 @@ if ( function_exists( 'get_field' ) ) {
 								<?php endif; ?>
 								<?php if ( '' !== $footer_address_link ) : ?>
 									<?php if ( '' !== $footer_address_text ) : ?>
-										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>" target="_blank" rel="noopener noreferrer">
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 											<?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?>
 										</a>
 									<?php endif; ?>
 									<?php if ( '' !== $footer_address_text_line_2 ) : ?>
-										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>" target="_blank" rel="noopener noreferrer">
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 											<?php echo wp_kses( $footer_address_text_line_2, $footer_allowed_html ); ?>
 										</a>
 									<?php endif; ?>
@@ -316,7 +320,7 @@ if ( function_exists( 'get_field' ) ) {
 						<?php if ( '' !== $footer_press_title_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--top">
 								<?php if ( '' !== $footer_press_title_link ) : ?>
-									<a href="<?php echo esc_url( $footer_press_title_link ); ?>" target="_blank" rel="noopener noreferrer">
+									<a href="<?php echo esc_url( $footer_press_title_link ); ?>"<?php if ( $footer_press_title_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 										<img src="<?php echo esc_url( $footer_press_title_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_title_alt ); ?>" loading="lazy">
 									</a>
 								<?php else : ?>
@@ -327,7 +331,7 @@ if ( function_exists( 'get_field' ) ) {
 						<?php if ( '' !== $footer_press_subtitle_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--bottom">
 								<?php if ( '' !== $footer_press_subtitle_link ) : ?>
-									<a href="<?php echo esc_url( $footer_press_subtitle_link ); ?>" target="_blank" rel="noopener noreferrer">
+									<a href="<?php echo esc_url( $footer_press_subtitle_link ); ?>"<?php if ( $footer_press_subtitle_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 										<img src="<?php echo esc_url( $footer_press_subtitle_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_subtitle_alt ); ?>" loading="lazy">
 									</a>
 								<?php else : ?>

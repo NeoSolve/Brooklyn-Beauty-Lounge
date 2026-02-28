@@ -30,7 +30,9 @@
 .single-service .bb-service-reasons__content-wrap {
 	background: var(--color-accent);
 	width: 100%;
-	max-width: 1840px;
+	height: 100%;
+	max-width: clamp(1104px, 95.83vw, 1840px);
+	max-height: clamp(503px, 43.65vw, 838px);
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -41,7 +43,7 @@
 
 .single-service .bb-service-reasons__grid {
 	display: grid;
-	grid-template-columns: 1fr minmax(280px, 472px) 1fr;
+	grid-template-columns: 1fr clamp(283px, 24.58vw, 472px) 1fr;
 	align-items: center;
 	gap: clamp(24px, 2.5vw, 48px);
 	min-height: clamp(560px, 43.65vw, 838px);
@@ -117,9 +119,9 @@
 
 .single-service .bb-service-reasons__video-wrap {
 	position: relative;
-	width: 472px;
-	height: 838px;
-	max-width: 100%;
+	width: clamp(283px, 24.58vw, 472px);
+	height: clamp(503px, 43.65vw, 838px);
+	max-height: clamp(503px, 43.65vw, 838px);
 	overflow: hidden;
 	background: var(--color-primary);
 }
@@ -256,13 +258,16 @@
 	background: var(--color-surface-alt);
 	color: var(--color-primary);
 	border: 1px solid var(--color-border-neutral);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	box-shadow: inset 0 0 0 0 var(--color-primary);
+	transition: box-shadow 0.15s ease;
 }
 
-.single-service .bb-service-reasons__btn:hover {
-	background: var(--color-surface-strong);
-	border-color: var(--color-text-muted);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+.single-service .bb-service-reasons__btn:hover,
+.single-service .bb-service-reasons__btn:focus-visible {
+	background: var(--color-surface-alt);
+	color: var(--color-primary);
+	border-color: var(--color-border-neutral);
+	box-shadow: inset 0 0 0 1px var(--color-primary);
 }
 
 /* — Responsive: stack columns — */

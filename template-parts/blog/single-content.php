@@ -241,7 +241,7 @@ if ( ! $has_sidebar ) {
 											href="<?php echo esc_url( $share_item['url'] ); ?>"
 											aria-label="<?php echo esc_attr( $share_item['aria_label'] ); ?>"
 											<?php if ( $share_item['is_external'] ) : ?>
-												target="_blank" rel="noopener noreferrer"
+												target="_blank" rel="nofollow noopener noreferrer"
 											<?php endif; ?>
 											<?php if ( $share_item['is_copy'] ) : ?>
 												data-share-action="copy"
