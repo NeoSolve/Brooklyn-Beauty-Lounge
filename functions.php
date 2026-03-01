@@ -129,6 +129,7 @@ function brooklyn_beauty_assets() {
 	$careers_page_css_path = get_template_directory() . '/assets/css/careers-page.css';
 	$single_post_css_path = get_template_directory() . '/assets/css/single-post.css';
 	$page_404_css_path = get_template_directory() . '/assets/css/404.css';
+	$information_page_css_path = get_template_directory() . '/assets/css/information-page.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$single_service_reasons_js_path = get_template_directory() . '/assets/js/single-service/reasons.js';
@@ -306,6 +307,15 @@ function brooklyn_beauty_assets() {
 			get_template_directory_uri() . '/assets/css/404.css',
 			array( 'brooklyn-beauty-main' ),
 			(string) filemtime( $page_404_css_path )
+		);
+	}
+
+	if ( is_page_template( 'page-information.php' ) && file_exists( $information_page_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-information-page',
+			get_template_directory_uri() . '/assets/css/information-page.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $information_page_css_path )
 		);
 	}
 

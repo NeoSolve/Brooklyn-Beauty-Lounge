@@ -1,0 +1,83 @@
+@import url("./services-page/breadcrumbs.css");
+
+.page-template-page-information .bb-info-page {
+	padding: 0 0 clamp(120px, 10.42vw, 200px);
+}
+
+.page-template-page-information .bb-info-page__article {
+	width: clamp(537px, 46.62vw, 895px);
+	margin-inline: auto;
+}
+
+.page-template-page-information .bb-info-page__breadcrumbs {
+	max-width: none;
+	margin-inline: 0;
+	margin-bottom: clamp(32px, 3.02vw, 58px);
+	font-size: clamp(11px, 0.73vw, 14px);
+}
+
+.page-template-page-information .bb-info-page__title {
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	text-transform: lowercase;
+	color: var(--color-accent);
+}
+
+.page-template-page-information .bb-info-page__content {
+	margin-top: clamp(20px, 2.08vw, 40px);
+	max-width: clamp(537px, 46.62vw, 895px);
+}
+
+.page-template-page-information .bb-info-page__content > * + * {
+	margin-top: clamp(14px, 1.56vw, 30px);
+}
+
+.page-template-page-information .bb-info-page__content p,
+.page-template-page-information .bb-info-page__content li {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: var(--color-primary);
+}
+
+.page-template-page-information .bb-info-page__content h2 {
+	margin-top: clamp(38px, 3.33vw, 64px);
+	font-size: var(--fs-h3);
+	line-height: var(--lh-h3-semibold);
+	font-weight: var(--fw-h3-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.page-template-page-information .bb-info-page__content h3 {
+	margin-top: clamp(38px, 3.33vw, 64px);
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4-semibold);
+	font-weight: var(--fw-h4-semibold);
+	letter-spacing: var(--ls-2per);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.page-template-page-information .bb-info-page__content ul,
+.page-template-page-information .bb-info-page__content ol {
+	padding-left: 1.2em;
+}
+
+.page-template-page-information .bb-info-page__content ul {
+	list-style: disc;
+}
+
+.page-template-page-information .bb-info-page__content ol {
+	list-style: decimal;
+}
+
+@media (max-width: 1024px) {
+	.page-template-page-information .bb-info-page__content p,
+	.page-template-page-information .bb-info-page__content li {
+		font-size: clamp(16px, 1.56vw, 20px);
+		line-height: 1.32;
+	}
+}
