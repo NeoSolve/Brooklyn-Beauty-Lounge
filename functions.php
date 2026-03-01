@@ -282,7 +282,7 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
-	if ( is_page_template( 'page-careers.php' ) && file_exists( $careers_page_css_path ) ) {
+	if ( ( is_page_template( 'page-careers.php' ) || is_page_template( 'page-career-questionnaire.php' ) ) && file_exists( $careers_page_css_path ) ) {
 		wp_enqueue_style(
 			'brooklyn-beauty-careers-page',
 			get_template_directory_uri() . '/assets/css/careers-page.css',
@@ -497,6 +497,16 @@ function brooklyn_beauty_assets() {
 			}
 		}
 
+		if ( is_page_template( 'page-career-questionnaire.php' ) && file_exists( $contacts_form_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-contacts-form',
+				get_template_directory_uri() . '/assets/js/contacts-form.js',
+				array(),
+				(string) filemtime( $contacts_form_js_path ),
+				true
+			);
+		}
+
 		if ( is_singular( 'post' ) && file_exists( $single_post_js_path ) ) {
 			wp_enqueue_script(
 				'brooklyn-beauty-single-post',
@@ -551,6 +561,44 @@ add_action( 'admin_enqueue_scripts', 'brooklyn_beauty_admin_assets' );
  */
 add_filter( 'use_block_editor_for_post', '__return_false', 100 );
 add_filter( 'use_widgets_block_editor', '__return_false', 100 );
+
+/**
+ * Validate contact form phone fields by strict mask.
+ *
+ * @param WPCF7_Validation $result Validation result.
+ * @param WPCF7_FormTag    $tag    Current field tag.
+ *
+ * @return WPCF7_Validation
+ */
+function brooklyn_beauty_validate_phone_mask_for_contact_forms( $result, $tag ) {
+	$contact_form = class_exists( 'WPCF7_ContactForm' ) ? WPCF7_ContactForm::get_current() : null;
+	$form_id      = $contact_form ? (string) $contact_form->id() : '';
+	$target_forms = array( '7e69551', '4530bca' );
+	if ( '' === $form_id || ! in_array( $form_id, $target_forms, true ) ) {
+		return $result;
+	}
+
+	$field_name = is_object( $tag ) && isset( $tag->name ) ? (string) $tag->name : '';
+	if ( '' === $field_name ) {
+		return $result;
+	}
+
+	$submission = class_exists( 'WPCF7_Submission' ) ? WPCF7_Submission::get_instance() : null;
+	$posted_data = $submission ? (array) $submission->get_posted_data() : array();
+	$field_value = isset( $posted_data[ $field_name ] ) ? trim( (string) $posted_data[ $field_name ] ) : '';
+
+	if ( '' === $field_value ) {
+		return $result;
+	}
+
+	if ( ! preg_match( '/^\+1-\d{3}-\d{3}-\d{4}$/', $field_value ) ) {
+		$result->invalidate( $tag, __( 'Please use phone format +1-234-567-8901.', 'brooklyn-beauty' ) );
+	}
+
+	return $result;
+}
+add_filter( 'wpcf7_validate_tel', 'brooklyn_beauty_validate_phone_mask_for_contact_forms', 20, 2 );
+add_filter( 'wpcf7_validate_tel*', 'brooklyn_beauty_validate_phone_mask_for_contact_forms', 20, 2 );
 
 /**
  * Output Open Graph meta tags for single posts.

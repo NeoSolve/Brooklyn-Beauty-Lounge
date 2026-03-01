@@ -150,8 +150,12 @@
 	background: transparent;
 	font-size: 16px;
 	line-height: 1.2;
-	border-radius: 2px;
+	border-radius: 4px;
 	box-shadow: none;
+}
+
+.bb-contacts-form .wpcf7-form input[type="checkbox"] {
+	border-radius: 4px;
 }
 
 .bb-contacts-form .cf7-textarea,
