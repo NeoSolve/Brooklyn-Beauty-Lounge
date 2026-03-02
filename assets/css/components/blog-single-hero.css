@@ -76,9 +76,9 @@
 }
 
 .single-post .bb-blog-single-hero__author-name {
-	font-size: var(--fs-h5);
-	line-height: var(--lh-h5-semibold);
-	font-weight: var(--fw-h5-semibold);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
 	color: var(--color-primary-alt);
 }
 
