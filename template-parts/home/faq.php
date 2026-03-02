@@ -58,8 +58,13 @@ $resolve_image_url = static function ( $field_value ) {
 if ( function_exists( 'get_field' ) ) {
 	$front_page_id = (int) get_option( 'page_on_front' );
 	$field_post_id = $front_page_id > 0 ? $front_page_id : get_queried_object_id();
-	if ( is_singular( 'service' ) ) {
+	if ( is_singular( 'service' ) || is_singular( 'post' ) ) {
 		$field_post_id = get_queried_object_id();
+	}
+
+	if ( is_singular( 'post' ) ) {
+		// For article pages use only post-level FAQ from admin.
+		$faq_items = array();
 	}
 
 	$acf_left_image = get_field( 'faq_left_image', $field_post_id );
