@@ -90,25 +90,76 @@ function brooklyn_beauty_get_blog_cards_markup( $category_slug = 'all-posts', $p
 	$cards_markup = (string) ob_get_clean();
 
 	$pagination_markup = '';
-	if ( $blog_posts_query->max_num_pages > 1 ) {
-		$resolved_base_url = '' !== $base_url ? $base_url : get_pagenum_link( 1 );
-		$resolved_base_url = remove_query_arg( 'paged', $resolved_base_url );
+	$resolved_base_url = '' !== $base_url ? $base_url : get_pagenum_link( 1 );
+	$resolved_base_url = remove_query_arg( 'paged', $resolved_base_url );
+	$current_page      = max( 1, (int) $paged );
+	$total_pages       = max( 1, (int) $blog_posts_query->max_num_pages );
 
-		$pagination_links = paginate_links(
-			array(
-				'base'      => add_query_arg( 'paged', '%#%', $resolved_base_url ),
-				'format'    => '',
-				'current'   => max( 1, (int) $paged ),
-				'total'     => (int) $blog_posts_query->max_num_pages,
-				'type'      => 'list',
-				'prev_text' => '&laquo;',
-				'next_text' => '&raquo;',
-			)
-		);
+	$pagination_links = paginate_links(
+		array(
+			'base'      => add_query_arg( 'paged', '%#%', $resolved_base_url ),
+			'format'    => '',
+			'current'   => $current_page,
+			'total'     => $total_pages,
+			'type'      => 'array',
+			'prev_text' => '&laquo;',
+			'next_text' => '&raquo;',
+		)
+	);
 
-		if ( is_string( $pagination_links ) && '' !== $pagination_links ) {
-			$pagination_markup = $pagination_links;
+	if ( ! is_array( $pagination_links ) ) {
+		$pagination_links = array();
+	}
+
+	$has_prev_link = false;
+	$has_next_link = false;
+	$has_current   = false;
+
+	foreach ( $pagination_links as $pagination_link ) {
+		if ( false !== strpos( $pagination_link, 'prev page-numbers' ) || false !== strpos( $pagination_link, 'page-numbers prev' ) ) {
+			$has_prev_link = true;
 		}
+
+		if ( false !== strpos( $pagination_link, 'next page-numbers' ) || false !== strpos( $pagination_link, 'page-numbers next' ) ) {
+			$has_next_link = true;
+		}
+
+		if ( false !== strpos( $pagination_link, 'current' ) ) {
+			$has_current = true;
+		}
+	}
+
+	if ( ! $has_prev_link && $current_page <= 1 ) {
+		array_unshift( $pagination_links, '<span class="page-numbers prev disabled" aria-disabled="true">&laquo;</span>' );
+	}
+
+	if ( ! $has_current ) {
+		$current_link_markup = sprintf(
+			'<span aria-current="page" class="page-numbers current">%d</span>',
+			(int) $current_page
+		);
+		$insert_index        = 0;
+
+		foreach ( $pagination_links as $index => $pagination_link ) {
+			if ( false !== strpos( $pagination_link, 'prev page-numbers' ) || false !== strpos( $pagination_link, 'page-numbers prev' ) ) {
+				$insert_index = $index + 1;
+				break;
+			}
+		}
+
+		array_splice( $pagination_links, $insert_index, 0, array( $current_link_markup ) );
+	}
+
+	if ( ! $has_next_link && $current_page >= $total_pages ) {
+		$pagination_links[] = '<span class="page-numbers next disabled" aria-disabled="true">&raquo;</span>';
+	}
+
+	if ( ! empty( $pagination_links ) ) {
+		$pagination_markup = '<ul class="page-numbers">';
+		foreach ( $pagination_links as $pagination_link ) {
+			$pagination_markup .= '<li>' . $pagination_link . '</li>';
+		}
+		$pagination_markup .= '</ul>';
 	}
 
 	wp_reset_postdata();

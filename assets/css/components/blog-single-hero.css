@@ -25,8 +25,8 @@
 	padding: 8px 46px;
 	border: 1px solid var(--color-primary);
 	border-radius: 4px;
-	font-size: var(--fs-body-2);
-	line-height: var(--lh-body-2);
+	font-size: 16px;
+	line-height: 1.1;
 	font-weight: var(--fw-body-regular);
 	letter-spacing: var(--ls-button-3);
 	color: var(--color-primary);

@@ -92,7 +92,6 @@
 	color: var(--color-primary-alt);
 	text-decoration: none;
 	text-transform: lowercase;
-	max-width: clamp(78px, 6.77vw, 130px);
 }
 
 .bb-blog-posts-section .bb-blog-card__link::before {
@@ -136,6 +135,7 @@
 	margin-top: clamp(28px, 3vw, 48px);
 	display: flex;
 	justify-content: center;
+	height: 40px;
 }
 
 .bb-blog-posts-section .bb-blog-posts__pagination:empty {
@@ -159,9 +159,9 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 22px;
-	height: 22px;
-	padding: 0 2px;
+	width: 40px;
+	height: 40px;
+	padding: 0;
 	border: 0;
 	border-radius: 3px;
 	text-decoration: none;
@@ -183,6 +183,10 @@
 
 .bb-blog-posts-section .bb-blog-posts__pagination .page-numbers .dots {
 	color: var(--color-text-muted);
+}
+
+.bb-blog-posts-section .bb-blog-posts__pagination .page-numbers .disabled {
+	pointer-events: none;
 }
 
 @media (max-width: 720px) {
