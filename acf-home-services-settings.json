@@ -1,0 +1,165 @@
+[
+  {
+    "key": "group_brooklyn_beauty_home_services_settings",
+    "title": "Home Services Settings",
+    "fields": [
+      {
+        "key": "field_brooklyn_beauty_services_tab_categories",
+        "label": "Services Tab Categories",
+        "name": "services_tab_categories",
+        "aria-label": "",
+        "type": "taxonomy",
+        "instructions": "Select service categories that should be shown as tabs on the homepage services block.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "taxonomy": "service_category",
+        "add_term": 0,
+        "save_terms": 0,
+        "load_terms": 0,
+        "return_format": "id",
+        "field_type": "multi_select",
+        "allow_null": 1,
+        "multiple": 0,
+        "bidirectional": 0,
+        "bidirectional_target": []
+      },
+      {
+        "key": "field_brooklyn_beauty_services_placeholder_cards",
+        "label": "Services Placeholder Cards",
+        "name": "services_placeholder_cards",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "Add decorative placeholder cards for selected service categories.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "row",
+        "pagination": 0,
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "button_label": "Add Placeholder Card",
+        "rows_per_page": 20,
+        "sub_fields": [
+          {
+            "key": "field_brooklyn_beauty_services_placeholder_show_in_all_tab",
+            "label": "Show in All Services Tab",
+            "name": "show_in_all_tab",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable if this placeholder should appear only in the all services tab.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "33",
+              "class": "",
+              "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+          },
+          {
+            "key": "field_brooklyn_beauty_services_placeholder_category",
+            "label": "Category",
+            "name": "category",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "Choose the category where this placeholder card should appear.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "taxonomy": "service_category",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "field_type": "select",
+            "allow_null": 0,
+            "multiple": 0,
+            "bidirectional": 0,
+            "bidirectional_target": []
+          },
+          {
+            "key": "field_brooklyn_beauty_services_placeholder_text",
+            "label": "Text",
+            "name": "text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Text displayed inside the placeholder card (for example: self-care).",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_brooklyn_beauty_services_placeholder_position",
+            "label": "Position",
+            "name": "position",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Card position in grid: 1 = first, 2 = second, etc.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "33",
+              "class": "",
+              "id": ""
+            },
+            "default_value": 1,
+            "min": 1,
+            "max": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": ""
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_type",
+          "operator": "==",
+          "value": "front_page"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]

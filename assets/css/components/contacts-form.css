@@ -1,0 +1,291 @@
+.bb-contacts-form {
+	padding: clamp(60px, 5.2vw, 100px) 0 clamp(60px, 5.2vw, 100px) 0;
+}
+
+.bb-contacts-form__layout {
+	display: grid;
+	grid-template-columns: minmax(72px, 0.12fr) minmax(0, 1fr) minmax(72px, 0.12fr);
+	align-items: center;
+	column-gap: clamp(12px, 5.21vw, 30px);
+}
+
+.bb-contacts-form__inner {
+	max-width: min(100%, 1120px);
+	margin: 0 auto;
+}
+
+.bb-contacts-form__title {
+	margin: 0 0 clamp(26px, 2.3vw, 44px);
+	text-align: center;
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.bb-contacts-form__decor {
+	font-family: var(--font-decor);
+	font-size: clamp(42px, 3.7vw, 72px);
+	line-height: 1;
+	color: var(--color-accent);
+	white-space: nowrap;
+}
+
+.bb-contacts-form__decor--left {
+	justify-self: start;
+	transform: rotate(-4deg);
+}
+
+.bb-contacts-form__decor--right {
+	justify-self: end;
+	transform: rotate(5.34deg);
+	/*width: clamp(115px, 10vw, 192px);*/
+}
+
+.bb-contacts-form .wpcf7 {
+	max-width: clamp(732px, 63.54vw, 1220px);
+	margin: 0 auto;
+}
+
+.bb-contacts-form .wpcf7-form h2,
+.bb-contacts-form .wpcf7-form .cf7-title {
+	margin: 0 0 clamp(22px, 1.93vw, 37px);
+	text-align: center;
+	font-size: clamp(74px, 6.25vw, 120px);
+	line-height: 0.86;
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: -0.02em;
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.bb-contacts-form .wpcf7-form > p {
+	margin: 0;
+}
+
+.bb-contacts-form .cf7-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 36px;
+}
+
+.bb-contacts-form .cf7-full {
+	grid-column: 1 / -1;
+}
+
+.bb-contacts-form .cf7-field,
+.bb-contacts-form .cf7-full,
+.bb-contacts-form .cf7-field > p,
+.bb-contacts-form .cf7-field > p .wpcf7-form-control-wrap {
+	min-width: 0;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-field.cf7-full {
+	grid-column: 1 / 2;
+	grid-row: 3 / span 2;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full {
+	grid-column: 2 / 3;
+	grid-row: 3;
+	align-self: start;
+	margin-top: 0;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full.cf7-disclaimer--with-submit {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full p {
+	margin: 0;
+}
+
+.bb-contacts-form .cf7-grid > .cf7-full:last-child {
+	grid-column: 2 / 3;
+	/*grid-row: 4;*/
+	align-self: end;
+	margin-top: clamp(18px, 1.5625vw, 30px)
+}
+
+/* Внутри .cf7-field всё в одном <p>: label и обёртка инпута — делаем flex и gap по этому p */
+.bb-contacts-form .cf7-field > p {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+}
+
+.bb-contacts-form .cf7-field > p label {
+	margin: 0;
+	font-weight: 600;
+	font-size: clamp(16px, 1.15vw, 22px);
+	line-height: 1;
+	color: var(--color-primary);
+}
+
+.bb-contacts-form .cf7-field > p .wpcf7-form-control-wrap {
+	margin: 0;
+	padding: 0;
+}
+
+.bb-contacts-form .cf7-field br {
+	display: none;
+}
+
+.bb-contacts-form .cf7-input,
+.bb-contacts-form .cf7-textarea,
+.bb-contacts-form .wpcf7-form input[type="text"],
+.bb-contacts-form .wpcf7-form input[type="email"],
+.bb-contacts-form .wpcf7-form input[type="tel"],
+.bb-contacts-form .wpcf7-form textarea {
+	width: 100%;
+	max-width: 100%;
+	padding: 14px 16px;
+	border: 1px solid rgba(47, 44, 56, 0.42);
+	background: transparent;
+	font-size: 16px;
+	line-height: 1.2;
+	border-radius: 4px;
+	box-shadow: none;
+}
+
+.bb-contacts-form .wpcf7-form input[type="checkbox"] {
+	border-radius: 4px;
+}
+
+.bb-contacts-form .cf7-textarea,
+.bb-contacts-form .wpcf7-form textarea {
+	height: clamp(103px, 8.96vw, 172px);
+	resize: vertical;
+}
+
+.bb-contacts-form .cf7-input:focus,
+.bb-contacts-form .cf7-textarea:focus,
+.bb-contacts-form .wpcf7-form input[type="text"]:focus,
+.bb-contacts-form .wpcf7-form input[type="email"]:focus,
+.bb-contacts-form .wpcf7-form input[type="tel"]:focus,
+.bb-contacts-form .wpcf7-form textarea:focus {
+	outline: none;
+	border-color: var(--color-accent);
+}
+
+.bb-contacts-form .cf7-button,
+.bb-contacts-form .wpcf7-form input[type="submit"] {
+	background: var(--color-accent);
+	color: #fff;
+	border: 0;
+	border-color: transparent;
+	padding: 12px 32px;
+	font-size: 18px;
+	line-height: 1;
+	font-weight: 500;
+	cursor: pointer;
+	border-radius: 2px;
+	text-transform: lowercase;
+	min-width: clamp(144px, 12.5vw, 240px);
+	height: clamp(36px, 3.125vw, 60px);
+	box-shadow: inset 0 0 0 0 var(--color-surface);
+	transition: box-shadow 0.15s ease;
+}
+
+.bb-contacts-form .cf7-button:hover,
+.bb-contacts-form .wpcf7-form input[type="submit"]:hover,
+.bb-contacts-form .cf7-button:focus-visible,
+.bb-contacts-form .wpcf7-form input[type="submit"]:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-surface);
+	border-color: transparent;
+}
+
+.bb-contacts-form .wpcf7-not-valid {
+	border-color: var(--color-accent) !important;
+}
+
+.bb-contacts-form .wpcf7-not-valid-tip {
+	color: var(--color-accent);
+	font-size: 14px;
+	margin-top: 6px;
+}
+
+.bb-contacts-form .cf7-consent,
+.bb-contacts-form .cf7-description,
+.bb-contacts-form .cf7-note {
+	font-size: clamp(14px, 0.94vw, 18px);
+	line-height: 1.2;
+	color: var(--color-primary);
+	opacity: 0.75;
+}
+
+.bb-contacts-form .wpcf7-spinner {
+	margin: 0 0 0 12px;
+}
+
+.bb-contacts-form .wpcf7-response-output {
+	display: none;
+}
+
+@media (max-width: 1600px) {
+	.bb-contacts-form__layout {
+		grid-template-columns: minmax(0, 1fr) minmax(0, min(100%, 1120px)) minmax(0, 1fr);
+		column-gap: clamp(18px, 2.2vw, 38px);
+	}
+
+	.bb-contacts-form__decor {
+		font-size: clamp(36px, 3vw, 56px);
+	}
+
+	.bb-contacts-form__decor--right {
+		transform: translateX(clamp(6px, 0.8vw, 14px)) rotate(5.34deg);
+	}
+
+	.bb-contacts-form .cf7-grid {
+		gap: clamp(20px, 2vw, 32px);
+	}
+}
+
+
+
+@media (max-width: 900px) {
+	.bb-contacts-form__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-contacts-form__decor {
+		display: none;
+	}
+
+	.bb-contacts-form .wpcf7-form h2,
+	.bb-contacts-form .wpcf7-form .cf7-title {
+		font-size: clamp(54px, 15vw, 88px);
+	}
+
+	.bb-contacts-form .cf7-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.bb-contacts-form .cf7-grid > .cf7-field.cf7-full,
+	.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full,
+	.bb-contacts-form .cf7-grid > .cf7-full:last-child {
+		grid-column: 1 / -1;
+		grid-row: auto;
+	}
+
+	.bb-contacts-form .cf7-grid > .cf7-disclaimer.cf7-full {
+		margin-top: 0;
+	}
+
+	.bb-contacts-form .cf7-grid > .cf7-full:last-child {
+		margin-top: 0;
+	}
+
+	.bb-contacts-form .cf7-button,
+	.bb-contacts-form .wpcf7-form input[type="submit"] {
+		width: 100%;
+		max-width: 280px;
+	}
+}

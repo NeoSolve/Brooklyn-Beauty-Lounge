@@ -1,0 +1,128 @@
+/**
+ * Single service — Advantages block (title + 2×2 cards grid).
+ */
+
+.single-service .bb-service-advantages {
+	padding: clamp(60px, 5.2vw, 100px) 0;
+}
+
+.single-service .bb-service-advantages__header {
+	position: relative;
+	text-align: center;
+	margin-bottom: clamp(36px, 3.125vw, 60px);
+}
+
+.single-service .bb-service-advantages__title {
+	margin: 0;
+	display: inline-block;
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.single-service .bb-service-advantages__label {
+	position: absolute;
+	left: 60%;
+	top: 56%;
+	display: block;
+	margin: 0;
+	color: var(--color-accent);
+	text-transform: lowercase;
+	transform: rotate(4deg);
+	transform-origin: left bottom;
+	white-space: nowrap;
+	translate: clamp(165px, 12.4vw, 238px) 0;
+}
+
+.single-service .bb-service-advantages__grid {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 910px));
+	justify-content: center;
+	gap: clamp(12px, 1.04vw, 20px);
+}
+
+.single-service .bb-service-advantages__card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	min-height: clamp(223px, 19.375vw, 372px);
+	height: clamp(223px, 19.375vw, 372px);
+	padding: clamp(26px, 2.3vw, 44px);
+	border-radius: clamp(8px, 0.52vw, 10px);
+	background-image: var(--bb-service-advantages-card-bg, none);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	color: var(--color-surface);
+	overflow: hidden;
+}
+
+.single-service .bb-service-advantages__card-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: clamp(12px, 1.04vw, 20px);
+}
+
+.single-service .bb-service-advantages__card-title {
+	margin: 0;
+	max-width: calc(100% - clamp(30px, 2.6vw, 50px));
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+	font-weight: var(--fw-h5-semibold);
+	color: inherit;
+	text-transform: lowercase;
+}
+
+.single-service .bb-service-advantages__card-number {
+	flex-shrink: 0;
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+	font-weight: var(--fw-body-regular);
+	opacity: 0.85;
+}
+
+.single-service .bb-service-advantages__card-text {
+	margin: 0;
+	max-width: clamp(300px, 26.04vw, 500px);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: inherit;
+}
+
+@media (max-width: 768px) {
+	.single-service .bb-service-advantages__header {
+		flex-direction: column;
+		align-items: center;
+		gap: clamp(4px, 1vw, 8px);
+	}
+
+	.single-service .bb-service-advantages__title {
+		font-size: clamp(36px, 8vw, 64px);
+	}
+
+	.single-service .bb-service-advantages__label {
+		top: 62%;
+		translate: clamp(74px, 20vw, 120px) 0;
+	}
+
+	.single-service .bb-service-advantages__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.single-service .bb-service-advantages__card {
+		min-height: clamp(200px, 40vw, 280px);
+		height: auto;
+	}
+
+	.single-service .bb-service-advantages__card-text {
+		max-width: none;
+	}
+}

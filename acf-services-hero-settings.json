@@ -1,0 +1,166 @@
+[
+  {
+    "key": "group_brooklyn_beauty_services_hero_settings",
+    "title": "Services/Contacts/Blog Page Hero Settings",
+    "fields": [
+      {
+        "key": "field_6994ef4c59ec9",
+        "label": "Hero Title",
+        "name": "services_hero_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Used for breadcrumbs/current page title.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "allow_in_bindings": 0,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_background_word",
+        "label": "Hero Background Word",
+        "name": "services_hero_background_word",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Large decorative red word in the background.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_tagline",
+        "label": "Tagline",
+        "name": "services_hero_tagline",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Decorative text under the main title.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "be fabulous with brooklyn beauty lounge!",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_subtitle",
+        "label": "Subtitle",
+        "name": "services_hero_subtitle",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Main subtitle in hero section.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "self-care",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_description",
+        "label": "Description",
+        "name": "services_hero_description",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "Description text shown on the right side of hero.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Brooklyn Beauty Lounge offers everything from hair and makeup to facials, nails and laser treatments, providing personalized care and expert techniques that make you look and feel your best.",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_image",
+        "label": "Hero Image",
+        "name": "services_hero_image",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "Main image in the center of services hero.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "id",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp",
+        "preview_size": "medium"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-services.php"
+        }
+      ],
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-contacts.php"
+        }
+      ],
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-blog.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]

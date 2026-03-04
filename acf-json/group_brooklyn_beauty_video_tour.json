@@ -1,0 +1,168 @@
+{
+    "key": "group_brooklyn_beauty_video_tour",
+    "title": "Homepage: Video Tour",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_video_tour_title",
+            "label": "Section Title",
+            "name": "video_tour_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Video Tour",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_video_tour_label",
+            "label": "Decorative Label",
+            "name": "video_tour_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Handwritten accent near the title (example: step_inside).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "step_inside",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_video_tour_video_source",
+            "label": "Video Source",
+            "name": "video_tour_video_source",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "Choose where to get the video from.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "35",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "url": "Video URL",
+                "file": "Uploaded File"
+            },
+            "allow_null": 0,
+            "default_value": "url",
+            "layout": "horizontal",
+            "return_format": "value",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_brooklyn_beauty_video_tour_text",
+            "label": "Section Text",
+            "name": "video_tour_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Feel the atmosphere and vibe of Brooklyn Beauty Lounge. Take a look at our online space, and a video tour will help you get an impression of the salon before your visit!",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_video_tour_video_url",
+            "label": "Video URL",
+            "name": "video_tour_video_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Supports YouTube\/Vimeo links or direct video file URLs.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_brooklyn_beauty_video_tour_video_source",
+                        "operator": "==",
+                        "value": "url"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": "https:\/\/"
+        },
+        {
+            "key": "field_brooklyn_beauty_video_tour_video_file",
+            "label": "Video File",
+            "name": "video_tour_video_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Upload a video file from Media Library.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_brooklyn_beauty_video_tour_video_source",
+                        "operator": "==",
+                        "value": "file"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4,webm,m4v,mov,ogg",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 50,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Content settings for Video Tour section on homepage.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1771181992
+}

@@ -1,0 +1,123 @@
+[
+  {
+    "key": "group_brooklyn_beauty_faq_block",
+    "title": "FAQ Block",
+    "fields": [
+      {
+        "key": "field_brooklyn_beauty_faq_left_image",
+        "label": "Left Image",
+        "name": "faq_left_image",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": { "width": "", "class": "", "id": "" },
+        "return_format": "id",
+        "library": "all",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_brooklyn_beauty_faq_badge_image",
+        "label": "Center Badge Image",
+        "name": "faq_badge_image",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "Optional. If empty, text badge will be shown.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": { "width": "", "class": "", "id": "" },
+        "return_format": "id",
+        "library": "all",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_brooklyn_beauty_faq_badge_subtitle",
+        "label": "Center Badge Subtitle",
+        "name": "faq_badge_subtitle",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": { "width": "", "class": "", "id": "" },
+        "default_value": "curious?",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_faq_items",
+        "label": "FAQ Items",
+        "name": "faq_items",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": { "width": "", "class": "", "id": "" },
+        "layout": "row",
+        "pagination": 0,
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "button_label": "Add FAQ Item",
+        "rows_per_page": 20,
+        "sub_fields": [
+          {
+            "key": "field_brooklyn_beauty_faq_item_question",
+            "label": "Question",
+            "name": "question",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "parent_repeater": "field_brooklyn_beauty_faq_items"
+          },
+          {
+            "key": "field_brooklyn_beauty_faq_item_answer",
+            "label": "Answer",
+            "name": "answer",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 5,
+            "placeholder": "",
+            "new_lines": "",
+            "parent_repeater": "field_brooklyn_beauty_faq_items"
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        { "param": "page_type", "operator": "==", "value": "front_page" }
+      ],
+      [
+        { "param": "post_type", "operator": "==", "value": "service" }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]

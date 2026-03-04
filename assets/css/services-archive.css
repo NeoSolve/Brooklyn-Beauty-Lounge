@@ -1,0 +1,91 @@
+.post-type-archive-service .bb-services-archive-hero {
+	background: var(--color-surface-alt);
+	padding: 20px 0 clamp(30px, 2.92vw, 56px);
+}
+
+.post-type-archive-service .bb-services-archive-hero__title {
+	margin: clamp(18px, 1.67vw, 32px) 0 0;
+	font-size: clamp(62px, 10.63vw, 204px);
+	line-height: 0.8;
+	font-weight: var(--fw-h1);
+	color: var(--color-accent);
+	text-transform: lowercase;
+}
+
+.post-type-archive-service .bb-services-archive-hero__description {
+	margin-top: 10px;
+	max-width: 700px;
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	color: var(--color-primary);
+}
+
+.post-type-archive-service .bb-services-archive-content {
+	padding: clamp(34px, 3.12vw, 60px) 0 clamp(44px, 4.17vw, 80px);
+}
+
+.post-type-archive-service .bb-services-archive-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: clamp(14px, 1.25vw, 24px);
+}
+
+.post-type-archive-service .bb-services-archive-card {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border-light);
+}
+
+.post-type-archive-service .bb-services-archive-card__media {
+	aspect-ratio: 4 / 3;
+	background: var(--color-surface-alt);
+	background-size: cover;
+	background-position: center;
+}
+
+.post-type-archive-service .bb-services-archive-card__content {
+	padding: clamp(14px, 1.25vw, 24px);
+}
+
+.post-type-archive-service .bb-services-archive-card__title {
+	margin: 0;
+	font-size: var(--fs-h4);
+	line-height: var(--lh-h4);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.post-type-archive-service .bb-services-archive-card__text {
+	margin: 10px 0 0;
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	color: var(--color-text);
+}
+
+.post-type-archive-service .bb-services-archive-card__link {
+	display: inline-block;
+	margin-top: 12px;
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.post-type-archive-service .bb-services-archive-card__link:hover {
+	color: var(--color-accent);
+}
+
+.post-type-archive-service .navigation.pagination {
+	margin-top: clamp(18px, 1.67vw, 32px);
+}
+
+@media (max-width: 992px) {
+	.post-type-archive-service .bb-services-archive-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 680px) {
+	.post-type-archive-service .bb-services-archive-grid {
+		grid-template-columns: 1fr;
+	}
+}

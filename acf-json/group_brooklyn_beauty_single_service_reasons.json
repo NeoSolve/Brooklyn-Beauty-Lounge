@@ -1,0 +1,306 @@
+{
+    "key": "group_brooklyn_beauty_single_service_reasons",
+    "title": "Single Service Reasons",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_headline",
+            "label": "Headline",
+            "name": "service_reasons_headline",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "choosing premium hair services in brooklyn beauty lounge, you will get:",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_items",
+            "label": "Benefits List",
+            "name": "service_reasons_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 12,
+            "collapsed": "",
+            "button_label": "Add Item",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_single_service_reasons_item_text",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections"
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_reasons_section_item_image",
+                    "label": "Section Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_brooklyn_beauty_single_service_reasons_section_items",
+                    "label": "Section Items",
+                    "name": "items",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "row",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "field_brooklyn_beauty_single_service_reasons_section_subitem_title",
+                    "button_label": "Add Item",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_brooklyn_beauty_single_service_reasons_sections",
+                    "sub_fields": [
+                        {
+                            "key": "field_brooklyn_beauty_single_service_reasons_section_subitem_title",
+                            "label": "Item Title",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_reasons_section_items"
+                        },
+                        {
+                            "key": "field_brooklyn_beauty_single_service_reasons_section_subitem_text",
+                            "label": "Item Text",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "70",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "placeholder": "",
+                            "new_lines": "",
+                            "parent_repeater": "field_brooklyn_beauty_single_service_reasons_section_items"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_video_poster",
+            "label": "Video Poster Image",
+            "name": "service_reasons_video_poster",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Shown before play (for both YouTube and uploaded video).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "medium",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_video_url",
+            "label": "Video URL (YouTube \/ Vimeo)",
+            "name": "service_reasons_video_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Link opens in a new tab when play is clicked. Use if you do not upload a video file.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_video_file",
+            "label": "Video File (from Media)",
+            "name": "service_reasons_video_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Uploaded video plays in the block. If set, this is used instead of Video URL.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "mime_types": "mp4,webm,ogg",
+            "min_size": "",
+            "max_size": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_slogan",
+            "label": "Slogan",
+            "name": "service_reasons_slogan",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "exclusive experience",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_button_text",
+            "label": "Button Text",
+            "name": "service_reasons_button_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "book now",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_reasons_button_link",
+            "label": "Button Link",
+            "name": "service_reasons_button_link",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g. \/#book or full URL",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "\/#book",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1771549460
+}

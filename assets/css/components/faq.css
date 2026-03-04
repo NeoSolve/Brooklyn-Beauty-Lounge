@@ -1,0 +1,219 @@
+.bb-faq-section {
+	padding: clamp(67px, 5.21vw, 100px) 0;
+}
+
+.bb-faq-layout {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: flex-start;
+	column-gap: clamp(56px, 7.97vw, 153px);
+}
+
+.bb-faq-layout__left {
+	display: flex;
+	flex-direction: row;
+	gap: clamp(56px, 7.97vw, 153px);
+	align-items: center;
+	align-self: flex-start;
+}
+
+.bb-faq-layout__media {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: clamp(260px, 21.56vw, 414px);
+	height: auto;
+}
+
+.bb-faq-layout__image {
+	width: 100%;
+	height: clamp(480px, 40.63vw, 780px);
+	object-fit: cover;
+	object-position: top center;
+}
+
+.bb-faq-layout__badge {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 8px;
+	margin-left: 0;
+}
+
+.bb-faq-layout__badge-image {
+	width: min(100%, clamp(173px, 13.54vw, 260px));
+	height: auto;
+	object-fit: contain;
+}
+
+.bb-faq-layout__badge-title {
+	font-size: clamp(72px, 7.2vw, 120px);
+	line-height: 0.86;
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.bb-faq-layout__badge-subtitle {
+	margin-top: -6px;
+	margin-left: clamp(48px, 4.2vw, 80px);
+	font-family: var(--font-decor);
+	font-size: clamp(32px, 2.2vw, 42px);
+	line-height: 1;
+	color: var(--color-accent);
+}
+
+.bb-faq-item {
+	max-width: clamp(613px, 47.92vw, 920px);
+}
+
+.bb-faq-item__trigger {
+	width: 100%;
+	padding-bottom: clamp(7px, 0.625vw, 12px);
+	border: 0;
+	background: transparent;
+	display: grid;
+	grid-template-columns: clamp(37px, 2.92vw, 56px) minmax(0, 1fr);
+	gap: clamp(12px, 0.94vw, 18px);
+	text-align: left;
+	cursor: pointer;
+	font-family: var(--font-primary);
+}
+
+.bb-faq-item__index {
+	padding-top: clamp(5px, 0.42vw, 8px);
+	font-family: var(--font-primary);
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+	font-weight: var(--fw-body-regular);
+	letter-spacing: -2%;
+	color: var(--color-text);
+}
+
+.bb-faq-item__question {
+    font-family: var(--font-primary);
+	font-size: var(--fs-h5);
+	line-height: var(--lh-h5-semibold);
+	font-weight: var(--fw-h5-semibold);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.bb-faq-item__panel {
+	padding: 0 0 clamp(24px, 1.88vw, 36px) clamp(53px, 4.17vw, 80px);
+}
+
+.bb-faq-item__answer {
+	max-width: clamp(653px, 51.04vw, 980px);
+	font-family: var(--font-primary);
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: var(--color-primary);
+}
+
+@media (min-width: 1025px) {
+	.bb-faq-layout__left {
+		position: sticky;
+		top: clamp(80px, 6vw, 120px);
+	}
+}
+
+@media (max-width: 1280px) {
+	.bb-faq-layout {
+		grid-template-columns: auto minmax(0, 1fr);
+	}
+}
+
+@media (max-width: 1024px) {
+	.bb-faq-section {
+		padding: 64px 0;
+	}
+
+	.bb-faq-layout {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.bb-faq-layout__left {
+		flex-direction: column;
+		align-items: flex-start;
+		position: static;
+	}
+
+	.bb-faq-layout__media {
+		width: 100%;
+	}
+
+	.bb-faq-list {
+		grid-column: 1 / -1;
+		padding: 20px 24px;
+	}
+
+	.bb-faq-item__trigger {
+		gap: 12px;
+		grid-template-columns: 46px minmax(0, 1fr);
+	}
+
+	.bb-faq-item__question {
+		font-size: clamp(26px, 4.2vw, 40px);
+		line-height: 1;
+	}
+
+	.bb-faq-item__panel {
+		max-height: 0;
+		padding: 0 0 0 58px;
+		overflow: hidden;
+		transition: max-height var(--transition-base), padding-bottom var(--transition-base);
+	}
+
+	.bb-faq-item.is-open .bb-faq-item__panel {
+		padding-bottom: 16px;
+	}
+}
+
+@media (max-width: 767px) {
+	.bb-faq-section {
+		padding: 52px 0;
+	}
+
+	.bb-faq-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.bb-faq-layout__media {
+		height: auto;
+	}
+
+	.bb-faq-layout__image {
+		height: auto;
+		max-height: none;
+	}
+
+	.bb-faq-layout__badge {
+		padding: 24px;
+	}
+
+	.bb-faq-item__trigger {
+		padding: 12px 0;
+	}
+
+	.bb-faq-item__question {
+		font-size: clamp(24px, 8vw, 34px);
+	}
+
+	.bb-faq-item__panel {
+		padding-left: 0;
+	}
+
+	.bb-faq-item.is-open .bb-faq-item__panel {
+		padding-bottom: 12px;
+	}
+
+	.bb-faq-item__answer {
+		font-size: 16px;
+	}
+}

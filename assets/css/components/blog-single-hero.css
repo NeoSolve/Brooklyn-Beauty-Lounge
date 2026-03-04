@@ -1,0 +1,175 @@
+.single-post .bb-blog-single-hero {
+	padding: clamp(12px, 1.25vw, 24px) 0 clamp(48px, 4.69vw, 90px);
+}
+
+.single-post .bb-blog-single-hero__top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: clamp(16px, 1.67vw, 32px);
+}
+
+.single-post .bb-blog-single-hero__top .bb-breadcrumbs {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.single-post .bb-blog-single-hero__tags {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+.single-post .bb-blog-single-hero__tag {
+	padding: 8px 46px;
+	border: 1px solid var(--color-primary);
+	border-radius: 4px;
+	font-size: 16px;
+	line-height: 1.1;
+	font-weight: var(--fw-body-regular);
+	letter-spacing: var(--ls-button-3);
+	color: var(--color-primary);
+	text-transform: lowercase;
+}
+
+.single-post .bb-blog-single-hero__title {
+	margin-top: clamp(24px, 2.083vw, 40px);
+	font-size: var(--fs-h2);
+	line-height: var(--lh-h2-semibold);
+	font-weight: var(--fw-h2-semibold);
+	letter-spacing: var(--ls-h2-semibold);
+	color: var(--color-accent);
+	text-transform: lowercase;
+}
+
+.single-post .bb-blog-single-hero__intro-grid {
+	margin-top: clamp(31px, 2.71vw, 52px);
+	display: grid;
+	grid-template-columns: clamp(180px, 15.625vw, 300px) minmax(0, 1fr);
+	gap: clamp(66px, 5.73vw, 110px);
+}
+
+.single-post .bb-blog-single-hero__meta {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(18px, 1.88vw, 36px);
+}
+
+.single-post .bb-blog-single-hero__author {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.single-post .bb-blog-single-hero__author .bb-blog-single-hero__author-avatar {
+	width: clamp(46px, 3.02vw, 58px);
+	height: clamp(46px, 3.02vw, 58px);
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.single-post .bb-blog-single-hero__author-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.single-post .bb-blog-single-hero__author-name {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: var(--color-primary-alt);
+}
+
+.single-post .bb-blog-single-hero__author-role {
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
+	color: var(--color-text-soft);
+	text-transform: lowercase;
+}
+
+.single-post .bb-blog-single-hero__date {
+	position: relative;
+	padding-left: 22px;
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	font-weight: var(--fw-body-medium);
+	color: var(--color-text-soft);
+}
+
+.single-post .bb-blog-single-hero__date::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 14px;
+	height: 14px;
+	background: var(--color-text-soft);
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 15H5V10h14zm0-11H5V6h14z'/%3E%3C/svg%3E")
+		center / contain no-repeat;
+	transform: translateY(-50%);
+}
+
+.single-post .bb-blog-single-hero__intro-texts {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: clamp(20px, 1.98vw, 38px);
+	padding-right: clamp(37px, 3.23vw, 62px);
+}
+
+.single-post .bb-blog-single-hero__intro-texts p {
+	font-size: var(--fs-body-1);
+	line-height: var(--lh-body-1);
+	font-weight: var(--fw-body-regular);
+	color: var(--color-primary-alt);
+}
+
+.single-post .bb-blog-single-hero__media {
+	margin-top: clamp(22px, 1.875vw, 36px);
+	overflow: hidden;
+	border-radius: 6px;
+}
+
+.single-post .bb-blog-single-hero__media img,
+.single-post .bb-blog-single-hero__media-fallback {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.single-post .bb-blog-single-hero__media-fallback {
+	background: linear-gradient(145deg, var(--color-accent-dark), var(--color-accent));
+}
+
+@media (max-width: 1024px) {
+	.single-post .bb-blog-single-hero__intro-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.single-post .bb-blog-single-hero__meta {
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+@media (max-width: 720px) {
+	.single-post .bb-blog-single-hero__top {
+		flex-direction: column;
+	}
+
+	.single-post .bb-blog-single-hero__tags {
+		justify-content: flex-start;
+	}
+
+	.single-post .bb-blog-single-hero__intro-texts {
+		grid-template-columns: 1fr;
+	}
+
+	.single-post .bb-blog-single-hero__media {
+		aspect-ratio: 16 / 9;
+	}
+}
