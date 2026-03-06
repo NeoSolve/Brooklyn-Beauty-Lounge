@@ -157,6 +157,7 @@
 	height: clamp(35px, 3.02vw, 58px);
 	box-shadow: 0 0 0 0 var(--color-surface);
 	transition: box-shadow var(--transition-base);
+	border-radius: 4px;
 }
 
 .bb-footer__social-icon {
@@ -164,6 +165,7 @@
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	border-radius: 4px;
 }
 
 .bb-footer__social-link:hover,

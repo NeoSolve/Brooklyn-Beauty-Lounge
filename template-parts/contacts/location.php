@@ -127,7 +127,7 @@ $address_link_is_external = brooklyn_beauty_is_external_url( $address_link );
 				data-lat="<?php echo esc_attr( (string) $map_lat ); ?>"
 				data-lng="<?php echo esc_attr( (string) $map_lng ); ?>"
 				data-zoom="17.5"
-				data-directions-url="<?php echo esc_attr( 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode( $map_lat . ',' . $map_lng ) ); ?>"
+				data-directions-url="<?php echo esc_attr( '' !== $address_link ? $address_link : 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode( $map_lat . ',' . $map_lng ) ); ?>"
 				role="img"
 				aria-label="<?php esc_attr_e( 'Brooklyn Beauty Lounge location map', 'brooklyn-beauty' ); ?>"
 			></div>
