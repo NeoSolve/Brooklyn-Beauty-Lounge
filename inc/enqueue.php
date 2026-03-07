@@ -34,6 +34,7 @@ function brooklyn_beauty_assets() {
 	$single_post_css_path = get_template_directory() . '/assets/css/single-post.css';
 	$page_404_css_path = get_template_directory() . '/assets/css/404.css';
 	$information_page_css_path = get_template_directory() . '/assets/css/information-page.css';
+	$popup_css_path = get_template_directory() . '/assets/css/components/promo-popup.css';
 	$js_path               = get_template_directory() . '/assets/js/main.js';
 	$services_page_js_path = get_template_directory() . '/assets/js/services-page/main.js';
 	$single_service_reasons_js_path = get_template_directory() . '/assets/js/single-service/reasons.js';
@@ -53,6 +54,9 @@ function brooklyn_beauty_assets() {
 	$contacts_form_js_path = get_template_directory() . '/assets/js/contacts-form.js';
 	$single_post_js_path   = get_template_directory() . '/assets/js/single-post.js';
 	$other_articles_js_path = get_template_directory() . '/assets/js/other-articles.js';
+	$blog_tabs_js_path     = get_template_directory() . '/assets/js/blog-tabs.js';
+	$popup_js_path         = get_template_directory() . '/assets/js/promo-popup.js';
+	$has_active_popup      = function_exists( 'brooklyn_beauty_get_active_popup_posts' ) && ! empty( brooklyn_beauty_get_active_popup_posts() );
 
 	wp_enqueue_style(
 		'brooklyn-beauty-fonts',
@@ -223,6 +227,15 @@ function brooklyn_beauty_assets() {
 		);
 	}
 
+	if ( $has_active_popup && file_exists( $popup_css_path ) ) {
+		wp_enqueue_style(
+			'brooklyn-beauty-popup',
+			get_template_directory_uri() . '/assets/css/components/promo-popup.css',
+			array( 'brooklyn-beauty-main' ),
+			(string) filemtime( $popup_css_path )
+		);
+	}
+
 	if ( file_exists( $js_path ) ) {
 		wp_enqueue_script(
 			'brooklyn-beauty-main',
@@ -238,6 +251,16 @@ function brooklyn_beauty_assets() {
 				get_template_directory_uri() . '/assets/js/footer.js',
 				array( 'brooklyn-beauty-main' ),
 				(string) filemtime( $footer_js_path ),
+				true
+			);
+		}
+
+		if ( $has_active_popup && file_exists( $popup_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-popup',
+				get_template_directory_uri() . '/assets/js/promo-popup.js',
+				array(),
+				(string) filemtime( $popup_js_path ),
 				true
 			);
 		}
@@ -418,6 +441,26 @@ function brooklyn_beauty_assets() {
 				array(),
 				(string) filemtime( $contacts_form_js_path ),
 				true
+			);
+		}
+
+		if ( is_page_template( 'page-blog.php' ) && file_exists( $blog_tabs_js_path ) ) {
+			wp_enqueue_script(
+				'brooklyn-beauty-blog-tabs',
+				get_template_directory_uri() . '/assets/js/blog-tabs.js',
+				array(),
+				(string) filemtime( $blog_tabs_js_path ),
+				true
+			);
+			$blog_page_id = (int) get_queried_object_id();
+			wp_localize_script(
+				'brooklyn-beauty-blog-tabs',
+				'bbBlogAjax',
+				array(
+					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+					'nonce'       => wp_create_nonce( 'bb_services_filter' ),
+					'blogPageUrl' => $blog_page_id > 0 ? (string) get_permalink( $blog_page_id ) : '',
+				)
 			);
 		}
 

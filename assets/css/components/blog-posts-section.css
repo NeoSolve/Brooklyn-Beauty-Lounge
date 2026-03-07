@@ -83,6 +83,12 @@
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-auto-rows: 1fr;
 	gap: clamp(12px, 0.94vw, 18px);
+	transition: opacity 0.2s ease;
+}
+
+.bb-blog-posts-section .bb-blog-cards.is-loading {
+	opacity: 0.6;
+	pointer-events: none;
 }
 
 .bb-blog-posts-section .bb-blog-cards__empty {

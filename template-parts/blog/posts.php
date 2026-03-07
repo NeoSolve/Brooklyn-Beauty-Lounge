@@ -77,7 +77,7 @@ $blog_result = function_exists( 'brooklyn_beauty_get_blog_cards_markup' )
 $blog_cards_html    = isset( $blog_result['cards'] ) ? $blog_result['cards'] : '';
 $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagination'] : '';
 ?>
-<section class="bb-blog-posts-section" id="blog-posts">
+<section class="bb-blog-posts-section" id="blog-posts" data-blog-page-url="<?php echo esc_url( $current_page_url ); ?>">
 	<div class="bb-container">
 		<ul class="bb-blog-filters" aria-label="<?php esc_attr_e( 'Blog categories', 'brooklyn-beauty' ); ?>">
 			<?php foreach ( $blog_categories as $blog_category ) :
@@ -87,7 +87,7 @@ $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagi
 					: add_query_arg( 'category', $blog_category['slug'], $current_page_url );
 			?>
 				<li class="bb-blog-filters__item<?php echo $is_active ? ' is-active' : ''; ?>">
-					<a class="bb-blog-filters__button" href="<?php echo esc_url( $tab_url ); ?>" aria-current="<?php echo $is_active ? 'true' : 'false'; ?>">
+					<a class="bb-blog-filters__button" href="<?php echo esc_url( $tab_url ); ?>" data-category="<?php echo esc_attr( $blog_category['slug'] ); ?>" aria-current="<?php echo $is_active ? 'true' : 'false'; ?>">
 						<?php echo esc_html( $blog_category['label'] ); ?>
 					</a>
 				</li>
@@ -95,7 +95,7 @@ $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagi
 			<span class="bb-blog-filters__indicator" aria-hidden="true"></span>
 		</ul>
 
-		<div class="bb-blog-cards">
+		<div class="bb-blog-cards" aria-live="polite" aria-busy="false">
 			<?php echo wp_kses_post( $blog_cards_html ); ?>
 		</div>
 

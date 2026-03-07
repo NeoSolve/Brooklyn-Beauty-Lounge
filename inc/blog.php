@@ -180,7 +180,8 @@ function brooklyn_beauty_ajax_filter_blog_posts() {
 
 	$category_slug = isset( $_POST['category'] ) ? sanitize_title( wp_unslash( (string) $_POST['category'] ) ) : 'all-posts';
 	$paged         = isset( $_POST['paged'] ) ? max( 1, absint( $_POST['paged'] ) ) : 1;
-	$result        = brooklyn_beauty_get_blog_cards_markup( $category_slug, $paged );
+	$base_url      = isset( $_POST['base_url'] ) ? esc_url_raw( wp_unslash( (string) $_POST['base_url'] ) ) : '';
+	$result        = brooklyn_beauty_get_blog_cards_markup( $category_slug, $paged, $base_url );
 
 	wp_send_json_success(
 		array(
