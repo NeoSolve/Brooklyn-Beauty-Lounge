@@ -1,7 +1,7 @@
 @import url("./services-page/breadcrumbs.css");
 
 .page-template-page-information .bb-info-page {
-	padding: 0 0 clamp(120px, 10.42vw, 200px);
+	padding: 16px 0 clamp(120px, 10.42vw, 200px);
 }
 
 .page-template-page-information .bb-info-page__article {
@@ -13,7 +13,6 @@
 	max-width: none;
 	margin-inline: 0;
 	margin-bottom: clamp(32px, 3.02vw, 58px);
-	font-size: clamp(11px, 0.73vw, 14px);
 }
 
 .page-template-page-information .bb-info-page__title {
