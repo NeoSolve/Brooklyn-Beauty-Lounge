@@ -68,6 +68,73 @@
             "multiple": 0,
             "bidirectional": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_brooklyn_beauty_blog_placeholder_cards",
+            "label": "Blog Placeholder Cards",
+            "name": "blog_placeholder_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add decorative placeholder cards between blog post cards (e.g. self-care, inspiration).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Placeholder Card",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_brooklyn_beauty_blog_placeholder_show_in_all_tab",
+                    "label": "Show in All Posts Tab",
+                    "name": "show_in_all_tab",
+                    "type": "true_false",
+                    "instructions": "Enable if this placeholder should appear only in the All tab.",
+                    "wrapper": { "width": "33", "class": "", "id": "" },
+                    "default_value": 0,
+                    "ui": 1,
+                    "parent_repeater": "field_brooklyn_beauty_blog_placeholder_cards"
+                },
+                {
+                    "key": "field_brooklyn_beauty_blog_placeholder_category",
+                    "label": "Category",
+                    "name": "category",
+                    "type": "taxonomy",
+                    "instructions": "Choose the blog category where this placeholder should appear (when not \"All\").",
+                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "taxonomy": "category",
+                    "return_format": "id",
+                    "field_type": "select",
+                    "allow_null": 1,
+                    "parent_repeater": "field_brooklyn_beauty_blog_placeholder_cards"
+                },
+                {
+                    "key": "field_brooklyn_beauty_blog_placeholder_text",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "Text displayed inside the placeholder card (e.g. self-care).",
+                    "required": 1,
+                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "default_value": "",
+                    "parent_repeater": "field_brooklyn_beauty_blog_placeholder_cards"
+                },
+                {
+                    "key": "field_brooklyn_beauty_blog_placeholder_position",
+                    "label": "Position",
+                    "name": "position",
+                    "type": "number",
+                    "instructions": "Card position in grid: 1 = first, 2 = second, etc.",
+                    "wrapper": { "width": "33", "class": "", "id": "" },
+                    "default_value": 1,
+                    "min": 1,
+                    "step": 1,
+                    "parent_repeater": "field_brooklyn_beauty_blog_placeholder_cards"
+                }
+            ]
         }
     ],
     "location": [

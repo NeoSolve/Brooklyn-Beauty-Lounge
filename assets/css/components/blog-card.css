@@ -5,6 +5,25 @@
 	border-radius: 4px;
 }
 
+.bb-blog-posts-section .bb-blog-card--placeholder {
+	justify-content: center;
+	align-items: center;
+	padding: clamp(32px, 2.81vw, 54px) clamp(13px, 1.04vw, 20px);
+	background: transparent;
+	border: 1px solid var(--color-border-neutral);
+}
+
+.bb-blog-posts-section .bb-blog-card__placeholder-text {
+	margin: 0;
+	font-family: var(--font-decor);
+	font-size: var(--fs-decor);
+	line-height: 1;
+	letter-spacing: var(--ls-decor);
+	color: var(--color-accent);
+	text-align: center;
+	transform: rotate(-4deg);
+}
+
 .bb-blog-posts-section .bb-blog-card__media {
 	display: block;
 	min-height: clamp(217px, 18.85vw, 362px);
@@ -83,6 +102,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
+	align-self: flex-start;
 	margin-top: auto;
 	padding: clamp(9px, 0.73vw, 14px) 0;
 	font-size: var(--fs-button);

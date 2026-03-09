@@ -2,61 +2,15 @@
 
 (function () {
 	var CONTACT_FORM_SELECTOR = ".bb-contacts-form";
-	var PHONE_MASK = "+1-___-___-____";
+	var PHONE_MASK = "+718-000-0000";
 	var customSelectEventsReady = false;
 
-	function getDigits(value) {
-		return String(value || "").replace(/\D/g, "").slice(0, 11);
+	function containsLetter(value) {
+		return /\p{L}/u.test(String(value || ""));
 	}
 
-	function formatPhoneByMask(digits) {
-		var normalized = String(digits || "").replace(/\D/g, "").slice(0, 11);
-		var localDigits = normalized;
-		var partA = "";
-		var partB = "";
-		var partC = "";
-		var result = "";
-
-		if (!normalized.length) return "";
-
-		if (11 === normalized.length && "1" === normalized.charAt(0)) {
-			localDigits = normalized.slice(1);
-		} else {
-			localDigits = normalized.slice(0, 10);
-		}
-
-		partA = localDigits.slice(0, 3);
-		partB = localDigits.slice(3, 6);
-		partC = localDigits.slice(6, 10);
-
-		result = "+1-" + partA;
-
-		if (partB.length) {
-			result += "-" + partB;
-		}
-
-		if (partC.length) {
-			result += "-" + partC;
-		}
-
-		return result;
-	}
-
-	function normalizePhoneInputValue(input) {
-		if (!input) return;
-		var digits = getDigits(input.value);
-		input.value = formatPhoneByMask(digits);
-	}
-
-	function onPhonePaste(event) {
-		var input = event.currentTarget;
-		if (!input) return;
-
-		event.preventDefault();
-		var clipboard = event.clipboardData ? event.clipboardData.getData("text") : "";
-		var pastedDigits = getDigits(clipboard);
-
-		input.value = formatPhoneByMask(pastedDigits);
+	function removeLetters(value) {
+		return String(value || "").replace(/\p{L}+/gu, "");
 	}
 
 	function closeCustomSelect(wrapper) {
@@ -73,6 +27,37 @@
 		if (!nativeSelect || !trigger) return;
 		var option = nativeSelect.options[nativeSelect.selectedIndex];
 		trigger.textContent = option ? option.text : "";
+		if (option && String(option.value || "").trim() === "") {
+			trigger.classList.add("is-placeholder");
+		} else {
+			trigger.classList.remove("is-placeholder");
+		}
+	}
+
+	function initCareerSingleChoiceFullFields(scope) {
+		var formScope = scope || document;
+		var form = formScope.querySelector("#career-questionnaire-form .wpcf7-form");
+		if (!form) return;
+
+		var fullFields = form.querySelectorAll(".bb-cq-field.bb-cq-field--full");
+		fullFields.forEach(function (field) {
+			var checkboxes = field.querySelectorAll('input[type="checkbox"]');
+			if (!checkboxes.length) return;
+
+			checkboxes.forEach(function (checkbox) {
+				if (checkbox.dataset.bbSingleChoiceReady === "1") return;
+				checkbox.dataset.bbSingleChoiceReady = "1";
+
+				checkbox.addEventListener("change", function () {
+					if (!this.checked) return;
+					checkboxes.forEach(function (other) {
+						if (other !== checkbox) {
+							other.checked = false;
+						}
+					});
+				});
+			});
+		});
 	}
 
 	function initCareerCustomSelects(scope) {
@@ -218,24 +203,6 @@
 		});
 	}
 
-	function formatPhone(rawValue) {
-		var digits = String(rawValue || "").replace(/\D/g, "");
-		var localDigits = digits.indexOf(PREFIX) === 0 ? digits.slice(PREFIX.length) : digits;
-		localDigits = localDigits.slice(0, MAX_LOCAL_DIGITS);
-
-		var formatted = "+" + PREFIX;
-
-		if (localDigits.length > 0) {
-			formatted += "-" + localDigits.slice(0, 3);
-		}
-
-		if (localDigits.length > 3) {
-			formatted += "-" + localDigits.slice(3, 7);
-		}
-
-		return formatted;
-	}
-
 	function initPhoneMask(scope) {
 		var formScope = scope || document;
 		var phoneInputs = formScope.querySelectorAll(".bb-contacts-form input[type='tel']");
@@ -246,30 +213,44 @@
 			input.dataset.bbPhoneMaskReady = "1";
 
 			input.setAttribute("placeholder", PHONE_MASK);
-			input.setAttribute("maxlength", String(PHONE_MASK.length));
 			input.setAttribute("inputmode", "tel");
 			input.setAttribute("autocomplete", "tel-national");
 
-			normalizePhoneInputValue(input);
-
-			input.addEventListener("input", function () {
-				normalizePhoneInputValue(input);
+			input.addEventListener("keydown", function (event) {
+				if (event.ctrlKey || event.metaKey || event.altKey || event.key.length !== 1) return;
+				if (containsLetter(event.key)) {
+					event.preventDefault();
+				}
 			});
 
-			input.addEventListener("paste", onPhonePaste);
+			input.addEventListener("input", function () {
+				var sanitizedValue = removeLetters(input.value);
+				if (sanitizedValue !== input.value) {
+					input.value = sanitizedValue;
+				}
+			});
 		});
 	}
 
 	function initContactsForm(scope) {
 		moveSubmitIntoDisclaimer(scope);
-		initPhonePlaceholder(scope);
+		initPhoneMask(scope);
 		initEmailPlaceholder(scope);
+		initCareerSingleChoiceFullFields(scope);
 		initCareerCustomSelects(scope);
 	}
 
-	if (document.querySelector(CONTACT_FORM_SELECTOR)) {
-		initContactsForm(document);
+	function tryInit() {
+		var sections = document.querySelectorAll(CONTACT_FORM_SELECTOR);
+		if (!sections.length) return;
+		sections.forEach(function (section) {
+			if (section.querySelector(".wpcf7-form")) {
+				initContactsForm(section);
+			}
+		});
 	}
+
+	tryInit();
 
 	document.addEventListener("wpcf7submit", function (event) {
 		var form = event.target;
@@ -282,4 +263,15 @@
 			initContactsForm(contactsSection);
 		});
 	});
+
+	var observerTarget = document.querySelector(CONTACT_FORM_SELECTOR);
+	if (observerTarget) {
+		var observer = new MutationObserver(function () {
+			if (observerTarget.querySelector(".wpcf7-form select")) {
+				tryInit();
+				observer.disconnect();
+			}
+		});
+		observer.observe(observerTarget, { childList: true, subtree: true });
+	}
 })();

@@ -72,12 +72,12 @@ $pagination_base_url = 'all-posts' === $active_tab
 	: add_query_arg( 'category', $active_tab, $current_page_url );
 
 $blog_result = function_exists( 'brooklyn_beauty_get_blog_cards_markup' )
-	? brooklyn_beauty_get_blog_cards_markup( $active_tab, $current_paged, $pagination_base_url )
+	? brooklyn_beauty_get_blog_cards_markup( $active_tab, $current_paged, $pagination_base_url, $page_id )
 	: array( 'cards' => '', 'pagination' => '' );
 $blog_cards_html    = isset( $blog_result['cards'] ) ? $blog_result['cards'] : '';
 $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagination'] : '';
 ?>
-<section class="bb-blog-posts-section" id="blog-posts" data-blog-page-url="<?php echo esc_url( $current_page_url ); ?>">
+<section class="bb-blog-posts-section" id="blog-posts" data-blog-page-url="<?php echo esc_url( $current_page_url ); ?>" data-blog-page-id="<?php echo (int) $page_id; ?>">
 	<div class="bb-container">
 		<ul class="bb-blog-filters" aria-label="<?php esc_attr_e( 'Blog categories', 'brooklyn-beauty' ); ?>">
 			<?php foreach ( $blog_categories as $blog_category ) :

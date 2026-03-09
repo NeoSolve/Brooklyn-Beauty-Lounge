@@ -460,6 +460,7 @@ function brooklyn_beauty_assets() {
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 					'nonce'       => wp_create_nonce( 'bb_services_filter' ),
 					'blogPageUrl' => $blog_page_id > 0 ? (string) get_permalink( $blog_page_id ) : '',
+					'blogPageId'  => $blog_page_id,
 				)
 			);
 		}

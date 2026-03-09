@@ -8,6 +8,7 @@
 	var cardsContainer = section.querySelector(".bb-blog-cards");
 	var paginationContainer = section.querySelector(".bb-blog-posts__pagination");
 	var blogPageUrl = section.dataset.blogPageUrl || bbBlogAjax.blogPageUrl || "";
+	var blogPageId = section.dataset.blogPageId || (bbBlogAjax.blogPageId != null ? String(bbBlogAjax.blogPageId) : "") || "";
 
 	if (!filterButtons.length || !cardsContainer) return;
 
@@ -42,6 +43,9 @@
 		payload.append("paged", String(paged));
 		if (baseUrl) {
 			payload.append("base_url", baseUrl);
+		}
+		if (blogPageId) {
+			payload.append("blog_page_id", blogPageId);
 		}
 
 		cardsContainer.setAttribute("aria-busy", "true");
