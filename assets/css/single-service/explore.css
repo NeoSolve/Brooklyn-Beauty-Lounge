@@ -76,7 +76,7 @@
 
 .single-service .bb-service-explore__section-copy {
 	width: clamp(320px, 37.92vw, 728px);
-	max-width: 100%;
+	max-width: clamp(320px, 37.92vw, 728px);
 }
 
 .single-service .bb-service-explore__section-title {

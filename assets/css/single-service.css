@@ -81,7 +81,6 @@
 
 .single-service .bb-single-service-hero__title {
 	margin: 0;
-	max-width: clamp(230px, 19.8vw, 380px);
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);

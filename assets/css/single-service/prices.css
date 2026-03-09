@@ -118,7 +118,7 @@
 	margin: 14px 0 0;
 	align-self: flex-start;
 	padding: 6px 12px;
-	border: 1px solid var(--color-border-neutral);
+	border: 1px solid var(--color-primary);
 	border-radius: 4px;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);

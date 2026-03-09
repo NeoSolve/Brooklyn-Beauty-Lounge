@@ -36,7 +36,8 @@ function brooklyn_beauty_register_services_content() {
 			'public'       => true,
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-cutlery',
-			'has_archive'  => true,
+			// Keep single services under /services/<slug>, but free /services for the static page.
+			'has_archive'  => 'services-archive',
 			'rewrite'      => array(
 				'slug' => 'services',
 			),
@@ -98,7 +99,7 @@ add_action( 'after_switch_theme', 'brooklyn_beauty_flush_rewrite_rules_on_switch
  */
 function brooklyn_beauty_maybe_flush_rewrite_rules() {
 	$rewrite_version_option = 'brooklyn_beauty_rewrite_version';
-	$current_version        = '1';
+	$current_version        = '2';
 	$stored_version         = (string) get_option( $rewrite_version_option, '' );
 
 	if ( $stored_version === $current_version ) {

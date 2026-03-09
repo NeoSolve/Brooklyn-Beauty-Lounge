@@ -10,7 +10,7 @@ $service_id = isset( $args['service_id'] ) ? (int) $args['service_id'] : (int) g
 $section_title = __( 'prices', 'brooklyn-beauty' );
 $section_label = __( 'price menu', 'brooklyn-beauty' );
 $fallback_intro_title = __( 'hair service', 'brooklyn-beauty' );
-$fallback_intro_text  = __( 'From everyday maintenance to complete transformations, our hair services are tailored to your style and needs. Whether you are looking for a fresh cut, vibrant color, sleek blowout, or a nourishing treatment, our stylists deliver to your needs.', 'brooklyn-beauty' );
+$fallback_intro_text  = '';
 
 $fallback_items = array(
 	array(
@@ -164,7 +164,9 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 					<div class="bb-service-prices__aside">
 						<div class="bb-service-prices__intro">
 							<h3 class="bb-service-prices__intro-title"><?php echo esc_html( $section['intro_title'] ); ?></h3>
-							<p class="bb-service-prices__intro-text"><?php echo esc_html( $section['intro_text'] ); ?></p>
+							<?php if ( '' !== trim( $section['intro_text'] ) ) : ?>
+								<p class="bb-service-prices__intro-text"><?php echo esc_html( $section['intro_text'] ); ?></p>
+							<?php endif; ?>
 						</div>
 					</div>
 

@@ -16,8 +16,11 @@ while ( have_posts() ) :
 
 	$service_id          = (int) get_the_ID();
 	$service_title       = get_the_title();
+	$hero_title          = $service_title;
+	$breadcrumb_title    = $service_title;
 	$service_excerpt     = get_the_excerpt();
 	$service_archive_url = get_post_type_archive_link( 'service' );
+	$services_page_url   = '';
 	$hero_image_url      = (string) get_the_post_thumbnail_url( $service_id, 'large' );
 	$hero_image_alt      = $service_title;
 	$content             = get_the_content();
@@ -40,6 +43,13 @@ while ( have_posts() ) :
 
 	if ( '' === trim( $service_excerpt ) ) {
 		$service_excerpt = wp_trim_words( wp_strip_all_tags( $content ), 28, '...' );
+	}
+
+	$services_page = get_page_by_path( 'services' );
+	if ( $services_page instanceof WP_Post && 'publish' === get_post_status( $services_page ) ) {
+		$services_page_url = (string) get_permalink( $services_page );
+	} elseif ( is_string( $service_archive_url ) ) {
+		$services_page_url = $service_archive_url;
 	}
 
 	if ( has_post_thumbnail( $service_id ) ) {
@@ -87,6 +97,11 @@ while ( have_posts() ) :
 		$block_visibility['advantages']       = $parse_visibility_toggle( get_field( 'service_show_advantages', $service_id ), true );
 		$block_visibility['book_appointment'] = $parse_visibility_toggle( get_field( 'service_show_book_appointment', $service_id ), true );
 		$block_visibility['faq']              = $parse_visibility_toggle( get_field( 'service_show_faq', $service_id ), true );
+
+		$acf_hero_title = trim( (string) get_field( 'service_hero_title', $service_id ) );
+		if ( '' !== $acf_hero_title ) {
+			$hero_title = $acf_hero_title;
+		}
 
 		$acf_hero_tagline = trim( (string) get_field( 'service_hero_tagline', $service_id ) );
 		if ( '' !== $acf_hero_tagline ) {
@@ -164,6 +179,11 @@ while ( have_posts() ) :
 		}
 	}
 
+	$breadcrumb_title = trim( wp_strip_all_tags( $hero_title ) );
+	if ( '' === $breadcrumb_title ) {
+		$breadcrumb_title = $service_title;
+	}
+
 	?>
 	<?php if ( $block_visibility['hero'] ) : ?>
 		<section class="bb-single-service-hero">
@@ -174,20 +194,20 @@ while ( have_posts() ) :
 							<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
 						</a>
 						<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-						<?php if ( is_string( $service_archive_url ) && '' !== $service_archive_url ) : ?>
-							<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $service_archive_url ); ?>">
+						<?php if ( '' !== $services_page_url ) : ?>
+							<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $services_page_url ); ?>">
 								<?php esc_html_e( 'Services', 'brooklyn-beauty' ); ?>
 							</a>
 							<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
 						<?php endif; ?>
-						<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $service_title ); ?></span>
+						<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $breadcrumb_title ); ?></span>
 					</nav>
 					<p class="bb-single-service-hero__tagline t-decor"><?php echo wp_kses_post( $hero_tagline ); ?></p>
 				</div>
 
 				<div class="bb-single-service-hero__grid">
 					<div class="bb-single-service-hero__content">
-						<h1 class="bb-single-service-hero__title"><?php echo esc_html( $service_title ); ?></h1>
+						<h1 class="bb-single-service-hero__title"><?php echo wp_kses_post( $hero_title ); ?></h1>
 						<a class="btn btn--medium bb-single-service-hero__cta" href="<?php echo esc_url( $hero_button_link ); ?>">
 							<?php echo esc_html( $hero_button_text ); ?>
 						</a>

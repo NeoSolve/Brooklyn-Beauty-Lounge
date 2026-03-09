@@ -45,7 +45,7 @@
 	max-width: none;
 	width: 100%;
 	font-size: var(--fs-h2);
-	line-height: var(--lh-h2-semibold);
+	line-height: 0.9;
 	font-weight: var(--fw-h2-semibold);
 	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);

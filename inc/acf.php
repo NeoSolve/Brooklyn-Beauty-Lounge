@@ -853,6 +853,15 @@ function brooklyn_beauty_register_acf_field_groups() {
 		'title'                 => __( 'Single Service Hero', 'brooklyn-beauty' ),
 		'fields'                => array(
 			array(
+				'key'           => 'field_brooklyn_beauty_single_service_hero_title',
+				'label'         => __( 'Title', 'brooklyn-beauty' ),
+				'name'          => 'service_hero_title',
+				'type'          => 'textarea',
+				'rows'          => 2,
+				'new_lines'     => '',
+				'instructions'  => __( 'Optional. If empty, the service title is used. HTML is allowed.', 'brooklyn-beauty' ),
+			),
+			array(
 				'key'           => 'field_brooklyn_beauty_single_service_hero_image',
 				'label'         => __( 'Hero Image Override', 'brooklyn-beauty' ),
 				'name'          => 'service_hero_image',
