@@ -145,6 +145,7 @@
 
 @media (max-width: 767px) {
 	:root {
+		--container-gutter: 12px;
 		/* Mobile typography tokens from design system */
 		--fs-h1-alt: 44px;
 		--lh-h1-alt: 0.92;
@@ -164,6 +165,7 @@
 
 		--fs-body-2: 14px;
 		--lh-body-2: 1.2;
+		--fw-body-2: 400;
 
 		--fs-body-3: 12px;
 		--lh-body-3: 1.2;

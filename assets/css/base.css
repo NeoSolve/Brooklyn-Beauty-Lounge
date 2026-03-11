@@ -33,6 +33,10 @@ img {
 	height: auto;
 }
 
+html {
+	overflow-x: hidden;
+}
+
 body {
 	font-family: var(--font-primary);
 	font-size: var(--fs-body-1);
@@ -40,6 +44,7 @@ body {
 	line-height: var(--lh-body-1);
 	color: var(--color-text);
 	background: var(--color-surface-alt);
+	overflow-x: hidden;
 }
 
 a {

@@ -25,10 +25,14 @@
 		var ajaxAction = servicesSection.dataset.ajaxAction;
 		if (!ajaxAction) return;
 
+		var filtersWrap = servicesSection.querySelector(".bb-services-filters-wrap");
+		var filtersContainer = servicesSection.querySelector(".bb-services-filters");
+		var filtersTrack = servicesSection.querySelector(".bb-services-filters__track");
+		var filtersIndicator = servicesSection.querySelector(".bb-services-filters__indicator");
 		var filterButtons = servicesSection.querySelectorAll(".bb-services-filters__button");
 		var servicesCardsContainer = servicesSection.querySelector(".bb-services-cards");
 
-		if (!filterButtons.length || !servicesCardsContainer) return;
+		if (!filtersWrap || !filtersContainer || !filtersTrack || !filtersIndicator || !filterButtons.length || !servicesCardsContainer) return;
 
 		var defaultFilter = servicesSection.dataset.defaultFilter || "all-services";
 		var errorMessage = servicesSection.dataset.emptyMessage || "Unable to load items.";
@@ -44,6 +48,20 @@
 					item.classList.toggle("is-active", isActive);
 				}
 			});
+		}
+
+		function updateFiltersScrollIndicator() {
+			var maxScroll = filtersContainer.scrollWidth - filtersContainer.clientWidth;
+			var scrollRatio = 0;
+			var maxOffset = Math.max(filtersTrack.clientWidth - filtersIndicator.offsetWidth, 0);
+			var sliderOffset = 0;
+
+			if (maxScroll > 0) {
+				scrollRatio = filtersContainer.scrollLeft / maxScroll;
+			}
+
+			sliderOffset = maxOffset * scrollRatio;
+			filtersWrap.style.setProperty("--bb-services-slider-offset", sliderOffset.toFixed(2) + "px");
 		}
 
 		function loadServicesByCategory(categorySlug) {
@@ -105,5 +123,9 @@
 				loadServicesByCategory(selectedFilter);
 			});
 		});
+
+		filtersContainer.addEventListener("scroll", updateFiltersScrollIndicator, { passive: true });
+		window.addEventListener("resize", updateFiltersScrollIndicator);
+		updateFiltersScrollIndicator();
 	});
 })();

@@ -229,20 +229,25 @@ if ( function_exists( 'brooklyn_beauty_merge_service_cards_with_placeholders' ) 
 		<?php if ( $section_title ) : ?>
 			<div class="bb-services-section__heading">
 				<h2 class="bb-services-section__title"><?php echo wp_kses_post( $section_title ); ?></h2>
-				<p class="bb-services-section__label"><?php echo wp_kses_post( $section_label ); ?></p>
+				<?php if ( $section_label ) : ?>
+					<p class="bb-services-section__label"><?php echo wp_kses_post( $section_label ); ?></p>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 
-		<ul class="bb-services-filters" aria-label="<?php esc_attr_e( 'Service categories', 'brooklyn-beauty' ); ?>">
-			<?php foreach ( $service_categories as $index => $service_category ) : ?>
-				<li class="bb-services-filters__item<?php echo 0 === $index ? ' is-active' : ''; ?>">
-					<button type="button" class="bb-services-filters__button" data-filter="<?php echo esc_attr( $service_category['slug'] ); ?>" aria-pressed="<?php echo 0 === $index ? 'true' : 'false'; ?>">
-						<?php echo esc_html( $service_category['label'] ); ?>
-					</button>
-				</li>
-			<?php endforeach; ?>
+		<div class="bb-services-filters-wrap">
+			<ul class="bb-services-filters" aria-label="<?php esc_attr_e( 'Service categories', 'brooklyn-beauty' ); ?>">
+				<?php foreach ( $service_categories as $index => $service_category ) : ?>
+					<li class="bb-services-filters__item<?php echo 0 === $index ? ' is-active' : ''; ?>">
+						<button type="button" class="bb-services-filters__button" data-filter="<?php echo esc_attr( $service_category['slug'] ); ?>" aria-pressed="<?php echo 0 === $index ? 'true' : 'false'; ?>">
+							<?php echo esc_html( $service_category['label'] ); ?>
+						</button>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<span class="bb-services-filters__track" aria-hidden="true"></span>
 			<span class="bb-services-filters__indicator" aria-hidden="true"></span>
-		</ul>
+		</div>
 
 		<div class="bb-services-cards">
 			<?php foreach ( $service_cards as $service ) : ?>

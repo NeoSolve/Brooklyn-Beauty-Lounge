@@ -132,11 +132,11 @@
 	}
 
 	.bb-book {
-		padding: 14px;
+		padding: 14px 12px;
 	}
 
 	.bb-book__content {
-		padding: 28px 18px;
+		padding: 28px 0;
 	}
 
 	.bb-book__title {
@@ -168,7 +168,7 @@
 	.bb-book__btn {
 		min-width: 208px;
 		height: 48px;
-		padding-inline: 22px;
+		padding-inline: 16px;
 		font-size: 14px;
 	}
 }

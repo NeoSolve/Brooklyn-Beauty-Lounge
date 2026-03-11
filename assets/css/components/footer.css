@@ -334,4 +334,8 @@
 	transform: scaleX(1);
 }
 
-
+@media (max-width: 767px) {
+	.bb-footer__inner {
+		padding-inline: 0;
+	}
+}

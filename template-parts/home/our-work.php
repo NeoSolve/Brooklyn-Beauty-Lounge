@@ -92,6 +92,9 @@ if ( function_exists( 'get_field' ) ) {
 	<div class="bb-container">
 		<div class="bb-our-work__header">
 			<div class="bb-our-work__intro">
+				<?php if ( $section_label ) : ?>
+					<p class="bb-our-work__label-mobile"><?php echo esc_html( $section_label ); ?></p>
+				<?php endif; ?>
 				<?php if ( $section_title ) : ?>
 					<h2 class="bb-our-work__title"><?php echo esc_html( $section_title ); ?></h2>
 				<?php endif; ?>

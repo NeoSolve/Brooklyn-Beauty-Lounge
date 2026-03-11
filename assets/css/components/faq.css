@@ -193,8 +193,12 @@
 		max-height: none;
 	}
 
+	.bb-faq-list {
+		padding: 20px 0;
+	}
+
 	.bb-faq-layout__badge {
-		padding: 24px;
+		padding: 24px 0;
 	}
 
 	.bb-faq-item__trigger {
