@@ -439,48 +439,106 @@
 
 @media (max-width: 980px) {
 	.bb-hero {
-		padding: 100px 0 60px;
+		align-items: stretch;
+		padding: 110px 0 28px;
 	}
 
 	.bb-hero__inner {
 		flex-direction: column;
-		align-items: center;
-		gap: 28px;
-		min-height: 0;
+		align-items: flex-start;
+		gap: 18px;
+		min-height: calc(100svh - 138px);
+		padding-bottom: clamp(96px, 22vw, 180px);
 	}
 
 	.bb-hero__content {
 		max-width: 100%;
-		text-align: center;
-		margin: 0 auto;
+		text-align: left;
+		margin: 0;
 	}
 
 	.bb-hero__title {
-		font-size: clamp(36px, 8vw, 56px);
-		margin-bottom: 72px;
+		font-size: clamp(56px, 12vw, 82px);
+		line-height: 0.96;
+		margin-bottom: 16px;
+		max-width: 6.8em;
 	}
 
 	.bb-hero__subtitle {
-		margin: -56px auto 24px;
-		max-width: 100%;
+		margin: 0 0 14px;
+		max-width: min(100%, 560px);
 	}
 
 	.bb-hero__body {
-		align-items: center;
+		align-items: flex-start;
+		gap: 14px;
+		max-width: min(100%, 560px);
+	}
+
+	.bb-hero__description {
+		max-width: none;
 	}
 
 	.bb-hero__video-wrap {
-		position: static;
-		width: min(100%, 520px);
-		min-width: 0;
-		align-items: center;
+		display: contents;
 	}
 
 	.bb-hero__video-tagline {
-		text-align: center;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		margin: 0;
+		text-align: left;
+		white-space: nowrap;
+		font-size: clamp(15px, 3.7vw, 20px);
+		line-height: 0.95;
+	}
+
+	.bb-hero__video-fullscreen {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: min(42vw, 168px);
+	}
+
+	.bb-hero__video-btn {
+		width: 34px;
+		height: 34px;
+		top: 6px;
+		right: 6px;
 	}
 
 	.bb-hero__video-labels {
-		justify-content: center;
+		display: none;
+	}
+}
+
+@media (max-width: 600px) {
+	.bb-hero {
+		padding: 96px 12px 12px;
+	}
+
+	.bb-hero__inner {
+		gap: 14px;
+		padding-bottom: 110px;
+	}
+
+	.bb-hero__title {
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		max-width: 6.4em;
+		margin-bottom: 10px;
+	}
+
+	.bb-hero__subtitle {
+		max-width: 100%;
+	}
+
+	.bb-hero__video-fullscreen {
+		width: clamp(150px, 40.23vw, 173px);
+	}
+
+	.bb-hero__video-tagline {
+		font-size: clamp(14px, 4vw, 18px);
 	}
 }

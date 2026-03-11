@@ -103,6 +103,13 @@ p,
 	line-height: var(--lh-body-3);
 }
 
+.t-body-3-semibold {
+	font-family: var(--font-primary);
+	font-weight: var(--fw-body-semibold);
+	font-size: var(--fs-body-3);
+	line-height: var(--lh-body-3);
+}
+
 .btn,
 .t-button {
 	font-family: var(--font-primary);

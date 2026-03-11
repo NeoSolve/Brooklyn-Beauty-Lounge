@@ -77,3 +77,21 @@
 	color: var(--color-primary);
 	box-shadow: 0 0 0 2px var(--color-primary);
 }
+
+@media (max-width: 767px) {
+	.btn--small,
+	.btn--medium,
+	.btn--white,
+	.btn--big {
+		border-radius: 2px;
+	}
+
+	.btn--medium,
+	.btn--white {
+		height: 52px;
+		padding: 17px 63px;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-medium);
+	}
+}

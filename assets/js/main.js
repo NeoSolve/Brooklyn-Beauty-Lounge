@@ -139,6 +139,34 @@
 		socialSyncRAF = requestAnimationFrame(syncSocialPosition);
 	}
 
+	var burgerButton = header.querySelector("[data-header-burger]");
+	var mobileNav = header.querySelector(".bb-header__nav");
+	function closeMobileMenu() {
+		header.classList.remove("bb-header--menu-open");
+		if (burgerButton) {
+			burgerButton.setAttribute("aria-expanded", "false");
+			burgerButton.setAttribute("aria-label", "Open menu");
+		}
+	}
+
+	if (burgerButton && mobileNav) {
+		burgerButton.addEventListener("click", function () {
+			var isOpen = header.classList.toggle("bb-header--menu-open");
+			burgerButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+			burgerButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+		});
+
+		mobileNav.querySelectorAll("a").forEach(function (link) {
+			link.addEventListener("click", closeMobileMenu);
+		});
+
+		document.addEventListener("keydown", function (event) {
+			if (event.key === "Escape") {
+				closeMobileMenu();
+			}
+		});
+	}
+
 	updateHeaderOffset();
 	updateHeader();
 	syncSocialPosition();
@@ -146,5 +174,8 @@
 	window.addEventListener("resize", function () {
 		updateHeaderOffset();
 		requestSocialSync();
+		if (window.innerWidth > 980) {
+			closeMobileMenu();
+		}
 	});
 })();

@@ -138,7 +138,7 @@ if ( function_exists( 'get_field' ) ) {
 			</div>
 		</div>
 		<div class="bb-header__block bb-header__block--center">
-			<nav class="bb-header__nav" aria-label="<?php esc_attr_e( 'Primary', 'brooklyn-beauty' ); ?>">
+			<nav class="bb-header__nav" id="bb-header-nav" aria-label="<?php esc_attr_e( 'Primary', 'brooklyn-beauty' ); ?>">
 				<?php
 				wp_nav_menu( array(
 					'theme_location' => 'primary',
@@ -153,6 +153,16 @@ if ( function_exists( 'get_field' ) ) {
 			</nav>
 		</div>
 		<div class="bb-header__block bb-header__block--right">
+			<button
+				type="button"
+				class="bb-header__burger"
+				aria-label="<?php esc_attr_e( 'Open menu', 'brooklyn-beauty' ); ?>"
+				aria-expanded="false"
+				aria-controls="bb-header-nav"
+				data-header-burger
+			>
+				<span class="bb-header__burger-lines" aria-hidden="true"></span>
+			</button>
 			<div class="bb-header__social" aria-label="<?php esc_attr_e( 'Social links', 'brooklyn-beauty' ); ?>">
 				<?php foreach ( $header_social_items as $social_item ) : ?>
 				<?php
