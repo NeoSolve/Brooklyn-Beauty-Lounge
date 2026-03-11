@@ -128,6 +128,10 @@ if ( '#' === substr( $button_link_target, 0, 1 ) ) {
 				<?php if ( $section_text_bottom ) : ?>
 					<p class="bb-book__text bb-book__text--bottom"><?php echo wp_kses_post( $section_text_bottom ); ?></p>
 				<?php endif; ?>
+
+				<?php if ( $btn_text ) : ?>
+					<a href="<?php echo esc_url( $button_link_target ); ?>" class="btn btn--small bb-book__btn bb-book__btn--content-mobile"<?php echo wp_kses_post( $button_attributes ); ?>><?php echo esc_html( $btn_text ); ?></a>
+				<?php endif; ?>
 			</div>
 
 			<div class="bb-book__media<?php echo $is_fallback ? ' is-fallback' : ''; ?>">
@@ -136,7 +140,7 @@ if ( '#' === substr( $button_link_target, 0, 1 ) ) {
 				<?php endif; ?>
 
 				<?php if ( $btn_text ) : ?>
-					<a href="<?php echo esc_url( $button_link_target ); ?>" class="btn btn--small bb-book__btn"<?php echo wp_kses_post( $button_attributes ); ?>><?php echo esc_html( $btn_text ); ?></a>
+					<a href="<?php echo esc_url( $button_link_target ); ?>" class="btn btn--small bb-book__btn bb-book__btn--media"<?php echo wp_kses_post( $button_attributes ); ?>><?php echo esc_html( $btn_text ); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>

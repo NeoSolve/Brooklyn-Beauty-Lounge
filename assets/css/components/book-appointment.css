@@ -64,10 +64,6 @@
 	margin-top: clamp(20px, 2vw, 30px);
 }
 
-.bb-book__text--bottom {
-	/*margin-top: auto;*/
-}
-
 .bb-book__media {
 	position: relative;
 	min-height: clamp(568px, 44.38vw, 852px);
@@ -110,6 +106,10 @@
 	outline-color: var(--color-surface);
 }
 
+.bb-book__btn--content-mobile {
+	display: none;
+}
+
 @media (max-width: 1200px) {
 	.bb-book {
 		grid-template-columns: 1fr;
@@ -136,39 +136,61 @@
 	}
 
 	.bb-book__content {
-		padding: 28px 0;
+		padding: 24px 12px 36px;
 	}
 
 	.bb-book__title {
-		font-size: clamp(38px, 11vw, 52px);
-		line-height: 0.9;
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
+		letter-spacing: var(--ls-h2-semibold);
 	}
 
 	.bb-book__preview {
-		margin-top: 18px;
-		width: 86px;
+		/*margin-top: 18px;*/
+		width: 130px;
 	}
 
 	.bb-book__text {
-		font-size: 16px;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-regular);
 	}
 
 	.bb-book__text--top {
 		margin-top: 16px;
+		width: 100%;
 	}
 
 	.bb-book__text--bottom {
 		margin-top: 20px;
+		width: 100%;
+		max-width: none;
 	}
 
 	.bb-book__media {
-		min-height: 340px;
+		min-height: 0;
+		aspect-ratio: 1 / 1;
 	}
 
 	.bb-book__btn {
-		min-width: 208px;
+		min-width: 100%;
 		height: 48px;
 		padding-inline: 16px;
 		font-size: 14px;
+	}
+
+	.bb-book__btn--media {
+		display: none;
+	}
+
+	.bb-book__btn--content-mobile {
+		display: inline-flex;
+		position: static;
+		transform: none;
+		margin-top: 24px;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-medium);
 	}
 }
