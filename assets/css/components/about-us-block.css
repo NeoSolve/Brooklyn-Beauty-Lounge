@@ -29,6 +29,10 @@
 	flex-direction: column;
 }
 
+.bb-about-us__image-wrap {
+	grid-area: image;
+}
+
 .bb-about-us__slider {
 	position: relative;
 }
@@ -255,6 +259,105 @@
 .bb-about-us__image--placeholder {
 	min-height: 680px;
 	background: var(--gradient-about-image);
+}
+
+@media (max-width: 767px) {
+	.bb-about-us-section {
+		padding: clamp(40px, 10vw, 60px) 0;
+	}
+
+	.bb-about-us {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"title"
+			"panel"
+			"image";
+		gap: 24px 0;
+	}
+
+	.bb-about-us__image-wrap {
+		width: 100%;
+		max-width: 100%;
+		min-height: 240px;
+	}
+
+	.bb-about-us__gallery-item {
+		position: relative;
+		min-height: 240px;
+	}
+
+	.bb-about-us__image {
+		position: relative;
+		width: 100%;
+		min-height: 240px;
+		height: auto;
+		object-fit: cover;
+	}
+
+	.bb-about-us__text-columns {
+		grid-template-columns: 1fr;
+		margin-top: 0;
+		padding-top: 0;
+	}
+
+	.bb-about-us__slide-top {
+		grid-template-columns: auto 1fr;
+		gap: 16px;
+		align-items: start;
+	}
+
+	.bb-about-us__portrait-wrap {
+		width: 80px;
+		height: 80px;
+		flex-shrink: 0;
+	}
+
+	.bb-about-us__portrait {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.bb-about-us__quote-block {
+		min-width: 0;
+	}
+
+	.bb-about-us__controls {
+		gap: 24px;
+		margin-bottom: 8px;
+	}
+
+	.bb-about-us__quote {
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+	}
+
+	.bb-about-us__person-name {
+		margin-top: 6px;
+		font-size: var(--fs-body-2);
+	}
+
+	.bb-about-us__title {
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+	}
+
+	.bb-about-us__signature-block {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+		margin-top: 16px;
+	}
+
+	.bb-about-us__signature-text {
+		margin: 0;
+		font-weight: var(--fw-body-medium);
+	}
+
+	.bb-about-us__signature-image {
+		width: 60px;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

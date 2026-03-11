@@ -99,6 +99,25 @@
 	display: none;
 }
 
+@media (max-width: 767px) {
+	.bb-services-filters {
+		display: flex;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		margin-inline: calc(var(--container-gutter) * -1);
+		padding-inline: var(--container-gutter);
+	}
+
+	.bb-services-filters::-webkit-scrollbar {
+		display: none;
+	}
+
+	.bb-services-filters__item {
+		flex: 0 0 auto;
+	}
+}
+
 .bb-services-cards {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -110,6 +129,12 @@
 .bb-services-cards.is-loading {
 	opacity: 0.55;
 	pointer-events: none;
+}
+
+@media (max-width: 767px) {
+	.bb-services-cards {
+		grid-template-columns: 1fr;
+	}
 }
 
 .bb-services-cards__empty {
