@@ -76,6 +76,9 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 			$section_title = isset( $section['section_title'] ) ? trim( (string) $section['section_title'] ) : '';
 			$section_number = isset( $section['section_number'] ) ? trim( (string) $section['section_number'] ) : '';
 			$section_intro = isset( $section['section_intro'] ) ? trim( (string) $section['section_intro'] ) : '';
+			if ( '' === $section_intro && isset( $section['section_description'] ) ) {
+				$section_intro = trim( (string) $section['section_description'] );
+			}
 			$section_image = '';
 
 			if ( isset( $section['section_image'] ) ) {
@@ -118,7 +121,7 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 				}
 			}
 
-			if ( '' !== $section_title && ! empty( $section_items ) ) {
+			if ( '' !== $section_title && ( '' !== $section_intro || ! empty( $section_items ) ) ) {
 				$normalized_sections[] = array(
 					'number' => $section_number,
 					'title'  => $section_title,
@@ -156,7 +159,8 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 				</h2>
 
 				<div class="bb-service-explore__right" role="region" aria-label="<?php esc_attr_e( 'Service sections', 'brooklyn-beauty' ); ?>">
-					<?php foreach ( $sections as $section ) : ?>
+					<?php foreach ( $sections as $section_index => $section ) : ?>
+						<?php $list_id = 'bb-service-explore-list-' . ( $section_index + 1 ); ?>
 						<section class="bb-service-explore__section">
 							<div class="bb-service-explore__section-head">
 								<div class="bb-service-explore__section-copy">
@@ -168,16 +172,18 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 										<p class="bb-service-explore__section-intro"><?php echo esc_html( $section['intro'] ); ?></p>
 									<?php endif; ?>
 
-									<ul class="bb-service-explore__list">
-										<?php foreach ( $section['items'] as $item_data ) : ?>
-											<li class="bb-service-explore__list-item">
-												<h4 class="bb-service-explore__item-title"><?php echo esc_html( $item_data['title'] ); ?></h4>
-												<?php if ( '' !== trim( (string) $item_data['description'] ) ) : ?>
-													<p class="bb-service-explore__item-description"><?php echo esc_html( $item_data['description'] ); ?></p>
-												<?php endif; ?>
-											</li>
-										<?php endforeach; ?>
-									</ul>
+									<?php if ( ! empty( $section['items'] ) ) : ?>
+										<ul id="<?php echo esc_attr( $list_id ); ?>" class="bb-service-explore__list">
+											<?php foreach ( $section['items'] as $item_data ) : ?>
+												<li class="bb-service-explore__list-item">
+													<h4 class="bb-service-explore__item-title"><?php echo esc_html( $item_data['title'] ); ?></h4>
+													<?php if ( '' !== trim( (string) $item_data['description'] ) ) : ?>
+														<div class="bb-service-explore__item-description"><?php echo wp_kses_post( $item_data['description'] ); ?></div>
+													<?php endif; ?>
+												</li>
+											<?php endforeach; ?>
+										</ul>
+									<?php endif; ?>
 								</div>
 
 								<div class="bb-service-explore__section-media">
@@ -187,6 +193,19 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 										<div class="bb-service-explore__section-media-placeholder" aria-hidden="true"></div>
 									<?php endif; ?>
 								</div>
+
+								<?php if ( ! empty( $section['items'] ) ) : ?>
+									<button
+										class="bb-service-explore__toggle"
+										type="button"
+										aria-expanded="true"
+										aria-controls="<?php echo esc_attr( $list_id ); ?>"
+										data-show-more="<?php echo esc_attr__( 'show more', 'brooklyn-beauty' ); ?>"
+										data-show-less="<?php echo esc_attr__( 'show less', 'brooklyn-beauty' ); ?>"
+									>
+										<span class="bb-service-explore__toggle-label"><?php esc_html_e( 'show less', 'brooklyn-beauty' ); ?></span>
+									</button>
+								<?php endif; ?>
 							</div>
 
 						</section>

@@ -1,6 +1,6 @@
 {
     "key": "group_brooklyn_beauty_services_hero_settings",
-    "title": "Services\/Contacts Page Hero Settings",
+    "title": "Services\/Contacts\/Blog Page Hero Settings",
     "fields": [
         {
             "key": "field_6994ef4c59ec9",
@@ -8,7 +8,7 @@
             "name": "services_hero_title",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "Used for breadcrumbs\/current page title.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -19,6 +19,26 @@
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_services_hero_background_word",
+            "label": "Hero Background Word",
+            "name": "services_hero_background_word",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Large decorative red word in the background.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
@@ -123,6 +143,20 @@
                 "operator": "==",
                 "value": "page-contacts.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-blog.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-careers.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -135,5 +169,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771368341
+    "modified": 1772145741
 }

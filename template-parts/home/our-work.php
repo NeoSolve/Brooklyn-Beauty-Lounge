@@ -144,7 +144,7 @@ if ( function_exists( 'get_field' ) ) {
 								<?php echo $img; ?>
 								<?php if ( $work_item['video_url'] ) : ?>
 									<button class="bb-work__play-btn" type="button" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>">
-										<img class="bb-work__play-icon" src="<?php echo esc_url( $play_icon_url ); ?>" width="80" height="80" alt="" aria-hidden="true">
+										<img class="bb-work__play-icon" src="<?php echo esc_url( $play_icon_url ); ?>" width="80" height="80" alt="" aria-hidden="true" loading="lazy" decoding="async">
 									</button>
 								<?php endif; ?>
 							</article>

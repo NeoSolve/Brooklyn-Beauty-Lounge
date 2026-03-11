@@ -117,6 +117,7 @@ p,
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);
 	font-style: normal;
+	color: var(--color-accent);
 }
 
 .t-decor-2 {
@@ -125,4 +126,5 @@ p,
 	font-size: var(--fs-decor-2);
 	line-height: var(--lh-decor-2);
 	font-style: normal;
+	color: var(--color-accent);
 }

@@ -7,14 +7,15 @@
 }
 
 .single-service .bb-service-advantages__header {
-	position: relative;
 	text-align: center;
 	margin-bottom: clamp(36px, 3.125vw, 60px);
 }
 
 .single-service .bb-service-advantages__title {
 	margin: 0;
-	display: inline-block;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
 	font-size: var(--fs-h2);
 	line-height: var(--lh-h2-semibold);
 	font-weight: var(--fw-h2-semibold);
@@ -23,18 +24,27 @@
 	text-transform: lowercase;
 }
 
+.single-service .bb-service-advantages__title-line {
+	display: block;
+}
+
+.single-service .bb-service-advantages__title-line-row {
+	position: relative;
+	display: inline-block;
+}
+
 .single-service .bb-service-advantages__label {
 	position: absolute;
-	left: 60%;
-	top: 56%;
+	left: 100%;
+	top: 0;
 	display: block;
 	margin: 0;
+	margin-left: clamp(15px, 1.25vw, 24px);
 	color: var(--color-accent);
 	text-transform: lowercase;
-	transform: rotate(4deg);
-	transform-origin: left bottom;
+	transform: translateY(0.08em) rotate(4deg);
+	transform-origin: left center;
 	white-space: nowrap;
-	translate: clamp(165px, 12.4vw, 238px) 0;
 }
 
 .single-service .bb-service-advantages__grid {
@@ -51,10 +61,10 @@
 	flex-direction: column;
 	justify-content: space-between;
 	width: 100%;
-	min-height: 372px;
-	height: 372px;
+	min-height: clamp(223px, 19.375vw, 372px);
+	height: clamp(223px, 19.375vw, 372px);
 	padding: clamp(26px, 2.3vw, 44px);
-	border-radius: 10px;
+	border-radius: clamp(8px, 0.52vw, 10px);
 	background-image: var(--bb-service-advantages-card-bg, none);
 	background-repeat: no-repeat;
 	background-position: center;
@@ -99,9 +109,7 @@
 
 @media (max-width: 768px) {
 	.single-service .bb-service-advantages__header {
-		flex-direction: column;
-		align-items: center;
-		gap: clamp(4px, 1vw, 8px);
+		margin-bottom: clamp(28px, 6vw, 40px);
 	}
 
 	.single-service .bb-service-advantages__title {
@@ -109,8 +117,7 @@
 	}
 
 	.single-service .bb-service-advantages__label {
-		top: 62%;
-		translate: clamp(74px, 20vw, 120px) 0;
+		margin-left: 8px;
 	}
 
 	.single-service .bb-service-advantages__grid {

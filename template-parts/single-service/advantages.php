@@ -8,11 +8,8 @@
 $service_id    = isset( $args['service_id'] ) ? (int) $args['service_id'] : (int) get_the_ID();
 $service_title = isset( $args['service_title'] ) ? (string) $args['service_title'] : get_the_title( $service_id );
 
-$section_title = sprintf(
-	/* translators: %s: service title */
-	__( 'advantages of professional<br>%s', 'brooklyn-beauty' ),
-	$service_title
-);
+$section_title_line_1 = __( 'advantages of professional', 'brooklyn-beauty' );
+$section_title_line_2 = $service_title;
 $section_label = __( 'refined', 'brooklyn-beauty' );
 
 $fallback_items = array(
@@ -41,9 +38,28 @@ $fallback_items = array(
 $items = $fallback_items;
 
 if ( function_exists( 'get_field' ) && $service_id > 0 ) {
-	$acf_title = trim( (string) get_field( 'service_advantages_title', $service_id ) );
-	if ( '' !== $acf_title ) {
-		$section_title = $acf_title;
+	$acf_title_line_1 = trim( (string) get_field( 'service_advantages_title_line_1', $service_id ) );
+	if ( '' !== $acf_title_line_1 ) {
+		$section_title_line_1 = $acf_title_line_1;
+	}
+
+	$acf_title_line_2 = trim( (string) get_field( 'service_advantages_title_line_2', $service_id ) );
+	if ( '' !== $acf_title_line_2 ) {
+		$section_title_line_2 = $acf_title_line_2;
+	}
+
+	$acf_legacy_title = trim( (string) get_field( 'service_advantages_title', $service_id ) );
+	if ( '' !== $acf_legacy_title && '' === $acf_title_line_1 && '' === $acf_title_line_2 ) {
+		$legacy_title_parts = preg_split( '/<br\s*\/?>/i', $acf_legacy_title );
+		$legacy_title_parts = is_array( $legacy_title_parts ) ? array_values( array_filter( array_map( 'trim', $legacy_title_parts ) ) ) : array();
+
+		if ( isset( $legacy_title_parts[0] ) && '' !== $legacy_title_parts[0] ) {
+			$section_title_line_1 = wp_strip_all_tags( $legacy_title_parts[0] );
+		}
+
+		if ( isset( $legacy_title_parts[1] ) && '' !== $legacy_title_parts[1] ) {
+			$section_title_line_2 = wp_strip_all_tags( $legacy_title_parts[1] );
+		}
 	}
 
 	$acf_label = trim( (string) get_field( 'service_advantages_label', $service_id ) );
@@ -100,8 +116,13 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 <section class="bb-service-advantages" aria-labelledby="bb-service-advantages-heading">
 	<div class="bb-container">
 		<div class="bb-service-advantages__header">
-			<h2 id="bb-service-advantages-heading" class="bb-service-advantages__title"><?php echo wp_kses( $section_title, array( 'br' => array() ) ); ?></h2>
-			<span class="bb-service-advantages__label t-decor"><?php echo esc_html( $section_label ); ?></span>
+			<h2 id="bb-service-advantages-heading" class="bb-service-advantages__title">
+				<span class="bb-service-advantages__title-line"><?php echo esc_html( $section_title_line_1 ); ?></span>
+				<span class="bb-service-advantages__title-line-row">
+					<span class="bb-service-advantages__title-line"><?php echo esc_html( $section_title_line_2 ); ?></span>
+					<span class="bb-service-advantages__label t-decor"><?php echo esc_html( $section_label ); ?></span>
+				</span>
+			</h2>
 		</div>
 
 		<div class="bb-service-advantages__grid">

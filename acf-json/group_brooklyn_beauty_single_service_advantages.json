@@ -3,24 +3,44 @@
     "title": "Single Service Advantages",
     "fields": [
         {
-            "key": "field_brooklyn_beauty_single_service_advantages_title",
-            "label": "Section Title",
-            "name": "service_advantages_title",
+            "key": "field_brooklyn_beauty_single_service_advantages_title_line_1",
+            "label": "Title Line 1",
+            "name": "service_advantages_title_line_1",
             "aria-label": "",
-            "type": "textarea",
-            "instructions": "e.g. \"advantages of professional hair services\". HTML <br> allowed.",
+            "type": "text",
+            "instructions": "First line of the section title.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
-            "default_value": "advantages of professional<br>hair services",
+            "default_value": "advantages of professional",
             "maxlength": "",
-            "rows": 2,
             "placeholder": "",
-            "new_lines": ""
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_brooklyn_beauty_single_service_advantages_title_line_2",
+            "label": "Title Line 2",
+            "name": "service_advantages_title_line_2",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Second line of the section title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "hair services",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_brooklyn_beauty_single_service_advantages_label",
@@ -170,5 +190,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771623111
+    "modified": 1773097287
 }

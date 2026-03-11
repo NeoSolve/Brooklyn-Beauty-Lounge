@@ -166,12 +166,12 @@ if ( '' !== $hero_image ) {
 								<source src="<?php echo esc_url( $hero_video_url ); ?>"<?php echo $hero_video_type ? ' type="' . esc_attr( $hero_video_type ) . '"' : ''; ?>>
 							</video>
 							<button type="button" class="bb-hero__video-btn bb-hero__video-btn-open" aria-label="<?php esc_attr_e( 'Open video fullscreen', 'brooklyn-beauty' ); ?>" data-hero-video-open>
-								<img src="<?php echo esc_url( $open_icon ); ?>" width="44" height="44" alt="" aria-hidden="true">
+								<img src="<?php echo esc_url( $open_icon ); ?>" width="44" height="44" alt="" aria-hidden="true" loading="lazy" decoding="async">
 							</button>
 						</div>
 					</div>
 					<button type="button" class="bb-hero__video-btn bb-hero__video-btn-close" aria-label="<?php esc_attr_e( 'Close fullscreen', 'brooklyn-beauty' ); ?>" data-hero-video-close hidden>
-						<img src="<?php echo esc_url( $close_icon ); ?>" width="44" height="44" alt="" aria-hidden="true">
+						<img src="<?php echo esc_url( $close_icon ); ?>" width="44" height="44" alt="" aria-hidden="true" loading="lazy" decoding="async">
 					</button>
 				</div>
 				<?php if ( ! empty( $hero_video_labels ) ) : ?>

@@ -1,5 +1,10 @@
 .bb-contacts-form {
 	padding: clamp(60px, 5.2vw, 100px) 0 clamp(60px, 5.2vw, 100px) 0;
+	overflow: visible;
+}
+
+.bb-contacts-form > .bb-container {
+	overflow: visible;
 }
 
 .bb-contacts-form__layout {
@@ -7,6 +12,7 @@
 	grid-template-columns: minmax(72px, 0.12fr) minmax(0, 1fr) minmax(72px, 0.12fr);
 	align-items: center;
 	column-gap: clamp(12px, 5.21vw, 30px);
+	overflow: visible;
 }
 
 .bb-contacts-form__inner {
@@ -31,6 +37,7 @@
 	line-height: 1;
 	color: var(--color-accent);
 	white-space: nowrap;
+	padding-left: 15px;
 }
 
 .bb-contacts-form__decor--left {
@@ -150,8 +157,12 @@
 	background: transparent;
 	font-size: 16px;
 	line-height: 1.2;
-	border-radius: 2px;
+	border-radius: 4px;
 	box-shadow: none;
+}
+
+.bb-contacts-form .wpcf7-form input[type="checkbox"] {
+	border-radius: 4px;
 }
 
 .bb-contacts-form .cf7-textarea,
@@ -175,7 +186,6 @@
 	background: var(--color-accent);
 	color: #fff;
 	border: 0;
-	border-color: transparent;
 	padding: 12px 32px;
 	font-size: 18px;
 	line-height: 1;
@@ -194,11 +204,17 @@
 .bb-contacts-form .cf7-button:focus-visible,
 .bb-contacts-form .wpcf7-form input[type="submit"]:focus-visible {
 	box-shadow: inset 0 0 0 1px var(--color-surface);
-	border-color: transparent;
+	border-color: var(--color-accent) !important;
+}
+
+.wpcf7-form-control.wpcf7-submit.has-spinner.cf7-button:hover,
+.wpcf7-form-control.wpcf7-submit.has-spinner.cf7-button:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-surface);
+	border: 1px solid var(--color-accent);
 }
 
 .bb-contacts-form .wpcf7-not-valid {
-	border-color: var(--color-accent) !important;
+	border: 1px solid var(--color-accent);
 }
 
 .bb-contacts-form .wpcf7-not-valid-tip {

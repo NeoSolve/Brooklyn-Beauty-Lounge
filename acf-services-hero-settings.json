@@ -1,8 +1,49 @@
 [
   {
     "key": "group_brooklyn_beauty_services_hero_settings",
-    "title": "Services Page Hero Settings",
+    "title": "Services/Contacts/Blog Page Hero Settings",
     "fields": [
+      {
+        "key": "field_6994ef4c59ec9",
+        "label": "Hero Title",
+        "name": "services_hero_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Used for breadcrumbs/current page title.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "allow_in_bindings": 0,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brooklyn_beauty_services_hero_background_word",
+        "label": "Hero Background Word",
+        "name": "services_hero_background_word",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Large decorative red word in the background.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
       {
         "key": "field_brooklyn_beauty_services_hero_tagline",
         "label": "Tagline",
@@ -95,6 +136,20 @@
           "param": "page_template",
           "operator": "==",
           "value": "page-services.php"
+        }
+      ],
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-contacts.php"
+        }
+      ],
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-blog.php"
         }
       ]
     ],

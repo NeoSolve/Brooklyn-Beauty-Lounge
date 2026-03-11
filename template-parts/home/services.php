@@ -224,7 +224,7 @@ if ( function_exists( 'brooklyn_beauty_merge_service_cards_with_placeholders' ) 
 	$service_cards = array_merge( $service_placeholder_cards, $services );
 }
 ?>
-<section class="bb-services-section" id="services">
+<section class="bb-services-section" id="services" data-ajax-action="bb_filter_services" data-default-filter="all-services" data-empty-message="<?php esc_attr_e( 'No services found.', 'brooklyn-beauty' ); ?>">
 	<div class="bb-container">
 		<?php if ( $section_title ) : ?>
 			<div class="bb-services-section__heading">

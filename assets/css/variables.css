@@ -130,6 +130,7 @@
 	--space-md: 1rem;
 	--space-lg: 1.5rem;
 	--space-xl: clamp(1.69rem, 2.08vw, 2.5rem);
+	--hero-video-width: clamp(313px, 24.43vw, 469px);
 	--container-max: clamp(1227px, 95.83vw, 1840px);
 	--container-gutter: clamp(27px, 2.08vw, 40px);
 
