@@ -235,15 +235,16 @@
 	.bb-promotions {
 		display: flex;
 		flex-direction: column;
-		min-height: auto;
+		justify-content: flex-start;
+		min-height: 0;
 		height: auto;
-		padding: 0;
-		gap: 0;
+		padding: 8px;
+		gap: 16px;
+		border-radius: 4px;
 	}
 
 	.bb-promotions__left {
-		min-height: auto;
-		padding: 24px 0 20px;
+		/*padding: 24px 16px 20px;*/
 		max-width: none;
 		text-align: center;
 		align-items: center;
@@ -252,27 +253,30 @@
 	}
 
 	.bb-promotions__left-bottom {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
+		display: contents;
 	}
 
 	.bb-promotions__intro {
+		order: 2;
 		font-size: 15px;
 		line-height: 1.35;
 		text-align: center;
-		margin-top: 0;
-		margin-bottom: 12px;
+		margin-top: 16px;
+		margin-bottom: auto;
 		max-width: none;
 	}
 
 	.bb-promotions__title {
-		font-size: clamp(54px, 16vw, 88px);
+		order: 1;
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
 		text-align: center;
+		margin: 0;
 	}
 
 	.bb-promotions__controls {
+		order: 3;
 		margin-top: 16px;
 		gap: 24px;
 		justify-content: center;
@@ -284,14 +288,14 @@
 	}
 
 	.bb-promotions__right {
-		padding: 20px 0 24px;
+		padding: 20px 16px 24px;
 		max-width: none;
 	}
 
 	.bb-promo-card {
 		inset: 0;
 		min-height: auto;
-		padding: 0;
+		padding: 0 2px;
 		gap: 16px;
 	}
 
@@ -299,6 +303,7 @@
 		text-align: left;
 		font-size: clamp(22px, 6vw, 28px);
 		line-height: 1.2;
+		max-width: 22ch;
 	}
 
 	.bb-promo-card__images {
@@ -310,7 +315,7 @@
 
 	.bb-promo-card__image-wrap {
 		max-width: none;
-		aspect-ratio: 1;
+		aspect-ratio: 0.8;
 	}
 
 	.bb-promo-card__image-wrap,
@@ -333,7 +338,7 @@
 	.bb-promo-card__footer {
 		flex-direction: column;
 		align-items: stretch;
-		gap: 16px;
+		gap: 24px;
 	}
 
 	.bb-promo-card__button {
@@ -341,11 +346,60 @@
 		max-width: 280px;
 		margin-left: auto;
 		margin-right: auto;
-		border-radius: 8px;
-		border: 1px solid var(--color-border-neutral);
+		border-radius: 4px;
 		background: var(--color-surface);
 		color: var(--color-primary);
-		font-weight: 600;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-medium);
+	}
+}
+
+@media (max-width: 480px) {
+	.bb-promotions__intro {
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+		font-weight: var(--fw-body-regular);
+	}
+
+	.bb-promotions__controls {
+		margin-top: 14px;
+	}
+
+	.bb-promotions__arrow {
+		width: 42px;
+		height: 28px;
+	}
+
+	.bb-promotions__right {
+		padding: 16px 12px 20px;
+		border-radius: 2px;
+	}
+
+	.bb-promo-card {
+		gap: 14px;
+	}
+
+	.bb-promo-card__title {
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-semibold);
+	}
+
+	.bb-promo-card__images {
+		gap: 8px;
+	}
+
+	.bb-promo-card__validity,
+	.bb-promo-card__description {
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-regular);
+	}
+
+	.bb-promo-card__button {
+		max-width: none;
+		min-width: 0;
 	}
 }
 
