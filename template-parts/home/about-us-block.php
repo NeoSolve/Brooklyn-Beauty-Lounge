@@ -172,15 +172,15 @@ if ( empty( $gallery_images ) && '' !== $main_image_url ) {
 				<div class="bb-about-us__text-columns">
 					<div class="bb-about-us__text-column">
 						<?php if ( $left_text ) : ?>
-							<p class="bb-about-us__text"><?php echo esc_html( $left_text ); ?></p>
+							<p class="bb-about-us__text bb-about-us__text--lead"><?php echo esc_html( $left_text ); ?></p>
 						<?php endif; ?>
 						<?php if ( $left_bottom_text ) : ?>
-							<p class="bb-about-us__text"><?php echo esc_html( $left_bottom_text ); ?></p>
+							<p class="bb-about-us__text bb-about-us__text--detail"><?php echo esc_html( $left_bottom_text ); ?></p>
 						<?php endif; ?>
 					</div>
 					<div class="bb-about-us__text-column">
 						<?php if ( $right_text ) : ?>
-							<p class="bb-about-us__text"><?php echo esc_html( $right_text ); ?></p>
+							<p class="bb-about-us__text bb-about-us__text--support"><?php echo esc_html( $right_text ); ?></p>
 						<?php endif; ?>
 						<div class="bb-about-us__signature-block">
 							<p class="bb-about-us__signature-text">

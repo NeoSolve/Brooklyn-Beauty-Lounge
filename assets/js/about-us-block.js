@@ -6,6 +6,45 @@
 		return;
 	}
 
+	var aboutLayout = section.querySelector(".bb-about-us");
+	var panel = section.querySelector(".bb-about-us__panel");
+	var textColumns = section.querySelector(".bb-about-us__text-columns");
+	var imageWrap = section.querySelector(".bb-about-us__image-wrap");
+	var secondTextColumn =
+		textColumns && textColumns.children.length > 1 ? textColumns.children[1] : null;
+
+	function syncImagePosition() {
+		if (!aboutLayout || !panel || !textColumns || !imageWrap || !window.matchMedia) {
+			return;
+		}
+
+		var isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+		if (isMobile) {
+			if (imageWrap.parentNode !== textColumns) {
+				if (secondTextColumn && secondTextColumn.parentNode === textColumns) {
+					textColumns.insertBefore(imageWrap, secondTextColumn);
+				} else {
+					textColumns.appendChild(imageWrap);
+				}
+			}
+			return;
+		}
+
+		if (imageWrap.parentNode !== aboutLayout) {
+			aboutLayout.insertBefore(imageWrap, panel.nextSibling);
+		}
+	}
+
+	syncImagePosition();
+
+	var mobileQuery = window.matchMedia("(max-width: 767px)");
+	if (typeof mobileQuery.addEventListener === "function") {
+		mobileQuery.addEventListener("change", syncImagePosition);
+	} else if (typeof mobileQuery.addListener === "function") {
+		mobileQuery.addListener(syncImagePosition);
+	}
+
 	var slider = section.querySelector("[data-about-slider]");
 	if (!slider) {
 		return;

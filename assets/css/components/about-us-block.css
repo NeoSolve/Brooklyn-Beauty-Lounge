@@ -263,33 +263,33 @@
 
 @media (max-width: 767px) {
 	.bb-about-us-section {
-		padding: clamp(40px, 10vw, 60px) 0;
+		padding: 60px 0;
 	}
 
 	.bb-about-us {
 		grid-template-columns: 1fr;
 		grid-template-areas:
 			"title"
-			"panel"
-			"image";
-		gap: 24px 0;
+			"panel";
+		gap: 28px 0;
 	}
 
 	.bb-about-us__image-wrap {
 		width: 100%;
 		max-width: 100%;
-		min-height: 240px;
+		min-height: 358px;
 	}
 
 	.bb-about-us__gallery-item {
-		position: relative;
-		min-height: 240px;
+		position: absolute;
+		inset: 0;
+		min-height: 0;
 	}
 
 	.bb-about-us__image {
 		position: relative;
 		width: 100%;
-		min-height: 240px;
+		min-height: 358px;
 		height: auto;
 		object-fit: cover;
 	}
@@ -298,15 +298,59 @@
 		grid-template-columns: 1fr;
 		margin-top: 0;
 		padding-top: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
 	}
 
-	.bb-about-us__slide-top {
-		grid-template-columns: auto 1fr;
-		gap: 16px;
-		align-items: start;
+	.bb-about-us__text-column {
+		display: contents;
+	}
+
+	.bb-about-us__text--lead {
+		order: 1;
+		margin-top: 28px;
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+		font-weight: var(--fw-body-regular);
+	}
+
+	.bb-about-us__image-wrap {
+		order: 2;
+		margin: 20px 0;
+	}
+
+	.bb-about-us__text--support {
+		order: 3;
+	}
+
+	.bb-about-us__text--detail {
+		order: 4;
+		margin-top: 16px;
+	}
+
+	.bb-about-us__signature-block {
+		order: 5;
+	}
+
+	.bb-about-us__slide {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		grid-template-areas:
+			"quote quote quote"
+			"portrait name controls";
+		align-items: end;
+		column-gap: 8px;
+		row-gap: 28px;
+	}
+
+	.bb-about-us__slide-top,
+	.bb-about-us__quote-block {
+		display: contents;
 	}
 
 	.bb-about-us__portrait-wrap {
+		grid-area: portrait;
 		width: 80px;
 		height: 80px;
 		flex-shrink: 0;
@@ -323,18 +367,35 @@
 	}
 
 	.bb-about-us__controls {
-		gap: 24px;
-		margin-bottom: 8px;
+		grid-area: controls;
+		justify-self: end;
+		gap: 26px;
+		margin: 0;
 	}
 
 	.bb-about-us__quote {
-		font-size: var(--fs-body-1);
-		line-height: var(--lh-body-1);
+		grid-area: quote;
+		margin: 0;
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-semibold);
+	}
+
+	.bb-about-us__quote-line--accent {
+		padding-bottom: 8px;
+	}
+
+	.bb-about-us__quote-line--accent::after {
+		width: 270px;
+		height: 16px;
 	}
 
 	.bb-about-us__person-name {
-		margin-top: 6px;
-		font-size: var(--fs-body-2);
+		grid-area: name;
+		margin: 0;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-regular);
 	}
 
 	.bb-about-us__title {
@@ -344,7 +405,7 @@
 
 	.bb-about-us__signature-block {
 		display: flex;
-		align-items: center;
+		align-items: start;
 		gap: 16px;
 		flex-wrap: wrap;
 		margin-top: 16px;
@@ -352,11 +413,13 @@
 
 	.bb-about-us__signature-text {
 		margin: 0;
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
 		font-weight: var(--fw-body-medium);
 	}
 
 	.bb-about-us__signature-image {
-		width: 60px;
+		width: 39px;
 	}
 }
 
