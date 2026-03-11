@@ -31,7 +31,33 @@
 	function getOneSetWidth() {
 		return track.scrollWidth / 3;
 	}
-	track.scrollLeft = getOneSetWidth();
+
+	function isMobileViewport() {
+		return window.matchMedia("(max-width: 720px)").matches;
+	}
+
+	function getCenteredScrollLeft(item) {
+		if (!item) return getOneSetWidth();
+		return item.offsetLeft + item.offsetWidth / 2 - track.clientWidth / 2;
+	}
+
+	function setInitialTrackPosition() {
+		var setWidth = getOneSetWidth();
+
+		if (!isMobileViewport()) {
+			track.scrollLeft = setWidth;
+			return;
+		}
+
+		var allItems = track.querySelectorAll(".bb-work__item");
+		var baseIndex = items.length;
+		var secondItemIndex = baseIndex + (items.length > 1 ? 1 : 0);
+		var targetItem = allItems[secondItemIndex];
+
+		track.scrollLeft = getCenteredScrollLeft(targetItem);
+	}
+
+	setInitialTrackPosition();
 
 	function getScrollStep() {
 		var firstItem = track.querySelector(".bb-work__item");

@@ -242,6 +242,15 @@
 }
 
 @media (max-width: 720px) {
+	.bb-work {
+		scroll-snap-type: x mandatory;
+	}
+
+	.bb-work__item,
+	.bb-work__item--last {
+		scroll-snap-align: center;
+	}
+
 	.bb-our-work__intro {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
@@ -273,12 +282,13 @@
 		grid-column: 1;
 		grid-row: 1;
 		margin: 0;
-		font-size: clamp(54px, 16vw, 86px);
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
 	}
 
 	.bb-our-work__text {
 		grid-column: 1 / -1;
-		font-size: 16px;
 	}
 
 	.bb-our-work__button {
