@@ -7,6 +7,7 @@
 $section_title   = '';
 $section_text    = '';
 $section_label   = '';
+$section_label_mobile = '';
 $google_icon_url = get_template_directory_uri() . '/assets/images/ri_google-fill.svg';
 $star_icon_url   = get_template_directory_uri() . '/assets/images/star.svg';
 $reviews = array();
@@ -68,11 +69,23 @@ if ( function_exists( 'get_field' ) ) {
 if ( empty( $reviews ) ) {
 	return;
 }
+
+if ( '' !== $section_label ) {
+	$mobile_label_words = preg_split( '/\s+/', trim( $section_label ) );
+	if ( is_array( $mobile_label_words ) && count( $mobile_label_words ) > 2 ) {
+		$section_label_mobile = $mobile_label_words[0] . ' ' . $mobile_label_words[1] . '<br>' . implode( ' ', array_slice( $mobile_label_words, 2 ) );
+	} else {
+		$section_label_mobile = nl2br( esc_html( $section_label ) );
+	}
+}
 ?>
 <section class="bb-reviews-section" id="reviews" data-reviews>
 	<div class="bb-container">
 		<div class="bb-reviews__header">
 			<div class="bb-reviews__intro">
+				<?php if ( $section_label_mobile ) : ?>
+					<p class="bb-reviews__label-mobile"><?php echo wp_kses( $section_label_mobile, array( 'br' => array() ) ); ?></p>
+				<?php endif; ?>
 				<?php if ( $section_title ) : ?>
 					<h2 class="bb-reviews__title"><?php echo esc_html( $section_title ); ?></h2>
 				<?php endif; ?>

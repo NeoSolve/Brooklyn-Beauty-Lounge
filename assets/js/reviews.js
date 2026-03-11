@@ -40,13 +40,30 @@
 		return track.scrollWidth / 3;
 	}
 
+	function getCenterOffset() {
+		var firstCard = track.querySelector(".bb-review-card");
+		if (!firstCard) return 0;
+
+		var isMobile = window.matchMedia("(max-width: 767px)").matches;
+		if (!isMobile) return 0;
+
+		var cardWidth = firstCard.getBoundingClientRect().width;
+		return Math.max(0, (track.clientWidth - cardWidth) / 2);
+	}
+
+	function getAnchorScrollLeft() {
+		return getSetWidth() - getCenterOffset();
+	}
+
 	function normalizeScrollPosition() {
 		var setWidth = getSetWidth();
 		var left = track.scrollLeft;
+		var anchor = getAnchorScrollLeft();
+		var upperBound = anchor + setWidth;
 
-		if (left >= setWidth * 2 - 1) {
+		if (left >= upperBound - 1) {
 			track.scrollLeft = left - setWidth;
-		} else if (left <= 1) {
+		} else if (left < anchor - 1) {
 			track.scrollLeft = left + setWidth;
 		}
 	}
@@ -80,5 +97,10 @@
 		{ passive: true }
 	);
 
-	track.scrollLeft = getSetWidth();
+	function setInitialPosition() {
+		track.scrollLeft = getAnchorScrollLeft();
+	}
+
+	setInitialPosition();
+	window.addEventListener("resize", normalizeScrollPosition, { passive: true });
 })();
