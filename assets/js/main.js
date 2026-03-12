@@ -141,7 +141,36 @@
 
 	var burgerButton = header.querySelector("[data-header-burger]");
 	var mobileNav = header.querySelector(".bb-header__nav");
-	var menuLinkedElements = header.querySelectorAll(".bb-header__nav a, .bb-header__meta a, .bb-header__social a, .bb-header__block--right > .btn");
+
+	(function buildMobilePanel() {
+		if (!mobileNav) return;
+
+		var meta = header.querySelector(".bb-header__meta");
+		if (meta) {
+			var metaClone = meta.cloneNode(true);
+			metaClone.className = "bb-mobile-meta";
+			metaClone.removeAttribute("style");
+			mobileNav.insertBefore(metaClone, mobileNav.firstChild);
+		}
+
+		var social = header.querySelector(".bb-header__social");
+		if (social) {
+			var socialClone = social.cloneNode(true);
+			socialClone.className = "bb-mobile-social";
+			socialClone.removeAttribute("aria-label");
+			socialClone.removeAttribute("style");
+			mobileNav.appendChild(socialClone);
+		}
+
+		var cta = header.querySelector(".bb-header__block--right > .btn");
+		if (cta) {
+			var ctaClone = cta.cloneNode(true);
+			ctaClone.classList.add("bb-mobile-cta");
+			mobileNav.appendChild(ctaClone);
+		}
+	})();
+
+	var menuLinkedElements = header.querySelectorAll(".bb-header__nav a, .bb-header__nav .bb-mobile-cta");
 
 	function setMobileMenuState(isOpen) {
 		header.classList.toggle("bb-header--menu-open", isOpen);
