@@ -142,6 +142,123 @@
 	background: linear-gradient(160deg, var(--color-accent), var(--color-primary));
 }
 
+@media (max-width: 991px) {
+	.single-service .bb-single-service-hero {
+		padding: 20px 0 56px;
+	}
+
+	.single-service .bb-single-service-hero__top {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 14px;
+	}
+
+	.single-service .bb-breadcrumbs {
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.single-service .bb-breadcrumbs__separator {
+		width: 24px;
+	}
+
+	.single-service .bb-single-service-hero__tagline {
+		text-align: left;
+		white-space: normal;
+		max-width: 18ch;
+	}
+
+	.single-service .bb-single-service-hero__grid {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			"title"
+			"media"
+			"cta"
+			"intro";
+		gap: 24px;
+		margin-top: 20px;
+	}
+
+	.single-service .bb-single-service-hero__content {
+		display: contents;
+		min-height: 0;
+		padding: 0;
+	}
+
+	.single-service .bb-single-service-hero__title {
+		grid-area: title;
+		font-size: clamp(56px, 14vw, 96px);
+		line-height: 0.9;
+	}
+
+	.single-service .bb-single-service-hero__cta {
+		grid-area: cta;
+		margin-top: 0;
+		justify-self: start;
+		width: auto;
+		padding: 17px 78px;
+	}
+
+	.single-service .bb-single-service-hero__intro {
+		grid-area: intro;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 20px;
+	}
+
+	.single-service .bb-single-service-hero__intro-text {
+		max-width: none;
+	}
+
+	.single-service .bb-single-service-hero__media {
+		grid-area: media;
+		justify-self: stretch;
+		height: auto;
+		aspect-ratio: 4 / 3;
+	}
+}
+
+@media (max-width: 767px) {
+	.single-service .bb-single-service-hero {
+		padding: 16px 0 40px;
+	}
+
+	.single-service .bb-breadcrumbs {
+		font-size: var(--fs-body-3, 14px);
+		line-height: 1.2;
+		gap: 6px;
+	}
+
+	.single-service .bb-breadcrumbs__separator {
+		width: 18px;
+	}
+
+	.single-service .bb-single-service-hero__tagline {
+		display: none;
+	}
+
+	.single-service .bb-single-service-hero__grid {
+		gap: 18px;
+		margin-top: 24px;
+	}
+
+	.single-service .bb-single-service-hero__title {
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
+		letter-spacing: var(--ls-h2-semibold);
+	}
+
+	.single-service .bb-single-service-hero__media {
+		border-radius: 4px;
+		aspect-ratio: 4 / 3.2;
+	}
+
+	.single-service .bb-single-service-hero__intro {
+		gap: 14px;
+	}
+}
+
 .single-service .bb-single-service-related {
 	padding: 0 0 clamp(44px, 4.17vw, 80px);
 }
