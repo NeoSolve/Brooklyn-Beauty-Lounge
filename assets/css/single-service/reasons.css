@@ -299,14 +299,6 @@
 	.single-service .bb-service-reasons__headline-wrap {
 		padding: clamp(32px, 6vw, 56px) 0 clamp(40px, 6vw, 64px) 0;
 	}
-
-	.single-service .bb-service-reasons__headline {
-		font-size: clamp(22px, 5.5vw, 32px);
-	}
-
-	.single-service .bb-service-reasons__list-item {
-		font-size: var(--fs-body-2);
-	}
 }
 
 @media (max-width: 767px) {
@@ -315,15 +307,13 @@
 	}
 
 	.single-service .bb-service-reasons__headline-wrap {
-		padding: 0 0 22px;
+		padding: 0 0 32px;
 	}
 
 	.single-service .bb-service-reasons__headline {
 		max-width: none;
 		margin: 0;
 		text-align: left;
-		font-size: clamp(34px, 9.5vw, 48px);
-		line-height: 0.92;
 	}
 
 	.single-service .bb-service-reasons__content-wrap {
@@ -365,9 +355,7 @@
 
 	.single-service .bb-service-reasons__list-item {
 		gap: 10px;
-		padding: 11px 0;
-		font-size: 16px;
-		line-height: 1.15;
+		padding: 12px 0;
 	}
 
 	.single-service .bb-service-reasons__list-icon {
@@ -399,7 +387,7 @@
 		grid-area: cta;
 		min-height: 0;
 		gap: 0;
-		padding: 20px 0 0;
+		padding: 32px 0 0;
 	}
 
 	.single-service .bb-service-reasons__slogan {

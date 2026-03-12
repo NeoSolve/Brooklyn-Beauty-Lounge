@@ -171,6 +171,7 @@
 @media (max-width: 992px) {
 	.single-service .bb-service-prices__layout {
 		grid-template-columns: 1fr;
+		gap: 24px;
 	}
 
 	.single-service .bb-service-prices__aside {
@@ -185,5 +186,84 @@
 
 	.single-service .bb-service-prices__grid {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 767px) {
+	.single-service .bb-service-prices {
+		padding: 40px 0;
+	}
+
+	.single-service .bb-service-prices__top {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+		margin-bottom: 32px;
+	}
+
+	.single-service .bb-service-prices__sections {
+		gap: 48px;
+	}
+
+	.single-service .bb-service-prices__layout {
+		gap: 20px;
+	}
+
+	.single-service .bb-service-prices__intro-text {
+		margin-top: 12px;
+	}
+
+	.single-service .bb-service-prices__grid {
+		gap: 8px;
+	}
+
+	.single-service .bb-service-prices__card {
+		min-width: 0;
+		min-height: 413px;
+		padding: 14px;
+		border-radius: 6px;
+	}
+
+	.single-service .bb-service-prices__card-head {
+		min-height: 89px;
+		gap: 12px;
+		margin-bottom: 24px;
+	}
+
+	.single-service .bb-service-prices__card-title {
+		min-width: 0;
+		overflow-wrap: anywhere;
+		white-space: normal;
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-semibold);
+	}
+
+	.single-service .bb-service-prices__card-duration {
+		margin-top: 14px;
+		padding: 6px 12px;
+	}
+
+	.single-service .bb-service-prices__card-description {
+		margin-top: 22px;
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+	}
+
+	.single-service .bb-service-prices__card-footer {
+		padding-top: 24px;
+	}
+
+	.single-service .bb-service-prices__card-button {
+		min-width: 0;
+		max-width: 100%;
+		border-radius: 4px;
+	}
+
+	.single-service .bb-service-prices__card-badge {
+		right: 12px;
+		bottom: -2px;
+		width: 32px;
+		height: 32px;
 	}
 }
