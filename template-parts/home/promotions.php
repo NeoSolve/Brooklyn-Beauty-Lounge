@@ -53,6 +53,13 @@ if ( function_exists( 'get_field' ) ) {
 		$section_background_image = $resolved_section_background;
 	}
 
+	$section_background_image_mobile = '';
+	$acf_section_background_mobile = get_field( 'promotions_background_image_mobile', $field_post_id );
+	$resolved_mobile = $resolve_image_url( $acf_section_background_mobile );
+	if ( '' !== $resolved_mobile ) {
+		$section_background_image_mobile = $resolved_mobile;
+	}
+
 	$acf_slides = get_field( 'promotions_slides', $field_post_id );
 	if ( is_array( $acf_slides ) && ! empty( $acf_slides ) ) {
 		foreach ( $acf_slides as $slide ) {
@@ -100,6 +107,9 @@ if ( empty( $slides ) ) {
 $promotions_style = '';
 if ( '' !== $section_background_image ) {
 	$promotions_style = '--bb-promotions-bg-image:url(' . esc_url( $section_background_image ) . ');';
+}
+if ( '' !== $section_background_image_mobile ) {
+	$promotions_style .= ' --bb-promotions-bg-image-mobile:url(' . esc_url( $section_background_image_mobile ) . ');';
 }
 ?>
 <section class="bb-promotions-section" id="promotions" data-promotions>

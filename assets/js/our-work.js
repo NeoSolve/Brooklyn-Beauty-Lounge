@@ -79,17 +79,25 @@
 		}
 	}
 
-	var scrollTicking = false;
+	var scrollEndTimer = null;
 	function onTrackScroll() {
-		if (scrollTicking) return;
-		scrollTicking = true;
-		requestAnimationFrame(function () {
+		if (scrollEndTimer) clearTimeout(scrollEndTimer);
+		scrollEndTimer = setTimeout(function () {
+			scrollEndTimer = null;
 			normalizeScrollPosition();
-			scrollTicking = false;
-		});
+		}, 150);
+	}
+
+	function onTrackScrollEnd() {
+		if (scrollEndTimer) clearTimeout(scrollEndTimer);
+		scrollEndTimer = null;
+		normalizeScrollPosition();
 	}
 
 	track.addEventListener("scroll", onTrackScroll, { passive: true });
+	if ("onscrollend" in window) {
+		track.addEventListener("scrollend", onTrackScrollEnd);
+	}
 
 	function scrollWork(direction) {
 		var step = getScrollStep();

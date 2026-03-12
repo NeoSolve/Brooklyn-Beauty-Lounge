@@ -153,6 +153,31 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_bb_hero_background_image_mobile",
+            "label": "Background Image (Mobile)",
+            "name": "hero_background_image_mobile",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. Separate background image for mobile. If empty, desktop image is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
             "key": "field_bb_hero_video",
             "label": "Hero Video (Bottom Right)",
             "name": "hero_video",
@@ -277,5 +302,5 @@
     "description": "Fields for homepage main hero banner.",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771276797
+    "modified": 1773274609
 }

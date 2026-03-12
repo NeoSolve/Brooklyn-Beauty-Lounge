@@ -242,8 +242,22 @@
 }
 
 @media (max-width: 720px) {
+	.bb-our-work-section {
+		overflow: visible;
+	}
+
+	.bb-our-work-section .bb-container {
+		overflow: visible;
+	}
+
+	.bb-our-work__content {
+		margin-inline: calc(var(--container-gutter) * -1);
+		width: calc(100% + var(--container-gutter) * 2);
+	}
+
 	.bb-work {
 		scroll-snap-type: x mandatory;
+		padding-inline: var(--container-gutter);
 	}
 
 	.bb-work__item,

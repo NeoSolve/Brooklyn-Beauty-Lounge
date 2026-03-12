@@ -70,6 +70,22 @@ if ( function_exists( 'get_field' ) ) {
 		$hero_image = $acf_hero_image;
 	}
 
+	$hero_image_mobile = '';
+	$acf_hero_image_mobile = get_field( 'hero_background_image_mobile', $front_page_id );
+	if ( is_numeric( $acf_hero_image_mobile ) ) {
+		$url_mobile = wp_get_attachment_image_url( (int) $acf_hero_image_mobile, 'full' );
+		if ( $url_mobile ) {
+			$hero_image_mobile = $url_mobile;
+		}
+	} elseif ( is_array( $acf_hero_image_mobile ) && ! empty( $acf_hero_image_mobile['ID'] ) ) {
+		$url_mobile = wp_get_attachment_image_url( (int) $acf_hero_image_mobile['ID'], 'full' );
+		if ( $url_mobile ) {
+			$hero_image_mobile = $url_mobile;
+		}
+	} elseif ( is_string( $acf_hero_image_mobile ) && '' !== trim( $acf_hero_image_mobile ) ) {
+		$hero_image_mobile = trim( $acf_hero_image_mobile );
+	}
+
 	$acf_hero_video = get_field( 'hero_video', $front_page_id );
 	if ( is_numeric( $acf_hero_video ) ) {
 		$hero_video_id = (int) $acf_hero_video;
@@ -123,11 +139,17 @@ if ( $hero_video_id > 0 ) {
 }
 
 $hero_style = '';
+$hero_class = 'bb-hero';
 if ( '' !== $hero_image ) {
-	$hero_style = ' style="background-image: url(' . esc_url( $hero_image ) . ');"';
+	if ( '' !== $hero_image_mobile ) {
+		$hero_class .= ' has-mobile-bg';
+		$hero_style = ' style="--hero-bg-desktop: url(' . esc_url( $hero_image ) . '); --hero-bg-mobile: url(' . esc_url( $hero_image_mobile ) . ');"';
+	} else {
+		$hero_style = ' style="background-image: url(' . esc_url( $hero_image ) . ');"';
+	}
 }
 ?>
-<section class="bb-hero"<?php echo $hero_style; ?>>
+<section class="<?php echo esc_attr( $hero_class ); ?>"<?php echo $hero_style; ?>>
 	<div class="bb-hero__overlay" aria-hidden="true"></div>
 	
 	<div class="bb-hero__inner bb-container">

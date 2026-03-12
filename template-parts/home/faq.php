@@ -5,6 +5,7 @@
  * @package Brooklyn_Beauty
  */
 $left_image_url  = '';
+$faq_background_image_mobile_url = '';
 $badge_image_url = '';
 $badge_subtitle  = __( 'curious?', 'brooklyn-beauty' );
 $default_left_image_url = get_template_directory_uri() . '/assets/images/faq-image.jpg';
@@ -70,6 +71,9 @@ if ( function_exists( 'get_field' ) ) {
 	$acf_left_image = get_field( 'faq_left_image', $field_post_id );
 	$left_image_url = $resolve_image_url( $acf_left_image );
 
+	$acf_faq_bg_mobile = get_field( 'faq_background_image_mobile', $field_post_id );
+	$faq_background_image_mobile_url = $resolve_image_url( $acf_faq_bg_mobile );
+
 	$acf_badge_image = get_field( 'faq_badge_image', $field_post_id );
 	$badge_image_url = $resolve_image_url( $acf_badge_image );
 
@@ -114,8 +118,15 @@ if ( empty( $faq_items ) ) {
 if ( '' === $left_image_url ) {
 	$left_image_url = $default_left_image_url;
 }
+
+$faq_section_style = '';
+$faq_section_class = 'bb-faq-section';
+if ( '' !== $faq_background_image_mobile_url ) {
+	$faq_section_style = ' style="--bb-faq-bg-image-mobile: url(' . esc_url( $faq_background_image_mobile_url ) . ');"';
+	$faq_section_class .= ' has-mobile-bg';
+}
 ?>
-<section class="bb-faq-section" id="faq" data-faq>
+<section class="<?php echo esc_attr( $faq_section_class ); ?>" id="faq" data-faq<?php echo $faq_section_style; ?>>
 	<div class="bb-container">
 		<div class="bb-faq-layout">
 			<div class="bb-faq-layout__left">

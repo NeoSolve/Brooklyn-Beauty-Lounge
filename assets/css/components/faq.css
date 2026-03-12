@@ -181,6 +181,13 @@
 		padding: 52px 0;
 	}
 
+	.bb-faq-section.has-mobile-bg {
+		background-image: var(--bb-faq-bg-image-mobile);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	.bb-faq-layout {
 		grid-template-columns: 1fr;
 	}

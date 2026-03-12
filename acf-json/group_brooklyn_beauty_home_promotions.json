@@ -71,6 +71,32 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_brooklyn_beauty_promotions_background_image_mobile",
+            "label": "Section Background Image (Mobile)",
+            "name": "promotions_background_image_mobile",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. Separate background image for mobile. If empty, desktop image is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_brooklyn_beauty_promotions_slides",
             "label": "Promotion Slides",
             "name": "promotions_slides",
@@ -275,5 +301,5 @@
     "description": "Content settings for the Our Promotions block on homepage.",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771196919
+    "modified": 1773274604
 }

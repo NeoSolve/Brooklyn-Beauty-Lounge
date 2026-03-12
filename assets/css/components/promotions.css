@@ -241,6 +241,7 @@
 		padding: 8px;
 		gap: 16px;
 		border-radius: 4px;
+		background-image: var(--bb-promotions-bg-image-mobile, var(--bb-promotions-bg-image));
 	}
 
 	.bb-promotions__left {

@@ -79,6 +79,14 @@ if ( $page_id > 0 ) {
 	}
 }
 
+$hero_tagline_line_1 = $hero_tagline;
+$hero_tagline_line_2 = '';
+
+if ( preg_match( '/^(.*?\bwith)\s+(Brooklyn Beauty Lounge!?)$/i', $hero_tagline, $hero_tagline_matches ) ) {
+	$hero_tagline_line_1 = trim( $hero_tagline_matches[1] );
+	$hero_tagline_line_2 = trim( $hero_tagline_matches[2] );
+}
+
 ?>
 <section class="bb-services-hero" aria-labelledby="bb-services-hero-title">
 	<div class="bb-container bb-services-hero__inner">
@@ -93,7 +101,12 @@ if ( $page_id > 0 ) {
 		<div class="bb-services-hero__stage">
 			<h1 class="bb-services-hero__title" id="bb-services-hero-title"><?php echo esc_html( $hero_background_word ); ?></h1>
 
-			<p class="bb-services-hero__tagline t-decor"><?php echo esc_html( $hero_tagline ); ?></p>
+			<p class="bb-services-hero__tagline t-decor">
+				<span><?php echo esc_html( $hero_tagline_line_1 ); ?></span>
+				<?php if ( '' !== $hero_tagline_line_2 ) : ?>
+					<span class="bb-services-hero__tagline-line"><?php echo esc_html( $hero_tagline_line_2 ); ?></span>
+				<?php endif; ?>
+			</p>
 			<p class="bb-services-hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
 			<p class="bb-services-hero__description"><?php echo esc_html( $hero_description ); ?></p>
 

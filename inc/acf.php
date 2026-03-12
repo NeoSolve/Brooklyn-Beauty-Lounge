@@ -1143,6 +1143,16 @@ function brooklyn_beauty_register_acf_field_groups() {
 				'library'       => 'all',
 			),
 			array(
+				'key'           => 'field_brooklyn_beauty_faq_background_image_mobile',
+				'label'         => __( 'Background Image (Mobile)', 'brooklyn-beauty' ),
+				'name'          => 'faq_background_image_mobile',
+				'type'          => 'image',
+				'return_format' => 'id',
+				'preview_size'  => 'medium',
+				'library'       => 'all',
+				'instructions'  => __( 'Optional. Separate background image for the FAQ block on mobile. If empty, desktop left image or default is used.', 'brooklyn-beauty' ),
+			),
+			array(
 				'key'           => 'field_brooklyn_beauty_faq_badge_image',
 				'label'         => __( 'Center Badge Image', 'brooklyn-beauty' ),
 				'name'          => 'faq_badge_image',
