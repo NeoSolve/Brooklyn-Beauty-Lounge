@@ -1,8 +1,22 @@
 .bb-blog-posts-section .bb-blog-card {
 	display: flex;
 	flex-direction: column;
+	min-height: clamp(517px, 44.9vw, 862px);
 	height: 100%;
 	border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+	.bb-blog-posts-section .bb-blog-card {
+		min-height: clamp(380px, 52vw, 480px);
+	}
+}
+
+@media (max-width: 767px) {
+	.bb-blog-posts-section .bb-blog-card {
+		min-height: 0;
+		height: auto;
+	}
 }
 
 .bb-blog-posts-section .bb-blog-card--placeholder {
@@ -34,6 +48,12 @@
 	border-top-right-radius: 4px;
 }
 
+@media (max-width: 767px) {
+	.bb-blog-posts-section .bb-blog-card__media {
+		min-height: 303px;
+	}
+}
+
 .bb-blog-posts-section .bb-blog-card__media--pedicure {
 	background-image: var(--gradient-service-pedicure);
 }
@@ -56,6 +76,13 @@
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 	border-top: none;
+}
+
+@media (max-width: 767px) {
+	.bb-blog-posts-section .bb-blog-card__content {
+		padding: 12px;
+		min-height: 0;
+	}
 }
 
 .bb-blog-posts-section .bb-blog-card__meta {
@@ -95,6 +122,15 @@
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+@media (max-width: 767px) {
+	.bb-blog-posts-section .bb-blog-card__excerpt {
+		margin-top: 8px;
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+		font-weight: var(--fw-body-regular);
+	}
 }
 
 .bb-blog-posts-section .bb-blog-card__link {
@@ -143,11 +179,15 @@
 
 @media (max-width: 1200px) {
 	.bb-blog-posts-section .bb-blog-card__title {
-		font-size: clamp(30px, 4vw, 44px);
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-semibold);
 	}
 
 	.bb-blog-posts-section .bb-blog-card__meta {
-		font-size: clamp(15px, 1.9vw, 20px);
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+		font-weight: var(--fw-body-regular);
 	}
 }
 
@@ -156,6 +196,12 @@
 	display: flex;
 	justify-content: center;
 	height: 40px;
+}
+
+@media (max-width: 767px) {
+	.bb-blog-posts-section .bb-blog-card--placeholder {
+		display: none;
+	}
 }
 
 .bb-blog-posts-section .bb-blog-posts__pagination:empty {
@@ -213,5 +259,11 @@
 	.bb-blog-posts-section .bb-blog-posts__pagination .page-numbers {
 		gap: 10px;
 		flex-wrap: wrap;
+	}
+
+	.bb-blog-posts-section .bb-blog-card__link {
+		font-size: var(--fs-body-2);
+		line-height: var(--lh-body-2);
+		font-weight: var(--fw-body-medium);
 	}
 }

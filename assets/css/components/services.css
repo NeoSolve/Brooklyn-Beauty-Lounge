@@ -284,8 +284,7 @@
 
 @media (max-width: 767px) {
 	.bb-service-card--placeholder {
-		padding: 24px 0;
-		min-height: 120px;
+		display: none;
 	}
 }
 

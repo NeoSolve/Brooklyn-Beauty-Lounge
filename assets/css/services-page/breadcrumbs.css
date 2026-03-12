@@ -3,6 +3,10 @@
 	align-items: center;
 	flex-wrap: nowrap;
 	gap: 12px;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	overflow: hidden;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
 	font-weight: var(--fw-body-medium);
@@ -10,6 +14,7 @@
 }
 
 .bb-breadcrumbs__link {
+	flex-shrink: 0;
 	color: var(--color-text);
 	transition: color var(--transition-base);
 }
@@ -20,6 +25,7 @@
 }
 
 .bb-breadcrumbs__separator {
+	flex-shrink: 0;
 	display: inline-block;
 	width: 35px;
 	height: 1px;
@@ -30,6 +36,12 @@
 }
 
 .bb-breadcrumbs__current {
+	display: block;
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	color: var(--color-primary);
 }
 

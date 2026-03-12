@@ -5,6 +5,10 @@
 	if (!section || typeof bbBlogAjax === "undefined") return;
 
 	var filterButtons = section.querySelectorAll(".bb-blog-filters__button");
+	var filtersWrap = section.querySelector(".bb-blog-filters-wrap");
+	var filtersContainer = section.querySelector(".bb-blog-filters");
+	var filtersTrack = section.querySelector(".bb-blog-filters__track");
+	var filtersIndicator = section.querySelector(".bb-blog-filters__indicator");
 	var cardsContainer = section.querySelector(".bb-blog-cards");
 	var paginationContainer = section.querySelector(".bb-blog-posts__pagination");
 	var blogPageUrl = section.dataset.blogPageUrl || bbBlogAjax.blogPageUrl || "";
@@ -24,6 +28,22 @@
 				item.classList.toggle("is-active", isActive);
 			}
 		});
+	}
+
+	function updateFiltersScrollIndicator() {
+		if (!filtersWrap || !filtersContainer || !filtersTrack || !filtersIndicator) return;
+
+		var maxScroll = filtersContainer.scrollWidth - filtersContainer.clientWidth;
+		var scrollRatio = 0;
+		var maxOffset = Math.max(filtersTrack.clientWidth - filtersIndicator.offsetWidth, 0);
+		var sliderOffset = 0;
+
+		if (maxScroll > 0) {
+			scrollRatio = filtersContainer.scrollLeft / maxScroll;
+		}
+
+		sliderOffset = maxOffset * scrollRatio;
+		filtersWrap.style.setProperty("--bb-blog-slider-offset", sliderOffset.toFixed(2) + "px");
 	}
 
 	function loadCategory(categorySlug, paged) {
@@ -116,6 +136,12 @@
 			}
 		});
 	});
+
+	if (filtersWrap && filtersContainer && filtersTrack && filtersIndicator) {
+		filtersContainer.addEventListener("scroll", updateFiltersScrollIndicator, { passive: true });
+		window.addEventListener("resize", updateFiltersScrollIndicator);
+		updateFiltersScrollIndicator();
+	}
 
 	window.addEventListener("popstate", function (event) {
 		var slug = (event.state && event.state.blogCategory) || "all-posts";

@@ -79,21 +79,24 @@ $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagi
 ?>
 <section class="bb-blog-posts-section" id="blog-posts" data-blog-page-url="<?php echo esc_url( $current_page_url ); ?>" data-blog-page-id="<?php echo (int) $page_id; ?>">
 	<div class="bb-container">
-		<ul class="bb-blog-filters" aria-label="<?php esc_attr_e( 'Blog categories', 'brooklyn-beauty' ); ?>">
-			<?php foreach ( $blog_categories as $blog_category ) :
-				$is_active = $blog_category['slug'] === $active_tab;
-				$tab_url   = 'all-posts' === $blog_category['slug']
-					? $current_page_url
-					: add_query_arg( 'category', $blog_category['slug'], $current_page_url );
-			?>
-				<li class="bb-blog-filters__item<?php echo $is_active ? ' is-active' : ''; ?>">
-					<a class="bb-blog-filters__button" href="<?php echo esc_url( $tab_url ); ?>" data-category="<?php echo esc_attr( $blog_category['slug'] ); ?>" aria-current="<?php echo $is_active ? 'true' : 'false'; ?>">
-						<?php echo esc_html( $blog_category['label'] ); ?>
-					</a>
-				</li>
-			<?php endforeach; ?>
+		<div class="bb-blog-filters-wrap">
+			<ul class="bb-blog-filters" aria-label="<?php esc_attr_e( 'Blog categories', 'brooklyn-beauty' ); ?>">
+				<?php foreach ( $blog_categories as $blog_category ) :
+					$is_active = $blog_category['slug'] === $active_tab;
+					$tab_url   = 'all-posts' === $blog_category['slug']
+						? $current_page_url
+						: add_query_arg( 'category', $blog_category['slug'], $current_page_url );
+				?>
+					<li class="bb-blog-filters__item<?php echo $is_active ? ' is-active' : ''; ?>">
+						<a class="bb-blog-filters__button" href="<?php echo esc_url( $tab_url ); ?>" data-category="<?php echo esc_attr( $blog_category['slug'] ); ?>" aria-current="<?php echo $is_active ? 'true' : 'false'; ?>">
+							<?php echo esc_html( $blog_category['label'] ); ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<span class="bb-blog-filters__track" aria-hidden="true"></span>
 			<span class="bb-blog-filters__indicator" aria-hidden="true"></span>
-		</ul>
+		</div>
 
 		<div class="bb-blog-cards" aria-live="polite" aria-busy="false">
 			<?php echo wp_kses_post( $blog_cards_html ); ?>

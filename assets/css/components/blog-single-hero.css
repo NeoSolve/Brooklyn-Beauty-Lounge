@@ -157,19 +157,84 @@
 }
 
 @media (max-width: 720px) {
+	.single-post .bb-blog-single-hero {
+		padding: 12px 0 40px;
+	}
+
 	.single-post .bb-blog-single-hero__top {
 		flex-direction: column;
+		gap: 0;
 	}
 
 	.single-post .bb-blog-single-hero__tags {
-		justify-content: flex-start;
+		display: none;
+	}
+
+	.single-post .bb-blog-single-hero__title {
+		margin: 32px 0 18px;
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
+		color: var(--color-primary);
+	}
+
+	.single-post .bb-blog-single-hero__intro-grid {
+		margin-top: 18px;
+		gap: 18px;
+	}
+
+	.single-post .bb-blog-single-hero__meta {
+		display: grid;
+		grid-template-columns: 64px minmax(0, 1fr);
+		column-gap: 12px;
+		row-gap: 4px;
+		align-items: start;
+	}
+
+	.single-post .bb-blog-single-hero__author {
+		display: contents;
+	}
+
+	.single-post .bb-blog-single-hero__author .bb-blog-single-hero__author-avatar {
+		grid-column: 1;
+		grid-row: 1 / span 2;
+		width: 64px;
+		height: 64px;
+	}
+
+	.single-post .bb-blog-single-hero__author-text {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.single-post .bb-blog-single-hero__author-name {
+		font-weight: var(--fw-body-medium);
+	}
+
+	.single-post .bb-blog-single-hero__date {
+		grid-column: 2;
+		grid-row: 2;
+		align-self: start;
+		white-space: nowrap;
 	}
 
 	.single-post .bb-blog-single-hero__intro-texts {
 		grid-template-columns: 1fr;
+		gap: 16px;
+		padding-right: 0;
+	}
+
+	.single-post .bb-blog-single-hero__intro-texts p {
+		font-size: 16px;
+		line-height: 1.08;
 	}
 
 	.single-post .bb-blog-single-hero__media {
+		margin-top: 18px;
+		width: 100vw;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
 		aspect-ratio: 16 / 9;
+		border-radius: 0;
 	}
 }
