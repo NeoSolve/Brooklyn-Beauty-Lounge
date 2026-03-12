@@ -165,7 +165,7 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 							<div class="bb-service-explore__section-head">
 								<div class="bb-service-explore__section-copy">
 									<h3 class="bb-service-explore__section-title">
-										<?php echo esc_html( $section['title'] ); ?>
+										<?php echo wp_kses( $section['title'], array( 'br' => array() ) ); ?>
 										<span class="bb-service-explore__section-number"><?php echo esc_html( $section['number'] ); ?></span>
 									</h3>
 									<?php if ( '' !== trim( (string) $section['intro'] ) ) : ?>
