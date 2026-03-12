@@ -161,7 +161,11 @@ if ( function_exists( 'get_field' ) ) {
 				aria-controls="bb-header-nav"
 				data-header-burger
 			>
-				<span class="bb-header__burger-lines" aria-hidden="true"></span>
+				<span class="bb-header__burger-lines" aria-hidden="true">
+					<span class="bb-header__burger-line bb-header__burger-line--top"></span>
+					<span class="bb-header__burger-line bb-header__burger-line--middle"></span>
+					<span class="bb-header__burger-line bb-header__burger-line--bottom"></span>
+				</span>
 			</button>
 			<div class="bb-header__social" aria-label="<?php esc_attr_e( 'Social links', 'brooklyn-beauty' ); ?>">
 				<?php foreach ( $header_social_items as $social_item ) : ?>

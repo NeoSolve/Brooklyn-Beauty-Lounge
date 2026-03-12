@@ -679,6 +679,7 @@
 		line-height: var(--lh-h1-alt);
 		max-width: 6.4em;
 		margin-bottom: 10px;
+		margin-top: 8px;
 	}
 
 	.bb-hero__subtitle {

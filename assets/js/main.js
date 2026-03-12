@@ -141,22 +141,33 @@
 
 	var burgerButton = header.querySelector("[data-header-burger]");
 	var mobileNav = header.querySelector(".bb-header__nav");
-	function closeMobileMenu() {
-		header.classList.remove("bb-header--menu-open");
+	var menuLinkedElements = header.querySelectorAll(".bb-header__nav a, .bb-header__meta a, .bb-header__social a, .bb-header__block--right > .btn");
+
+	function setMobileMenuState(isOpen) {
+		header.classList.toggle("bb-header--menu-open", isOpen);
+		document.documentElement.classList.toggle("bb-mobile-menu-open", isOpen);
+		document.body.classList.toggle("bb-mobile-menu-open", isOpen);
 		if (burgerButton) {
-			burgerButton.setAttribute("aria-expanded", "false");
-			burgerButton.setAttribute("aria-label", "Open menu");
+			burgerButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+			burgerButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+		}
+		if (mobileNav) {
+			mobileNav.setAttribute("aria-hidden", isOpen ? "false" : "true");
 		}
 	}
 
+	function closeMobileMenu() {
+		setMobileMenuState(false);
+	}
+
 	if (burgerButton && mobileNav) {
+		setMobileMenuState(false);
+
 		burgerButton.addEventListener("click", function () {
-			var isOpen = header.classList.toggle("bb-header--menu-open");
-			burgerButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
-			burgerButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+			setMobileMenuState(!header.classList.contains("bb-header--menu-open"));
 		});
 
-		mobileNav.querySelectorAll("a").forEach(function (link) {
+		menuLinkedElements.forEach(function (link) {
 			link.addEventListener("click", closeMobileMenu);
 		});
 
