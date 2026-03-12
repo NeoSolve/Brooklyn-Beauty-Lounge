@@ -169,11 +169,13 @@
 		max-width: none;
 	}
 
-	.page-template-page-services .bb-services-hero {
+	.page-template-page-services .bb-services-hero,
+	.page-template-page-contacts .bb-services-hero {
 		padding-bottom: clamp(40px, 8.5vw, 72px);
 	}
 
-	.page-template-page-services .bb-services-hero__stage {
+	.page-template-page-services .bb-services-hero__stage,
+	.page-template-page-contacts .bb-services-hero__stage {
 		grid-template-areas:
 			"title"
 			"media"
@@ -183,7 +185,8 @@
 		gap: 12px;
 	}
 
-	.page-template-page-services .bb-services-hero__title {
+	.page-template-page-services .bb-services-hero__title,
+	.page-template-page-contacts .bb-services-hero__title {
 		grid-area: title;
 		width: 100vw;
 		margin: 0 calc(50% - 50vw);
@@ -194,26 +197,30 @@
 		text-wrap: nowrap;
 	}
 
-	.page-template-page-services .bb-services-hero__media {
+	.page-template-page-services .bb-services-hero__media,
+	.page-template-page-contacts .bb-services-hero__media {
 		grid-area: media;
 		width: clamp(220px, 57.3vw, 300px);
 	}
 
-	.page-template-page-services .bb-services-hero__tagline {
+	.page-template-page-services .bb-services-hero__tagline,
+	.page-template-page-contacts .bb-services-hero__tagline {
 		grid-area: tagline;
 		justify-self: center;
 		max-width: 17ch;
 		text-align: center;
 	}
 
-	.page-template-page-services .bb-services-hero__subtitle {
+	.page-template-page-services .bb-services-hero__subtitle,
+	.page-template-page-contacts .bb-services-hero__subtitle {
 		grid-area: subtitle;
 		margin-top: 28px;
 		font-size: clamp(58px, 14.6vw, 84px);
 		line-height: 0.88;
 	}
 
-	.page-template-page-services .bb-services-hero__description {
+	.page-template-page-services .bb-services-hero__description,
+	.page-template-page-contacts .bb-services-hero__description {
 		grid-area: description;
 		max-width: 100%;
 		font-size: var(--fs-body-1);
@@ -236,27 +243,36 @@
 		font-size: clamp(54px, 15vw, 92px);
 	}
 
-	.page-template-page-services .bb-services-hero {
-		padding: 12px 0 28px;
+	.page-template-page-services .bb-services-hero,
+	.page-template-page-contacts .bb-services-hero {
+		padding: 28px 0 28px;
 	}
 
-	.page-template-page-services .bb-services-hero__stage {
+	.page-template-page-services .bb-services-hero__stage,
+	.page-template-page-contacts .bb-services-hero__stage {
 		gap: 14px;
 	}
 
-	.page-template-page-services .bb-services-hero__title {
+	.page-template-page-services .bb-services-hero__title,
+	.page-template-page-contacts .bb-services-hero__title {
 		width: calc(100vw + 20px);
 		margin: 32px calc(50% - 50vw - 10px) 0;
 		font-size: 106px;
 	}
 
-	.page-template-page-services .bb-services-hero__media {
+	.page-template-page-contacts .bb-services-hero__title {
+		font-size: 96px;
+	}
+
+	.page-template-page-services .bb-services-hero__media,
+	.page-template-page-contacts .bb-services-hero__media {
 		width: 216px;
 		aspect-ratio: 216 / 185;
 		margin-top: -30px;
 	}
 
-	.page-template-page-services .bb-services-hero__tagline {
+	.page-template-page-services .bb-services-hero__tagline,
+	.page-template-page-contacts .bb-services-hero__tagline {
 		max-width: 100%;
 		width: 100%;
 		font-size: var(--fs-decor);
@@ -264,11 +280,13 @@
 		font-weight: var(--fw-decor);
 	}
 
-	.page-template-page-services .bb-services-hero__tagline-line {
+	.page-template-page-services .bb-services-hero__tagline-line,
+	.page-template-page-contacts .bb-services-hero__tagline-line {
 		display: block;
 	}
 
-	.page-template-page-services .bb-services-hero__subtitle {
+	.page-template-page-services .bb-services-hero__subtitle,
+	.page-template-page-contacts .bb-services-hero__subtitle {
 		font-size: var(--fs-h1-alt);
 		line-height: var(--lh-h1-alt);
 		font-weight: var(--fw-h1-alt);

@@ -204,22 +204,53 @@
 
 @media (max-width: 767px) {
 	.bb-contacts-location {
-		padding: 36px 0 52px;
+		margin: 0;
+		height: auto;
+		padding: 0;
+	}
+
+	.bb-contacts-location__frame {
+		padding: 12px;
+		gap: 36px;
 	}
 
 	.bb-contacts-location__content {
-		padding: 24px 0 22px;
+		padding: 0;
+		gap: 50px;
+	}
+
+	.bb-contacts-location__info {
+		order: 2;
+		gap: 20px;
+		max-width: 100%;
+	}
+
+	.bb-contacts-location__block {
+		gap: 4px;
 	}
 
 	.bb-contacts-location__title {
-		font-size: clamp(60px, 18vw, 100px);
+		order: 1;
+		margin: 0;
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
+		letter-spacing: var(--ls-h2-semibold);
 	}
 
 	.bb-contacts-location__value {
-		font-size: clamp(26px, 8.2vw, 36px);
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-medium);
+		text-wrap: pretty;
 	}
 
 	.bb-contacts-location__map-wrap {
-		min-height: 300px;
+		order: 3;
+		min-height: 264px;
+	}
+
+	.bb-contacts-location__map {
+		min-height: 211px;
 	}
 }
