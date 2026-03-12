@@ -437,6 +437,10 @@
 }
 
 @media (max-width: 980px) {
+	.bb-main {
+		padding-top: 26px;
+	}
+
 	.bb-header__inner {
 		justify-content: space-between;
 		padding-block: 12px;

@@ -128,7 +128,7 @@
 
 @media (max-width: 767px) {
 	.bb-book-section {
-		padding: 56px 0 54px;
+		padding: 60px 0 54px;
 	}
 
 	.bb-book {
@@ -166,6 +166,10 @@
 		margin-top: 20px;
 		width: 100%;
 		max-width: none;
+	}
+
+	.bb-book__text--bottom br {
+		display: none;
 	}
 
 	.bb-book__media {

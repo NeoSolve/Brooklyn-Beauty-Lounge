@@ -116,11 +116,12 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 <section class="bb-service-advantages" aria-labelledby="bb-service-advantages-heading">
 	<div class="bb-container">
 		<div class="bb-service-advantages__header">
+			<span class="bb-service-advantages__label bb-service-advantages__label--mobile t-decor" aria-hidden="true"><?php echo esc_html( $section_label ); ?></span>
 			<h2 id="bb-service-advantages-heading" class="bb-service-advantages__title">
 				<span class="bb-service-advantages__title-line"><?php echo esc_html( $section_title_line_1 ); ?></span>
 				<span class="bb-service-advantages__title-line-row">
 					<span class="bb-service-advantages__title-line"><?php echo esc_html( $section_title_line_2 ); ?></span>
-					<span class="bb-service-advantages__label t-decor"><?php echo esc_html( $section_label ); ?></span>
+					<span class="bb-service-advantages__label bb-service-advantages__label--desktop t-decor"><?php echo esc_html( $section_label ); ?></span>
 				</span>
 			</h2>
 		</div>
