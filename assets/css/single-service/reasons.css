@@ -308,3 +308,106 @@
 		font-size: var(--fs-body-2);
 	}
 }
+
+@media (max-width: 767px) {
+	.single-service .bb-service-reasons {
+		padding: 40px 0;
+	}
+
+	.single-service .bb-service-reasons__headline-wrap {
+		padding: 0 0 22px;
+	}
+
+	.single-service .bb-service-reasons__headline {
+		max-width: none;
+		margin: 0;
+		text-align: left;
+		font-size: clamp(34px, 9.5vw, 48px);
+		line-height: 0.92;
+	}
+
+	.single-service .bb-service-reasons__content-wrap {
+		max-width: none;
+		max-height: none;
+	}
+
+	.single-service .bb-service-reasons__content-inner.bb-container {
+		width: 100%;
+		padding: 24px 12px 32px;
+	}
+
+	.single-service .bb-service-reasons__grid {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"list"
+			"video"
+			"cta";
+		gap: 0;
+		min-height: 0;
+	}
+
+	.single-service .bb-service-reasons__list-col,
+	.single-service .bb-service-reasons__video-col,
+	.single-service .bb-service-reasons__cta-col {
+		order: initial;
+	}
+
+	.single-service .bb-service-reasons__list-col {
+		grid-area: list;
+		justify-content: stretch;
+		padding: 0;
+	}
+
+	.single-service .bb-service-reasons__list {
+		gap: 0;
+		width: 100%;
+	}
+
+	.single-service .bb-service-reasons__list-item {
+		gap: 10px;
+		padding: 11px 0;
+		font-size: 16px;
+		line-height: 1.15;
+	}
+
+	.single-service .bb-service-reasons__list-icon {
+		width: 14px;
+		height: 14px;
+		margin-top: 2px;
+	}
+
+	.single-service .bb-service-reasons__video-col {
+		grid-area: video;
+		padding: 20px 0 0;
+	}
+
+	.single-service .bb-service-reasons__video-wrap {
+		width: min(257px, calc(100vw - 88px));
+		max-width: 100%;
+		height: auto;
+		max-height: none;
+		aspect-ratio: 285 / 506;
+		margin: 0 auto;
+	}
+
+	.single-service .bb-service-reasons__play {
+		width: 58px;
+		height: 58px;
+	}
+
+	.single-service .bb-service-reasons__cta-col {
+		grid-area: cta;
+		min-height: 0;
+		gap: 0;
+		padding: 20px 0 0;
+	}
+
+	.single-service .bb-service-reasons__slogan {
+		display: none;
+	}
+
+	.single-service .bb-service-reasons__btn {
+		width: 100%;
+		padding: 17px 0;
+	}
+}
