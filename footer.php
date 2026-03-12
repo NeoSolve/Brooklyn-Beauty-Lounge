@@ -354,7 +354,8 @@ $footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $foot
 				<?php endif; ?>
 			</div>
 			<div class="bb-footer__copy">
-				<?php bloginfo( 'name' ); ?> &copy;<?php echo esc_html( date( 'Y' ) ); ?>. <?php esc_html_e( 'All rights reserved.', 'brooklyn-beauty' ); ?>
+				<?php bloginfo( 'name' ); ?> &copy;<?php echo esc_html( date( 'Y' ) ); ?>.
+				<span class="bb-footer__copy-line2"><?php esc_html_e( 'All rights reserved.', 'brooklyn-beauty' ); ?></span>
 			</div>
 			<div class="bb-footer__terms">
 				<?php if ( '' !== $footer_terms_text && '' !== $footer_terms_link ) : ?>
