@@ -119,8 +119,7 @@
 
 @media (max-width: 767px) {
 	.bb-blog-posts-section {
-		padding-top: clamp(48px, 12vw, 80px);
-		padding-bottom: clamp(40px, 10vw, 56px);
+		padding: 60px 0;
 	}
 
 	.bb-blog-posts-section .bb-blog-filters-wrap {
