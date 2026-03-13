@@ -138,7 +138,7 @@ if ( function_exists( 'get_field' ) ) {
 			</div>
 		</div>
 		<div class="bb-header__block bb-header__block--center">
-			<nav class="bb-header__nav" id="bb-header-nav" aria-label="<?php esc_attr_e( 'Primary', 'brooklyn-beauty' ); ?>">
+			<nav class="bb-header__nav bb-header__nav--desktop" aria-label="<?php esc_attr_e( 'Primary', 'brooklyn-beauty' ); ?>">
 				<?php
 				wp_nav_menu( array(
 					'theme_location' => 'primary',
@@ -252,5 +252,46 @@ if ( function_exists( 'get_field' ) ) {
 		</div>
 	</div>
 </header>
+
+<nav class="bb-mobile-nav" id="bb-mobile-nav" aria-label="<?php esc_attr_e( 'Mobile menu', 'brooklyn-beauty' ); ?>" aria-hidden="true">
+	<div class="bb-mobile-nav__header">
+		<div class="bb-mobile-nav__logo">
+			<?php if ( has_custom_logo() ) : ?>
+				<?php if ( '' !== $header_logo_alt_src ) : ?>
+					<a class="custom-logo-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img class="custom-logo" src="<?php echo esc_url( $header_logo_alt_src ); ?>" alt="<?php echo esc_attr( $header_logo_alt_alt ); ?>">
+					</a>
+				<?php else : ?>
+					<?php the_custom_logo(); ?>
+				<?php endif; ?>
+			<?php else : ?>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+			<?php endif; ?>
+		</div>
+		<button
+			type="button"
+			class="bb-mobile-nav__close bb-header__burger"
+			aria-label="<?php esc_attr_e( 'Close menu', 'brooklyn-beauty' ); ?>"
+			data-mobile-close
+		>
+			<span class="bb-header__burger-lines" aria-hidden="true">
+				<span class="bb-header__burger-line bb-header__burger-line--top" style="top:10px;transform:rotate(45deg)"></span>
+				<span class="bb-header__burger-line bb-header__burger-line--middle" style="opacity:0"></span>
+				<span class="bb-header__burger-line bb-header__burger-line--bottom" style="top:10px;transform:rotate(-45deg)"></span>
+			</span>
+		</button>
+	</div>
+	<?php
+	wp_nav_menu( array(
+		'theme_location' => 'primary',
+		'container'     => false,
+		'menu_class'    => 'bb-mobile-nav__menu',
+		'fallback_cb'   => function() {
+			echo '<ul class="bb-mobile-nav__menu"><li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'brooklyn-beauty' ) . '</a></li></ul>';
+		},
+		'items_wrap'    => '<ul class="%2$s">%3$s</ul>',
+	) );
+	?>
+</nav>
 
 <main id="content" class="bb-main">
