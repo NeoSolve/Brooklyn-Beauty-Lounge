@@ -110,10 +110,6 @@
 		font-size: clamp(160px, 43vw, 420px);
 	}
 
-	.bb-404__chandelier {
-		width: clamp(340px, 68vw, 620px);
-	}
-
 	.bb-404__title {
 		margin-top: clamp(-26px, -1.88vw, -8px);
 		max-width: 13em;
@@ -122,14 +118,61 @@
 }
 
 @media (max-width: 640px) {
+	.error404 .bb-header:not(.bb-header--scrolled) {
+		background: transparent;
+		backdrop-filter: none;
+		border-bottom-color: transparent;
+	}
+
+	.error404 .bb-main {
+		min-height: 100vh;
+	}
+
+	.bb-404 {
+		padding: 125px 12px 125px;
+	}
+
+	.bb-404__inner.bb-container {
+		width: 100%;
+		gap: 50px;
+	}
+
+	.bb-404__visual {
+		padding-top: clamp(80px, 22vw, 140px);
+	}
+
+	.bb-404__code {
+		font-size: 212px;
+	}
+
+	.bb-404__chandelier {
+		max-width: 100%;
+		width: 400px;
+		top: -50%;
+		left: 52%;
+	}
+
 	.bb-404__title {
-		max-width: 11em;
-		padding-right: 2em;
+		margin-top: 21px;
+		max-width: 9em;
+		padding-right: 1.8em;
 		font-size: clamp(28px, 8.8vw, 42px);
 		line-height: 1;
 	}
 
 	.bb-404__sorry {
 		transform: translate(-0.9em, -0.35em) rotate(5deg);
+	}
+
+	.bb-404__button {
+		width: 100%;
+		margin-top: 20px;
+		height: 52px;
+		padding: 17px 40px;
+		border-radius: 2px;
+	}
+
+	.bb-404__content {
+		width: 100%;
 	}
 }

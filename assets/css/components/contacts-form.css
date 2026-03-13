@@ -298,6 +298,5 @@
 	.bb-contacts-form .cf7-button,
 	.bb-contacts-form .wpcf7-form input[type="submit"] {
 		width: 100%;
-		max-width: 280px;
 	}
 }

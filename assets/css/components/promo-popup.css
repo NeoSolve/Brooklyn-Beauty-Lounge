@@ -217,16 +217,80 @@ body.bb-popup-open {
 }
 
 @media (max-width: 860px) {
-	.bb-promo-popup__layout {
-		height: auto;
-		grid-template-columns: 1fr;
+	.bb-promo-popup {
+		padding: 0;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.bb-promo-popup__images {
-		display: none;
+	.bb-promo-popup__dialog {
+		width: min(351px, 100%);
+		min-height: 471px;
+		height: auto;
+		max-height: 100%;
+		padding: 12px;
+		box-shadow: none;
+		overflow-y: auto;
+	}
+
+	.bb-promo-popup__close {
+		top: 20px;
+		right: 20px;
+	}
+
+	.bb-promo-popup__layout {
+		display: flex;
+		flex-direction: column;
+		height: auto;
 	}
 
 	.bb-promo-popup__content {
-		min-height: min(571px, calc(100vh - 32px));
+		display: contents;
+	}
+
+	.bb-promo-popup__title {
+		order: 1;
+		padding-right: 36px;
+		font-size: 22px;
+		line-height: 1.27;
+	}
+
+	.bb-promo-popup__images {
+		order: 2;
+		grid-template-columns: 1fr 1fr;
+		gap: 0 10px;
+		margin-top: 24px;
+	}
+
+	.bb-promo-popup__image {
+		aspect-ratio: 155 / 200;
+	}
+
+	.bb-promo-popup__image img {
+		width: 100%;
+	}
+
+	.bb-promo-popup__text {
+		order: 3;
+		margin-top: 24px;
+		font-size: var(--fs-body-1);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-regular);
+	}
+
+	.bb-promo-popup__text p {
+		font-size: 14px;
+		line-height: 1.43;
+	}
+
+	.bb-promo-popup__button {
+		order: 4;
+		margin-top: 24px;
+		width: 100%;
+		min-height: 48px;
+		padding: 12px 24px;
+		font-size: var(--fs-body-3);
+		line-height: var(--lh-body-1);
+		font-weight: var(--fw-body-medium);
 	}
 }
