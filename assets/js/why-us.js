@@ -5,6 +5,8 @@
 	if (!whyUsSection) {
 		return;
 	}
+	var whyUsViewportTarget =
+		whyUsSection.closest(".bb-why-us-section") || whyUsSection;
 
 	var counterElements = whyUsSection.querySelectorAll(".bb-why-us__value");
 	var countersStarted = false;
@@ -132,10 +134,10 @@
 					return;
 				}
 
-				entry.target.classList.add("is-visible");
+				whyUsSection.classList.add("is-visible");
 				runCounters();
 				updateWhyUsCardHeights();
-				currentObserver.unobserve(entry.target);
+				currentObserver.unobserve(whyUsViewportTarget);
 			});
 		},
 		{
@@ -143,5 +145,5 @@
 		}
 	);
 
-	observer.observe(whyUsSection);
+	observer.observe(whyUsViewportTarget);
 })();

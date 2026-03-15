@@ -2,7 +2,9 @@
 
 (function () {
 	var CONTACT_FORM_SELECTOR = ".bb-contacts-form";
-	var PHONE_MASK = "+718-000-0000";
+	var PHONE_PREFIX = "+1 ";
+	var PHONE_PLACEHOLDER = "+1 XXX XXX XXXX";
+	var PHONE_DIGITS_REQUIRED = 10;
 	var customSelectEventsReady = false;
 
 	function containsLetter(value) {
@@ -11,6 +13,21 @@
 
 	function removeLetters(value) {
 		return String(value || "").replace(/\p{L}+/gu, "");
+	}
+
+	function extractDigits(value) {
+		var str = String(value || "");
+		if (str.indexOf(PHONE_PREFIX) === 0) {
+			str = str.slice(PHONE_PREFIX.length);
+		}
+		return str.replace(/\D/g, "");
+	}
+
+	function formatPhone(digits) {
+		if (digits.length === 0) return PHONE_PREFIX;
+		if (digits.length <= 3) return PHONE_PREFIX + digits;
+		if (digits.length <= 6) return PHONE_PREFIX + digits.slice(0, 3) + " " + digits.slice(3);
+		return PHONE_PREFIX + digits.slice(0, 3) + " " + digits.slice(3, 6) + " " + digits.slice(6, 10);
 	}
 
 	function closeCustomSelect(wrapper) {
@@ -168,7 +185,36 @@
 		}
 	}
 
-	function initEmailPlaceholder(scope) {
+	function isValidEmail(value) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value || "").trim());
+	}
+
+	function showFieldError(input, message) {
+		var wrapper = input.closest(".wpcf7-form-control-wrap");
+		if (!wrapper) return;
+		var existing = wrapper.querySelector(".wpcf7-not-valid-tip.bb-field-error");
+		if (existing) existing.remove();
+
+		input.classList.add("wpcf7-not-valid");
+		input.setAttribute("aria-invalid", "true");
+
+		var tip = document.createElement("span");
+		tip.className = "wpcf7-not-valid-tip bb-field-error";
+		tip.setAttribute("role", "alert");
+		tip.textContent = message;
+		wrapper.appendChild(tip);
+	}
+
+	function clearFieldError(input) {
+		var wrapper = input.closest(".wpcf7-form-control-wrap");
+		if (!wrapper) return;
+		var existing = wrapper.querySelector(".wpcf7-not-valid-tip.bb-field-error");
+		if (existing) existing.remove();
+		input.classList.remove("wpcf7-not-valid");
+		input.removeAttribute("aria-invalid");
+	}
+
+	function initEmailValidation(scope) {
 		var formScope = scope || document;
 		var emailInputs = formScope.querySelectorAll(".bb-contacts-form input[type='email']");
 		if (!emailInputs.length) return;
@@ -177,6 +223,32 @@
 			if (input.dataset.bbEmailPlaceholderReady === "1") return;
 			input.dataset.bbEmailPlaceholderReady = "1";
 			input.setAttribute("placeholder", "Example@mail.com");
+
+			input.addEventListener("input", function () {
+				if (input.value.trim() !== "" && isValidEmail(input.value)) {
+					clearFieldError(input);
+				}
+			});
+
+			var form = input.closest("form");
+			if (form && !form.dataset.bbEmailValidateReady) {
+				form.dataset.bbEmailValidateReady = "1";
+				form.addEventListener("submit", function (event) {
+					var allEmails = form.querySelectorAll("input[type='email']");
+					var hasError = false;
+					allEmails.forEach(function (emailField) {
+						var val = emailField.value.trim();
+						if (val !== "" && !isValidEmail(val)) {
+							showFieldError(emailField, "Please enter a valid email address.");
+							hasError = true;
+						}
+					});
+					if (hasError) {
+						event.preventDefault();
+						event.stopImmediatePropagation();
+					}
+				});
+			}
 		});
 	}
 
@@ -203,6 +275,42 @@
 		});
 	}
 
+	function showPhoneError(input, message) {
+		var wrapper = input.closest(".wpcf7-form-control-wrap");
+		if (!wrapper) return;
+		var existing = wrapper.querySelector(".wpcf7-not-valid-tip.bb-phone-error");
+		if (existing) existing.remove();
+
+		input.classList.add("wpcf7-not-valid");
+		input.setAttribute("aria-invalid", "true");
+
+		var tip = document.createElement("span");
+		tip.className = "wpcf7-not-valid-tip bb-phone-error";
+		tip.setAttribute("role", "alert");
+		tip.textContent = message;
+		wrapper.appendChild(tip);
+	}
+
+	function clearPhoneError(input) {
+		var wrapper = input.closest(".wpcf7-form-control-wrap");
+		if (!wrapper) return;
+		var existing = wrapper.querySelector(".wpcf7-not-valid-tip.bb-phone-error");
+		if (existing) existing.remove();
+		input.classList.remove("wpcf7-not-valid");
+		input.removeAttribute("aria-invalid");
+	}
+
+	function enforcePrefix(input) {
+		var val = input.value;
+		if (val.indexOf(PHONE_PREFIX) !== 0) {
+			var digits = extractDigits(val).slice(0, PHONE_DIGITS_REQUIRED);
+			input.value = formatPhone(digits);
+		}
+		if (input.selectionStart < PHONE_PREFIX.length) {
+			input.setSelectionRange(PHONE_PREFIX.length, PHONE_PREFIX.length);
+		}
+	}
+
 	function initPhoneMask(scope) {
 		var formScope = scope || document;
 		var phoneInputs = formScope.querySelectorAll(".bb-contacts-form input[type='tel']");
@@ -212,30 +320,102 @@
 			if (input.dataset.bbPhoneMaskReady === "1") return;
 			input.dataset.bbPhoneMaskReady = "1";
 
-			input.setAttribute("placeholder", PHONE_MASK);
+			input.setAttribute("placeholder", PHONE_PLACEHOLDER);
 			input.setAttribute("inputmode", "tel");
 			input.setAttribute("autocomplete", "tel-national");
+			input.setAttribute("maxlength", "16");
+
+			input.addEventListener("focus", function () {
+				if (input.value === "") {
+					input.value = PHONE_PREFIX;
+				}
+				window.setTimeout(function () { enforcePrefix(input); }, 0);
+			});
+
+			input.addEventListener("blur", function () {
+				if (extractDigits(input.value).length === 0) {
+					input.value = "";
+				}
+			});
+
+			input.addEventListener("click", function () {
+				enforcePrefix(input);
+			});
 
 			input.addEventListener("keydown", function (event) {
+				var cursorPos = input.selectionStart || 0;
+
+				if (event.key === "Backspace" && cursorPos <= PHONE_PREFIX.length) {
+					event.preventDefault();
+					return;
+				}
+				if (event.key === "Delete" && cursorPos < PHONE_PREFIX.length) {
+					event.preventDefault();
+					return;
+				}
+				if (event.key === "ArrowLeft" && cursorPos <= PHONE_PREFIX.length) {
+					event.preventDefault();
+					return;
+				}
+
 				if (event.ctrlKey || event.metaKey || event.altKey || event.key.length !== 1) return;
 				if (containsLetter(event.key)) {
+					event.preventDefault();
+					return;
+				}
+				if (/\d/.test(event.key) && extractDigits(input.value).length >= PHONE_DIGITS_REQUIRED) {
 					event.preventDefault();
 				}
 			});
 
 			input.addEventListener("input", function () {
-				var sanitizedValue = removeLetters(input.value);
-				if (sanitizedValue !== input.value) {
-					input.value = sanitizedValue;
+				var digits = extractDigits(input.value).slice(0, PHONE_DIGITS_REQUIRED);
+				var formatted = formatPhone(digits);
+				if (input.value !== formatted) {
+					input.value = formatted;
+				}
+				if (digits.length === PHONE_DIGITS_REQUIRED) {
+					clearPhoneError(input);
 				}
 			});
+
+			input.addEventListener("paste", function (event) {
+				event.preventDefault();
+				var pasted = (event.clipboardData || window.clipboardData || "").getData("text");
+				var rawDigits = String(pasted || "").replace(/\D/g, "");
+				if (rawDigits.length === 11 && rawDigits[0] === "1") {
+					rawDigits = rawDigits.slice(1);
+				}
+				input.value = formatPhone(rawDigits.slice(0, PHONE_DIGITS_REQUIRED));
+				input.dispatchEvent(new Event("input", { bubbles: true }));
+			});
+
+			var form = input.closest("form");
+			if (form && !form.dataset.bbPhoneValidateReady) {
+				form.dataset.bbPhoneValidateReady = "1";
+				form.addEventListener("submit", function (event) {
+					var telInputs = form.querySelectorAll("input[type='tel']");
+					var hasError = false;
+					telInputs.forEach(function (tel) {
+						var digits = extractDigits(tel.value);
+						if (digits.length > 0 && digits.length < PHONE_DIGITS_REQUIRED) {
+							showPhoneError(tel, "Please enter a 10-digit phone number.");
+							hasError = true;
+						}
+					});
+					if (hasError) {
+						event.preventDefault();
+						event.stopImmediatePropagation();
+					}
+				});
+			}
 		});
 	}
 
 	function initContactsForm(scope) {
 		moveSubmitIntoDisclaimer(scope);
 		initPhoneMask(scope);
-		initEmailPlaceholder(scope);
+		initEmailValidation(scope);
 		initCareerSingleChoiceFullFields(scope);
 		initCareerCustomSelects(scope);
 	}

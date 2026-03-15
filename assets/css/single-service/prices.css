@@ -182,6 +182,7 @@
 	.single-service .bb-service-prices__label {
 		text-align: left;
 		white-space: normal;
+		rotate: 4deg;
 	}
 
 	.single-service .bb-service-prices__grid {
@@ -195,7 +196,6 @@
 	}
 
 	.single-service .bb-service-prices__top {
-		flex-direction: column;
 		align-items: flex-start;
 		gap: 16px;
 		margin-bottom: 32px;

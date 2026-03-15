@@ -24,7 +24,6 @@
 	align-items: center;
 	padding: clamp(32px, 2.81vw, 54px) clamp(13px, 1.04vw, 20px);
 	background: transparent;
-	border: 1px solid var(--color-border-neutral);
 }
 
 .bb-blog-posts-section .bb-blog-card__placeholder-text {

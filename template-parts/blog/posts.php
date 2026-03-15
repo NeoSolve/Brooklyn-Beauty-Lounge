@@ -51,7 +51,28 @@ if ( ! is_wp_error( $category_terms ) && ! empty( $category_terms ) ) {
 	}
 }
 
-$current_page_url = get_permalink( $page_id );
+$current_page_url    = get_permalink( $page_id );
+$blog_section_title  = '';
+$blog_section_label  = '';
+$blog_section_label_mobile = '';
+
+if ( function_exists( 'get_field' ) && $page_id > 0 ) {
+	$blog_section_title        = trim( (string) get_field( 'blog_section_title', $page_id ) );
+	$blog_section_label        = trim( (string) get_field( 'blog_section_label', $page_id ) );
+	$blog_section_label_mobile = trim( (string) get_field( 'blog_section_label_mobile', $page_id ) );
+}
+
+if ( '' === $blog_section_title ) {
+	$blog_section_title = $page_id > 0 ? get_the_title( $page_id ) : '';
+}
+
+if ( '' === $blog_section_title ) {
+	$blog_section_title = __( 'Beauty Journal', 'brooklyn-beauty' );
+}
+
+if ( '' === $blog_section_label_mobile ) {
+	$blog_section_label_mobile = $blog_section_label;
+}
 
 $active_tab = isset( $_GET['category'] ) ? sanitize_title( wp_unslash( (string) $_GET['category'] ) ) : 'all-posts';
 
@@ -79,6 +100,16 @@ $blog_pagination_html = isset( $blog_result['pagination'] ) ? $blog_result['pagi
 ?>
 <section class="bb-blog-posts-section" id="blog-posts" data-blog-page-url="<?php echo esc_url( $current_page_url ); ?>" data-blog-page-id="<?php echo (int) $page_id; ?>">
 	<div class="bb-container">
+		<div class="bb-blog-posts-section__heading">
+			<h1 class="bb-blog-posts-section__title"><?php echo wp_kses( $blog_section_title, array( 'br' => array() ) ); ?></h1>
+			<?php if ( '' !== $blog_section_label ) : ?>
+				<p class="bb-blog-posts-section__decor bb-blog-posts-section__decor--desktop"><?php echo wp_kses( $blog_section_label, array( 'br' => array() ) ); ?></p>
+			<?php endif; ?>
+			<?php if ( '' !== $blog_section_label_mobile ) : ?>
+				<p class="bb-blog-posts-section__decor bb-blog-posts-section__decor--mobile"><?php echo wp_kses( $blog_section_label_mobile, array( 'br' => array() ) ); ?></p>
+			<?php endif; ?>
+		</div>
+
 		<div class="bb-blog-filters-wrap">
 			<ul class="bb-blog-filters" aria-label="<?php esc_attr_e( 'Blog categories', 'brooklyn-beauty' ); ?>">
 				<?php foreach ( $blog_categories as $blog_category ) :

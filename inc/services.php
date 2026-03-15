@@ -109,6 +109,31 @@ function brooklyn_beauty_get_service_placeholder_cards( $category_slug = 'all-se
 }
 
 /**
+ * Get booking URL for a service card.
+ *
+ * Uses Single Service Hero button link when configured.
+ *
+ * @param int $service_id Service post ID.
+ *
+ * @return string
+ */
+function brooklyn_beauty_get_service_card_visit_url( $service_id ) {
+	$service_id = (int) $service_id;
+	if ( $service_id <= 0 ) {
+		return '#book';
+	}
+
+	if ( function_exists( 'get_field' ) ) {
+		$hero_button_link = trim( (string) get_field( 'service_hero_button_link', $service_id ) );
+		if ( '' !== $hero_button_link ) {
+			return $hero_button_link;
+		}
+	}
+
+	return '#book';
+}
+
+/**
  * Merge service cards with placeholder cards by configured position.
  *
  * Position is 1-based and calculated against service cards order.
@@ -590,7 +615,7 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 			'category_slugs' => array(),
 			'media_class'    => $media_class,
 			'media_image'    => $media_image,
-			'visit_url'      => '#book',
+			'visit_url'      => brooklyn_beauty_get_service_card_visit_url( $service_post->ID ),
 			'more_url'       => (string) get_permalink( $service_post ),
 			'is_placeholder' => false,
 		);

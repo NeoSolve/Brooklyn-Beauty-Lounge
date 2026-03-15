@@ -202,7 +202,7 @@ if ( ! empty( $service_posts ) ) {
 			'category_slugs' => $category_slugs,
 			'media_class'    => $fallback_media_classes[ $index % count( $fallback_media_classes ) ],
 			'media_image'    => $media_image,
-			'visit_url'      => '#book',
+			'visit_url'      => function_exists( 'brooklyn_beauty_get_service_card_visit_url' ) ? brooklyn_beauty_get_service_card_visit_url( $service_post->ID ) : '#book',
 			'more_url'       => (string) get_permalink( $service_post ),
 			'is_placeholder' => false,
 		);

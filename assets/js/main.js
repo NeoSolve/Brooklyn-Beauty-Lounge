@@ -8,6 +8,15 @@
 		return host.indexOf("www.") === 0 ? host.slice(4) : host;
 	}
 
+	function shouldOpenExternalHostInNewTab(hostname) {
+		var host = normalizeHost(hostname);
+
+		if (!host) return false;
+		if (host === "fresha.com" || host.endsWith(".fresha.com")) return false;
+
+		return true;
+	}
+
 	function mergeRel(existingRel, requiredTokens) {
 		var relTokens = (existingRel || "")
 			.toLowerCase()
@@ -62,6 +71,12 @@
 			var linkHost = normalizeHost(parsedUrl.hostname);
 			var isInternal = linkHost === siteHost || linkHost.endsWith("." + siteHost);
 			if (isInternal) return;
+			if (!shouldOpenExternalHostInNewTab(linkHost)) {
+				if (link.getAttribute("target") === "_blank") {
+					link.removeAttribute("target");
+				}
+				return;
+			}
 
 			link.setAttribute("target", "_blank");
 			link.setAttribute("rel", mergeRel(link.getAttribute("rel"), requiredRelTokens));

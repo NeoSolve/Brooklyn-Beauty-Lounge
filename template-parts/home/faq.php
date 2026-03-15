@@ -119,20 +119,19 @@ if ( '' === $left_image_url ) {
 	$left_image_url = $default_left_image_url;
 }
 
-$faq_section_style = '';
-$faq_section_class = 'bb-faq-section';
-if ( '' !== $faq_background_image_mobile_url ) {
-	$faq_section_style = ' style="--bb-faq-bg-image-mobile: url(' . esc_url( $faq_background_image_mobile_url ) . ');"';
-	$faq_section_class .= ' has-mobile-bg';
-}
 ?>
-<section class="<?php echo esc_attr( $faq_section_class ); ?>" id="faq" data-faq<?php echo $faq_section_style; ?>>
+<section class="bb-faq-section" id="faq" data-faq>
 	<div class="bb-container">
 		<div class="bb-faq-layout">
 			<div class="bb-faq-layout__left">
 				<div class="bb-faq-layout__media">
 					<?php if ( '' !== $left_image_url ) : ?>
-						<img class="bb-faq-layout__image" src="<?php echo esc_url( $left_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ section image', 'brooklyn-beauty' ); ?>" loading="lazy">
+						<picture class="bb-faq-layout__picture">
+							<?php if ( '' !== $faq_background_image_mobile_url ) : ?>
+								<source media="(max-width: 767px)" srcset="<?php echo esc_url( $faq_background_image_mobile_url ); ?>">
+							<?php endif; ?>
+							<img class="bb-faq-layout__image" src="<?php echo esc_url( $left_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ section image', 'brooklyn-beauty' ); ?>" loading="lazy">
+						</picture>
 					<?php endif; ?>
 				</div>
 

@@ -1,6 +1,34 @@
 "use strict";
 
 (function () {
+	var activeToastTimer = null;
+
+	function showCopyToast() {
+		var toast = document.querySelector(".bb-copy-toast");
+
+		if (!toast) {
+			toast = document.createElement("div");
+			toast.className = "bb-copy-toast";
+			toast.setAttribute("role", "status");
+			toast.setAttribute("aria-live", "polite");
+			toast.textContent = "Link copied!";
+			document.body.appendChild(toast);
+		}
+
+		if (activeToastTimer) {
+			clearTimeout(activeToastTimer);
+		}
+
+		toast.classList.remove("is-visible");
+		void toast.offsetWidth;
+		toast.classList.add("is-visible");
+
+		activeToastTimer = window.setTimeout(function () {
+			toast.classList.remove("is-visible");
+			activeToastTimer = null;
+		}, 2500);
+	}
+
 	function initShareActions() {
 		var shareCopyLinks = Array.prototype.slice.call(
 			document.querySelectorAll('[data-share-action="copy"][data-share-url]')
@@ -17,9 +45,10 @@
 
 				function markCopied() {
 					link.classList.add("is-copied");
+					showCopyToast();
 					window.setTimeout(function () {
 						link.classList.remove("is-copied");
-					}, 1400);
+					}, 2400);
 				}
 
 				if (canUseClipboard) {

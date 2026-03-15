@@ -235,7 +235,7 @@
 }
 
 .bb-footer__row--contacts .bb-footer__row-right {
-	gap: clamp(23px, 1.77vw, 34px);
+	gap: clamp(12px, 0.94vw, 18px);
 }
 
 .bb-footer__featured {
@@ -338,7 +338,8 @@
 @media (max-width: 767px) {
 	.bb-footer {
 		min-height: auto;
-		background-image: url("../../images/footer-bg-mobile.jpg");
+		background-image: url("../../images/footer-bg-image-mobile.jpg");
+		background-position: top center;
 	}
 
 	.bb-footer__inner {

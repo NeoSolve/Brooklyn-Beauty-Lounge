@@ -71,7 +71,7 @@ if ( '' !== $address_link ) {
 	}
 }
 
-$address_link_is_external = brooklyn_beauty_is_external_url( $address_link );
+$address_link_opens_in_new_tab = brooklyn_beauty_should_open_external_url_in_new_tab( $address_link );
 
 ?>
 
@@ -86,12 +86,12 @@ $address_link_is_external = brooklyn_beauty_is_external_url( $address_link );
 						<?php endif; ?>
 					<?php if ( '' !== $address_link ) : ?>
 						<?php if ( '' !== $address_text ) : ?>
-							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 								<?php echo esc_html( $address_text ); ?>
 							</a>
 						<?php endif; ?>
 						<?php if ( '' !== $address_text_line_2 ) : ?>
-							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+							<a class="bb-contacts-location__value bb-contacts-location__value--link" href="<?php echo esc_url( $address_link ); ?>"<?php if ( $address_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 								<?php echo esc_html( $address_text_line_2 ); ?>
 							</a>
 						<?php endif; ?>

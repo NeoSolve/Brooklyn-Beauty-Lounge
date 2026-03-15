@@ -283,7 +283,7 @@
 		line-height: 1;
 		color: var(--color-accent);
 		white-space: normal;
-		transform: rotate(11deg) translateY(-4px);
+		transform: rotate(3deg) translateY(-4px);
 		position: relative;
 		z-index: 1;
 	}

@@ -156,9 +156,9 @@ if ( function_exists( 'get_field' ) ) {
 	$footer_terms_link        = trim( (string) get_field( 'footer_terms_link', 'option' ) );
 }
 
-$footer_address_link_is_external        = brooklyn_beauty_is_external_url( $footer_address_link );
-$footer_press_title_link_is_external    = brooklyn_beauty_is_external_url( $footer_press_title_link );
-$footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $footer_press_subtitle_link );
+$footer_address_link_opens_in_new_tab        = brooklyn_beauty_should_open_external_url_in_new_tab( $footer_address_link );
+$footer_press_title_link_opens_in_new_tab    = brooklyn_beauty_should_open_external_url_in_new_tab( $footer_press_title_link );
+$footer_press_subtitle_link_opens_in_new_tab = brooklyn_beauty_should_open_external_url_in_new_tab( $footer_press_subtitle_link );
 ?>
 
 <footer class="bb-footer">
@@ -199,12 +199,12 @@ $footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $foot
 								<?php endif; ?>
 								<?php if ( '' !== $footer_address_link ) : ?>
 									<?php if ( '' !== $footer_address_text ) : ?>
-										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 											<?php echo wp_kses( $footer_address_text, $footer_allowed_html ); ?>
 										</a>
 									<?php endif; ?>
 									<?php if ( '' !== $footer_address_text_line_2 ) : ?>
-										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+										<a class="bb-footer__contact-link" href="<?php echo esc_url( $footer_address_link ); ?>"<?php if ( $footer_address_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 											<?php echo wp_kses( $footer_address_text_line_2, $footer_allowed_html ); ?>
 										</a>
 									<?php endif; ?>
@@ -320,7 +320,7 @@ $footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $foot
 						<?php if ( '' !== $footer_press_title_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--top">
 								<?php if ( '' !== $footer_press_title_link ) : ?>
-									<a href="<?php echo esc_url( $footer_press_title_link ); ?>"<?php if ( $footer_press_title_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+									<a href="<?php echo esc_url( $footer_press_title_link ); ?>"<?php if ( $footer_press_title_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 										<img src="<?php echo esc_url( $footer_press_title_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_title_alt ); ?>" loading="lazy">
 									</a>
 								<?php else : ?>
@@ -331,7 +331,7 @@ $footer_press_subtitle_link_is_external = brooklyn_beauty_is_external_url( $foot
 						<?php if ( '' !== $footer_press_subtitle_image_uri ) : ?>
 							<div class="bb-footer__press-image bb-footer__press-image--bottom">
 								<?php if ( '' !== $footer_press_subtitle_link ) : ?>
-									<a href="<?php echo esc_url( $footer_press_subtitle_link ); ?>"<?php if ( $footer_press_subtitle_link_is_external ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
+									<a href="<?php echo esc_url( $footer_press_subtitle_link ); ?>"<?php if ( $footer_press_subtitle_link_opens_in_new_tab ) : ?> target="_blank" rel="nofollow noopener noreferrer"<?php endif; ?>>
 										<img src="<?php echo esc_url( $footer_press_subtitle_image_uri ); ?>" alt="<?php echo esc_attr( $footer_press_subtitle_alt ); ?>" loading="lazy">
 									</a>
 								<?php else : ?>

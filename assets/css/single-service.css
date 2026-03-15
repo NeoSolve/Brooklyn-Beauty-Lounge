@@ -82,7 +82,7 @@
 .single-service .bb-single-service-hero__title {
 	margin: 0;
 	font-size: var(--fs-h2);
-	line-height: var(--lh-h2-semibold);
+	line-height: 0.9;
 	font-weight: var(--fw-h2-semibold);
 	letter-spacing: var(--ls-h2-semibold);
 	color: var(--color-primary);
@@ -91,6 +91,7 @@
 
 .single-service .bb-single-service-hero__cta {
 	margin-top: clamp(29px, 2.5vw, 48px);
+	margin-bottom: 18px;
 	align-self: start;
 	justify-self: start;
 	width: auto;

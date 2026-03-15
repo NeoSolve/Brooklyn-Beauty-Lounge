@@ -413,7 +413,8 @@
 	.bb-service-card__visit-btn {
 		flex-shrink: 0;
 		min-width: 0;
-		padding: 17px 45px;
+		max-height: 44px;
+		padding: 13px 45px;
 		justify-content: center;
 		text-align: center;
 	}

@@ -6,6 +6,55 @@
 	if (!sections.length) return;
 
 	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var desktopMedia = window.matchMedia('(min-width: 1025px)');
+
+	function updateDesktopSectionNumbers() {
+		sections.forEach(function (section) {
+			var copy = section.querySelector('.bb-service-explore__section-copy');
+			var title = section.querySelector('.bb-service-explore__section-title');
+			var desktopNumber = section.querySelector('.bb-service-explore__section-number--desktop');
+
+			if (!copy || !title || !desktopNumber) return;
+
+			if (!desktopMedia.matches) {
+				copy.style.removeProperty('--bb-explore-number-left');
+				return;
+			}
+
+			var range = document.createRange();
+			range.selectNodeContents(title);
+
+			var rects = range.getClientRects();
+			if (!rects.length) {
+				copy.style.removeProperty('--bb-explore-number-left');
+				return;
+			}
+
+			var titleRect = title.getBoundingClientRect();
+			var copyRect = copy.getBoundingClientRect();
+			var firstLineRect = rects[0];
+			var lineTop = firstLineRect.top;
+			var lineBottom = firstLineRect.bottom;
+
+			for (var index = 1; index < rects.length; index++) {
+				var rect = rects[index];
+				if (Math.abs(rect.top - lineTop) < 1 && Math.abs(rect.bottom - lineBottom) < 1) {
+					if (rect.right > firstLineRect.right) {
+						firstLineRect = rect;
+					}
+					continue;
+				}
+
+				break;
+			}
+
+			var numberLeft = firstLineRect.right - copyRect.left;
+			var numberTop = titleRect.top - copyRect.top;
+
+			copy.style.setProperty('--bb-explore-number-left', Math.round(numberLeft) + 'px');
+			copy.style.setProperty('--bb-explore-number-top', Math.round(numberTop) + 'px');
+		});
+	}
 
 	sections.forEach(function (section) {
 		var toggle = section.querySelector('.bb-service-explore__toggle');
@@ -67,4 +116,8 @@
 			}
 		});
 	});
+
+	updateDesktopSectionNumbers();
+	window.addEventListener('load', updateDesktopSectionNumbers);
+	window.addEventListener('resize', updateDesktopSectionNumbers);
 })();

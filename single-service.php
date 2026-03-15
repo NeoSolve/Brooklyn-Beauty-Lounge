@@ -215,10 +215,10 @@ while ( have_posts() ) :
 						<?php if ( '' !== trim( $hero_intro_left . $hero_intro_right ) ) : ?>
 							<div class="bb-single-service-hero__intro">
 								<?php if ( '' !== trim( $hero_intro_left ) ) : ?>
-									<p class="bb-single-service-hero__intro-text"><?php echo esc_html( $hero_intro_left ); ?></p>
+									<p class="bb-single-service-hero__intro-text"><?php echo wp_kses_post( $hero_intro_left ); ?></p>
 								<?php endif; ?>
 								<?php if ( '' !== trim( $hero_intro_right ) ) : ?>
-									<p class="bb-single-service-hero__intro-text"><?php echo esc_html( $hero_intro_right ); ?></p>
+									<p class="bb-single-service-hero__intro-text"><?php echo wp_kses_post( $hero_intro_right ); ?></p>
 								<?php endif; ?>
 							</div>
 						<?php endif; ?>

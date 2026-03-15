@@ -351,8 +351,8 @@
 
 	.bb-about-us__portrait-wrap {
 		grid-area: portrait;
-		width: 80px;
-		height: 80px;
+		width: 102px;
+		height: 135px;
 		flex-shrink: 0;
 	}
 
