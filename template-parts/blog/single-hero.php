@@ -28,7 +28,8 @@ if ( has_post_thumbnail( $post_id ) ) {
 	}
 }
 
-$news_page_url = home_url( '/news/' );
+$posts_page_id = (int) get_option( 'page_for_posts' );
+$news_page_url = $posts_page_id > 0 ? get_permalink( $posts_page_id ) : home_url( '/blog/' );
 
 $post_excerpt = trim( (string) get_the_excerpt( $post_id ) );
 $post_content = (string) get_post_field( 'post_content', $post_id );
@@ -67,7 +68,8 @@ if ( '' === $intro_right && '' !== $intro_left ) {
 	}
 }
 
-$categories = get_the_category( $post_id );
+$categories      = get_the_category( $post_id );
+$primary_category = ! empty( $categories ) ? $categories[0] : null;
 
 if ( function_exists( 'get_field' ) ) {
 	$acf_hero_title = trim( (string) get_field( 'single_post_hero_title', $post_id ) );
@@ -146,17 +148,29 @@ if ( function_exists( 'get_field' ) ) {
 <section class="bb-blog-single-hero" aria-labelledby="bb-blog-single-title">
 	<div class="bb-container">
 		<div class="bb-blog-single-hero__top">
-			<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-				</a>
-				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $news_page_url ); ?>">
-					<?php esc_html_e( 'Blog', 'brooklyn-beauty' ); ?>
-				</a>
-				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-				<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $hero_title ); ?></span>
-			</nav>
+			<?php
+			$breadcrumb_items = array(
+				array(
+					'label' => __( 'Home', 'brooklyn-beauty' ),
+					'url'   => home_url( '/' ),
+				),
+				array(
+					'label' => __( 'Blog', 'brooklyn-beauty' ),
+					'url'   => $news_page_url,
+				),
+			);
+
+			if ( $primary_category ) {
+				$breadcrumb_items[] = array(
+					'label' => $primary_category->name,
+					'url'   => add_query_arg( 'category', $primary_category->slug, $news_page_url ),
+				);
+			}
+
+			$breadcrumb_items[] = array( 'label' => $hero_title );
+
+			get_template_part( 'template-parts/components/breadcrumbs', null, array( 'items' => $breadcrumb_items ) );
+			?>
 
 			<?php if ( ! empty( $categories ) ) : ?>
 				<ul class="bb-blog-single-hero__tags" aria-label="<?php esc_attr_e( 'Post categories', 'brooklyn-beauty' ); ?>">

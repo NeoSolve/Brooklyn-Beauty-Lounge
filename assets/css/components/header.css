@@ -429,6 +429,18 @@ body.bb-mobile-menu-open {
 	overflow: hidden;
 }
 
+html.bb-hero-video-open,
+body.bb-hero-video-open {
+	overflow: hidden;
+}
+
+.bb-hero-video-open .bb-header,
+.bb-hero-video-open .bb-mobile-nav {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
 @media (max-width: 1180px) {
 	.bb-header__inner {
 		gap: 20px;

@@ -10,6 +10,11 @@
 	var btnClose = container.querySelector('[data-hero-video-close]');
 	var video = container.querySelector('[data-hero-video]');
 
+	function setPageFullscreenState(isActive) {
+		document.documentElement.classList.toggle('bb-hero-video-open', isActive);
+		document.body.classList.toggle('bb-hero-video-open', isActive);
+	}
+
 	function isFullscreen() {
 		return !!(
 			document.fullscreenElement ||
@@ -85,6 +90,7 @@
 		if (btnClose) {
 			btnClose.hidden = !full;
 		}
+		setPageFullscreenState(full);
 	}
 
 	function onFullscreenChange() {
@@ -98,6 +104,7 @@
 					.then(function () {
 						container.classList.add('is-fullscreen');
 						if (btnClose) btnClose.hidden = false;
+						setPageFullscreenState(true);
 						if (video && video.play) {
 							video.play().catch(function () {});
 						}
@@ -112,7 +119,14 @@
 	if (btnClose) {
 		btnClose.addEventListener('click', function () {
 			animateButtonAndRun(btnClose, function () {
-				exitFullscreen().catch(function () {});
+				if (isFullscreen() && isFullscreenTarget(container)) {
+					exitFullscreen().catch(function () {});
+					return;
+				}
+
+				container.classList.remove('is-fullscreen');
+				btnClose.hidden = true;
+				setPageFullscreenState(false);
 			});
 		});
 	}
