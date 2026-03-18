@@ -158,8 +158,8 @@
 	.single-service .bb-service-why__layout {
 		display: grid;
 		grid-template-areas:
-			"title"
 			"label"
+			"title"
 			"grid";
 		grid-template-columns: minmax(0, 1fr);
 		row-gap: 14px;
@@ -190,13 +190,13 @@
 	}
 
 	.single-service .bb-service-why__label {
-		margin: -44px 4px 0 auto;
+		margin: 0 4px 0 auto;
 		max-width: 140px;
 		text-align: center;
 		font-size: var(--fs-decor);
 		line-height: var(--lh-decor);
 		font-weight: var(--fw-decor);
-		transform: rotate(6deg);
+		transform: translateY(8px) rotate(6deg);
 	}
 
 	.single-service .bb-service-why__grid {

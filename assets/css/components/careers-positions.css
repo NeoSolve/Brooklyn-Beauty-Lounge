@@ -143,6 +143,7 @@
 		align-items: baseline;
 		justify-content: space-between;
 		margin-bottom: 24px;
+		column-gap: unset;
 	}
 
 	.bb-careers-positions__title {

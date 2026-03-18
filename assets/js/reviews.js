@@ -13,6 +13,7 @@
 	if (!track || !prevButton || !nextButton) return;
 	var cards = track.querySelectorAll(".bb-review-card");
 	if (!cards.length) return;
+	var originalCardsCount = cards.length;
 
 	function cloneCards() {
 		var fragment1 = document.createDocumentFragment();
@@ -37,6 +38,16 @@
 	}
 
 	function getSetWidth() {
+		var allCards = track.querySelectorAll(".bb-review-card");
+		if (allCards.length <= originalCardsCount) {
+			return track.scrollWidth / 3;
+		}
+
+		var firstSetStart = allCards[0].offsetLeft;
+		var secondSetStart = allCards[originalCardsCount].offsetLeft;
+		var measuredSetWidth = secondSetStart - firstSetStart;
+
+		if (measuredSetWidth > 0) return measuredSetWidth;
 		return track.scrollWidth / 3;
 	}
 
@@ -55,22 +66,44 @@
 		return getSetWidth() - getCenterOffset();
 	}
 
-	function normalizeScrollPosition() {
+	function getNormalizedScrollLeft(left) {
 		var setWidth = getSetWidth();
-		var left = track.scrollLeft;
 		var anchor = getAnchorScrollLeft();
 		var upperBound = anchor + setWidth;
+		var normalizedLeft = left;
 
-		if (left >= upperBound - 1) {
-			track.scrollLeft = left - setWidth;
-		} else if (left < anchor - 1) {
-			track.scrollLeft = left + setWidth;
+		if (!setWidth) return normalizedLeft;
+
+		while (normalizedLeft >= upperBound - 1) {
+			normalizedLeft -= setWidth;
+		}
+
+		while (normalizedLeft < anchor - 1) {
+			normalizedLeft += setWidth;
+		}
+
+		return normalizedLeft;
+	}
+
+	function normalizeScrollPosition() {
+		var normalizedLeft = getNormalizedScrollLeft(track.scrollLeft);
+		if (Math.abs(normalizedLeft - track.scrollLeft) > 1) {
+			track.scrollLeft = normalizedLeft;
 		}
 	}
 
 	function scrollReviews(direction) {
-		track.scrollBy({
-			left: direction * getScrollStep(),
+		var step = getScrollStep();
+		var currentLeft = getNormalizedScrollLeft(track.scrollLeft);
+		if (Math.abs(currentLeft - track.scrollLeft) > 1) {
+			track.scrollLeft = currentLeft;
+		}
+
+		isProgrammaticScroll = true;
+		window.clearTimeout(scrollEndTimeout);
+
+		track.scrollTo({
+			left: currentLeft + direction * step,
 			behavior: "smooth",
 		});
 	}
@@ -84,9 +117,20 @@
 	});
 
 	var scrollTicking = false;
+	var scrollEndTimeout = 0;
+	var isProgrammaticScroll = false;
 	track.addEventListener(
 		"scroll",
 		function () {
+			if (isProgrammaticScroll) {
+				window.clearTimeout(scrollEndTimeout);
+				scrollEndTimeout = window.setTimeout(function () {
+					isProgrammaticScroll = false;
+					normalizeScrollPosition();
+				}, 260);
+				return;
+			}
+
 			if (scrollTicking) return;
 			scrollTicking = true;
 			requestAnimationFrame(function () {

@@ -98,7 +98,7 @@
 .single-post .bb-blog-single-content__article h2,
 .single-post .bb-blog-single-content__article h3,
 .single-post .bb-blog-single-content__article h4 {
-	color: var(--color-primary);
+	color: var(--color-accent);
 }
 
 .single-post .bb-blog-single-content__article h2 {

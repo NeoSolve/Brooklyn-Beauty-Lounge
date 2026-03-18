@@ -386,7 +386,7 @@
 }
 
 #career-questionnaire-form .wpcf7-form .wpcf7-spinner {
-	margin: 0 0 0 12px;
+	display: none;
 }
 
 #career-questionnaire-form .wpcf7-form .wpcf7-response-output {
@@ -396,6 +396,10 @@
 }
 
 @media (max-width: 1024px) {
+	#career-questionnaire-form .bb-contacts-form__layout--career-questionnaire {
+		width: 100%;
+	}
+
 	#career-questionnaire-form .bb-contacts-form__decor--right {
 		display: none;
 	}
@@ -412,5 +416,151 @@
 	#career-questionnaire-form .wpcf7-form .wpcf7-form-control-wrap[data-name*="position"] .wpcf7-form-control,
 	#career-questionnaire-form .wpcf7-form .wpcf7-checkbox {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 767px) {
+	#career-questionnaire-form {
+		padding: 16px 0 120px;
+	}
+
+	.bb-career-questionnaire-breadcrumbs,
+	.bb-career-questionnaire-breadcrumbs .bb-breadcrumbs {
+		padding-top: 8px;
+	}
+
+	#career-questionnaire-form .wpcf7-form h1,
+	#career-questionnaire-form .wpcf7-form h2,
+	#career-questionnaire-form .wpcf7-form h3,
+	#career-questionnaire-form .wpcf7-form .cf7-title {
+		margin-bottom: 32px;
+		font-size: var(--fs-h3);
+		line-height: var(--lh-h3-semibold);
+		font-weight: var(--fw-h3-semibold);
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-grid {
+		row-gap: 12px;
+		margin-bottom: 32px;
+	}
+
+	#career-questionnaire-form .wpcf7-form h3 + .bb-cq-grid {
+		margin-bottom: 36px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-submit {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		row-gap: 16px;
+		margin-top: 0;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-submit > .bb-cq-submit-note {
+		order: 1;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-submit > :not(.bb-cq-submit-note) {
+		order: 2;
+		width: 100%;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-submit-note {
+		padding: 0;
+		font-size: var(--fs-body-3);
+		line-height: var(--lh-body-3);
+		font-weight: var(--fw-body-medium);
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-form-control-wrap[data-name*="position"] .wpcf7-form-control,
+	#career-questionnaire-form .wpcf7-form .wpcf7-checkbox {
+		row-gap: 12px;
+		margin-bottom: 28px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item {
+		align-items: flex-start;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item label {
+		align-items: flex-start;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item-label {
+		font-size: 15px;
+		line-height: 1.3;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="checkbox"],
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="radio"] {
+		width: 24px;
+		height: 24px;
+		margin-right: 10px;
+		flex-shrink: 0;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="checkbox"]::before,
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="radio"]::before {
+		width: 28px;
+		height: 24px;
+		transform: translateY(-5px) scale(0);
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="checkbox"]:checked::before,
+	#career-questionnaire-form .wpcf7-form .wpcf7-list-item input[type="radio"]:checked::before {
+		transform: translateY(-2px) scale(1);
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-radio {
+		gap: 12px;
+	}
+
+	#career-questionnaire-form .wpcf7-form p {
+		margin-bottom: 8px;
+		font-size: var(--fs-body-3);
+		line-height: var(--lh-body-3);
+		font-weight: var(--fw-body-medium);
+	}
+
+	#career-questionnaire-form .wpcf7-form label {
+		font-size: 16px;
+	}
+
+	#career-questionnaire-form .wpcf7-form input[type="text"],
+	#career-questionnaire-form .wpcf7-form input[type="email"],
+	#career-questionnaire-form .wpcf7-form input[type="tel"],
+	#career-questionnaire-form .wpcf7-form input[type="number"],
+	#career-questionnaire-form .wpcf7-form input[type="date"],
+	#career-questionnaire-form .wpcf7-form select,
+	#career-questionnaire-form .wpcf7-form textarea,
+	#career-questionnaire-form .wpcf7-form .bb-cq-select__trigger {
+		height: 52px;
+		padding: 14px 16px;
+		font-size: 16px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-select__trigger {
+		padding-right: 44px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-select__trigger::after {
+		right: 16px;
+		width: 16px;
+		height: 10px;
+	}
+
+	#career-questionnaire-form .wpcf7-form textarea {
+		min-height: 120px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .bb-cq-select__option {
+		padding: 12px 16px;
+		font-size: 14px;
+	}
+
+	#career-questionnaire-form .wpcf7-form .wpcf7-submit,
+	#career-questionnaire-form .wpcf7-form input[type="submit"] {
+		min-height: 52px;
+		font-size: 18px;
 	}
 }

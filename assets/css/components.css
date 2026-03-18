@@ -9,3 +9,13 @@
 @import url("./components/reviews.css");
 @import url("./components/faq.css");
 @import url("./components/footer.css");
+
+.bb-about-us__arrow,
+.bb-promotions__arrow,
+.bb-reviews__arrow,
+.bb-other-articles__arrow,
+.bb-our-work__arrow {
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+}

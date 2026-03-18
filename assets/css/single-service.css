@@ -225,9 +225,23 @@
 	}
 
 	.single-service .bb-breadcrumbs {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		flex-wrap: nowrap;
+		overflow: hidden;
 		font-size: var(--fs-body-3, 14px);
 		line-height: 1.2;
 		gap: 6px;
+	}
+
+	.single-service .bb-breadcrumbs__current {
+		display: block;
+		flex: 1 1 auto;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.single-service .bb-breadcrumbs__separator {

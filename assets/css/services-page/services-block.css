@@ -2,8 +2,9 @@
 /*	padding-top: clamp(44px, 3.44vw, 66px);*/
 /*}*/
 
+
 @media (max-width: 992px) {
-	.page-template-page-services .bb-services-section {
-		padding: 60px 0 120px;
-	}
+    .page-template-page-services .bb-services-section {
+        padding: 60px 0 120px;
+    }
 }

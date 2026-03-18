@@ -4,7 +4,7 @@
  */
 
 .bb-blog-posts-section {
-	padding: clamp(133px, 10.42vw, 200px) 0;
+	padding: 0 0 clamp(67px, 5.21vw, 100px);
 }
 
 .bb-blog-posts-section .bb-blog-posts-section__heading {
@@ -30,8 +30,7 @@
 .bb-blog-posts-section .bb-blog-posts-section__decor {
 	grid-column: 3;
 	justify-self: start;
-	margin: clamp(8px, 0.99vw, 19px) 0 0;
-	padding-left: clamp(14px, 1.67vw, 32px);
+	margin: clamp(-30px, -1.56vw, -18px) 0 0 clamp(-180px, -9.3vw, -108px);
 	font-family: var(--font-decor);
 	font-size: var(--fs-decor);
 	line-height: var(--lh-decor);

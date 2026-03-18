@@ -199,7 +199,7 @@
 		font-size: clamp(92px, 24.4vw, 140px);
 		line-height: 0.84;
 		text-align: center;
-		overflow: hidden;
+		/*overflow: hidden;*/
 		text-wrap: nowrap;
 	}
 

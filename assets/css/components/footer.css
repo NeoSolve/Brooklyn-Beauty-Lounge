@@ -1,6 +1,7 @@
 .bb-footer {
 	position: relative;
 	display: flex;
+	margin-top: clamp(67px, 5.21vw, 100px);
 	color: var(--color-surface);
 	background-color: var(--color-footer-bg);
 	background-image: url("../../images/footer-bg.jpg");
@@ -8,6 +9,12 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	min-height: 100vh;
+}
+
+@media (max-width: 992px) {
+	.bb-footer {
+		margin-top: 0;
+	}
 }
 
 .bb-footer__inner {
@@ -406,8 +413,8 @@
 	}
 
 	.bb-footer__row.bb-footer__row--main .bb-footer__brand img {
-		max-height: 56px;
-		height: 56px;
+		max-height: 70px;
+		height: 70px;
 	}
 
 	.bb-footer__row.bb-footer__row--contacts {
@@ -509,6 +516,9 @@
 
 	.bb-footer__button {
 		min-width: 160px;
+		height: auto;
+		padding-top: 17px;
+		padding-bottom: 17px;
 	}
 
 	.bb-footer__contacts {

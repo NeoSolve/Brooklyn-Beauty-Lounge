@@ -28,7 +28,7 @@ get_header();
 		<div class="bb-404__content">
 			<h1 id="bb-404-title" class="bb-404__title">
 				<?php esc_html_e( "oops, we can't find this page", 'brooklyn-beauty' ); ?>
-				<span class="bb-404__sorry"><?php esc_html_e( 'sorry:(', 'brooklyn-beauty' ); ?></span>
+				<span class="bb-404__sorry"><?php esc_html_e( 'sorry :(', 'brooklyn-beauty' ); ?></span>
 			</h1>
 
 			<a class="btn btn--small bb-404__button" href="<?php echo esc_url( home_url( '/' ) ); ?>">

@@ -134,7 +134,7 @@
 
 	.bb-404__inner.bb-container {
 		width: 100%;
-		gap: 50px;
+		gap: 20px;
 	}
 
 	.bb-404__visual {
@@ -146,22 +146,23 @@
 	}
 
 	.bb-404__chandelier {
-		max-width: 100%;
-		width: 400px;
+		max-width: 460px;
+		width: 460px;
 		top: -50%;
 		left: 52%;
 	}
 
 	.bb-404__title {
 		margin-top: 21px;
-		max-width: 9em;
-		padding-right: 1.8em;
-		font-size: clamp(28px, 8.8vw, 42px);
-		line-height: 1;
+		max-width: 8em;
+		/*padding-right: 1.8em;*/
+		font-size: var(--fs-h1-alt);
+		line-height: var(--lh-h1-alt);
+		font-weight: var(--fw-h1-alt);
 	}
 
 	.bb-404__sorry {
-		transform: translate(-0.9em, -0.35em) rotate(5deg);
+		transform: translate(-2.2em, -1.65em) rotate(5deg);
 	}
 
 	.bb-404__button {

@@ -186,7 +186,7 @@
 	background: var(--color-accent);
 	color: #fff;
 	border: 0;
-	padding: 12px 32px;
+	padding: 17px 32px;
 	font-size: 18px;
 	line-height: 1;
 	font-weight: 500;
@@ -194,7 +194,7 @@
 	border-radius: 2px;
 	text-transform: lowercase;
 	min-width: clamp(144px, 12.5vw, 240px);
-	height: clamp(36px, 3.125vw, 60px);
+	/*height: clamp(36px, 3.125vw, 60px);*/
 	box-shadow: inset 0 0 0 0 var(--color-surface);
 	transition: box-shadow 0.15s ease;
 }

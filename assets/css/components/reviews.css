@@ -103,7 +103,7 @@
 .bb-reviews__track {
 	display: grid;
 	grid-auto-flow: column;
-	grid-auto-columns: minmax(clamp(297px, 23.18vw, 445px), 1fr);
+	grid-auto-columns: minmax(clamp(297px, 23.1vw, 445px), 1fr);
 	gap: clamp(13px, 1.04vw, 20px);
 	overflow-x: auto;
 	scrollbar-width: none;
