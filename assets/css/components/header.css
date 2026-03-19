@@ -627,7 +627,7 @@ body.bb-hero-video-open {
 
 	.bb-header__inner {
 		justify-content: space-between;
-		padding-block: 10px;
+		padding-block: 4px;
 		min-height: 0;
 	}
 

@@ -128,7 +128,7 @@
 	background: var(--color-surface);
 	overflow: hidden;
 	border-radius: 8px;
-	height: clamp(440px, 38.54vw, 740px);
+	min-height: clamp(440px, 38.54vw, 740px);
 }
 
 .single-service .bb-single-service-hero__media img,

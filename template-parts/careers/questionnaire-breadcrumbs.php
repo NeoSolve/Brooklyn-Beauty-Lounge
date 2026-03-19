@@ -10,12 +10,20 @@ $page_title = $page_id > 0 ? get_the_title( $page_id ) : __( 'Career questionnai
 ?>
 <section class="bb-career-questionnaire-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
 	<div class="bb-container">
-		<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-			<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-			</a>
-			<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-			<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $page_title ); ?></span>
-		</nav>
+		<?php
+		get_template_part(
+			'template-parts/components/breadcrumbs',
+			null,
+			array(
+				'items' => array(
+					array(
+						'label' => __( 'Home', 'brooklyn-beauty' ),
+						'url'   => home_url( '/' ),
+					),
+					array( 'label' => $page_title ),
+				),
+			)
+		);
+		?>
 	</div>
 </section>

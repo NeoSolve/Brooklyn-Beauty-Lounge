@@ -13,6 +13,8 @@ $address_link         = 'https://maps.google.com/?q=2080+Coney+Island+Avenue+Bro
 $hours_label    = __( 'hours', 'brooklyn-beauty' );
 $hours_days     = __( 'Monday - Sunday:', 'brooklyn-beauty' );
 $hours_time     = __( '8:30 AM - 8:30 PM', 'brooklyn-beauty' );
+$price_range_label = __( 'price range', 'brooklyn-beauty' );
+$price_range       = '';
 
 if ( function_exists( 'get_field' ) ) {
 	$acf_address_label = trim( (string) get_field( 'footer_address_label', 'option' ) );
@@ -49,6 +51,11 @@ if ( function_exists( 'get_field' ) ) {
 
 	if ( '' !== $acf_hours_time ) {
 		$hours_time = $acf_hours_time;
+	}
+
+	$acf_price_range = trim( (string) get_field( 'local_business_price_range', 'option' ) );
+	if ( '' !== $acf_price_range ) {
+		$price_range = $acf_price_range;
 	}
 }
 
@@ -116,6 +123,13 @@ $address_link_opens_in_new_tab = brooklyn_beauty_should_open_external_url_in_new
 						<p class="bb-contacts-location__value"><?php echo esc_html( $hours_time ); ?></p>
 					<?php endif; ?>
 				</div>
+
+				<?php if ( '' !== $price_range ) : ?>
+					<div class="bb-contacts-location__block">
+						<p class="bb-contacts-location__label"><?php echo esc_html( $price_range_label ); ?></p>
+						<p class="bb-contacts-location__value"><?php echo esc_html( $price_range ); ?></p>
+					</div>
+				<?php endif; ?>
 				</div>
 
 				<h2 class="bb-contacts-location__title" id="bb-contacts-location-title"><?php echo esc_html( $location_title ); ?></h2>

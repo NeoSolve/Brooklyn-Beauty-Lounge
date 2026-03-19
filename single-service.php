@@ -189,19 +189,25 @@ while ( have_posts() ) :
 		<section class="bb-single-service-hero">
 			<div class="bb-container">
 				<div class="bb-single-service-hero__top">
-					<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-						<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-						</a>
-						<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-						<?php if ( '' !== $services_page_url ) : ?>
-							<a class="bb-breadcrumbs__link" href="<?php echo esc_url( $services_page_url ); ?>">
-								<?php esc_html_e( 'Services', 'brooklyn-beauty' ); ?>
-							</a>
-							<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-						<?php endif; ?>
-						<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $breadcrumb_title ); ?></span>
-					</nav>
+					<?php
+					$breadcrumb_items = array(
+						array(
+							'label' => __( 'Home', 'brooklyn-beauty' ),
+							'url'   => home_url( '/' ),
+						),
+					);
+
+					if ( '' !== $services_page_url ) {
+						$breadcrumb_items[] = array(
+							'label' => __( 'Services', 'brooklyn-beauty' ),
+							'url'   => $services_page_url,
+						);
+					}
+
+					$breadcrumb_items[] = array( 'label' => $breadcrumb_title );
+
+					get_template_part( 'template-parts/components/breadcrumbs', null, array( 'items' => $breadcrumb_items ) );
+					?>
 					<p class="bb-single-service-hero__tagline t-decor"><?php echo wp_kses_post( $hero_tagline ); ?></p>
 				</div>
 

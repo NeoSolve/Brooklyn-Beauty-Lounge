@@ -24,6 +24,7 @@ $footer_email_link  = '';
 $footer_hours_label = '';
 $footer_hours_days  = '';
 $footer_hours_time  = '';
+$footer_price_range = '';
 
 $footer_button_text = '';
 $footer_button_link = '';
@@ -89,6 +90,22 @@ if ( function_exists( 'get_field' ) ) {
 	$footer_hours_label = $acf_hours_label;
 	$footer_hours_days  = $acf_hours_days;
 	$footer_hours_time  = $acf_hours_time;
+
+	$acf_local_business_telephone = trim( (string) get_field( 'local_business_telephone', 'option' ) );
+	if ( '' === $footer_phone_text && '' !== $acf_local_business_telephone ) {
+		$footer_phone_text = $acf_local_business_telephone;
+	}
+	if ( '' === $footer_phone_link && '' !== $footer_phone_text ) {
+		$phone_href = preg_replace( '/[^0-9+]/', '', $footer_phone_text );
+		if ( is_string( $phone_href ) && '' !== $phone_href ) {
+			$footer_phone_link = 'tel:' . $phone_href;
+		}
+	}
+
+	$acf_local_business_price_range = trim( (string) get_field( 'local_business_price_range', 'option' ) );
+	if ( '' !== $acf_local_business_price_range ) {
+		$footer_price_range = $acf_local_business_price_range;
+	}
 
 	$acf_footer_social = get_field( 'footer_social_items', 'option' );
 
@@ -263,6 +280,13 @@ $footer_press_subtitle_link_opens_in_new_tab = brooklyn_beauty_should_open_exter
 							<?php if ( '' !== $footer_hours_time ) : ?>
 								<div class="bb-footer__contact-text"><?php echo wp_kses( $footer_hours_time, $footer_allowed_html ); ?></div>
 							<?php endif; ?>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( '' !== $footer_price_range ) : ?>
+						<div class="bb-footer__contact-block bb-footer__contact-block--right">
+							<div class="bb-footer__label"><?php esc_html_e( 'Price range', 'brooklyn-beauty' ); ?></div>
+							<div class="bb-footer__contact-text"><?php echo esc_html( $footer_price_range ); ?></div>
 						</div>
 					<?php endif; ?>
 				</div>

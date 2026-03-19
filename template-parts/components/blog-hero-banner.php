@@ -83,13 +83,21 @@ if ( preg_match( '/^(.*?\bwith)\s+(Brooklyn Beauty Lounge!?)$/i', $hero_tagline,
 ?>
 <section class="bb-services-hero bb-blog-hero" aria-labelledby="bb-blog-hero-title">
 	<div class="bb-container bb-services-hero__inner">
-		<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-			<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-			</a>
-			<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-			<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $hero_title ); ?></span>
-		</nav>
+		<?php
+		get_template_part(
+			'template-parts/components/breadcrumbs',
+			null,
+			array(
+				'items' => array(
+					array(
+						'label' => __( 'Home', 'brooklyn-beauty' ),
+						'url'   => home_url( '/' ),
+					),
+					array( 'label' => $hero_title ),
+				),
+			)
+		);
+		?>
 
 		<div class="bb-services-hero__stage">
 			<h1 class="bb-services-hero__title" id="bb-blog-hero-title"><?php echo esc_html( $hero_background_word ); ?></h1>

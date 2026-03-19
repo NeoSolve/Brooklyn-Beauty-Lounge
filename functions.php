@@ -23,5 +23,8 @@ require_once get_template_directory() . '/inc/ajax.php';
 require_once get_template_directory() . '/inc/acf.php';
 require_once get_template_directory() . '/inc/forms.php';
 require_once get_template_directory() . '/inc/seo.php';
+require_once get_template_directory() . '/inc/local-business.php';
+require_once get_template_directory() . '/inc/robots.php';
+require_once get_template_directory() . '/inc/sitemap.php';
 require_once get_template_directory() . '/inc/helpers.php';
 require_once get_template_directory() . '/inc/cleanup.php';

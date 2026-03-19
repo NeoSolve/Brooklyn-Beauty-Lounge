@@ -68,8 +68,7 @@ if ( '' === $intro_right && '' !== $intro_left ) {
 	}
 }
 
-$categories      = get_the_category( $post_id );
-$primary_category = ! empty( $categories ) ? $categories[0] : null;
+$categories = get_the_category( $post_id );
 
 if ( function_exists( 'get_field' ) ) {
 	$acf_hero_title = trim( (string) get_field( 'single_post_hero_title', $post_id ) );
@@ -159,13 +158,6 @@ if ( function_exists( 'get_field' ) ) {
 					'url'   => $news_page_url,
 				),
 			);
-
-			if ( $primary_category ) {
-				$breadcrumb_items[] = array(
-					'label' => $primary_category->name,
-					'url'   => add_query_arg( 'category', $primary_category->slug, $news_page_url ),
-				);
-			}
 
 			$breadcrumb_items[] = array( 'label' => $hero_title );
 

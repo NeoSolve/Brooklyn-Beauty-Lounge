@@ -17,13 +17,21 @@ $archive_description = get_the_archive_description();
 
 <section class="bb-services-archive-hero">
 	<div class="bb-container">
-		<nav class="bb-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-			<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-			</a>
-			<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-			<span class="bb-breadcrumbs__current" aria-current="page"><?php echo esc_html( $archive_title ); ?></span>
-		</nav>
+		<?php
+		get_template_part(
+			'template-parts/components/breadcrumbs',
+			null,
+			array(
+				'items' => array(
+					array(
+						'label' => __( 'Home', 'brooklyn-beauty' ),
+						'url'   => home_url( '/' ),
+					),
+					array( 'label' => $archive_title ),
+				),
+			)
+		);
+		?>
 
 		<h1 class="bb-services-archive-hero__title"><?php echo esc_html( $archive_title ); ?></h1>
 		<?php if ( '' !== trim( wp_strip_all_tags( $archive_description ) ) ) : ?>

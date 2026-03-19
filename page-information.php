@@ -20,13 +20,22 @@ get_header();
 		while ( have_posts() ) :
 			the_post();
 			?>
-			<nav class="bb-breadcrumbs bb-info-page__breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'brooklyn-beauty' ); ?>">
-				<a class="bb-breadcrumbs__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<?php esc_html_e( 'Home', 'brooklyn-beauty' ); ?>
-				</a>
-				<span class="bb-breadcrumbs__separator" aria-hidden="true"></span>
-				<span class="bb-breadcrumbs__current" aria-current="page"><?php the_title(); ?></span>
-			</nav>
+			<?php
+			get_template_part(
+				'template-parts/components/breadcrumbs',
+				null,
+				array(
+					'class_name' => 'bb-info-page__breadcrumbs',
+					'items'      => array(
+						array(
+							'label' => __( 'Home', 'brooklyn-beauty' ),
+							'url'   => home_url( '/' ),
+						),
+						array( 'label' => get_the_title() ),
+					),
+				)
+			);
+			?>
 
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'bb-info-page__article' ); ?>>
 				<h1 class="bb-info-page__title"><?php the_title(); ?></h1>
