@@ -118,7 +118,10 @@ if ( preg_match( '/^(.*?\bwith)\s+(Brooklyn Beauty Lounge!?)$/i', $hero_tagline,
 			<p class="bb-services-hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
 			<p class="bb-services-hero__description"><?php echo esc_html( $hero_description ); ?></p>
 
-			<div class="bb-services-hero__media">
+			<div
+				class="bb-services-hero__media"
+				data-default-image-url="<?php echo esc_attr( $hero_image_url ); ?>"
+				data-default-image-alt="<?php echo esc_attr( $hero_image_alt ); ?>">
 				<?php if ( '' !== $hero_image_url ) : ?>
 					<img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_image_alt ); ?>" loading="lazy" decoding="async">
 				<?php else : ?>

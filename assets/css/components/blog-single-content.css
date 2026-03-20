@@ -387,6 +387,7 @@
 
 	.single-post .bb-blog-single-content__toc-header {
 		margin: 16px 0;
+		transition: margin 0.28s ease;
 	}
 
 	.single-post .bb-blog-single-content__toc {
@@ -394,12 +395,20 @@
 		top: calc(var(--bb-header-height, 80px) + 8px);
 		z-index: 19;
 		padding: 12px 16px;
+		overflow: hidden;
+		transition: background-color 0.28s ease, box-shadow 0.28s ease, backdrop-filter 0.28s ease, -webkit-backdrop-filter 0.28s ease;
 	}
 
 	.single-post .bb-blog-single-content__toc.is-sticky {
 		position: fixed;
 		margin: 0;
 		box-shadow: 0 10px 30px rgba(31, 39, 49, 0.12);
+	}
+
+	.single-post .bb-blog-single-content__toc.is-sticky.is-collapsed {
+		background: rgba(253, 249, 237, 0.34);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
 	}
 
 	.single-post .bb-blog-single-content__toc-toggle {
@@ -410,7 +419,8 @@
 		margin-top: 0;
 		padding-left: 4px;
 		overflow: hidden;
-		transition: max-height 0.35s ease;
+		transform-origin: top;
+		transition: max-height 0.35s ease, opacity 0.24s ease, transform 0.28s ease;
 	}
 
 	.single-post .bb-blog-single-content__toc-item {
@@ -423,6 +433,11 @@
 
 	.single-post .bb-blog-single-content__toc.is-collapsed .bb-blog-single-content__toc-header {
 		margin-bottom: 0;
+	}
+
+	.single-post .bb-blog-single-content__toc.is-collapsed .bb-blog-single-content__toc-list {
+		opacity: 0;
+		transform: translateY(-8px);
 	}
 }
 

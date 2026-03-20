@@ -183,14 +183,13 @@ if ( ! empty( $service_posts ) ) {
 
 		$category_slugs = array_values( array_unique( $service_term_slugs ) );
 		$service_text   = get_the_excerpt( $service_post );
-		$service_card_image_id = function_exists( 'get_field' ) ? (int) get_field( 'service_card_image', $service_post->ID ) : 0;
-		$media_image           = '';
-		if ( $service_card_image_id > 0 ) {
-			$media_image = (string) wp_get_attachment_image_url( $service_card_image_id, 'large' );
-		}
-		if ( '' === $media_image ) {
-			$media_image = (string) get_the_post_thumbnail_url( $service_post, 'large' );
-		}
+		$media_data     = function_exists( 'brooklyn_beauty_get_service_card_media_data' )
+			? brooklyn_beauty_get_service_card_media_data( $service_post->ID )
+			: array(
+				'media_image' => (string) get_the_post_thumbnail_url( $service_post, 'large' ),
+				'hover_image' => '',
+				'hover_alt'   => '',
+			);
 
 		if ( '' === trim( $service_text ) ) {
 			$service_text = wp_trim_words( wp_strip_all_tags( $service_post->post_content ), 26, '...' );
@@ -201,7 +200,9 @@ if ( ! empty( $service_posts ) ) {
 			'text'           => $service_text,
 			'category_slugs' => $category_slugs,
 			'media_class'    => $fallback_media_classes[ $index % count( $fallback_media_classes ) ],
-			'media_image'    => $media_image,
+			'media_image'    => $media_data['media_image'],
+			'hover_image'    => $media_data['hover_image'],
+			'hover_alt'      => $media_data['hover_alt'],
 			'visit_url'      => function_exists( 'brooklyn_beauty_get_service_card_visit_url' ) ? brooklyn_beauty_get_service_card_visit_url( $service_post->ID ) : '#book',
 			'more_url'       => (string) get_permalink( $service_post ),
 			'is_placeholder' => false,
@@ -256,8 +257,31 @@ if ( function_exists( 'brooklyn_beauty_merge_service_cards_with_placeholders' ) 
 						<p class="bb-service-card__placeholder-text"><?php echo esc_html( $service['text'] ); ?></p>
 					</article>
 				<?php else : ?>
+					<?php
+					$media_style = '';
+					if ( ! empty( $service['media_image'] ) || ! empty( $service['hover_image'] ) ) {
+						$media_style_parts = array();
+						if ( ! empty( $service['media_image'] ) ) {
+							$media_style_parts[] = 'background-image: url(' . esc_url( $service['media_image'] ) . ')';
+						}
+						if ( ! empty( $service['hover_image'] ) ) {
+							$media_style_parts[] = '--bb-service-card-hover-image: url(' . esc_url( $service['hover_image'] ) . ')';
+						}
+						$media_style = implode( '; ', $media_style_parts );
+						if ( '' !== $media_style ) {
+							$media_style .= ';';
+						}
+					}
+					?>
 					<article class="bb-service-card" data-categories="<?php echo esc_attr( implode( ' ', $service['category_slugs'] ) ); ?>">
-						<div class="bb-service-card__media <?php echo esc_attr( $service['media_class'] ); ?>"<?php echo '' !== $service['media_image'] ? ' style="background-image: url(' . esc_url( $service['media_image'] ) . ');"' : ''; ?> aria-hidden="true"></div>
+						<div
+							class="bb-service-card__media <?php echo esc_attr( $service['media_class'] ); ?><?php echo ! empty( $service['hover_image'] ) ? ' bb-service-card__media--has-hover-image' : ''; ?>"
+							<?php echo '' !== $media_style ? ' style="' . esc_attr( $media_style ) . '"' : ''; ?>
+							<?php if ( ! empty( $service['hover_image'] ) ) : ?>
+								data-hover-image="<?php echo esc_url( $service['hover_image'] ); ?>"
+								data-hover-alt="<?php echo esc_attr( $service['hover_alt'] ); ?>"
+							<?php endif; ?>
+							aria-hidden="true"></div>
 						<div class="bb-service-card__content">
 							<h3 class="bb-service-card__title"><?php echo esc_html( $service['title'] ); ?></h3>
 							<p class="bb-service-card__text"><?php echo esc_html( $service['text'] ); ?></p>

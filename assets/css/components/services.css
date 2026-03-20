@@ -300,11 +300,53 @@
 
 
 .bb-service-card__media {
+	position: relative;
 	min-height: clamp(347px, 27.08vw, 520px);
 	background-size: cover;
 	background-position: center;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
+	overflow: hidden;
+}
+
+.bb-service-card__media::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image: var(--bb-service-card-hover-image);
+	background-size: cover;
+	background-position: center;
+	opacity: 0;
+	transition: opacity var(--transition-base);
+	pointer-events: none;
+}
+
+.bb-service-card__media--has-hover-image:hover::after {
+	opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse) {
+	.bb-service-card__media--has-hover-image::after {
+		animation: bb-service-card-image-swap 10s ease-in-out infinite;
+	}
+
+	.bb-service-card__media--has-hover-image:hover::after {
+		opacity: 0;
+	}
+}
+
+@keyframes bb-service-card-image-swap {
+	0%,
+	45% {
+		opacity: 0;
+	}
+	50%,
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
 
 @media (max-width: 1024px) {

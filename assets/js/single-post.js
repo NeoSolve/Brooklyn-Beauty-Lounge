@@ -115,10 +115,7 @@
 
 		var tocList = toc.querySelector(".bb-blog-single-content__toc-list");
 		var tocPlaceholder = document.createElement("div");
-		var lastScrollY = window.pageYOffset;
-		var collapseThresholdY = 0;
 		var fixedThresholdY = 0;
-		var manualExpandedWhileFixed = false;
 
 		tocPlaceholder.className = "bb-blog-single-content__toc-placeholder";
 		tocPlaceholder.setAttribute("aria-hidden", "true");
@@ -131,71 +128,26 @@
 			return (header ? header.offsetHeight : 0) + 8;
 		}
 
-		function syncPlaceholderHeight() {
-			if (!mobileMediaQuery.matches || !toc.classList.contains("is-sticky")) return;
-			tocPlaceholder.style.height = toc.offsetHeight + "px";
+		function getAnchorOffset() {
+			var header = document.querySelector(".bb-header");
+			var base = (header ? header.offsetHeight : 0) + 24;
+			if (mobileMediaQuery.matches) {
+				return base + toc.offsetHeight + 12;
+			}
+			return base;
 		}
 
 		function updateTocMetrics() {
 			if (!mobileMediaQuery.matches || toc.classList.contains("is-sticky")) return;
-
 			var stickyOffset = getStickyOffset();
 			var tocRect = toc.getBoundingClientRect();
-			var tocTop = tocRect.top + window.pageYOffset;
-
-			fixedThresholdY = Math.max(0, tocTop - stickyOffset);
-			collapseThresholdY = Math.max(0, fixedThresholdY - 36);
-		}
-
-		function getCollapsedListHeight() {
-			return 0;
-		}
-
-		function getExpandedListHeight() {
-			if (!tocList) return 0;
-			var currentMaxHeight = tocList.style.maxHeight;
-			tocList.style.maxHeight = "none";
-			var fullHeight = tocList.scrollHeight;
-			tocList.style.maxHeight = currentMaxHeight;
-			return fullHeight;
-		}
-
-		function setCollapseProgress(progress, animate) {
-			if (!tocToggle || !tocList) return;
-
-			var clampedProgress = Math.max(0, Math.min(1, progress));
-			var expandedHeight = getExpandedListHeight();
-			var collapsedHeight = getCollapsedListHeight();
-			var targetHeight =
-				expandedHeight - (expandedHeight - collapsedHeight) * clampedProgress;
-			var isCollapsed = clampedProgress >= 0.999;
-
-			toc.classList.toggle("is-collapsed", isCollapsed);
-			tocToggle.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
-			tocToggle.setAttribute(
-				"aria-label",
-				isCollapsed ? "Expand table of contents" : "Collapse table of contents"
-			);
-
-			tocList.style.transition = animate ? "" : "none";
-			tocList.style.maxHeight =
-				clampedProgress <= 0.001 ? "none" : Math.max(collapsedHeight, targetHeight) + "px";
-
-			if (!animate) {
-				void tocList.offsetHeight;
-				tocList.style.transition = "";
-			}
-
-			window.requestAnimationFrame(syncPlaceholderHeight);
+			fixedThresholdY = Math.max(0, tocRect.top + window.pageYOffset - stickyOffset);
 		}
 
 		function setCollapsed(collapsed) {
 			if (!tocToggle || !tocList) return;
-
-			var expandedHeight = getExpandedListHeight();
-			var collapsedHeight = getCollapsedListHeight();
-			var fromHeight = tocList.offsetHeight;
-			var toHeight = collapsed ? collapsedHeight : expandedHeight;
+			var isCollapsed = toc.classList.contains("is-collapsed");
+			if (collapsed === isCollapsed) return;
 
 			toc.classList.toggle("is-collapsed", collapsed);
 			tocToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
@@ -204,23 +156,19 @@
 				collapsed ? "Expand table of contents" : "Collapse table of contents"
 			);
 
-			tocList.style.transition = "none";
-			tocList.style.maxHeight = fromHeight + "px";
-			void tocList.offsetHeight;
-			tocList.style.transition = "";
-			tocList.style.maxHeight = (toHeight || 0) + "px";
-
-			if (!collapsed) {
+			if (collapsed) {
+				tocList.style.maxHeight = tocList.scrollHeight + "px";
+				void tocList.offsetHeight;
+				tocList.style.maxHeight = "0px";
+			} else {
+				tocList.style.maxHeight = tocList.scrollHeight + "px";
 				var onEnd = function () {
 					tocList.removeEventListener("transitionend", onEnd);
 					if (!toc.classList.contains("is-collapsed")) {
 						tocList.style.maxHeight = "none";
 					}
-					syncPlaceholderHeight();
 				};
 				tocList.addEventListener("transitionend", onEnd);
-			} else {
-				window.requestAnimationFrame(syncPlaceholderHeight);
 			}
 		}
 
@@ -236,7 +184,6 @@
 				toc.style.width = tocRect.width + "px";
 				toc.style.top = getStickyOffset() + "px";
 				toc.classList.add("is-sticky");
-				window.requestAnimationFrame(syncPlaceholderHeight);
 				return;
 			}
 
@@ -251,15 +198,7 @@
 
 		if (tocToggle) {
 			tocToggle.addEventListener("click", function () {
-				var isCollapsed = toc.classList.contains("is-collapsed");
-				var nextCollapsed = !isCollapsed;
-
-				if (toc.classList.contains("is-sticky")) {
-					manualExpandedWhileFixed = !nextCollapsed;
-				} else if (!nextCollapsed) {
-					manualExpandedWhileFixed = false;
-				}
-				setCollapsed(nextCollapsed);
+				setCollapsed(!toc.classList.contains("is-collapsed"));
 			});
 		}
 
@@ -273,18 +212,12 @@
 
 				event.preventDefault();
 
-				var header = document.querySelector(".bb-header");
-				var offset = (header ? header.offsetHeight : 0) + 24;
+				var offset = getAnchorOffset();
 				var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
 				window.scrollTo({ top: top, behavior: "smooth" });
 				if (window.history && typeof window.history.replaceState === "function") {
 					window.history.replaceState(null, "", href);
-				}
-
-				if (mobileMediaQuery.matches) {
-					manualExpandedWhileFixed = false;
-					setCollapsed(true);
 				}
 			});
 		});
@@ -317,51 +250,22 @@
 			var articleHeight = article.offsetHeight;
 			var maxScrollable = Math.max(1, articleHeight - window.innerHeight * 0.45);
 			var progress = (window.pageYOffset - articleTop) / maxScrollable;
-			var clampedProgress = Math.max(0, Math.min(1, progress));
 
-			progressFill.style.width = clampedProgress * 100 + "%";
+			progressFill.style.width = Math.max(0, Math.min(1, progress)) * 100 + "%";
 		}
 
 		function updateStickyState() {
-			var isMobile = mobileMediaQuery.matches;
-			var currentScrollY = window.pageYOffset;
-			var isScrollingDown = currentScrollY > lastScrollY;
-
-			if (!isMobile) {
+			if (!mobileMediaQuery.matches) {
 				setFixed(false);
-				manualExpandedWhileFixed = false;
-				setCollapseProgress(0, false);
-				lastScrollY = currentScrollY;
 				return;
 			}
-
 			updateTocMetrics();
-
-			var collapseRange = Math.max(1, fixedThresholdY - collapseThresholdY);
-			var collapseProgress = (currentScrollY - collapseThresholdY) / collapseRange;
-			var shouldFix = currentScrollY >= fixedThresholdY;
-
-			if (!manualExpandedWhileFixed && (isScrollingDown || currentScrollY < fixedThresholdY)) {
-				setCollapseProgress(collapseProgress, false);
-			}
-
-			if (shouldFix) {
-				if (!manualExpandedWhileFixed) {
-					setCollapseProgress(1, false);
-				}
-				setFixed(true);
-			} else {
-				manualExpandedWhileFixed = false;
-				setFixed(false);
-			}
-
-			lastScrollY = currentScrollY;
+			setFixed(window.pageYOffset >= fixedThresholdY);
 		}
 
 		var progressTicking = false;
 		function onScrollProgress() {
 			if (progressTicking) return;
-
 			progressTicking = true;
 			window.requestAnimationFrame(function () {
 				updateProgress();
@@ -372,7 +276,6 @@
 
 		window.addEventListener("scroll", onScrollProgress, { passive: true });
 		window.addEventListener("resize", function () {
-			syncPlaceholderHeight();
 			updateProgress();
 			updateStickyState();
 		});
@@ -390,7 +293,18 @@
 		}
 
 		setActive(sections[0].id);
-		if (tocList) tocList.style.maxHeight = "none";
+
+		if (mobileMediaQuery.matches) {
+			toc.classList.add("is-collapsed");
+			if (tocToggle) {
+				tocToggle.setAttribute("aria-expanded", "false");
+				tocToggle.setAttribute("aria-label", "Expand table of contents");
+			}
+			if (tocList) tocList.style.maxHeight = "0px";
+		} else {
+			if (tocList) tocList.style.maxHeight = "none";
+		}
+
 		updateTocMetrics();
 		updateProgress();
 		updateStickyState();

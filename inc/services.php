@@ -134,6 +134,109 @@ function brooklyn_beauty_get_service_card_visit_url( $service_id ) {
 }
 
 /**
+ * Resolve image URL and alt text from an ACF image value.
+ *
+ * @param mixed  $image_value ACF image value.
+ * @param string $size        Image size.
+ *
+ * @return array{url:string,alt:string}
+ */
+function brooklyn_beauty_resolve_image_data_from_value( $image_value, $size = 'large' ) {
+	$image_url = '';
+	$image_alt = '';
+
+	if ( is_numeric( $image_value ) ) {
+		$image_id = (int) $image_value;
+		if ( $image_id > 0 ) {
+			$image_url = (string) wp_get_attachment_image_url( $image_id, $size );
+			$alt_text  = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+			if ( is_string( $alt_text ) && '' !== trim( $alt_text ) ) {
+				$image_alt = trim( $alt_text );
+			}
+		}
+	} elseif ( is_array( $image_value ) ) {
+		if ( ! empty( $image_value['ID'] ) ) {
+			$image_id = (int) $image_value['ID'];
+			if ( $image_id > 0 ) {
+				$image_url = (string) wp_get_attachment_image_url( $image_id, $size );
+				$alt_text  = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+				if ( is_string( $alt_text ) && '' !== trim( $alt_text ) ) {
+					$image_alt = trim( $alt_text );
+				}
+			}
+		}
+
+		if ( '' === $image_url && ! empty( $image_value['url'] ) ) {
+			$image_url = (string) $image_value['url'];
+		}
+
+		if ( '' === $image_alt && ! empty( $image_value['alt'] ) && is_string( $image_value['alt'] ) ) {
+			$image_alt = trim( $image_value['alt'] );
+		}
+	} elseif ( is_string( $image_value ) && '' !== trim( $image_value ) ) {
+		$image_url = trim( $image_value );
+	}
+
+	return array(
+		'url' => $image_url,
+		'alt' => $image_alt,
+	);
+}
+
+/**
+ * Get default and hover media data for a service card.
+ *
+ * @param int $service_id Service post ID.
+ *
+ * @return array{media_image:string,media_alt:string,hover_image:string,hover_alt:string}
+ */
+function brooklyn_beauty_get_service_card_media_data( $service_id ) {
+	$service_id = (int) $service_id;
+
+	$media_data = array(
+		'media_image' => '',
+		'media_alt'   => '',
+		'hover_image' => '',
+		'hover_alt'   => '',
+	);
+
+	if ( $service_id <= 0 ) {
+		return $media_data;
+	}
+
+	if ( function_exists( 'get_field' ) ) {
+		$card_image_data = brooklyn_beauty_resolve_image_data_from_value( get_field( 'service_card_image', $service_id ), 'large' );
+		if ( '' !== $card_image_data['url'] ) {
+			$media_data['media_image'] = $card_image_data['url'];
+			$media_data['media_alt']   = $card_image_data['alt'];
+		}
+
+		$hover_image_data = brooklyn_beauty_resolve_image_data_from_value( get_field( 'service_hover_image', $service_id ), 'large' );
+		if ( '' !== $hover_image_data['url'] ) {
+			$media_data['hover_image'] = $hover_image_data['url'];
+			$media_data['hover_alt']   = $hover_image_data['alt'];
+		}
+	}
+
+	if ( '' === $media_data['media_image'] ) {
+		$media_data['media_image'] = (string) get_the_post_thumbnail_url( $service_id, 'large' );
+		$thumb_id                  = (int) get_post_thumbnail_id( $service_id );
+		if ( $thumb_id > 0 ) {
+			$thumb_alt = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
+			if ( is_string( $thumb_alt ) && '' !== trim( $thumb_alt ) ) {
+				$media_data['media_alt'] = trim( $thumb_alt );
+			}
+		}
+	}
+
+	if ( '' === $media_data['hover_alt'] && '' !== $media_data['hover_image'] ) {
+		$media_data['hover_alt'] = get_the_title( $service_id );
+	}
+
+	return $media_data;
+}
+
+/**
  * Merge service cards with placeholder cards by configured position.
  *
  * Position is 1-based and calculated against service cards order.
@@ -594,15 +697,8 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 
 	$services = array();
 	foreach ( $service_posts as $index => $service_post ) {
-		$media_class            = $fallback_media_classes[ $index % count( $fallback_media_classes ) ];
-		$service_card_image_id  = function_exists( 'get_field' ) ? (int) get_field( 'service_card_image', $service_post->ID ) : 0;
-		$media_image            = '';
-		if ( $service_card_image_id > 0 ) {
-			$media_image = (string) wp_get_attachment_image_url( $service_card_image_id, 'large' );
-		}
-		if ( '' === $media_image ) {
-			$media_image = (string) get_the_post_thumbnail_url( $service_post, 'large' );
-		}
+		$media_class = $fallback_media_classes[ $index % count( $fallback_media_classes ) ];
+		$media_data  = brooklyn_beauty_get_service_card_media_data( $service_post->ID );
 		$service_text = get_the_excerpt( $service_post );
 
 		if ( '' === trim( $service_text ) ) {
@@ -614,7 +710,9 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 			'text'           => $service_text,
 			'category_slugs' => array(),
 			'media_class'    => $media_class,
-			'media_image'    => $media_image,
+			'media_image'    => $media_data['media_image'],
+			'hover_image'    => $media_data['hover_image'],
+			'hover_alt'      => $media_data['hover_alt'],
 			'visit_url'      => brooklyn_beauty_get_service_card_visit_url( $service_post->ID ),
 			'more_url'       => (string) get_permalink( $service_post ),
 			'is_placeholder' => false,
@@ -633,9 +731,31 @@ function brooklyn_beauty_get_services_cards_markup( $category_slug = 'all-servic
 			<?php
 			continue;
 		}
+
+		$media_style = '';
+		if ( ! empty( $service_card['media_image'] ) || ! empty( $service_card['hover_image'] ) ) {
+			$media_style_parts = array();
+			if ( ! empty( $service_card['media_image'] ) ) {
+				$media_style_parts[] = 'background-image: url(' . esc_url( (string) $service_card['media_image'] ) . ')';
+			}
+			if ( ! empty( $service_card['hover_image'] ) ) {
+				$media_style_parts[] = '--bb-service-card-hover-image: url(' . esc_url( (string) $service_card['hover_image'] ) . ')';
+			}
+			$media_style = implode( '; ', $media_style_parts );
+			if ( '' !== $media_style ) {
+				$media_style .= ';';
+			}
+		}
 		?>
 		<article class="bb-service-card">
-			<div class="bb-service-card__media <?php echo esc_attr( (string) $service_card['media_class'] ); ?>"<?php echo '' !== (string) $service_card['media_image'] ? ' style="background-image: url(' . esc_url( (string) $service_card['media_image'] ) . ');"' : ''; ?> aria-hidden="true"></div>
+			<div
+				class="bb-service-card__media <?php echo esc_attr( (string) $service_card['media_class'] ); ?><?php echo ! empty( $service_card['hover_image'] ) ? ' bb-service-card__media--has-hover-image' : ''; ?>"
+				<?php echo '' !== $media_style ? ' style="' . esc_attr( $media_style ) . '"' : ''; ?>
+				<?php if ( ! empty( $service_card['hover_image'] ) ) : ?>
+					data-hover-image="<?php echo esc_url( (string) $service_card['hover_image'] ); ?>"
+					data-hover-alt="<?php echo esc_attr( (string) $service_card['hover_alt'] ); ?>"
+				<?php endif; ?>
+				aria-hidden="true"></div>
 			<div class="bb-service-card__content">
 				<h3 class="bb-service-card__title"><?php echo esc_html( (string) $service_card['title'] ); ?></h3>
 				<p class="bb-service-card__text"><?php echo esc_html( (string) $service_card['text'] ); ?></p>

@@ -1,6 +1,55 @@
 "use strict";
 
 (function () {
+	var canUseHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+	var serviceHeroMedia = document.querySelector(".page-template-page-services .bb-services-hero__media");
+	var serviceHeroImage = serviceHeroMedia ? serviceHeroMedia.querySelector("img") : null;
+	var serviceHeroFallback = serviceHeroMedia ? serviceHeroMedia.querySelector(".bb-services-hero__media-fallback") : null;
+	var defaultHeroImageUrl = serviceHeroMedia ? serviceHeroMedia.getAttribute("data-default-image-url") || "" : "";
+	var defaultHeroImageAlt = serviceHeroMedia ? serviceHeroMedia.getAttribute("data-default-image-alt") || "" : "";
+
+	function ensureServiceHeroImage() {
+		if (!serviceHeroMedia || serviceHeroImage) return serviceHeroImage;
+
+		serviceHeroImage = document.createElement("img");
+		serviceHeroImage.loading = "lazy";
+		serviceHeroImage.decoding = "async";
+		serviceHeroMedia.insertBefore(serviceHeroImage, serviceHeroMedia.firstChild);
+
+		return serviceHeroImage;
+	}
+
+	function setServiceHeroImage(imageUrl, altText) {
+		if (!serviceHeroMedia) return;
+
+		if (!imageUrl) {
+			if (serviceHeroImage) {
+				serviceHeroImage.remove();
+				serviceHeroImage = null;
+			}
+
+			if (serviceHeroFallback) {
+				serviceHeroFallback.hidden = false;
+			}
+
+			return;
+		}
+
+		var heroImage = ensureServiceHeroImage();
+		if (!heroImage) return;
+
+		heroImage.src = imageUrl;
+		heroImage.alt = altText || "";
+
+		if (serviceHeroFallback) {
+			serviceHeroFallback.hidden = true;
+		}
+	}
+
+	function resetServiceHeroImage() {
+		setServiceHeroImage(defaultHeroImageUrl, defaultHeroImageAlt);
+	}
+
 	// Make whole service cards clickable on all pages (independent of AJAX tabs).
 	var servicesCardsContainers = document.querySelectorAll(".bb-services-cards");
 	servicesCardsContainers.forEach(function (servicesCardsContainer) {
@@ -15,6 +64,36 @@
 			if (moreLink && moreLink.href) {
 				window.location.href = moreLink.href;
 			}
+		});
+
+		servicesCardsContainer.addEventListener("mouseover", function (event) {
+			if (!canUseHover) return;
+
+			var media = event.target.closest(".bb-service-card__media");
+			if (!media || !servicesCardsContainer.contains(media)) return;
+			if (media.contains(event.relatedTarget)) return;
+
+			var hoverImage = media.getAttribute("data-hover-image") || "";
+			if (!hoverImage) return;
+
+			setServiceHeroImage(hoverImage, media.getAttribute("data-hover-alt") || "");
+		});
+
+		servicesCardsContainer.addEventListener("mouseout", function (event) {
+			if (!canUseHover) return;
+
+			var media = event.target.closest(".bb-service-card__media");
+			if (!media || !servicesCardsContainer.contains(media)) return;
+			if (media.contains(event.relatedTarget)) return;
+			if (
+				event.relatedTarget &&
+				event.relatedTarget.closest &&
+				event.relatedTarget.closest(".bb-service-card__media")
+			) {
+				return;
+			}
+
+			resetServiceHeroImage();
 		});
 	});
 
@@ -91,6 +170,7 @@
 
 					if (result && result.success && result.data) {
 						if (result.data.cards !== undefined) {
+							resetServiceHeroImage();
 							servicesCardsContainer.innerHTML = result.data.cards;
 							var paginationContainer = servicesSection.querySelector(".bb-blog-posts__pagination");
 							if (paginationContainer && result.data.pagination !== undefined) {
@@ -99,6 +179,7 @@
 							return;
 						}
 						if (typeof result.data.html === "string") {
+							resetServiceHeroImage();
 							servicesCardsContainer.innerHTML = result.data.html;
 							return;
 						}

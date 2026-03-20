@@ -23,6 +23,7 @@ while ( have_posts() ) :
 	$services_page_url   = '';
 	$hero_image_url      = (string) get_the_post_thumbnail_url( $service_id, 'large' );
 	$hero_image_alt      = $service_title;
+	$hero_hover_image_url = '';
 	$content             = get_the_content();
 	$hero_tagline        = __( 'be fabulous with brooklyn beauty lounge!', 'brooklyn-beauty' );
 	$hero_button_text    = __( 'book now', 'brooklyn-beauty' );
@@ -56,6 +57,13 @@ while ( have_posts() ) :
 		$thumb_alt = get_post_meta( (int) get_post_thumbnail_id( $service_id ), '_wp_attachment_image_alt', true );
 		if ( is_string( $thumb_alt ) && '' !== trim( $thumb_alt ) ) {
 			$hero_image_alt = $thumb_alt;
+		}
+	}
+
+	if ( function_exists( 'brooklyn_beauty_get_service_card_media_data' ) ) {
+		$service_media_data = brooklyn_beauty_get_service_card_media_data( $service_id );
+		if ( ! empty( $service_media_data['hover_image'] ) ) {
+			$hero_hover_image_url = (string) $service_media_data['hover_image'];
 		}
 	}
 
@@ -230,7 +238,9 @@ while ( have_posts() ) :
 						<?php endif; ?>
 					</div>
 
-					<div class="bb-single-service-hero__media">
+					<div
+						class="bb-single-service-hero__media<?php echo '' !== $hero_hover_image_url ? ' bb-single-service-hero__media--has-hover-image' : ''; ?>"
+						<?php echo '' !== $hero_hover_image_url ? ' style="--bb-single-service-hero-hover-image: url(' . esc_url( $hero_hover_image_url ) . ');"' : ''; ?>>
 						<?php if ( '' !== $hero_image_url ) : ?>
 							<img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_image_alt ); ?>" loading="lazy" decoding="async">
 						<?php else : ?>

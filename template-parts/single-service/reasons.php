@@ -135,9 +135,11 @@ $heart_icon_url = get_template_directory_uri() . '/assets/images/heart.svg';
 						<?php else : ?>
 							<div class="bb-service-reasons__video-placeholder" aria-hidden="true"></div>
 						<?php endif; ?>
-						<button type="button" class="bb-service-reasons__play" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>">
-							<span class="bb-service-reasons__play-icon" aria-hidden="true"></span>
-						</button>
+						<?php if ( '' !== $video_file_url || '' !== $video_url ) : ?>
+							<button type="button" class="bb-service-reasons__play" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>">
+								<span class="bb-service-reasons__play-icon" aria-hidden="true"></span>
+							</button>
+						<?php endif; ?>
 					</div>
 				</div>
 
