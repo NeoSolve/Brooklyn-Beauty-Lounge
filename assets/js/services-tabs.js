@@ -53,17 +53,37 @@
 	// Make whole service cards clickable on all pages (independent of AJAX tabs).
 	var servicesCardsContainers = document.querySelectorAll(".bb-services-cards");
 	servicesCardsContainers.forEach(function (servicesCardsContainer) {
-		servicesCardsContainer.addEventListener("click", function (event) {
+		function getCardMoreLink(event) {
 			var card = event.target.closest(".bb-service-card");
-			if (!card || card.classList.contains("bb-service-card--placeholder")) return;
+			if (!card || card.classList.contains("bb-service-card--placeholder")) return null;
 
 			// Don't override clicks on existing interactive elements.
-			if (event.target.closest("a, button")) return;
+			if (event.target.closest("a, button")) return null;
 
 			var moreLink = card.querySelector(".bb-service-card__more-link");
-			if (moreLink && moreLink.href) {
-				window.location.href = moreLink.href;
+			return moreLink && moreLink.href ? moreLink : null;
+		}
+
+		servicesCardsContainer.addEventListener("click", function (event) {
+			var moreLink = getCardMoreLink(event);
+			if (!moreLink) return;
+
+			if (event.metaKey || event.ctrlKey) {
+				window.open(moreLink.href, "_blank", "noopener");
+				return;
 			}
+
+			window.location.href = moreLink.href;
+		});
+
+		servicesCardsContainer.addEventListener("auxclick", function (event) {
+			if (event.button !== 1) return;
+
+			var moreLink = getCardMoreLink(event);
+			if (!moreLink) return;
+
+			event.preventDefault();
+			window.open(moreLink.href, "_blank", "noopener");
 		});
 
 		servicesCardsContainer.addEventListener("mouseover", function (event) {
