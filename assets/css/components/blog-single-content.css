@@ -112,6 +112,7 @@
 	font-size: var(--fs-h6);
 	line-height: var(--lh-h6-semibold);
 	font-weight: var(--fw-h6-semibold);
+	color: var(--color-primary);
 }
 
 .single-post .bb-blog-single-content__article p,
@@ -409,7 +410,7 @@
 		margin-top: 0;
 		padding-left: 4px;
 		overflow: hidden;
-		transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+		transition: max-height 0.35s ease;
 	}
 
 	.single-post .bb-blog-single-content__toc-item {
