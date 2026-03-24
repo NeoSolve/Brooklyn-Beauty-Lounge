@@ -114,6 +114,18 @@
 			});
 	}
 
+	function scrollFilterToCenter(button) {
+		var item = button.closest(".bb-blog-filters__item");
+		if (!item || !filtersContainer) return;
+
+		var itemRect = item.getBoundingClientRect();
+		var containerRect = filtersContainer.getBoundingClientRect();
+		var offset = itemRect.left - containerRect.left + filtersContainer.scrollLeft
+			- (filtersContainer.clientWidth - item.offsetWidth) / 2;
+
+		filtersContainer.scrollTo({ left: Math.max(offset, 0), behavior: "smooth" });
+	}
+
 	filterButtons.forEach(function (button) {
 		button.addEventListener("click", function (event) {
 			var slug = button.dataset.category || "all-posts";
@@ -130,6 +142,7 @@
 			event.preventDefault();
 			setActiveTab(slug);
 			loadCategory(slug, 1);
+			scrollFilterToCenter(button);
 
 			if (typeof history !== "undefined" && history.pushState && href) {
 				history.pushState({ blogCategory: slug }, "", href);

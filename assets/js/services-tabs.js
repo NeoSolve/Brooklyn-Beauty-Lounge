@@ -2,11 +2,15 @@
 
 (function () {
 	var canUseHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+	var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	var heroImageFadeDuration = 520;
 	var serviceHeroMedia = document.querySelector(".page-template-page-services .bb-services-hero__media");
 	var serviceHeroImage = serviceHeroMedia ? serviceHeroMedia.querySelector("img") : null;
 	var serviceHeroFallback = serviceHeroMedia ? serviceHeroMedia.querySelector(".bb-services-hero__media-fallback") : null;
+	var serviceHeroTransitionImage = null;
 	var defaultHeroImageUrl = serviceHeroMedia ? serviceHeroMedia.getAttribute("data-default-image-url") || "" : "";
 	var defaultHeroImageAlt = serviceHeroMedia ? serviceHeroMedia.getAttribute("data-default-image-alt") || "" : "";
+	var heroImageSwapRequestId = 0;
 
 	function ensureServiceHeroImage() {
 		if (!serviceHeroMedia || serviceHeroImage) return serviceHeroImage;
@@ -19,7 +23,29 @@
 		return serviceHeroImage;
 	}
 
-	function setServiceHeroImage(imageUrl, altText) {
+	function ensureServiceHeroTransitionImage() {
+		if (!serviceHeroMedia || serviceHeroTransitionImage) return serviceHeroTransitionImage;
+
+		serviceHeroTransitionImage = document.createElement("img");
+		serviceHeroTransitionImage.className = "bb-services-hero__media-transition";
+		serviceHeroTransitionImage.alt = "";
+		serviceHeroTransitionImage.decoding = "async";
+		serviceHeroTransitionImage.setAttribute("aria-hidden", "true");
+		serviceHeroTransitionImage.hidden = true;
+		serviceHeroMedia.appendChild(serviceHeroTransitionImage);
+
+		return serviceHeroTransitionImage;
+	}
+
+	function clearServiceHeroTransitionImage() {
+		if (!serviceHeroTransitionImage) return;
+
+		serviceHeroTransitionImage.classList.remove("is-visible");
+		serviceHeroTransitionImage.hidden = true;
+		serviceHeroTransitionImage.removeAttribute("src");
+	}
+
+	function applyServiceHeroImage(imageUrl, altText) {
 		if (!serviceHeroMedia) return;
 
 		if (!imageUrl) {
@@ -32,6 +58,7 @@
 				serviceHeroFallback.hidden = false;
 			}
 
+			clearServiceHeroTransitionImage();
 			return;
 		}
 
@@ -40,9 +67,81 @@
 
 		heroImage.src = imageUrl;
 		heroImage.alt = altText || "";
+		heroImage.hidden = false;
 
 		if (serviceHeroFallback) {
 			serviceHeroFallback.hidden = true;
+		}
+	}
+
+	function setServiceHeroImage(imageUrl, altText) {
+		if (!serviceHeroMedia) return;
+
+		var nextImageUrl = imageUrl || "";
+		var nextAltText = altText || "";
+		var currentImageUrl = serviceHeroImage ? serviceHeroImage.currentSrc || serviceHeroImage.src || "" : "";
+
+		if (currentImageUrl === nextImageUrl && (!serviceHeroFallback || serviceHeroFallback.hidden || !nextImageUrl)) {
+			if (serviceHeroImage && nextImageUrl) {
+				serviceHeroImage.alt = nextAltText;
+			}
+			return;
+		}
+
+		heroImageSwapRequestId += 1;
+		var requestId = heroImageSwapRequestId;
+
+		if (!nextImageUrl || prefersReducedMotion) {
+			applyServiceHeroImage(nextImageUrl, nextAltText);
+			return;
+		}
+
+		var preloadImage = new Image();
+		var hasHandledPreload = false;
+		preloadImage.decoding = "async";
+		function handlePreloadedHeroImage() {
+			if (hasHandledPreload) return;
+			hasHandledPreload = true;
+
+			if (requestId !== heroImageSwapRequestId) return;
+
+			var transitionImage = ensureServiceHeroTransitionImage();
+			if (!transitionImage) {
+				applyServiceHeroImage(nextImageUrl, nextAltText);
+				return;
+			}
+
+			transitionImage.classList.remove("is-visible");
+			transitionImage.hidden = false;
+			transitionImage.src = nextImageUrl;
+
+			window.requestAnimationFrame(function () {
+				if (requestId !== heroImageSwapRequestId) return;
+				transitionImage.classList.add("is-visible");
+			});
+
+			window.setTimeout(function () {
+				if (requestId !== heroImageSwapRequestId) return;
+
+				applyServiceHeroImage(nextImageUrl, nextAltText);
+				transitionImage.classList.remove("is-visible");
+
+				window.setTimeout(function () {
+					if (requestId !== heroImageSwapRequestId) return;
+					clearServiceHeroTransitionImage();
+				}, heroImageFadeDuration);
+			}, heroImageFadeDuration);
+		}
+
+		preloadImage.onload = handlePreloadedHeroImage;
+		preloadImage.onerror = function () {
+			if (requestId !== heroImageSwapRequestId) return;
+			applyServiceHeroImage(nextImageUrl, nextAltText);
+		};
+		preloadImage.src = nextImageUrl;
+
+		if (preloadImage.complete) {
+			handlePreloadedHeroImage();
 		}
 	}
 
@@ -217,11 +316,24 @@
 				});
 		}
 
+		function scrollFilterToCenter(button) {
+			var item = button.closest(".bb-services-filters__item");
+			if (!item) return;
+
+			var itemRect = item.getBoundingClientRect();
+			var containerRect = filtersContainer.getBoundingClientRect();
+			var offset = itemRect.left - containerRect.left + filtersContainer.scrollLeft
+				- (filtersContainer.clientWidth - item.offsetWidth) / 2;
+
+			filtersContainer.scrollTo({ left: Math.max(offset, 0), behavior: "smooth" });
+		}
+
 		filterButtons.forEach(function (button) {
 			button.addEventListener("click", function () {
 				var selectedFilter = button.dataset.filter || defaultFilter;
 				setActiveServiceFilter(selectedFilter);
 				loadServicesByCategory(selectedFilter);
+				scrollFilterToCenter(button);
 			});
 		});
 

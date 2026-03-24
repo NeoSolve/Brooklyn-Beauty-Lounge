@@ -196,9 +196,17 @@
 
 	function setMobileMenuState(isOpen) {
 		if (!mobileNav) return;
-		mobileNav.classList.toggle("is-open", isOpen);
-		document.documentElement.classList.toggle("bb-mobile-menu-open", isOpen);
-		document.body.classList.toggle("bb-mobile-menu-open", isOpen);
+		if (isOpen) {
+			document.documentElement.classList.add("bb-mobile-menu-open");
+			document.body.classList.add("bb-mobile-menu-open");
+			mobileNav.classList.add("is-open");
+		} else {
+			/* Сначала снимаем фон с html/body, пока оверлей ещё перекрывает экран — иначе в Safari
+			   safe-area на кадр остаётся «кремовой» после скрытия меню */
+			document.documentElement.classList.remove("bb-mobile-menu-open");
+			document.body.classList.remove("bb-mobile-menu-open");
+			mobileNav.classList.remove("is-open");
+		}
 		if (burgerButton) {
 			burgerButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
 			burgerButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");

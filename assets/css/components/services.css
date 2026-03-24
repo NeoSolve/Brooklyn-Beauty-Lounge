@@ -317,7 +317,7 @@
 	background-size: cover;
 	background-position: center;
 	opacity: 0;
-	transition: opacity var(--transition-base);
+	transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1);
 	pointer-events: none;
 }
 
@@ -346,6 +346,12 @@
 	}
 	100% {
 		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bb-service-card__media::after {
+		transition: none;
 	}
 }
 
