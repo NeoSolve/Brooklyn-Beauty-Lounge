@@ -178,6 +178,14 @@ $has_author_note = '' !== trim( $author_note );
 $has_toc         = ! empty( $toc_items );
 $has_share       = ! empty( $share_items );
 $has_sidebar     = $has_toc || $has_share;
+$toc_list_id       = '';
+$toc_list_id_fixed = '';
+$toc_toggle_icon   = '';
+if ( $has_toc ) {
+	$toc_list_id       = 'bb-blog-single-content-toc-' . get_the_ID();
+	$toc_list_id_fixed = 'bb-blog-single-content-toc-fixed-' . get_the_ID();
+	$toc_toggle_icon   = get_template_directory_uri() . '/assets/images/arrow-inside-btn.svg';
+}
 $layout_classes  = array( 'bb-blog-single-content__layout' );
 
 if ( ! $has_author_note ) {
@@ -213,22 +221,12 @@ if ( ! $has_sidebar ) {
 			<?php if ( $has_sidebar ) : ?>
 				<div class="bb-blog-single-content__sidebar">
 					<?php if ( $has_toc ) : ?>
-						<?php $toc_list_id = 'bb-blog-single-content-toc-' . get_the_ID(); ?>
-						<aside class="bb-blog-single-content__toc" aria-label="<?php esc_attr_e( 'Table of contents', 'brooklyn-beauty' ); ?>">
+						<aside class="bb-blog-single-content__toc bb-blog-single-content__toc--primary" aria-label="<?php esc_attr_e( 'Table of contents', 'brooklyn-beauty' ); ?>">
 							<div class="bb-blog-single-content__toc-progress" aria-hidden="true">
 								<span class="bb-blog-single-content__toc-progress-fill"></span>
 							</div>
 							<div class="bb-blog-single-content__toc-header">
 								<p class="bb-blog-single-content__toc-title"><?php esc_html_e( 'Content', 'brooklyn-beauty' ); ?></p>
-								<button
-									class="bb-blog-single-content__toc-toggle"
-									type="button"
-									aria-expanded="true"
-									aria-controls="<?php echo esc_attr( $toc_list_id ); ?>"
-									aria-label="<?php esc_attr_e( 'Collapse table of contents', 'brooklyn-beauty' ); ?>"
-								>
-									<img class="bb-blog-single-content__toc-toggle-icon" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/arrow-inside-btn.svg' ); ?>" width="15" height="11" alt="" aria-hidden="true">
-								</button>
 							</div>
 							<ul class="bb-blog-single-content__toc-list" id="<?php echo esc_attr( $toc_list_id ); ?>">
 								<?php foreach ( $toc_items as $index => $toc_item ) : ?>
@@ -282,5 +280,37 @@ if ( ! $has_sidebar ) {
 				</div>
 			<?php endif; ?>
 		</div>
+		<?php if ( $has_toc ) : ?>
+			<aside
+				class="bb-blog-single-content__toc bb-blog-single-content__toc--fixed is-collapsed"
+				aria-label="<?php esc_attr_e( 'Table of contents', 'brooklyn-beauty' ); ?>"
+				aria-hidden="true"
+			>
+				<div class="bb-blog-single-content__toc-progress" aria-hidden="true">
+					<span class="bb-blog-single-content__toc-progress-fill"></span>
+				</div>
+				<div class="bb-blog-single-content__toc-header">
+					<p class="bb-blog-single-content__toc-title"><?php esc_html_e( 'Content', 'brooklyn-beauty' ); ?></p>
+					<button
+						class="bb-blog-single-content__toc-toggle"
+						type="button"
+						aria-expanded="false"
+						aria-controls="<?php echo esc_attr( $toc_list_id_fixed ); ?>"
+						aria-label="<?php esc_attr_e( 'Expand table of contents', 'brooklyn-beauty' ); ?>"
+					>
+						<img class="bb-blog-single-content__toc-toggle-icon" src="<?php echo esc_url( $toc_toggle_icon ); ?>" width="15" height="11" alt="" aria-hidden="true">
+					</button>
+				</div>
+				<ul class="bb-blog-single-content__toc-list" id="<?php echo esc_attr( $toc_list_id_fixed ); ?>">
+					<?php foreach ( $toc_items as $index => $toc_item ) : ?>
+						<li class="bb-blog-single-content__toc-item<?php echo 0 === $index ? ' is-active' : ''; ?>">
+							<a class="bb-blog-single-content__toc-link<?php echo 0 === $index ? ' is-active' : ''; ?>" href="#<?php echo esc_attr( $toc_item['id'] ); ?>">
+								<?php echo esc_html( $toc_item['title'] ); ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</aside>
+		<?php endif; ?>
 	</div>
 </section>
