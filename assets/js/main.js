@@ -50,7 +50,6 @@
 
 	function makeExternalLinksOpenInNewTab() {
 		var siteHost = normalizeHost(window.location.hostname);
-		var requiredRelTokens = ["nofollow"];
 		var links = document.querySelectorAll("a[href]");
 
 		links.forEach(function (link) {
@@ -71,15 +70,20 @@
 			var linkHost = normalizeHost(parsedUrl.hostname);
 			var isInternal = linkHost === siteHost || linkHost.endsWith("." + siteHost);
 			if (isInternal) return;
+
 			if (!shouldOpenExternalHostInNewTab(linkHost)) {
 				if (link.getAttribute("target") === "_blank") {
 					link.removeAttribute("target");
 				}
+				link.setAttribute("rel", mergeRel(link.getAttribute("rel"), ["nofollow"]));
 				return;
 			}
 
 			link.setAttribute("target", "_blank");
-			link.setAttribute("rel", mergeRel(link.getAttribute("rel"), requiredRelTokens));
+			link.setAttribute(
+				"rel",
+				mergeRel(link.getAttribute("rel"), ["nofollow", "noopener", "noreferrer"])
+			);
 		});
 	}
 
@@ -158,6 +162,7 @@
 	var burgerButton = header.querySelector("[data-header-burger]");
 	var mobileNav = document.querySelector(".bb-mobile-nav");
 	var mobileCloseButton = mobileNav ? mobileNav.querySelector("[data-mobile-close]") : null;
+	var mobileSubmenuToggles = [];
 
 	(function buildMobilePanel() {
 		if (!mobileNav) return;
@@ -190,6 +195,47 @@
 		}
 	})();
 
+	function initMobileSubmenus() {
+		if (!mobileNav) return;
+
+		mobileSubmenuToggles = [];
+
+		var parentItems = mobileNav.querySelectorAll(".bb-mobile-nav__menu .menu-item-has-children");
+		parentItems.forEach(function (item, index) {
+			var submenu = item.querySelector(":scope > .sub-menu");
+			if (!submenu) return;
+
+			submenu.classList.remove("is-open");
+
+			var existingToggle = item.querySelector(":scope > .bb-mobile-nav__submenu-toggle");
+			if (existingToggle) {
+				existingToggle.remove();
+			}
+
+			var toggle = document.createElement("button");
+			var submenuId = "bb-mobile-submenu-" + index;
+			toggle.type = "button";
+			toggle.className = "bb-mobile-nav__submenu-toggle";
+			toggle.setAttribute("aria-expanded", "false");
+			toggle.setAttribute("aria-controls", submenuId);
+			toggle.setAttribute("aria-label", "Toggle submenu");
+
+			submenu.id = submenuId;
+			submenu.setAttribute("aria-hidden", "true");
+
+			toggle.addEventListener("click", function (event) {
+				event.preventDefault();
+				var isOpen = toggle.getAttribute("aria-expanded") === "true";
+				toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+				submenu.classList.toggle("is-open", !isOpen);
+				submenu.setAttribute("aria-hidden", isOpen ? "true" : "false");
+			});
+
+			item.appendChild(toggle);
+			mobileSubmenuToggles.push(toggle);
+		});
+	}
+
 	function isMobileMenuOpen() {
 		return mobileNav && mobileNav.classList.contains("is-open");
 	}
@@ -216,9 +262,19 @@
 
 	function closeMobileMenu() {
 		setMobileMenuState(false);
+		mobileSubmenuToggles.forEach(function (toggle) {
+			var submenuId = toggle.getAttribute("aria-controls");
+			var submenu = submenuId ? mobileNav.querySelector("#" + submenuId) : null;
+			toggle.setAttribute("aria-expanded", "false");
+			if (submenu) {
+				submenu.classList.remove("is-open");
+				submenu.setAttribute("aria-hidden", "true");
+			}
+		});
 	}
 
 	if (burgerButton && mobileNav) {
+		initMobileSubmenus();
 		setMobileMenuState(false);
 
 		burgerButton.addEventListener("click", function () {
@@ -231,7 +287,22 @@
 
 		var menuLinkedElements = mobileNav.querySelectorAll("a, .bb-mobile-cta");
 		menuLinkedElements.forEach(function (link) {
-			link.addEventListener("click", closeMobileMenu);
+			link.addEventListener("click", function (event) {
+				var parentItem = link.closest(".menu-item-has-children");
+				var submenu = parentItem ? parentItem.querySelector(":scope > .sub-menu") : null;
+				var href = (link.getAttribute("href") || "").trim();
+
+				if (submenu && (href === "" || href === "#")) {
+					event.preventDefault();
+					var toggleButton = parentItem.querySelector(":scope > .bb-mobile-nav__submenu-toggle");
+					if (toggleButton) {
+						toggleButton.click();
+					}
+					return;
+				}
+
+				closeMobileMenu();
+			});
 		});
 
 		document.addEventListener("keydown", function (event) {

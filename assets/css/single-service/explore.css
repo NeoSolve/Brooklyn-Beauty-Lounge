@@ -293,6 +293,10 @@
 		display: inline;
 	}
 
+	.single-service .bb-service-explore__section-title {
+		display: inline;
+	}
+
 	.single-service .bb-service-explore__toggle {
 		justify-self: end;
 	}

@@ -118,7 +118,7 @@ if ( '' !== $section_label ) {
 								<img class="bb-review-card__source-icon" src="<?php echo esc_url( $google_icon_url ); ?>" alt="" loading="lazy">
 							</span>
 						</div>
-						<h3 class="bb-review-card__title"><?php echo esc_html( $review['title'] ); ?></h3>
+						<div class="bb-review-card__title"><?php echo esc_html( $review['title'] ); ?></div>
 						<p class="bb-review-card__text"><?php echo esc_html( $review['text'] ); ?></p>
 						<div class="bb-review-card__footer">
 							<div>

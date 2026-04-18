@@ -139,7 +139,7 @@ if ( '' === $left_image_url ) {
 					<?php if ( '' !== $badge_image_url ) : ?>
 						<img class="bb-faq-layout__badge-image" src="<?php echo esc_url( $badge_image_url ); ?>" alt="<?php esc_attr_e( 'FAQ label', 'brooklyn-beauty' ); ?>" loading="lazy">
 					<?php else : ?>
-						<p class="bb-faq-layout__badge-title">faq</p>
+						<h2 class="bb-faq-layout__badge-title">faq</h2>
 						<p class="bb-faq-layout__badge-subtitle"><?php echo esc_html( $badge_subtitle ); ?></p>
 					<?php endif; ?>
 				</div>
@@ -154,17 +154,12 @@ if ( '' === $left_image_url ) {
 					$is_open_item = 0 === $index;
 					?>
 					<article class="bb-faq-item<?php echo $is_open_item ? ' is-open' : ''; ?>" data-faq-item>
-						<button
-							class="bb-faq-item__trigger"
-							type="button"
-							id="<?php echo esc_attr( $question_id ); ?>"
-							data-faq-trigger
-							aria-controls="<?php echo esc_attr( $answer_id ); ?>"
-							aria-expanded="<?php echo $is_open_item ? 'true' : 'false'; ?>"
-						>
+						<div class="bb-faq-item__head">
 							<span class="bb-faq-item__index"><?php echo esc_html( $item_index ); ?></span>
-							<span class="bb-faq-item__question"><?php echo esc_html( $faq['question'] ); ?></span>
-						</button>
+							<h3 class="bb-faq-item__question" id="<?php echo esc_attr( $question_id ); ?>">
+								<?php echo esc_html( $faq['question'] ); ?>
+							</h3>
+						</div>
 
 						<div
 							class="bb-faq-item__panel"

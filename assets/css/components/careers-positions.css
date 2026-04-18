@@ -95,13 +95,13 @@
 }
 
 .bb-careers-positions__job-title {
+	margin: 0;
 	font-size: var(--fs-h5);
 	line-height: var(--lh-h5-semibold);
 	font-weight: var(--fw-h5-semibold);
 	color: var(--color-primary);
 	text-transform: lowercase;
 	max-width: 100%;
-
 }
 
 .bb-careers-positions__apply {

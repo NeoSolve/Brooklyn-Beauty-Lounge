@@ -117,13 +117,14 @@ function brooklyn_beauty_merge_rel_tokens( $rel, $tokens ) {
 function brooklyn_beauty_nav_menu_external_link_attributes( $atts ) {
 	$href = isset( $atts['href'] ) ? (string) $atts['href'] : '';
 
-	if ( brooklyn_beauty_is_external_url( $href ) && ! brooklyn_beauty_should_open_external_url_in_new_tab( $href ) ) {
-		unset( $atts['target'] );
-
+	if ( ! brooklyn_beauty_is_external_url( $href ) ) {
 		return $atts;
 	}
 
 	if ( ! brooklyn_beauty_should_open_external_url_in_new_tab( $href ) ) {
+		unset( $atts['target'] );
+		$atts['rel'] = brooklyn_beauty_merge_rel_tokens( isset( $atts['rel'] ) ? $atts['rel'] : '', array( 'nofollow' ) );
+
 		return $atts;
 	}
 
@@ -151,12 +152,19 @@ function brooklyn_beauty_content_external_link_attributes( $content ) {
 	while ( $processor->next_tag( array( 'tag_name' => 'a' ) ) ) {
 		$href = (string) $processor->get_attribute( 'href' );
 
-		if ( brooklyn_beauty_is_external_url( $href ) && ! brooklyn_beauty_should_open_external_url_in_new_tab( $href ) ) {
-			$processor->remove_attribute( 'target' );
+		if ( ! brooklyn_beauty_is_external_url( $href ) ) {
 			continue;
 		}
 
 		if ( ! brooklyn_beauty_should_open_external_url_in_new_tab( $href ) ) {
+			$processor->remove_attribute( 'target' );
+			$processor->set_attribute(
+				'rel',
+				brooklyn_beauty_merge_rel_tokens(
+					(string) $processor->get_attribute( 'rel' ),
+					array( 'nofollow' )
+				)
+			);
 			continue;
 		}
 
@@ -291,3 +299,14 @@ function brooklyn_beauty_clone_post_action() {
 	exit;
 }
 add_action( 'admin_action_brooklyn_beauty_clone_post', 'brooklyn_beauty_clone_post_action' );
+
+/**
+ * Wrap sub-menu link text in a span so the hover underline animation
+ * can be scoped to the text width (not the full flex-item width).
+ */
+add_filter( 'nav_menu_item_title', function( $title, $item, $args, $depth ) {
+	if ( $depth > 0 ) {
+		return '<span class="bb-menu-label">' . $title . '</span>';
+	}
+	return $title;
+}, 10, 4 );

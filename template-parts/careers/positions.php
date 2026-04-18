@@ -50,7 +50,7 @@ if ( empty( $positions ) ) {
 					<li class="bb-careers-positions__item">
 						<div class="bb-careers-positions__cell">
 							<span class="bb-careers-positions__num" aria-hidden="true"><?php echo esc_html( $num ); ?></span>
-							<span class="bb-careers-positions__job-title"><?php echo esc_html( $title ); ?></span>
+							<h3 class="bb-careers-positions__job-title"><?php echo esc_html( $title ); ?></h3>
 						</div>
 						<?php if ( '' !== $link ) : ?>
 							<a class="bb-careers-positions__apply btn btn--small" href="<?php echo esc_url( $link ); ?>">

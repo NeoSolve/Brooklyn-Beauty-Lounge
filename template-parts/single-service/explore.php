@@ -164,11 +164,12 @@ if ( function_exists( 'get_field' ) && $service_id > 0 ) {
 						<section class="bb-service-explore__section">
 							<div class="bb-service-explore__section-head">
 								<div class="bb-service-explore__section-copy">
-									<h3 class="bb-service-explore__section-title">
-										<?php echo wp_kses( $section['title'], array( 'br' => array() ) ); ?>
-										<span class="bb-service-explore__section-number bb-service-explore__section-number--mobile"><?php echo esc_html( $section['number'] ); ?></span>
-									</h3>
-									<span class="bb-service-explore__section-number bb-service-explore__section-number--desktop" aria-hidden="true"><?php echo esc_html( $section['number'] ); ?></span>
+									<div class="bb-service-explore__section-title-wrap">
+										<h3 class="bb-service-explore__section-title">
+											<?php echo wp_kses( $section['title'], array( 'br' => array() ) ); ?>
+										</h3><span class="bb-service-explore__section-number bb-service-explore__section-number--mobile"><?php echo esc_html( $section['number'] ); ?></span>
+										<span class="bb-service-explore__section-number bb-service-explore__section-number--desktop" aria-hidden="true"><?php echo esc_html( $section['number'] ); ?></span>
+									</div>
 									<?php if ( '' !== trim( (string) $section['intro'] ) ) : ?>
 										<p class="bb-service-explore__section-intro"><?php echo esc_html( $section['intro'] ); ?></p>
 									<?php endif; ?>
