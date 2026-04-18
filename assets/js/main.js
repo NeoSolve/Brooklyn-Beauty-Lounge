@@ -206,6 +206,8 @@
 			if (!submenu) return;
 
 			submenu.classList.remove("is-open");
+			item.classList.remove("is-open");
+			submenu.style.maxHeight = "0px";
 
 			var existingToggle = item.querySelector(":scope > .bb-mobile-nav__submenu-toggle");
 			if (existingToggle) {
@@ -227,11 +229,28 @@
 				event.preventDefault();
 				var isOpen = toggle.getAttribute("aria-expanded") === "true";
 				toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
-				submenu.classList.toggle("is-open", !isOpen);
-				submenu.setAttribute("aria-hidden", isOpen ? "true" : "false");
+
+				if (isOpen) {
+					submenu.style.maxHeight = submenu.scrollHeight + "px";
+					submenu.classList.remove("is-open");
+					item.classList.remove("is-open");
+					/* force reflow before collapsing to animate close reliably */
+					submenu.offsetHeight;
+					submenu.style.maxHeight = "0px";
+					submenu.setAttribute("aria-hidden", "true");
+					return;
+				}
+
+				submenu.classList.add("is-open");
+				item.classList.add("is-open");
+				submenu.setAttribute("aria-hidden", "false");
+				submenu.style.maxHeight = "0px";
+				/* force reflow before expanding to animate open reliably */
+				submenu.offsetHeight;
+				submenu.style.maxHeight = submenu.scrollHeight + "px";
 			});
 
-			item.appendChild(toggle);
+			item.insertBefore(toggle, submenu);
 			mobileSubmenuToggles.push(toggle);
 		});
 	}
@@ -268,6 +287,11 @@
 			toggle.setAttribute("aria-expanded", "false");
 			if (submenu) {
 				submenu.classList.remove("is-open");
+				var parentItem = toggle.closest(".menu-item-has-children");
+				if (parentItem) {
+					parentItem.classList.remove("is-open");
+				}
+				submenu.style.maxHeight = "0px";
 				submenu.setAttribute("aria-hidden", "true");
 			}
 		});
@@ -319,6 +343,14 @@
 	window.addEventListener("resize", function () {
 		updateHeaderOffset();
 		requestSocialSync();
+		mobileSubmenuToggles.forEach(function (toggle) {
+			var submenuId = toggle.getAttribute("aria-controls");
+			var submenu = submenuId ? mobileNav.querySelector("#" + submenuId) : null;
+			if (!submenu) return;
+			if (toggle.getAttribute("aria-expanded") === "true") {
+				submenu.style.maxHeight = submenu.scrollHeight + "px";
+			}
+		});
 		if (window.innerWidth > 980) {
 			closeMobileMenu();
 		}
