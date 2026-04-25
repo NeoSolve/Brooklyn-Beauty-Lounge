@@ -139,6 +139,16 @@
 	z-index: 2;
 }
 
+.single-service .bb-service-reasons__video-iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	z-index: 2;
+	background: var(--color-primary);
+}
+
 .single-service .bb-service-reasons__video-poster,
 .single-service .bb-service-reasons__video-placeholder {
 	position: absolute;

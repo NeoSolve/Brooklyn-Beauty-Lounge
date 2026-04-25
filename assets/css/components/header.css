@@ -10,7 +10,11 @@
 	border-bottom: 1px solid var(--color-text);
 	transition: background 0.3s ease, backdrop-filter 0.3s ease;
 	z-index: 20;
-	overflow-x: hidden;
+	/* NOTE: do NOT add `overflow: hidden` here. WebKit clips
+	   `position: fixed` descendants (the desktop dropdown panel) to the
+	   header's box, so the dropdown becomes invisible in Safari. Page-level
+	   horizontal overflow is already handled by `overflow-x: clip` on
+	   <html>/<body> in base.css. */
 }
 
 .bb-header--scrolled {
@@ -21,49 +25,45 @@
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-/* When any submenu is open — reset header to solid surface-alt, merging with dropdown */
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover),
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) {
+/* When any submenu is open — reset header to solid surface-alt, merging with dropdown.
+   Class is toggled by JS to avoid the Safari `:has(:hover)` invalidation bug.
+   `transition: none` is critical: in WebKit `backdrop-filter` creates a
+   containing block for `position: fixed` descendants, and we need it gone
+   *immediately* so the dropdown panel is positioned relative to the viewport. */
+.bb-header.bb-header--submenu-open {
 	background: var(--color-surface-alt) !important;
 	backdrop-filter: none !important;
 	-webkit-backdrop-filter: none !important;
 	border-bottom-color: transparent !important;
 	box-shadow: none !important;
+	transition: none !important;
 }
 
-/* Logo, nav links, meta, social — always dark when submenu is open */
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__logo .custom-logo-link,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__logo > a,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__meta-link,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__menu > li > a,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__social-link,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__logo .custom-logo-link,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__logo > a,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__meta-link,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__menu > li > a,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__social-link {
+.bb-header.bb-header--submenu-open .bb-header__logo .custom-logo-link,
+.bb-header.bb-header--submenu-open .bb-header__logo > a,
+.bb-header.bb-header--submenu-open .bb-header__meta-link,
+.bb-header.bb-header--submenu-open .bb-header__menu > li > a,
+.bb-header.bb-header--submenu-open .bb-header__social-link {
 	color: var(--color-primary) !important;
 }
 
-/* Alt logo: switch to solid version when submenu is open */
-.bb-header.bb-header--has-alt-logo:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__logo-default,
-.bb-header.bb-header--has-alt-logo:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__logo-default {
-	display: none;
-}
-
-.bb-header.bb-header--has-alt-logo:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__logo .bb-header__logo-alt,
-.bb-header.bb-header--has-alt-logo:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__logo .bb-header__logo-alt {
-	display: inline-flex;
-}
-
-/* Social icon dark/light when submenu open */
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__social-icon--light,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__social-icon--light {
+.bb-header.bb-header--has-alt-logo.bb-header--submenu-open .bb-header__logo-default,
+.home .bb-header.bb-header--has-alt-logo.bb-header--submenu-open .bb-header__logo-default,
+.bb-header.bb-header--has-alt-logo.bb-header--over-footer.bb-header--submenu-open .bb-header__logo-default {
 	display: none !important;
 }
 
-.bb-header:has(.bb-header__menu > .menu-item-has-children:hover) .bb-header__social-icon--dark,
-.bb-header:has(.bb-header__menu > .menu-item-has-children:focus-within) .bb-header__social-icon--dark {
+.bb-header.bb-header--has-alt-logo.bb-header--submenu-open .bb-header__logo .bb-header__logo-alt,
+.home .bb-header.bb-header--has-alt-logo.bb-header--submenu-open .bb-header__logo .bb-header__logo-alt,
+.bb-header.bb-header--has-alt-logo.bb-header--over-footer.bb-header--submenu-open .bb-header__logo .bb-header__logo-alt {
+	display: inline-flex !important;
+}
+
+.bb-header.bb-header--submenu-open .bb-header__social-icon--light {
+	display: none !important;
+}
+
+.bb-header.bb-header--submenu-open .bb-header__social-icon--dark {
 	display: block !important;
 }
 
@@ -388,6 +388,8 @@
 }
 
 .bb-header__menu .sub-menu {
+	--bb-dropdown-duration: 820ms;
+	--bb-dropdown-ease: cubic-bezier(0.22, 1, 0.36, 1);
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -400,12 +402,16 @@
 	padding: 60px 0;
 	list-style: none;
 	background: transparent;
-	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;
-	transform: translateY(8px);
-	transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+	-webkit-clip-path: inset(0 -100vw 100% -100vw);
+	clip-path: inset(0 -100vw 100% -100vw);
+	transition:
+		-webkit-clip-path var(--bb-dropdown-duration) var(--bb-dropdown-ease),
+		clip-path var(--bb-dropdown-duration) var(--bb-dropdown-ease),
+		visibility 0s linear var(--bb-dropdown-duration);
 	z-index: 21;
+	will-change: clip-path;
 }
 
 .bb-header__menu .sub-menu::before {
@@ -427,21 +433,33 @@
 .bb-header__menu > li.menu-item-has-children:hover > .sub-menu,
 .bb-header__menu > li.menu-item-has-children:focus-within > .sub-menu,
 .bb-header__menu > li.menu-item-has-children.is-open > .sub-menu {
-	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
-	transform: translateY(0);
+	-webkit-clip-path: inset(0 -100vw 0 -100vw);
+	clip-path: inset(0 -100vw 0 -100vw);
+	transition:
+		-webkit-clip-path var(--bb-dropdown-duration) var(--bb-dropdown-ease),
+		clip-path var(--bb-dropdown-duration) var(--bb-dropdown-ease),
+		visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bb-header__menu .sub-menu {
+		transition: none !important;
+		-webkit-clip-path: none !important;
+		clip-path: none !important;
+	}
 }
 
 .bb-header__menu .sub-menu > li {
 	display: flex;
-	align-items: stretch;
+	align-items: flex-start;
 	min-width: 0;
 }
 
 .bb-header__menu .sub-menu > li > a {
 	display: inline-flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 	gap: 12px;
 	width: 100%;

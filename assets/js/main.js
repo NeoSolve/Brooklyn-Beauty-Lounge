@@ -336,6 +336,151 @@
 		});
 	}
 
+	/* ------------------------------------------------------------------ */
+	/* Desktop dropdown                                                   */
+	/* JS owns the open/close state for two reasons:                      */
+	/*   1. Safari has invalidation bugs with `:has(:hover)` so the       */
+	/*      header background/colors couldn't reliably react to a hovered */
+	/*      child via CSS alone.                                          */
+	/*   2. We want a small close-buffer, Esc/outside-click handling and  */
+	/*      proper aria-expanded semantics.                               */
+	/* The CSS still keeps :hover / :focus-within selectors as a no-JS    */
+	/* fallback for opening the panel itself.                             */
+	/* ------------------------------------------------------------------ */
+	var desktopMenu = header.querySelector(".bb-header__menu");
+	var desktopParentItems = desktopMenu
+		? Array.prototype.slice.call(desktopMenu.querySelectorAll(":scope > .menu-item-has-children"))
+		: [];
+
+	if (desktopParentItems.length) {
+		var DROPDOWN_CLOSE_DELAY = 120;
+		var HEADER_RESET_DELAY = 420;
+		var dropdownCloseTimers = new WeakMap();
+		var headerResetTimer = 0;
+		var desktopMQ = window.matchMedia("(min-width: 981px)");
+
+		function isDesktopViewport() {
+			return desktopMQ.matches;
+		}
+
+		function clearCloseTimer(item) {
+			var t = dropdownCloseTimers.get(item);
+			if (t) {
+				clearTimeout(t);
+				dropdownCloseTimers.delete(item);
+			}
+		}
+
+		function refreshHeaderState() {
+			var anyOpen = desktopParentItems.some(function (it) {
+				return it.classList.contains("is-open");
+			});
+			if (anyOpen) {
+				clearTimeout(headerResetTimer);
+				header.classList.add("bb-header--submenu-open");
+			} else {
+				headerResetTimer = setTimeout(function () {
+					header.classList.remove("bb-header--submenu-open");
+				}, HEADER_RESET_DELAY);
+			}
+		}
+
+		function setItemOpen(item, isOpen) {
+			item.classList.toggle("is-open", isOpen);
+			var topLink = item.querySelector(":scope > a");
+			if (topLink) {
+				topLink.setAttribute("aria-expanded", isOpen ? "true" : "false");
+			}
+		}
+
+		function openDropdown(item) {
+			if (!isDesktopViewport()) return;
+			clearCloseTimer(item);
+			desktopParentItems.forEach(function (other) {
+				if (other !== item && other.classList.contains("is-open")) {
+					clearCloseTimer(other);
+					setItemOpen(other, false);
+				}
+			});
+			setItemOpen(item, true);
+			refreshHeaderState();
+		}
+
+		function closeDropdown(item, immediate) {
+			clearCloseTimer(item);
+			var doClose = function () {
+				setItemOpen(item, false);
+				refreshHeaderState();
+			};
+			if (immediate) {
+				doClose();
+			} else {
+				dropdownCloseTimers.set(item, setTimeout(doClose, DROPDOWN_CLOSE_DELAY));
+			}
+		}
+
+		function closeAllDropdowns(immediate) {
+			desktopParentItems.forEach(function (item) {
+				closeDropdown(item, immediate);
+			});
+			if (immediate) {
+				clearTimeout(headerResetTimer);
+				header.classList.remove("bb-header--submenu-open");
+			}
+		}
+
+		desktopParentItems.forEach(function (item) {
+			setItemOpen(item, false);
+
+			var topLink = item.querySelector(":scope > a");
+			var href = topLink ? (topLink.getAttribute("href") || "").trim() : "";
+			if (topLink && (href === "" || href === "#")) {
+				topLink.addEventListener("click", function (event) {
+					event.preventDefault();
+				});
+				topLink.style.cursor = "default";
+			}
+
+			item.addEventListener("mouseenter", function () {
+				openDropdown(item);
+			});
+			item.addEventListener("mouseleave", function () {
+				closeDropdown(item, false);
+			});
+			item.addEventListener("focusin", function () {
+				openDropdown(item);
+			});
+			item.addEventListener("focusout", function (event) {
+				if (!item.contains(event.relatedTarget)) {
+					closeDropdown(item, false);
+				}
+			});
+		});
+
+		document.addEventListener("keydown", function (event) {
+			if (event.key === "Escape") {
+				closeAllDropdowns(true);
+			}
+		});
+
+		document.addEventListener("click", function (event) {
+			if (!isDesktopViewport()) return;
+			if (header.contains(event.target)) return;
+			closeAllDropdowns(true);
+		});
+
+		var handleViewportChange = function () {
+			if (!isDesktopViewport()) {
+				closeAllDropdowns(true);
+			}
+		};
+		if (typeof desktopMQ.addEventListener === "function") {
+			desktopMQ.addEventListener("change", handleViewportChange);
+		} else if (typeof desktopMQ.addListener === "function") {
+			desktopMQ.addListener(handleViewportChange);
+		}
+	}
+
 	updateHeaderOffset();
 	updateHeader();
 	syncSocialPosition();
