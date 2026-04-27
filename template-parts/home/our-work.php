@@ -50,8 +50,14 @@ if ( function_exists( 'get_field' ) ) {
 				continue;
 			}
 
-			$preview_id = 0;
-			$video_url  = '';
+			$preview_id   = 0;
+			$video_url    = '';
+			$youtube_id   = '';
+			$youtube_raw  = isset( $acf_work_item['youtube_url'] ) ? trim( (string) $acf_work_item['youtube_url'] ) : '';
+
+			if ( '' !== $youtube_raw ) {
+				$youtube_id = brooklyn_beauty_get_youtube_video_id_from_url( $youtube_raw );
+			}
 
 			if ( isset( $acf_work_item['preview_image'] ) ) {
 				$preview_field = $acf_work_item['preview_image'];
@@ -63,7 +69,7 @@ if ( function_exists( 'get_field' ) ) {
 				}
 			}
 
-			if ( isset( $acf_work_item['video_file'] ) ) {
+			if ( '' === $youtube_id && isset( $acf_work_item['video_file'] ) ) {
 				$video_field = $acf_work_item['video_file'];
 
 				if ( is_numeric( $video_field ) ) {
@@ -82,6 +88,7 @@ if ( function_exists( 'get_field' ) ) {
 			$work_items[] = array(
 				'preview_id' => $preview_id,
 				'video_url'  => $video_url,
+				'youtube_id' => $youtube_id,
 			);
 		}
 	}
@@ -128,7 +135,8 @@ if ( function_exists( 'get_field' ) ) {
 					$work_index       = 0;
 					foreach ( $work_items_slice as $work_item ) :
 						$work_index++;
-						$is_last = $work_index === $work_items_count;
+						$is_last    = $work_index === $work_items_count;
+						$has_video  = ( '' !== ( $work_item['youtube_id'] ?? '' ) ) || ( '' !== ( $work_item['video_url'] ?? '' ) );
 						$img = wp_get_attachment_image(
 							$work_item['preview_id'],
 							'large',
@@ -141,11 +149,17 @@ if ( function_exists( 'get_field' ) ) {
 						if ( $img ) :
 							?>
 							<article
-								class="bb-work__item<?php echo $work_item['video_url'] ? ' bb-work__item--has-video' : ''; ?><?php echo $is_last ? ' bb-work__item--last' : ''; ?>"
-								<?php echo $work_item['video_url'] ? ' data-video-url="' . esc_url( $work_item['video_url'] ) . '"' : ''; ?>
+								class="bb-work__item<?php echo $has_video ? ' bb-work__item--has-video' : ''; ?><?php echo $is_last ? ' bb-work__item--last' : ''; ?>"
+								<?php
+								if ( ! empty( $work_item['youtube_id'] ) ) {
+									echo ' data-youtube-id="' . esc_attr( $work_item['youtube_id'] ) . '"';
+								} elseif ( ! empty( $work_item['video_url'] ) ) {
+									echo ' data-video-url="' . esc_url( $work_item['video_url'] ) . '"';
+								}
+								?>
 							>
 								<?php echo $img; ?>
-								<?php if ( $work_item['video_url'] ) : ?>
+								<?php if ( $has_video ) : ?>
 									<button class="bb-work__play-btn" type="button" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>">
 										<img class="bb-work__play-icon" src="<?php echo esc_url( $play_icon_url ); ?>" width="80" height="80" alt="" aria-hidden="true" loading="lazy" decoding="async">
 									</button>

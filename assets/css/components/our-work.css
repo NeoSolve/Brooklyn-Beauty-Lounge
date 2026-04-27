@@ -179,10 +179,24 @@
 }
 
 .bb-work__video {
+	position: absolute;
+	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	background: var(--color-black);
+	z-index: 1;
+}
+
+/* Same pattern as .bb-service-reasons__video-iframe (single service Reasons block) */
+.bb-work__youtube {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	z-index: 1;
+	background: var(--color-primary);
 }
 
 .bb-work__item.is-playing .bb-work__play-btn {

@@ -301,6 +301,45 @@ function brooklyn_beauty_clone_post_action() {
 add_action( 'admin_action_brooklyn_beauty_clone_post', 'brooklyn_beauty_clone_post_action' );
 
 /**
+ * Extract a YouTube video ID from a watch, embed, shorts, or youtu.be URL.
+ *
+ * @param string $url Full or partial YouTube URL.
+ *
+ * @return string Eleven-character ID or empty string if not recognized.
+ */
+function brooklyn_beauty_get_youtube_video_id_from_url( $url ) {
+	$url = trim( (string) $url );
+
+	if ( '' === $url ) {
+		return '';
+	}
+
+	if ( preg_match( '#youtu\.be/([a-zA-Z0-9_-]{11})#', $url, $matches ) ) {
+		return $matches[1];
+	}
+
+	if ( preg_match( '#youtube\.com/embed/([a-zA-Z0-9_-]{11})#', $url, $matches ) ) {
+		return $matches[1];
+	}
+
+	if ( preg_match( '#youtube\.com/shorts/([a-zA-Z0-9_-]{11})#', $url, $matches ) ) {
+		return $matches[1];
+	}
+
+	$query = wp_parse_url( $url, PHP_URL_QUERY );
+
+	if ( is_string( $query ) && '' !== $query ) {
+		parse_str( $query, $parts );
+
+		if ( ! empty( $parts['v'] ) && preg_match( '/^[a-zA-Z0-9_-]{11}$/', (string) $parts['v'] ) ) {
+			return (string) $parts['v'];
+		}
+	}
+
+	return '';
+}
+
+/**
  * Wrap sub-menu link text in a span so the hover underline animation
  * can be scoped to the text width (not the full flex-item width).
  */
