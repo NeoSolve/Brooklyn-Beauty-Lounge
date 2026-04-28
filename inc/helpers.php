@@ -340,6 +340,23 @@ function brooklyn_beauty_get_youtube_video_id_from_url( $url ) {
 }
 
 /**
+ * Public YouTube thumbnail URL for a video (hq 480×360), when no custom preview image is uploaded.
+ *
+ * @param string $video_id Eleven-character YouTube video ID.
+ *
+ * @return string Empty string if ID is invalid.
+ */
+function brooklyn_beauty_get_youtube_thumbnail_url( $video_id ) {
+	$video_id = trim( (string) $video_id );
+
+	if ( ! preg_match( '/^[a-zA-Z0-9_-]{11}$/', $video_id ) ) {
+		return '';
+	}
+
+	return 'https://i.ytimg.com/vi/' . $video_id . '/hqdefault.jpg';
+}
+
+/**
  * Wrap sub-menu link text in a span so the hover underline animation
  * can be scoped to the text width (not the full flex-item width).
  */

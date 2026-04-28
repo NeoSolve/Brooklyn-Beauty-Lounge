@@ -78,6 +78,9 @@ if ( 'file' === $video_source && '' !== $video_file_url ) {
 
 	if ( '' !== $video_embed ) {
 		$video_render = 'oembed';
+		if ( preg_match( '/<iframe\b/i', $video_embed ) && ! preg_match( '/\sloading\s*=/i', $video_embed ) ) {
+			$video_embed = preg_replace( '/<iframe\b/i', '<iframe loading="lazy"', $video_embed, 1 );
+		}
 	} else {
 		$url_filetype = wp_check_filetype( $video_url );
 		$url_mime     = ! empty( $url_filetype['type'] ) ? (string) $url_filetype['type'] : '';
@@ -108,7 +111,7 @@ if ( 'file' === $video_source && '' !== $video_file_url ) {
 		<div class="bb-video-wrapper">
 			<?php if ( 'file' === $video_render ) : ?>
 				<div class="bb-video bb-video--has-play">
-					<video playsinline preload="metadata">
+					<video playsinline preload="metadata" loop loading="lazy">
 						<source src="<?php echo esc_url( $video_file_url ); ?>"<?php echo $video_file_type ? ' type="' . esc_attr( $video_file_type ) . '"' : ''; ?>>
 					</video>
 					<button class="bb-video__play-btn" type="button" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>"></button>
@@ -119,7 +122,7 @@ if ( 'file' === $video_source && '' !== $video_file_url ) {
 				</div>
 			<?php elseif ( 'direct' === $video_render ) : ?>
 				<div class="bb-video bb-video--has-play">
-					<video playsinline preload="metadata">
+					<video playsinline preload="metadata" loop loading="lazy">
 						<source src="<?php echo esc_url( $video_direct_url ); ?>"<?php echo $video_direct_type ? ' type="' . esc_attr( $video_direct_type ) . '"' : ''; ?>>
 					</video>
 					<button class="bb-video__play-btn" type="button" aria-label="<?php esc_attr_e( 'Play video', 'brooklyn-beauty' ); ?>"></button>

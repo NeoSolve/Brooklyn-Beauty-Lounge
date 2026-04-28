@@ -81,14 +81,20 @@ if ( function_exists( 'get_field' ) ) {
 				}
 			}
 
-			if ( $preview_id <= 0 ) {
+			$preview_external_url = '';
+			if ( $preview_id <= 0 && '' !== $youtube_id ) {
+				$preview_external_url = brooklyn_beauty_get_youtube_thumbnail_url( $youtube_id );
+			}
+
+			if ( $preview_id <= 0 && '' === $preview_external_url ) {
 				continue;
 			}
 
 			$work_items[] = array(
-				'preview_id' => $preview_id,
-				'video_url'  => $video_url,
-				'youtube_id' => $youtube_id,
+				'preview_id'           => $preview_id,
+				'preview_external_url' => $preview_external_url,
+				'video_url'            => $video_url,
+				'youtube_id'           => $youtube_id,
 			);
 		}
 	}
@@ -137,15 +143,28 @@ if ( function_exists( 'get_field' ) ) {
 						$work_index++;
 						$is_last    = $work_index === $work_items_count;
 						$has_video  = ( '' !== ( $work_item['youtube_id'] ?? '' ) ) || ( '' !== ( $work_item['video_url'] ?? '' ) );
-						$img = wp_get_attachment_image(
-							$work_item['preview_id'],
-							'large',
-							false,
-							array(
-								'class'   => 'bb-work__image',
-								'loading' => 'lazy',
-							)
-						);
+						$preview_id = (int) ( $work_item['preview_id'] ?? 0 );
+						$preview_external_url = isset( $work_item['preview_external_url'] ) ? trim( (string) $work_item['preview_external_url'] ) : '';
+
+						if ( $preview_id > 0 ) {
+							$img = wp_get_attachment_image(
+								$preview_id,
+								'large',
+								false,
+								array(
+									'class'   => 'bb-work__image',
+									'loading' => 'lazy',
+								)
+							);
+						} elseif ( '' !== $preview_external_url ) {
+							$img = sprintf(
+								'<img class="bb-work__image" src="%1$s" alt="" width="480" height="360" loading="lazy" decoding="async">',
+								esc_url( $preview_external_url )
+							);
+						} else {
+							$img = '';
+						}
+
 						if ( $img ) :
 							?>
 							<article
