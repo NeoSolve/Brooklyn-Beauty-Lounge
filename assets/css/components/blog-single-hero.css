@@ -63,6 +63,7 @@
 }
 
 .single-post .bb-blog-single-hero__author .bb-blog-single-hero__author-avatar {
+	flex-shrink: 0;
 	width: clamp(46px, 3.02vw, 58px);
 	height: clamp(46px, 3.02vw, 58px);
 	border-radius: 50%;
@@ -70,24 +71,30 @@
 }
 
 .single-post .bb-blog-single-hero__author-text {
+	flex: 1 1 auto;
+	min-width: 0;
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 }
 
 .single-post .bb-blog-single-hero__author-name {
+	margin: 0;
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
 	font-weight: var(--fw-body-regular);
 	color: var(--color-primary-alt);
+	overflow-wrap: break-word;
 }
 
 .single-post .bb-blog-single-hero__author-role {
+	margin: 0;
 	font-size: var(--fs-body-2);
 	line-height: var(--lh-body-2);
 	font-weight: var(--fw-body-medium);
 	color: var(--color-text-soft);
 	text-transform: lowercase;
+	overflow-wrap: break-word;
 }
 
 .single-post .bb-blog-single-hero__date {

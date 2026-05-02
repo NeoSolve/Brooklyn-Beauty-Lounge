@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin-configured 301 redirects — ACF “Redirects” options page (`site_301_redirects`).
+ * Canonical host (www/non-www alignment with WP “Site Address”) + ACF path redirects (`site_301_redirects`).
  *
  * @package Brooklyn_Beauty
  */
@@ -80,6 +80,71 @@ function brooklyn_beauty_maybe_migrate_redirects_options_context() {
 	update_option( 'brooklyn_beauty_redirects_ctx_migrated', 'yes', true );
 }
 add_action( 'acf/init', 'brooklyn_beauty_maybe_migrate_redirects_options_context', 25 );
+
+/**
+ * 301 redirect to the canonical site host from WP “Site Address” (e.g. www → без www если так задан home_url).
+ */
+function brooklyn_beauty_redirect_canonical_http_host() {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		return;
+	}
+
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		return;
+	}
+
+	if ( is_customize_preview() ) {
+		return;
+	}
+
+	if ( wp_installing() ) {
+		return;
+	}
+
+	$home = wp_parse_url( home_url( '/' ) );
+	if ( ! is_array( $home ) || empty( $home['host'] ) ) {
+		return;
+	}
+
+	$canonical = strtolower( (string) $home['host'] );
+	$canonical = preg_replace( '#:\d+$#', '', $canonical );
+	if ( '' === $canonical ) {
+		return;
+	}
+
+	if ( empty( $_SERVER['HTTP_HOST'] ) || ! is_string( $_SERVER['HTTP_HOST'] ) ) {
+		return;
+	}
+
+	$requested_raw = strtolower( preg_replace( '#:\d+$#', '', trim( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) );
+	$requested     = preg_replace( '/^\.+|\.+$/', '', $requested_raw );
+	if ( '' === $requested ) {
+		return;
+	}
+
+	if ( $requested === $canonical ) {
+		return;
+	}
+
+	$scheme = is_ssl() ? 'https' : 'http';
+
+	$request_uri = '/';
+	if ( isset( $_SERVER['REQUEST_URI'] ) && is_string( $_SERVER['REQUEST_URI'] ) ) {
+		$request_uri = wp_unslash( $_SERVER['REQUEST_URI'] );
+	}
+	if ( '' === $request_uri || '/' !== substr( $request_uri, 0, 1 ) ) {
+		$request_uri = '/';
+	}
+
+	$destination = $scheme . '://' . $canonical . $request_uri;
+	wp_safe_redirect( esc_url_raw( $destination ), 301 );
+	exit;
+}
+add_action( 'template_redirect', 'brooklyn_beauty_redirect_canonical_http_host', -1 );
 
 /**
  * Apply the first matching 301 redirect rule.
