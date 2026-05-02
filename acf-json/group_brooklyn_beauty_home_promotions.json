@@ -1,6 +1,6 @@
 {
     "key": "group_brooklyn_beauty_home_promotions",
-    "title": "Homepage: Our Promotions",
+    "title": "Our Promotions",
     "fields": [
         {
             "key": "field_brooklyn_beauty_promotions_intro",
@@ -95,6 +95,29 @@
             "mime_types": "",
             "allow_in_bindings": 0,
             "preview_size": "medium"
+        },
+        {
+            "key": "field_brooklyn_beauty_promotions_autoplay_seconds",
+            "label": "Autoplay interval (seconds)",
+            "name": "promotions_autoplay_seconds",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "How long each slide stays visible before switching. Use 0 to turn off autoplay (manual arrows only).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 5,
+            "min": 0,
+            "max": 120,
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": "sec",
+            "allow_in_bindings": 0
         },
         {
             "key": "field_brooklyn_beauty_promotions_slides",
@@ -285,9 +308,9 @@
     "location": [
         [
             {
-                "param": "page_type",
+                "param": "options_page",
                 "operator": "==",
-                "value": "front_page"
+                "value": "brooklyn-beauty-promotions"
             }
         ]
     ],
@@ -298,8 +321,8 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Content settings for the Our Promotions block on homepage.",
+    "description": "Shared Our Promotions block (homepage, service pages, anywhere the template includes it).",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1773274604
+    "modified": 1777593800
 }

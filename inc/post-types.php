@@ -35,7 +35,7 @@ function brooklyn_beauty_register_services_content() {
 			),
 			'public'       => true,
 			'show_in_rest' => true,
-			'menu_icon'    => 'dashicons-cutlery',
+			'menu_icon'    => 'dashicons-store',
 			// Keep single services under /services/<slug>, but free /services for the static page.
 			'has_archive'  => 'services-archive',
 			'rewrite'      => array(

@@ -6,8 +6,9 @@
  */
 $section_intro = '';
 $section_title = __( 'our promotions', 'brooklyn-beauty' );
-$section_background_image = '';
-$slides        = array();
+$section_background_image    = '';
+$slides                      = array();
+$promotions_autoplay_seconds = 5;
 
 $resolve_image_url = static function ( $field_value ) {
 	if ( is_numeric( $field_value ) ) {
@@ -34,33 +35,35 @@ $resolve_image_url = static function ( $field_value ) {
 };
 
 if ( function_exists( 'get_field' ) ) {
-	$front_page_id = (int) get_option( 'page_on_front' );
-	$field_post_id = $front_page_id > 0 ? $front_page_id : get_queried_object_id();
-
-	$acf_section_intro = trim( (string) get_field( 'promotions_intro', $field_post_id ) );
+	$acf_section_intro = trim( (string) get_field( 'promotions_intro', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID ) );
 	if ( '' !== $acf_section_intro ) {
 		$section_intro = $acf_section_intro;
 	}
 
-	$acf_section_title = trim( (string) get_field( 'promotions_title', $field_post_id ) );
+	$acf_section_title = trim( (string) get_field( 'promotions_title', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID ) );
 	if ( '' !== $acf_section_title ) {
 		$section_title = $acf_section_title;
 	}
 
-	$acf_section_background = get_field( 'promotions_background_image', $field_post_id );
+	$acf_section_background = get_field( 'promotions_background_image', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID );
 	$resolved_section_background = $resolve_image_url( $acf_section_background );
 	if ( '' !== $resolved_section_background ) {
 		$section_background_image = $resolved_section_background;
 	}
 
 	$section_background_image_mobile = '';
-	$acf_section_background_mobile = get_field( 'promotions_background_image_mobile', $field_post_id );
+	$acf_section_background_mobile = get_field( 'promotions_background_image_mobile', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID );
 	$resolved_mobile = $resolve_image_url( $acf_section_background_mobile );
 	if ( '' !== $resolved_mobile ) {
 		$section_background_image_mobile = $resolved_mobile;
 	}
 
-	$acf_slides = get_field( 'promotions_slides', $field_post_id );
+	$acf_slides = get_field( 'promotions_slides', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID );
+	$acf_autoplay = get_field( 'promotions_autoplay_seconds', BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID );
+	if ( '' !== $acf_autoplay && null !== $acf_autoplay && false !== $acf_autoplay ) {
+		$promotions_autoplay_seconds = max( 0, min( 120, absint( $acf_autoplay ) ) );
+	}
+
 	if ( is_array( $acf_slides ) && ! empty( $acf_slides ) ) {
 		foreach ( $acf_slides as $slide ) {
 			if ( ! is_array( $slide ) ) {
@@ -112,7 +115,7 @@ if ( '' !== $section_background_image_mobile ) {
 	$promotions_style .= ' --bb-promotions-bg-image-mobile:url(' . esc_url( $section_background_image_mobile ) . ');';
 }
 ?>
-<section class="bb-promotions-section" id="promotions" data-promotions>
+<section class="bb-promotions-section" id="promotions" data-promotions data-promotions-autoplay-seconds="<?php echo esc_attr( (string) $promotions_autoplay_seconds ); ?>">
 	<div class="bb-container">
 		<div class="bb-promotions<?php echo '' === $section_background_image ? ' is-no-image' : ''; ?>"<?php echo '' !== $promotions_style ? ' style="' . esc_attr( $promotions_style ) . '"' : ''; ?>>
 			<div class="bb-promotions__left">
@@ -131,40 +134,44 @@ if ( '' !== $section_background_image_mobile ) {
 			</div>
 
 			<div class="bb-promotions__right">
-				<?php foreach ( $slides as $index => $slide ) : ?>
-					<article class="bb-promo-card<?php echo 0 === $index ? ' is-active' : ''; ?>" data-promotion-slide aria-hidden="<?php echo 0 === $index ? 'false' : 'true'; ?>">
-						<?php if ( $slide['card_title'] ) : ?>
-							<h3 class="bb-promo-card__title"><?php echo wp_kses( $slide['card_title'], array( 'br' => array() ) ); ?></h3>
-						<?php endif; ?>
-
-						<div class="bb-promo-card__images">
-							<?php if ( $slide['first_image'] ) : ?>
-								<figure class="bb-promo-card__image-wrap">
-									<img class="bb-promo-card__image" src="<?php echo esc_url( $slide['first_image'] ); ?>" alt="<?php echo esc_attr( $slide['card_title'] . ' 1' ); ?>" loading="lazy">
-								</figure>
-							<?php endif; ?>
-							<?php if ( $slide['second_image'] ) : ?>
-								<figure class="bb-promo-card__image-wrap">
-									<img class="bb-promo-card__image" src="<?php echo esc_url( $slide['second_image'] ); ?>" alt="<?php echo esc_attr( $slide['card_title'] . ' 2' ); ?>" loading="lazy">
-								</figure>
-							<?php endif; ?>
-						</div>
-
-						<div class="bb-promo-card__footer">
-							<div class="bb-promo-card__content">
-								<?php if ( $slide['validity_text'] ) : ?>
-									<p class="bb-promo-card__validity"><?php echo esc_html( $slide['validity_text'] ); ?></p>
+				<div class="bb-promotions__viewport" data-promotions-viewport>
+					<div class="bb-promotions__track" data-promotions-track>
+						<?php foreach ( $slides as $index => $slide ) : ?>
+							<article class="bb-promo-card<?php echo 0 === $index ? ' is-active' : ''; ?>" data-promotion-slide aria-hidden="<?php echo 0 === $index ? 'false' : 'true'; ?>"<?php echo 0 === $index ? '' : ' inert'; ?>>
+								<?php if ( $slide['card_title'] ) : ?>
+									<h3 class="bb-promo-card__title"><?php echo wp_kses( $slide['card_title'], array( 'br' => array() ) ); ?></h3>
 								<?php endif; ?>
-								<?php if ( $slide['description'] ) : ?>
-									<p class="bb-promo-card__description"><?php echo esc_html( $slide['description'] ); ?></p>
-								<?php endif; ?>
-							</div>
-							<?php if ( $slide['button_text'] && $slide['button_link'] ) : ?>
-								<a class="btn btn--white bb-promo-card__button" href="<?php echo esc_url( $slide['button_link'] ); ?>"><?php echo esc_html( $slide['button_text'] ); ?></a>
-							<?php endif; ?>
-						</div>
-					</article>
-				<?php endforeach; ?>
+
+								<div class="bb-promo-card__images">
+									<?php if ( $slide['first_image'] ) : ?>
+										<figure class="bb-promo-card__image-wrap">
+											<img class="bb-promo-card__image" src="<?php echo esc_url( $slide['first_image'] ); ?>" alt="<?php echo esc_attr( $slide['card_title'] . ' 1' ); ?>" loading="lazy">
+										</figure>
+									<?php endif; ?>
+									<?php if ( $slide['second_image'] ) : ?>
+										<figure class="bb-promo-card__image-wrap">
+											<img class="bb-promo-card__image" src="<?php echo esc_url( $slide['second_image'] ); ?>" alt="<?php echo esc_attr( $slide['card_title'] . ' 2' ); ?>" loading="lazy">
+										</figure>
+									<?php endif; ?>
+								</div>
+
+								<div class="bb-promo-card__footer">
+									<div class="bb-promo-card__content">
+										<?php if ( $slide['validity_text'] ) : ?>
+											<p class="bb-promo-card__validity"><?php echo esc_html( $slide['validity_text'] ); ?></p>
+										<?php endif; ?>
+										<?php if ( $slide['description'] ) : ?>
+											<p class="bb-promo-card__description"><?php echo esc_html( $slide['description'] ); ?></p>
+										<?php endif; ?>
+									</div>
+									<?php if ( $slide['button_text'] && $slide['button_link'] ) : ?>
+										<a class="btn btn--white bb-promo-card__button" href="<?php echo esc_url( $slide['button_link'] ); ?>"><?php echo esc_html( $slide['button_text'] ); ?></a>
+									<?php endif; ?>
+								</div>
+							</article>
+						<?php endforeach; ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

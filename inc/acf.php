@@ -2,9 +2,11 @@
 /**
  * ACF (Advanced Custom Fields) related logic.
  *
- * Registers ACF options page (Site Settings) and all local field groups:
- * Site Settings (header, footer, share), About Us, Reviews, Book Appointment,
- * Single Service Hero, Why Choose, Blocks Visibility, FAQ.
+ * Registers ACF options pages (Site Settings, Promotions, Redirects) and all local field groups:
+ * Site Settings (header, footer, share), 301 redirects (standalone menu), Promotions block, About Us, Reviews,
+ * Book Appointment, Single Service Hero, Why Choose, Blocks Visibility, FAQ.
+ *
+ * Field group JSON lives in `{theme}/acf-json` only (see save/load hooks below).
  *
  * @package Brooklyn_Beauty
  */
@@ -12,6 +14,28 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * ACF Local JSON: keep all synced field groups in one directory.
+ *
+ * @param string $path Unused default directory (ACF passes the previous value).
+ */
+function brooklyn_beauty_acf_json_save_path( $path ) {
+	return wp_normalize_path( trailingslashit( get_template_directory() ) . 'acf-json' );
+}
+
+/**
+ * @param array $paths Paths ACF scans for JSON field groups.
+ */
+function brooklyn_beauty_acf_json_load_paths( $paths ) {
+	if ( ! is_array( $paths ) ) {
+		$paths = array();
+	}
+	$paths[] = wp_normalize_path( trailingslashit( get_template_directory() ) . 'acf-json' );
+	return array_values( array_unique( $paths ) );
+}
+add_filter( 'acf/settings/save_json', 'brooklyn_beauty_acf_json_save_path', 99 );
+add_filter( 'acf/settings/load_json', 'brooklyn_beauty_acf_json_load_paths', 99 );
 
 /**
  * Register ACF options pages.
@@ -28,6 +52,28 @@ function brooklyn_beauty_register_acf_options_pages() {
 		'capability' => 'edit_posts',
 		'redirect'   => false,
 		'position'   => 58,
+	) );
+
+	acf_add_options_page( array(
+		'page_title' => __( 'Our Promotions', 'brooklyn-beauty' ),
+		'menu_title' => __( 'Promotions', 'brooklyn-beauty' ),
+		'menu_slug'  => 'brooklyn-beauty-promotions',
+		'post_id'    => BROOKLYN_BEAUTY_PROMOTIONS_OPTIONS_ID,
+		'capability' => 'edit_posts',
+		'redirect'   => false,
+		'position'   => '59.1',
+		'icon_url'   => 'dashicons-megaphone',
+	) );
+
+	acf_add_options_page( array(
+		'page_title' => __( '301 Redirects', 'brooklyn-beauty' ),
+		'menu_title' => __( 'Redirects', 'brooklyn-beauty' ),
+		'menu_slug'  => 'brooklyn-beauty-redirects',
+		'post_id'    => BROOKLYN_BEAUTY_REDIRECTS_OPTIONS_ID,
+		'capability' => 'edit_posts',
+		'redirect'   => false,
+		'position'   => '59.2',
+		'icon_url'   => 'dashicons-admin-links',
 	) );
 }
 add_action( 'acf/init', 'brooklyn_beauty_register_acf_options_pages' );
@@ -779,6 +825,56 @@ function brooklyn_beauty_register_acf_field_groups() {
 				),
 			),
 		),
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+
+	acf_add_local_field_group( array(
+		'key'                   => 'group_brooklyn_beauty_url_redirects',
+		'title'                 => __( '301 Redirects', 'brooklyn-beauty' ),
+		'fields'                => array(
+			array(
+				'key'          => 'field_brooklyn_beauty_301_redirects',
+				'label'        => __( 'Redirect rules', 'brooklyn-beauty' ),
+				'name'         => 'site_301_redirects',
+				'type'         => 'repeater',
+				'layout'       => 'row',
+				'button_label' => __( 'Add redirect', 'brooklyn-beauty' ),
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_brooklyn_beauty_301_redirect_from',
+						'label'         => __( 'From path', 'brooklyn-beauty' ),
+						'name'          => 'redirect_from_path',
+						'type'          => 'text',
+						'required'      => 1,
+						'instructions'  => __( 'Path visitors request, starting with /. Example: /old-service. Query strings are ignored when matching.', 'brooklyn-beauty' ),
+						'placeholder'   => '/example-old-url',
+					),
+					array(
+						'key'          => 'field_brooklyn_beauty_301_redirect_to',
+						'label'        => __( 'To URL', 'brooklyn-beauty' ),
+						'name'         => 'redirect_to_url',
+						'type'         => 'text',
+						'required'     => 1,
+						'instructions' => __( 'Full URL (https://…) or internal path (/new-page). First matching rule wins.', 'brooklyn-beauty' ),
+						'placeholder'  => home_url( '/' ),
+					),
+				),
+			),
+		),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'options_page',
+					'operator' => '==',
+					'value'    => 'brooklyn-beauty-redirects',
+				),
+			),
+		),
+		'menu_order'            => 0,
 		'position'              => 'normal',
 		'style'                 => 'default',
 		'label_placement'       => 'top',
