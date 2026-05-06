@@ -85,23 +85,32 @@ function brooklyn_beauty_render_popup_metabox( $post ) {
 	$is_active          = (bool) get_post_meta( $post->ID, '_bb_popup_is_active', true );
 	$start_date         = (string) get_post_meta( $post->ID, '_bb_popup_start_date', true );
 	$end_date           = (string) get_post_meta( $post->ID, '_bb_popup_end_date', true );
-	$primary_image_id   = (int) get_post_meta( $post->ID, '_bb_popup_primary_image_id', true );
-	$secondary_image_id = (int) get_post_meta( $post->ID, '_bb_popup_secondary_image_id', true );
+	$desktop_image_id   = (int) get_post_meta( $post->ID, '_bb_popup_desktop_image_id', true );
+	$mobile_image_id    = (int) get_post_meta( $post->ID, '_bb_popup_mobile_image_id', true );
 	$description_text   = (string) get_post_meta( $post->ID, '_bb_popup_description_text', true );
 	$button_text        = (string) get_post_meta( $post->ID, '_bb_popup_button_text', true );
 	$button_url         = (string) get_post_meta( $post->ID, '_bb_popup_button_url', true );
 	$show_once          = (bool) get_post_meta( $post->ID, '_bb_popup_show_once', true );
 	$delay_seconds      = (int) get_post_meta( $post->ID, '_bb_popup_delay_seconds', true );
 	$next_delay_seconds = (int) get_post_meta( $post->ID, '_bb_popup_next_delay_seconds', true );
-	$primary_preview    = '';
-	$secondary_preview  = '';
+	$sequence_order     = (int) $post->menu_order;
+	$desktop_preview    = '';
+	$mobile_preview     = '';
 
-	if ( $primary_image_id > 0 ) {
-		$primary_preview = (string) wp_get_attachment_image_url( $primary_image_id, 'medium' );
+	if ( $desktop_image_id <= 0 ) {
+		$desktop_image_id = (int) get_post_meta( $post->ID, 'bb_popup_desktop_image_id', true );
 	}
 
-	if ( $secondary_image_id > 0 ) {
-		$secondary_preview = (string) wp_get_attachment_image_url( $secondary_image_id, 'medium' );
+	if ( $mobile_image_id <= 0 ) {
+		$mobile_image_id = (int) get_post_meta( $post->ID, 'bb_popup_mobile_image_id', true );
+	}
+
+	if ( $desktop_image_id > 0 ) {
+		$desktop_preview = (string) wp_get_attachment_image_url( $desktop_image_id, 'medium' );
+	}
+
+	if ( $mobile_image_id > 0 ) {
+		$mobile_preview = (string) wp_get_attachment_image_url( $mobile_image_id, 'medium' );
 	}
 
 	if ( '' === trim( $description_text ) ) {
@@ -146,28 +155,35 @@ function brooklyn_beauty_render_popup_metabox( $post ) {
 
 	<p><?php esc_html_e( 'Display sequence uses popup order (menu_order).', 'brooklyn-beauty' ); ?></p>
 
+	<p>
+		<label for="bb-popup-sequence-order"><strong><?php esc_html_e( 'Sequence order', 'brooklyn-beauty' ); ?></strong></label><br />
+		<input id="bb-popup-sequence-order" type="number" min="0" step="1" name="bb_popup_sequence_order" value="<?php echo esc_attr( (string) $sequence_order ); ?>" />
+		<br />
+		<small><?php esc_html_e( 'Lower number appears first in popup sequence.', 'brooklyn-beauty' ); ?></small>
+	</p>
+
 	<hr />
 
 	<p>
-		<label for="bb-popup-primary-image-id"><strong><?php esc_html_e( 'Left image 1', 'brooklyn-beauty' ); ?></strong></label><br />
-		<input id="bb-popup-primary-image-id" type="hidden" name="bb_popup_primary_image_id" value="<?php echo esc_attr( (string) $primary_image_id ); ?>" />
-		<button type="button" class="button" id="bb-popup-primary-upload"><?php esc_html_e( 'Select image', 'brooklyn-beauty' ); ?></button>
-		<button type="button" class="button" id="bb-popup-primary-remove"><?php esc_html_e( 'Remove', 'brooklyn-beauty' ); ?></button>
+		<label for="bb-popup-desktop-image-id"><strong><?php esc_html_e( 'Popup Image (Desktop)', 'brooklyn-beauty' ); ?></strong></label><br />
+		<input id="bb-popup-desktop-image-id" type="hidden" name="bb_popup_desktop_image_id" value="<?php echo esc_attr( (string) $desktop_image_id ); ?>" />
+		<button type="button" class="button" id="bb-popup-desktop-upload"><?php esc_html_e( 'Select image', 'brooklyn-beauty' ); ?></button>
+		<button type="button" class="button" id="bb-popup-desktop-remove"><?php esc_html_e( 'Remove', 'brooklyn-beauty' ); ?></button>
 	</p>
 
-	<div id="bb-popup-primary-preview-wrap" style="<?php echo '' === $primary_preview ? 'display:none;' : ''; ?>">
-		<img id="bb-popup-primary-preview" src="<?php echo esc_url( $primary_preview ); ?>" alt="" style="max-width: 220px; height: auto;" />
+	<div id="bb-popup-desktop-preview-wrap" style="<?php echo '' === $desktop_preview ? 'display:none;' : ''; ?>">
+		<img id="bb-popup-desktop-preview" src="<?php echo esc_url( $desktop_preview ); ?>" alt="" style="max-width: 220px; height: auto;" />
 	</div>
 
 	<p>
-		<label for="bb-popup-secondary-image-id"><strong><?php esc_html_e( 'Left image 2', 'brooklyn-beauty' ); ?></strong></label><br />
-		<input id="bb-popup-secondary-image-id" type="hidden" name="bb_popup_secondary_image_id" value="<?php echo esc_attr( (string) $secondary_image_id ); ?>" />
-		<button type="button" class="button" id="bb-popup-secondary-upload"><?php esc_html_e( 'Select image', 'brooklyn-beauty' ); ?></button>
-		<button type="button" class="button" id="bb-popup-secondary-remove"><?php esc_html_e( 'Remove', 'brooklyn-beauty' ); ?></button>
+		<label for="bb-popup-mobile-image-id"><strong><?php esc_html_e( 'Popup Image (Mobile)', 'brooklyn-beauty' ); ?></strong></label><br />
+		<input id="bb-popup-mobile-image-id" type="hidden" name="bb_popup_mobile_image_id" value="<?php echo esc_attr( (string) $mobile_image_id ); ?>" />
+		<button type="button" class="button" id="bb-popup-mobile-upload"><?php esc_html_e( 'Select image', 'brooklyn-beauty' ); ?></button>
+		<button type="button" class="button" id="bb-popup-mobile-remove"><?php esc_html_e( 'Remove', 'brooklyn-beauty' ); ?></button>
 	</p>
 
-	<div id="bb-popup-secondary-preview-wrap" style="<?php echo '' === $secondary_preview ? 'display:none;' : ''; ?>">
-		<img id="bb-popup-secondary-preview" src="<?php echo esc_url( $secondary_preview ); ?>" alt="" style="max-width: 220px; height: auto;" />
+	<div id="bb-popup-mobile-preview-wrap" style="<?php echo '' === $mobile_preview ? 'display:none;' : ''; ?>">
+		<img id="bb-popup-mobile-preview" src="<?php echo esc_url( $mobile_preview ); ?>" alt="" style="max-width: 220px; height: auto;" />
 	</div>
 
 	<hr />
@@ -229,10 +245,12 @@ function brooklyn_beauty_save_popup_metabox( $post_id ) {
 	update_post_meta( $post_id, '_bb_popup_start_date', $start_date );
 	update_post_meta( $post_id, '_bb_popup_end_date', $end_date );
 
-	$primary_image_id   = isset( $_POST['bb_popup_primary_image_id'] ) ? (int) $_POST['bb_popup_primary_image_id'] : 0;
-	$secondary_image_id = isset( $_POST['bb_popup_secondary_image_id'] ) ? (int) $_POST['bb_popup_secondary_image_id'] : 0;
-	update_post_meta( $post_id, '_bb_popup_primary_image_id', $primary_image_id > 0 ? $primary_image_id : '' );
-	update_post_meta( $post_id, '_bb_popup_secondary_image_id', $secondary_image_id > 0 ? $secondary_image_id : '' );
+	$desktop_image_id = isset( $_POST['bb_popup_desktop_image_id'] ) ? (int) $_POST['bb_popup_desktop_image_id'] : 0;
+	$mobile_image_id  = isset( $_POST['bb_popup_mobile_image_id'] ) ? (int) $_POST['bb_popup_mobile_image_id'] : 0;
+	update_post_meta( $post_id, '_bb_popup_desktop_image_id', $desktop_image_id > 0 ? $desktop_image_id : '' );
+	update_post_meta( $post_id, '_bb_popup_mobile_image_id', $mobile_image_id > 0 ? $mobile_image_id : '' );
+	update_post_meta( $post_id, 'bb_popup_desktop_image_id', $desktop_image_id > 0 ? $desktop_image_id : '' );
+	update_post_meta( $post_id, 'bb_popup_mobile_image_id', $mobile_image_id > 0 ? $mobile_image_id : '' );
 
 	$description_text = isset( $_POST['bb_popup_description_text'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bb_popup_description_text'] ) ) : '';
 	update_post_meta( $post_id, '_bb_popup_description_text', $description_text );
@@ -253,6 +271,22 @@ function brooklyn_beauty_save_popup_metabox( $post_id ) {
 		$next_delay_seconds = 0;
 	}
 	update_post_meta( $post_id, '_bb_popup_next_delay_seconds', $next_delay_seconds );
+
+	$sequence_order = isset( $_POST['bb_popup_sequence_order'] ) ? (int) $_POST['bb_popup_sequence_order'] : 0;
+	if ( $sequence_order < 0 ) {
+		$sequence_order = 0;
+	}
+
+	if ( $sequence_order !== (int) get_post_field( 'menu_order', $post_id ) ) {
+		remove_action( 'save_post_bb_popup', 'brooklyn_beauty_save_popup_metabox' );
+		wp_update_post(
+			array(
+				'ID'         => $post_id,
+				'menu_order' => $sequence_order,
+			)
+		);
+		add_action( 'save_post_bb_popup', 'brooklyn_beauty_save_popup_metabox' );
+	}
 }
 add_action( 'save_post_bb_popup', 'brooklyn_beauty_save_popup_metabox' );
 
@@ -327,19 +361,19 @@ function brooklyn_beauty_popup_admin_assets( $hook_suffix ) {
 			}
 
 			initImageSelector({
-				idInputSelector: '#bb-popup-primary-image-id',
-				uploadButtonSelector: '#bb-popup-primary-upload',
-				removeButtonSelector: '#bb-popup-primary-remove',
-				previewWrapSelector: '#bb-popup-primary-preview-wrap',
-				previewSelector: '#bb-popup-primary-preview'
+				idInputSelector: '#bb-popup-desktop-image-id',
+				uploadButtonSelector: '#bb-popup-desktop-upload',
+				removeButtonSelector: '#bb-popup-desktop-remove',
+				previewWrapSelector: '#bb-popup-desktop-preview-wrap',
+				previewSelector: '#bb-popup-desktop-preview'
 			});
 
 			initImageSelector({
-				idInputSelector: '#bb-popup-secondary-image-id',
-				uploadButtonSelector: '#bb-popup-secondary-upload',
-				removeButtonSelector: '#bb-popup-secondary-remove',
-				previewWrapSelector: '#bb-popup-secondary-preview-wrap',
-				previewSelector: '#bb-popup-secondary-preview'
+				idInputSelector: '#bb-popup-mobile-image-id',
+				uploadButtonSelector: '#bb-popup-mobile-upload',
+				removeButtonSelector: '#bb-popup-mobile-remove',
+				previewWrapSelector: '#bb-popup-mobile-preview-wrap',
+				previewSelector: '#bb-popup-mobile-preview'
 			});
 		});"
 	);
@@ -427,10 +461,10 @@ function brooklyn_beauty_render_active_popups() {
 		$popup_id            = (int) $popup_post->ID;
 		$title               = (string) get_the_title( $popup_post );
 		$description_text    = (string) get_post_meta( $popup_id, '_bb_popup_description_text', true );
-		$primary_image_id    = (int) get_post_meta( $popup_id, '_bb_popup_primary_image_id', true );
-		$primary_image_url   = $primary_image_id > 0 ? (string) wp_get_attachment_image_url( $primary_image_id, 'full' ) : '';
-		$secondary_image_id  = (int) get_post_meta( $popup_id, '_bb_popup_secondary_image_id', true );
-		$secondary_image_url = $secondary_image_id > 0 ? (string) wp_get_attachment_image_url( $secondary_image_id, 'full' ) : '';
+		$desktop_image_id    = (int) get_post_meta( $popup_id, '_bb_popup_desktop_image_id', true );
+		$desktop_image_url   = $desktop_image_id > 0 ? (string) wp_get_attachment_image_url( $desktop_image_id, 'full' ) : '';
+		$mobile_image_id     = (int) get_post_meta( $popup_id, '_bb_popup_mobile_image_id', true );
+		$mobile_image_url    = $mobile_image_id > 0 ? (string) wp_get_attachment_image_url( $mobile_image_id, 'full' ) : '';
 		$button_text         = (string) get_post_meta( $popup_id, '_bb_popup_button_text', true );
 		$button_url          = (string) get_post_meta( $popup_id, '_bb_popup_button_url', true );
 		$show_once           = (bool) get_post_meta( $popup_id, '_bb_popup_show_once', true );
@@ -447,8 +481,22 @@ function brooklyn_beauty_render_active_popups() {
 			$button_url = '#book';
 		}
 
-		if ( '' === $primary_image_url ) {
-			$primary_image_url = (string) get_the_post_thumbnail_url( $popup_post, 'full' );
+		if ( '' === $desktop_image_url ) {
+			$desktop_image_id  = (int) get_post_meta( $popup_id, 'bb_popup_desktop_image_id', true );
+			$desktop_image_url = $desktop_image_id > 0 ? (string) wp_get_attachment_image_url( $desktop_image_id, 'full' ) : '';
+		}
+
+		if ( '' === $mobile_image_url ) {
+			$mobile_image_id  = (int) get_post_meta( $popup_id, 'bb_popup_mobile_image_id', true );
+			$mobile_image_url = $mobile_image_id > 0 ? (string) wp_get_attachment_image_url( $mobile_image_id, 'full' ) : '';
+		}
+
+		if ( '' === $desktop_image_url ) {
+			$desktop_image_url = (string) get_the_post_thumbnail_url( $popup_post, 'full' );
+		}
+
+		if ( '' === $mobile_image_url ) {
+			$mobile_image_url = $desktop_image_url;
 		}
 
 		if ( '' === trim( $description_text ) ) {
@@ -470,35 +518,34 @@ function brooklyn_beauty_render_active_popups() {
 		>
 			<div class="bb-promo-popup__backdrop" data-bb-popup-close></div>
 			<div class="bb-promo-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-				<button type="button" class="bb-promo-popup__close" data-bb-popup-close aria-label="<?php esc_attr_e( 'Close popup', 'brooklyn-beauty' ); ?>">&#10005;</button>
+				<div class="bb-promo-popup__header">
+					<?php if ( '' !== trim( $title ) ) : ?>
+						<h2 id="<?php echo esc_attr( $title_id ); ?>" class="bb-promo-popup__title"><?php echo esc_html( $title ); ?></h2>
+					<?php endif; ?>
+					<button type="button" class="bb-promo-popup__close" data-bb-popup-close aria-label="<?php esc_attr_e( 'Close popup', 'brooklyn-beauty' ); ?>">&#10005;</button>
+				</div>
 
-				<div class="bb-promo-popup__layout">
-					<div class="bb-promo-popup__images">
+				<div class="bb-promo-popup__content">
+					<div class="bb-promo-popup__media-row">
 						<div class="bb-promo-popup__image">
-							<?php if ( '' !== $primary_image_url ) : ?>
-								<img src="<?php echo esc_url( $primary_image_url ); ?>" alt="" loading="eager" />
+							<?php if ( '' !== $desktop_image_url ) : ?>
+								<picture>
+									<?php if ( '' !== $mobile_image_url ) : ?>
+										<source media="(max-width: 860px)" srcset="<?php echo esc_url( $mobile_image_url ); ?>" />
+									<?php endif; ?>
+									<img src="<?php echo esc_url( $desktop_image_url ); ?>" alt="" loading="eager" />
+								</picture>
 							<?php endif; ?>
 						</div>
-						<div class="bb-promo-popup__image">
-							<?php if ( '' !== $secondary_image_url ) : ?>
-								<img src="<?php echo esc_url( $secondary_image_url ); ?>" alt="" loading="eager" />
-							<?php endif; ?>
-						</div>
-					</div>
-
-					<div class="bb-promo-popup__content">
-						<?php if ( '' !== trim( $title ) ) : ?>
-							<h2 id="<?php echo esc_attr( $title_id ); ?>" class="bb-promo-popup__title"><?php echo esc_html( $title ); ?></h2>
-						<?php endif; ?>
 
 						<?php if ( '' !== trim( $description_text ) ) : ?>
 							<div class="bb-promo-popup__text"><?php echo wp_kses_post( $description_html ); ?></div>
 						<?php endif; ?>
-
-						<a class="bb-promo-popup__button" href="<?php echo esc_url( $button_url ); ?>">
-							<?php echo esc_html( $button_text ); ?>
-						</a>
 					</div>
+
+					<a class="bb-promo-popup__button" href="<?php echo esc_url( $button_url ); ?>">
+						<?php echo esc_html( $button_text ); ?>
+					</a>
 				</div>
 			</div>
 		</div>

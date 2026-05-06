@@ -1,0 +1,76 @@
+{
+    "key": "group_brooklyn_beauty_popup_images",
+    "title": "Promo Popup Images",
+    "fields": [
+        {
+            "key": "field_brooklyn_beauty_popup_desktop_image",
+            "label": "Popup Image (Desktop)",
+            "name": "bb_popup_desktop_image_id",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Desktop popup image. Used by default on widths above 860px.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_brooklyn_beauty_popup_mobile_image",
+            "label": "Popup Image (Mobile)",
+            "name": "bb_popup_mobile_image_id",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional mobile popup image. Used on widths up to 860px. If empty, desktop image is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "bb_popup"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Desktop and mobile image overrides for promo popups.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1778091586
+}

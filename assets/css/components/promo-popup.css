@@ -3,9 +3,9 @@
 	inset: 0;
 	z-index: 9999;
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 24px;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding: 20px;
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.26s ease;
@@ -28,269 +28,227 @@
 .bb-promo-popup__backdrop {
 	position: absolute;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.8);
-	opacity: 0;
-	transition: opacity 0.26s ease;
-}
-
-.bb-promo-popup.is-visible .bb-promo-popup__backdrop {
-	opacity: 1;
-}
-
-.bb-promo-popup.is-closing .bb-promo-popup__backdrop {
-	opacity: 0;
-	transition-duration: 0.22s;
+	background: transparent;
 }
 
 .bb-promo-popup__dialog {
 	position: relative;
 	z-index: 1;
 	box-sizing: border-box;
-	width: min(1362px, calc(100vw - 48px));
-	height: min(571px, calc(100vh - 48px));
-	max-height: calc(100vh - 48px);
-	padding: 32px;
-	background: #b90310;
-	overflow: hidden;
-	box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+	width: min(627px, calc(100vw - 40px));
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	background: #fffef4;
+	border-radius: 8px;
+	box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
 	opacity: 0;
-	transform: translateY(20px) scale(0.985);
-	transition: opacity 0.26s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-	will-change: transform, opacity;
+	transform: translateY(14px);
+	transition: opacity 0.26s ease, transform 0.26s ease;
 }
 
 .bb-promo-popup.is-visible .bb-promo-popup__dialog {
 	opacity: 1;
-	transform: translateY(0) scale(1);
+	transform: translateY(0);
 }
 
 .bb-promo-popup.is-closing .bb-promo-popup__dialog {
 	opacity: 0;
-	transform: translateY(14px) scale(0.99);
-	transition-duration: 0.22s;
+	transform: translateY(8px);
 }
 
-.bb-promo-popup__layout {
+.bb-promo-popup__header {
 	width: 100%;
-	height: 100%;
-	min-height: 0;
-	display: grid;
-	grid-template-columns: 726px 1fr;
-	overflow: hidden;
-}
-
-/* Block 1: photos */
-.bb-promo-popup__images {
-	min-width: 0;
-	min-height: 0;
-	overflow: hidden;
-	display: grid;
-	grid-template-columns: 355px 355px;
-	gap: 0 16px;
-}
-
-.bb-promo-popup__image {
-	min-width: 0;
-	min-height: 0;
-	overflow: hidden;
-	position: relative;
-	background: #1f1f1f;
-}
-
-.bb-promo-popup__image img {
-	position: absolute;
-	inset: 0;
-	width: 355px;
-	height: 100%;
-	display: block;
-	object-fit: cover;
-	vertical-align: top;
-}
-
-/* Block 2: text and button */
-
-.bb-promo-popup__content {
-	min-width: 0;
 	display: flex;
-	flex-direction: column;
-	padding: 0 32px;
-	color: #fff;
-	overflow: auto;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 16px;
 }
 
 .bb-promo-popup__title {
 	margin: 0;
-	font-size: var(--fs-h3);
-	line-height: var(--lh-h3-semibold);
-	font-weight: var(--fw-h3-semibold);
-}
-
-.bb-promo-popup__text {
-	margin-top: auto;
-	font-size: 34px;
-	line-height: 1.18;
-	font-weight: 500;
-}
-
-.bb-promo-popup__text p {
-	margin: 0;
+	flex: 1;
+	font-family: Geist, sans-serif;
+	font-style: normal;
+	font-weight: var(--fw-body-medium);
 	font-size: var(--fs-body-1);
 	line-height: var(--lh-body-1);
-	font-weight: var(--fw-body-regular);
-}
-
-/*.bb-promo-popup__text p + p {*/
-/*	margin-top: 12px;*/
-/*	font-size: 36px;*/
-/*	line-height: 1.2;*/
-/*	font-weight: 400;*/
-/*}*/
-
-.bb-promo-popup__button {
-	margin-top: 26px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 56px;
-	padding: 14px 30px;
-	width: min(100%, 324px);
-	background: var(--color-surface);
-	color: var(--color-primary);
-	text-decoration: none;
-	font-size: var(--fs-button);
-	letter-spacing: var(--ls-button-3);
-	font-weight: var(--fw-button);
-	line-height: var(--lh-button);
-	border: 1px solid transparent;
-	box-shadow: inset 0 0 0 0 var(--color-primary);
-	transition: box-shadow 0.15s ease;
-}
-
-.bb-promo-popup__button:hover,
-.bb-promo-popup__button:focus-visible {
-	box-shadow: inset 0 0 0 1px var(--color-primary);
-	border-color: transparent;
+	color: #2f2c38;
 }
 
 .bb-promo-popup__close {
-	position: absolute;
-	top: 32px;
-	right: 32px;
-	z-index: 10;
-	width: 30px;
-	height: 30px;
+	flex: 0 0 36px;
+	width: 36px;
+	height: 36px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border: 0;
 	padding: 0;
 	background: transparent;
-	color: #fff;
-	font-size: 26px;
+	color: #2f2c38;
+	font-size: 34px;
 	line-height: 1;
 	cursor: pointer;
 }
 
-body.bb-popup-open {
-	overflow: hidden;
+.bb-promo-popup__content {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
-@media (max-width: 1100px) {
-	.bb-promo-popup {
-		padding: 16px;
-	}
+.bb-promo-popup__media-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 15px;
+}
 
-	.bb-promo-popup__dialog {
-		width: min(1362px, calc(100vw - 32px));
-		height: min(571px, calc(100vh - 32px));
-		max-height: calc(100vh - 32px);
-	}
+.bb-promo-popup__image {
+	flex: 0 0 152px;
+	width: 152px;
+	height: 190px;
+	border-radius: 4px;
+	overflow: hidden;
+	background: #ddd;
+}
 
-	.bb-promo-popup__layout {
-		grid-template-columns: 1fr 1fr;
-	}
+.bb-promo-popup__image img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+}
 
-	.bb-promo-popup__content {
-		padding: 32px;
-	}
+.bb-promo-popup__image picture {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
 
-	.bb-promo-popup__text {
-		font-size: 26px;
-	}
+.bb-promo-popup__text {
+	flex: 1;
+	min-width: 0;
+	font-family: Geist, sans-serif;
+	font-style: normal;
+	font-weight: var(--fw-body-regular);
+	font-size: var(--fs-body-2);
+	line-height: var(--lh-body-2);
+	color: #2f2c38;
+}
+
+.bb-promo-popup__text p {
+	margin: 0;
+}
+
+.bb-promo-popup__text p + p {
+	margin-top: 8px;
+}
+
+.bb-promo-popup__button {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 48px;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 58px;
+	background: #ae050a;
+	border: 1px solid #ae050a;
+	border-radius: 8px;
+	text-decoration: none;
+	font-family: Geist, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.2;
+	letter-spacing: -0.03em;
+	color: #fffef4;
+}
+
+.bb-promo-popup__button:hover,
+.bb-promo-popup__button:focus-visible {
+	background: #98060a;
+	border-color: #98060a;
 }
 
 @media (max-width: 860px) {
+	.bb-promo-popup__backdrop {
+		background: rgba(0, 0, 0, 0.6);
+		opacity: 0;
+		transition: opacity 0.26s ease;
+	}
+
+	.bb-promo-popup.is-visible .bb-promo-popup__backdrop {
+		opacity: 1;
+	}
+
+	.bb-promo-popup.is-closing .bb-promo-popup__backdrop {
+		opacity: 0;
+	}
+
 	.bb-promo-popup {
-		padding: 0;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
+		padding: 173px 0 0;
 	}
 
 	.bb-promo-popup__dialog {
-		width: min(351px, 100%);
-		min-height: 471px;
-		height: auto;
-		max-height: 100%;
-		padding: 16px 12px 12px 12px;
-		box-shadow: none;
-		overflow-y: auto;
+		width: min(348px, calc(100vw - 24px));
+		min-height: 429px;
+		padding: 12px;
+		gap: 12px;
 	}
 
-	.bb-promo-popup__close {
-		top: 20px;
-		right: 20px;
+	.bb-promo-popup__header {
+		width: 100%;
+		max-width: 324px;
+		min-height: 66px;
+		gap: 39px;
 	}
 
-	.bb-promo-popup__layout {
-		display: flex;
+	.bb-promo-popup__media-row {
 		flex-direction: column;
-		height: auto;
-	}
-
-	.bb-promo-popup__content {
-		display: contents;
-	}
-
-	.bb-promo-popup__title {
-		order: 1;
-		padding-right: 36px;
-		font-size: 22px;
-		line-height: 1.27;
-	}
-
-	.bb-promo-popup__images {
-		order: 2;
-		grid-template-columns: 1fr 1fr;
-		gap: 0 10px;
-		margin-top: 24px;
+		width: 100%;
+		max-width: 324px;
+		gap: 15px;
 	}
 
 	.bb-promo-popup__image {
-		aspect-ratio: 155 / 200;
+		width: 100%;
+		height: 168px;
+		flex-basis: auto;
 	}
 
-	.bb-promo-popup__image img {
+	.bb-promo-popup__title {
 		width: 100%;
+		max-width: 279px;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 1.2;
 	}
 
 	.bb-promo-popup__text {
-		order: 3;
-		margin-top: 24px;
-		font-size: var(--fs-body-1);
-		line-height: var(--lh-body-1);
-		font-weight: var(--fw-body-regular);
-	}
-
-	.bb-promo-popup__text p {
-		font-size: 14px;
-		line-height: 1.43;
+		width: 100%;
+		max-width: 324px;
+		font-weight: 400;
+		font-size: 15px;
+		line-height: 1.2;
 	}
 
 	.bb-promo-popup__button {
-		order: 4;
-		margin-top: 24px;
 		width: 100%;
+		max-width: 327px;
 		min-height: 48px;
-		padding: 12px 24px;
-		font-size: var(--fs-body-3);
-		line-height: var(--lh-body-1);
-		font-weight: var(--fw-body-medium);
+		padding: 12px 58px;
+		font-size: 15px;
+		line-height: 1.2;
+		font-weight: 400;
+		letter-spacing: 0;
 	}
 }
