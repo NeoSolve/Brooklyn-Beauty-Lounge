@@ -18,8 +18,8 @@
 
 .bb-promotions.is-no-image {
 	background-image:
-		var(--gradient-promotions-overlay),
-		var(--gradient-promotions-fallback);
+			var(--gradient-promotions-overlay),
+			var(--gradient-promotions-fallback);
 }
 
 .bb-promotions__left {
@@ -129,14 +129,14 @@
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	gap: clamp(13px, 1.04vw, 20px);
-	padding: clamp(4px, 0.52vw, 8px) clamp(8px, 0.73vw, 12px);
+	/*padding: clamp(4px, 0.52vw, 8px) clamp(8px, 0.73vw, 12px);*/
 	color: var(--color-surface);
 	pointer-events: none;
 	opacity: 0;
 	z-index: 0;
 	transition:
-		opacity var(--bb-promo-fade-duration) cubic-bezier(0.4, 0, 0.2, 1),
-		visibility 0s linear var(--bb-promo-fade-duration);
+			opacity var(--bb-promo-fade-duration) cubic-bezier(0.4, 0, 0.2, 1),
+			visibility 0s linear var(--bb-promo-fade-duration);
 	visibility: hidden;
 	will-change: opacity;
 }
@@ -147,8 +147,8 @@
 	pointer-events: auto;
 	z-index: 2;
 	transition:
-		opacity var(--bb-promo-fade-duration) cubic-bezier(0.4, 0, 0.2, 1),
-		visibility 0s;
+			opacity var(--bb-promo-fade-duration) cubic-bezier(0.4, 0, 0.2, 1),
+			visibility 0s;
 }
 
 .bb-promo-card__title {
@@ -183,7 +183,7 @@
 
 .bb-promo-card__footer {
 	display: flex;
-	align-items: flex-start;
+	align-items: flex-end;
 	justify-content: space-between;
 	gap: clamp(16px, 1.25vw, 24px);
 }
