@@ -4,7 +4,7 @@
  */
 
 .bb-blog-posts-section {
-	padding: 0 0 clamp(67px, 5.21vw, 100px);
+	padding: clamp(67px, 5.21vw, 100px) 0;
 }
 
 .bb-blog-posts-section .bb-blog-posts-section__heading {

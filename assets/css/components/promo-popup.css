@@ -162,12 +162,10 @@
 	border: 1px solid #ae050a;
 	border-radius: 8px;
 	text-decoration: none;
-	font-family: Geist, sans-serif;
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 1.2;
-	letter-spacing: -0.03em;
+	font-size: var(--fs-button);
+	letter-spacing: var(--ls-button-3);
+	font-weight: 300;
+	line-height: var(--lh-button);
 	color: #fffef4;
 }
 

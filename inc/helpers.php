@@ -60,25 +60,12 @@ function brooklyn_beauty_is_external_url( $url ) {
 /**
  * Determine whether an external URL should open in a new tab.
  *
- * Keeps selected booking providers in the current tab.
- *
  * @param string $url URL to inspect.
  *
  * @return bool
  */
 function brooklyn_beauty_should_open_external_url_in_new_tab( $url ) {
 	if ( ! brooklyn_beauty_is_external_url( $url ) ) {
-		return false;
-	}
-
-	$url_host = wp_parse_url( (string) $url, PHP_URL_HOST );
-	$url_host = strtolower( (string) $url_host );
-
-	if ( 0 === strpos( $url_host, 'www.' ) ) {
-		$url_host = substr( $url_host, 4 );
-	}
-
-	if ( 'fresha.com' === $url_host || str_ends_with( $url_host, '.fresha.com' ) ) {
 		return false;
 	}
 

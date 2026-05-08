@@ -160,9 +160,19 @@
 		var maxIdx = slides.length - 1;
 
 		if (direction > 0) {
-			if (currentDomIndex < maxIdx) updateSlides(currentDomIndex + 1);
-		} else if (currentDomIndex > 0) {
-			updateSlides(currentDomIndex - 1);
+			if (currentDomIndex >= maxIdx) {
+				jumpWithoutTransition(1);
+				updateSlides(Math.min(2, maxIdx));
+			} else {
+				updateSlides(currentDomIndex + 1);
+			}
+		} else {
+			if (currentDomIndex <= 0) {
+				jumpWithoutTransition(slideCountOriginal);
+				updateSlides(Math.max(slideCountOriginal - 1, 0));
+			} else {
+				updateSlides(currentDomIndex - 1);
+			}
 		}
 	}
 
@@ -204,8 +214,8 @@
 		startAutoplay();
 	});
 
-	section.addEventListener("mouseenter", clearAutoplay);
-	section.addEventListener("mouseleave", startAutoplay);
+	viewport.addEventListener("mouseenter", clearAutoplay);
+	viewport.addEventListener("mouseleave", startAutoplay);
 
 	document.addEventListener("visibilitychange", function () {
 		if (document.hidden) clearAutoplay();

@@ -47,6 +47,10 @@ body {
 	overflow-x: clip;
 }
 
+.grecaptcha-badge {
+	width: 56px !important;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;

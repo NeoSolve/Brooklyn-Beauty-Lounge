@@ -12,7 +12,6 @@
 		var host = normalizeHost(hostname);
 
 		if (!host) return false;
-		if (host === "fresha.com" || host.endsWith(".fresha.com")) return false;
 
 		return true;
 	}
